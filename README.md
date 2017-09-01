@@ -40,6 +40,7 @@ Finally, we start the server using the followin command:
 
 ```shell
 $ python manage.py runserver
+# The server can be accessed at http://localhost:80
 ```
 
 At the end of our development, we call `deactivate` in command line to deactivate `virtualenv`.
@@ -58,7 +59,7 @@ $ deactivate
 ### Getting Started using Docker
 
 This option would allow any platforms that are supported by Docker to build and run this project.
-First, we need to install Docker from [www.docker.com](https://www.docker.com/). Then, run the
+First, we need to install Docker from https://www.docker.com/. Then, run the
 following command:
 
 ```
