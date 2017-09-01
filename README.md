@@ -40,7 +40,7 @@ Finally, we start the server using the followin command:
 
 ```shell
 $ python manage.py runserver
-# The website can be accessed at http://localhost:80
+# The website can be accessed at http://localhost:8080
 ```
 
 At the end of our development, we call `deactivate` in command line to deactivate `virtualenv`.
@@ -64,6 +64,7 @@ following command:
 
 ```
 $ docker-compose up
+# The website can be accessed at http://localhost:80
 ```
 
 ## Linter and Formatter
