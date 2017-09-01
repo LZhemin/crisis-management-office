@@ -2,7 +2,9 @@
 
 Project for CZ3003 Software System Analysis and Design, group SSP3.
 
-## Getting Started for macOS and Unix-like
+## Getting Started Guide
+
+### Getting Started for macOS and Unix-like
 
 To run the server for this project, we will do the following:
 
@@ -38,6 +40,7 @@ Finally, we start the server using the followin command:
 
 ```shell
 $ python manage.py runserver
+# The website can be accessed at http://localhost:8080
 ```
 
 At the end of our development, we call `deactivate` in command line to deactivate `virtualenv`.
@@ -51,6 +54,17 @@ $ python manage.py runserver
 
 # When you are done
 $ deactivate
+```
+
+### Getting Started using Docker
+
+This option would allow any platforms that are supported by Docker to build and run this project.
+First, we need to install Docker from https://www.docker.com/. Then, run the
+following command:
+
+```
+$ docker-compose up
+# The website can be accessed at http://localhost:80
 ```
 
 ## Linter and Formatter
