@@ -42,6 +42,9 @@ Finally, we start the server using the followin command:
 # Make sure you are in <root>/src folder before running the server
 $ cd src/
 
+# Create Table in SQLite database.
+$ python manage.py migrate
+
 # Run the server.
 # The website can be accessed at http://localhost:8080
 $ python manage.py runserver
