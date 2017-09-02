@@ -1,6 +1,8 @@
-# Create your views here.
+"""All Django views for myapp.
+"""
 from django.shortcuts import render
 
 
 def hello(request):
-    return render(request, "index.html", {})
+    """Example to handle request from clients."""
+    return render(request, 'index.html', {})

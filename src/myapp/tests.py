@@ -9,6 +9,7 @@ from django.test import TestCase
 
 
 class SimpleTest(TestCase):
+    """Simple test as example."""
     def test_basic_addition(self):
         """
         Tests that 1 + 1 always equals 2.

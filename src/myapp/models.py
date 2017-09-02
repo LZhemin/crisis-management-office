@@ -1,4 +1,8 @@
-# TODO: uncomment the following import when it is used.
-# from django.db import models
+"""All models for myapp Django application.
+"""
+from django.db import models
 
-# Create your models here.
+
+class Crisis(models.Model):
+    """Represents a crisis that happens in real life."""
+    crisis_name = models.CharField(max_length=30)

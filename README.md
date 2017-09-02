@@ -65,13 +65,36 @@ $ deactivate
 ### Getting Started using Docker
 
 This option would allow any platforms that are supported by Docker to build and run this project.
-First, we need to install Docker from https://www.docker.com/. Then, run the
-following command:
+In addition, a MySQL backend will be used to store data, instead of SQLite.
 
-```
+First, we need to install Docker from https://www.docker.com/. Then, run the following commands:
+
+```shell
 # Run the server.
 # The website can be accessed at http://localhost:80
 $ docker-compose up
+
+# Create Table in MySQL server
+$ docker exec -it cz3003ssp3cmo_cmo_1 python manage.py migrate --settings cmo.prod_settings
+
+# Create admin user
+$ docker exec -it cz3003ssp3cmo_cmo_1 python manage.py createsuperuser --settings cmo.prod_settings
+```
+
+Both the server for this project and the MySQL server will be runned. All data in MySQL server will
+be stored at `./mysql/tmp/` folder. Few useful commands to work with the MySQL server using Docker:
+
+```shell
+# Get the name of the CMO DB by running docker command, and set the name to a variable
+$ docker ps
+$ DOCKER_CMO_DB_NAME=cz3003ssp3cmo_db_1
+$ DOCKER_CMO_NAME=cz3003ssp3cmo_cmo_1
+
+# Execute some sql commands in the mysql server
+$ docker exec -i $DOCKER_CMO_DB_NAME mysql -uroot -pcmodb  <<< "use cmodb; select database();"
+
+# Dump all databases to command line outputs
+$ docker exec cz3003ssp3cmo_db_1 sh -c 'exec mysqldump --all-databases -uroot -p"cmodb"'
 ```
 
 ## Linter and Formatter
@@ -82,12 +105,12 @@ To lint our codes:
 
 ```shell
 $ pip install pylint
-$ find CZ3003_SSP3_CMO myapp -iname "*.py" | xargs pylint
+$ find src -iname "*.py" | xargs pylint
 ```
 
 To format our codes:
 
 ```shell
 $ pip install yapf
-$ find CZ3003_SSP3_CMO myapp -iname "*.py" | xargs yapf -i
+$ find src -iname "*.py" | xargs yapf -i
 ```
