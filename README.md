@@ -39,8 +39,12 @@ $ pip install -r requirements.txt
 Finally, we start the server using the followin command:
 
 ```shell
-$ python manage.py runserver
+# Make sure you are in <root>/src folder before running the server
+$ cd src/
+
+# Run the server.
 # The website can be accessed at http://localhost:8080
+$ python manage.py runserver
 ```
 
 At the end of our development, we call `deactivate` in command line to deactivate `virtualenv`.
@@ -50,6 +54,8 @@ workflow would be:
 
 ```shell
 $ source cmoenv/bin/activate
+
+$ cd src/
 $ python manage.py runserver
 
 # When you are done
@@ -63,8 +69,9 @@ First, we need to install Docker from https://www.docker.com/. Then, run the
 following command:
 
 ```
-$ docker-compose up
+# Run the server.
 # The website can be accessed at http://localhost:80
+$ docker-compose up
 ```
 
 ## Linter and Formatter

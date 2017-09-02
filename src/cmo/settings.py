@@ -1,4 +1,4 @@
-# Django settings for CZ3003_SSP3_CMO project.
+# Django settings for cmo project.
 import os.path
 
 DEBUG = True
@@ -107,10 +107,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'CZ3003_SSP3_CMO.urls'
+ROOT_URLCONF = 'cmo.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'CZ3003_SSP3_CMO.wsgi.application'
+WSGI_APPLICATION = 'cmo.wsgi.application'
 
 # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
 # Always use forward slashes, even on Windows.
