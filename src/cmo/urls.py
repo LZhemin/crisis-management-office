@@ -7,8 +7,8 @@ admin.autodiscover()
 urlpatterns = patterns(
     '',
     # Examples:
-    # url(r'^$', 'CZ3003_SSP3_CMO.views.home', name='home'),
-    # url(r'^CZ3003_SSP3_CMO/', include('CZ3003_SSP3_CMO.foo.urls')),
+    # url(r'^$', 'cmo.views.home', name='home'),
+    # url(r'^cmo/', include('cmo.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

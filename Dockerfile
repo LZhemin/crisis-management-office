@@ -2,11 +2,12 @@ FROM python:2.7
 
 MAINTAINER andyccs
 
-ADD . /src
+ADD ./ /main
 
-WORKDIR /src
-
+WORKDIR /main
 RUN pip install -r ./requirements.txt
+
+WORKDIR /main/src
 
 EXPOSE 80
 
