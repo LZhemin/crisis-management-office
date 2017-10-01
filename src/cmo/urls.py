@@ -15,9 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from myapp.views import hello
+from cmoapp.views import index
 
 urlpatterns = [ # pylint: disable=invalid-name
     url(r'^admin/', admin.site.urls),
-    url(r'^$', hello, name='hello'),
+    url(r'^$', index, name='index'),
 ]
