@@ -1,5 +1,6 @@
 # Virtual environment for this project
 cmoenv/
+venv_cmo/
 
 # MySQL tmp folder
 mysql/tmp/
