@@ -3775,7 +3775,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 
 	        entity.hasClass = function (componentType) {
-	            // Just consider componentType.main.
+	            // Just consider componentType.chief.
 	            componentType = parseClassType(componentType);
 	            return !!storage[componentType.main];
 	        };
@@ -3792,7 +3792,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 
 	        /**
-	         * If a main type is container and has sub types
+	         * If a chief type is container and has sub types
 	         * @param  {string}  mainType
 	         * @return {boolean}
 	         */
@@ -5052,7 +5052,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        zrUtil.each(ComponentModel.getClassesByMainType(componentType), function (Clazz) {
 	            arrayPush.apply(deps, Clazz.prototype.dependencies || []);
 	        });
-	        // Ensure main type
+	        // Ensure chief type
 	        return zrUtil.map(deps, function (type) {
 	            return clazzUtil.parseClassType(type).main;
 	        });
@@ -31415,13 +31415,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    function transferInjection(opt, res) {
 	        if (isMainData(this)) {
-	            // Transfer datas to new main data.
+	            // Transfer datas to new chief data.
 	            var datas = zrUtil.extend({}, this[DATAS]);
 	            datas[this.dataType] = res;
 	            linkAll(res, datas, opt);
 	        }
 	        else {
-	            // Modify the reference in main data to point newData.
+	            // Modify the reference in chief data to point newData.
 	            linkSingle(res, this.dataType, this[MAIN_DATA], opt);
 	        }
 	        return res;
@@ -43462,7 +43462,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (el && el.dataIndex != null) {
 	                // Use dataModel in element if possible
 	                // Used when mouseover on a element like markPoint or edge
-	                // In which case, the data is not main data in series.
+	                // In which case, the data is not chief data in series.
 	                var dataModel = el.dataModel || ecModel.getSeriesByIndex(el.seriesIndex);
 	                var dataIndex = el.dataIndex;
 	                var itemModel = dataModel.getData().getItemModel(dataIndex);
@@ -46019,7 +46019,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                // If exists, share axisProxy with other dataZoomModels.
 	                var axisProxy = axisModel.__dzAxisProxy || (
-	                    // Use the first dataZoomModel as the main model of axisProxy.
+	                    // Use the first dataZoomModel as the chief model of axisProxy.
 	                    axisModel.__dzAxisProxy = new AxisProxy(
 	                        dimNames.name, axisIndex, this, ecModel
 	                    )

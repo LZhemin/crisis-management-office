@@ -68,7 +68,7 @@
         this.c = null; // rendered canvas context
         this.t = 0; // touches index
         this.isInit = false;
-        this.fgColor = null; // main color
+        this.fgColor = null; // chief color
         this.pColor = null; // previous color
         this.dH = null; // draw hook
         this.cH = null; // change hook

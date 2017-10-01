@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from cmoapp.views import index
+from cmoapp.views import *
 
 urlpatterns = [ # pylint: disable=invalid-name
     url(r'^admin/', admin.site.urls),
-    url(r'^$', index, name='index'),
+    url(r'^analyst', analyst, name='analyst'),
+    url(r'^operator', operator, name='operator'),
+    url(r'^chief', chief, name='chief'),
+    url(r'^$', login, name='login'),
 ]

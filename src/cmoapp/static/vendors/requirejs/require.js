@@ -1351,7 +1351,7 @@ var requirejs, require, define;
                         }
 
                         //Save pointer to main module ID for pkg name.
-                        //Remove leading dot in main, so main paths are normalized,
+                        //Remove leading dot in chief, so chief paths are normalized,
                         //and remove any trailing .js, since different package
                         //envs have different conventions: some use a module name,
                         //some use a file name.
@@ -1999,7 +1999,7 @@ var requirejs, require, define;
                 head = script.parentNode;
             }
 
-            //Look for a data-main attribute to set main script for the page
+            //Look for a data-chief attribute to set chief script for the page
             //to load. If it is there, the path to data main becomes the
             //baseUrl, if it is not already set.
             dataMain = script.getAttribute('data-main');

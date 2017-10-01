@@ -127,7 +127,7 @@ define(function (require) {
         };
 
         entity.hasClass = function (componentType) {
-            // Just consider componentType.main.
+            // Just consider componentType.chief.
             componentType = parseClassType(componentType);
             return !!storage[componentType.main];
         };
@@ -144,7 +144,7 @@ define(function (require) {
         };
 
         /**
-         * If a main type is container and has sub types
+         * If a chief type is container and has sub types
          * @param  {string}  mainType
          * @return {boolean}
          */

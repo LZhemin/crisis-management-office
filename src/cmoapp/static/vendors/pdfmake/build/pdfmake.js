@@ -13109,7 +13109,7 @@
 	     * // line numbers in error messages and a stack trace
 	     * fs.writeFileSync(path.join(cwd, 'jst.js'), '\
 	     *   var JST = {\
-	     *     "main": ' + _.template(mainText).source + '\
+	     *     "chief": ' + _.template(mainText).source + '\
 	     *   };\
 	     * ');
 	     */

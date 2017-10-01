@@ -432,7 +432,7 @@ define(function (require) {
             if (el && el.dataIndex != null) {
                 // Use dataModel in element if possible
                 // Used when mouseover on a element like markPoint or edge
-                // In which case, the data is not main data in series.
+                // In which case, the data is not chief data in series.
                 var dataModel = el.dataModel || ecModel.getSeriesByIndex(el.seriesIndex);
                 var dataIndex = el.dataIndex;
                 var itemModel = dataModel.getData().getItemModel(dataIndex);

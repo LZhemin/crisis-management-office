@@ -440,7 +440,7 @@
       if (exc) return exc;
       reg = tz.split('/')[0];
       ret = regionMap[reg];
-      // If there's nothing listed in the main regions for this TZ, check the 'backward' links
+      // If there's nothing listed in the chief regions for this TZ, check the 'backward' links
       if (ret) return ret;
       var link = _this.zones[tz];
       if (typeof link === 'string') {

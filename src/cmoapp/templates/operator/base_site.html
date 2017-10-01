@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
       {% endblock meta %}
 
-      <title>CMO{% block title %}{% endblock %}</title>
+      <title>Crisis Operator{% block title %}{% endblock %}</title>
 
       {% block stylesheets %}
         <!-- Bootstrap -->
@@ -40,13 +40,13 @@
 
           {% block sidebar %}
             <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
-              {% include "main/sidebar.html" %}
+              {% include "operator/sidebar.html" %}
             </div>
           {% endblock sidebar %}
 
           {% block top_navigation %}
             <div class="top_nav">
-              {% include "main/top_navigation.html" %}
+              {% include "operator/top_navigation.html" %}
             </div>
           {% endblock top_navigation %}
 
