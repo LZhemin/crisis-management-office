@@ -2,6 +2,9 @@
 cmoenv/
 venv_cmo/
 
+# IDE specific files
+.idea
+
 # MySQL tmp folder
 mysql/tmp/
 db.sqlite3

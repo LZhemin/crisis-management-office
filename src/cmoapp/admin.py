@@ -7,6 +7,9 @@ admin.site.register(YourModel)
 """
 
 from django.contrib import admin
-from cmoapp.models import Crisis
+from cmoapp import models
+import inspect
 
-admin.site.register(Crisis)
+for name,obj in inspect.getmembers(models,inspect.isclass):
+    admin.site.register(obj)
+
