@@ -19,8 +19,9 @@ from cmoapp.views import *
 
 urlpatterns = [ # pylint: disable=invalid-name
     url(r'^admin/', admin.site.urls),
-    url(r'^analyst', analyst, name='analyst'),
-    url(r'^operator', operator, name='operator'),
-    url(r'^chief', chief, name='chief'),
-    url(r'^$', login, name='login'),
+    url(r'^analyst', AnalystManager.index, name="Analyst_Index")
+    # url(r'^analyst', analyst, name='analyst'),
+    # url(r'^operator', operator, name='operator'),
+    # url(r'^chief', chief, name='chief'),
+    # url(r'^$', login, name='login'),
 ]
