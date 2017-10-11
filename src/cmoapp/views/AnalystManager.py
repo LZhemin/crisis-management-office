@@ -1,12 +1,15 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from cmoapp.models import Analyst, Crisis, CrisisReport, CrisisType, Location, ActionPlan, Force, ForceDeployment, EFUpdate
+from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, Location, ActionPlan, Force, ForceDeployment, EFUpdate
 
 #Kindly help to remove unwanted modules
 
 def index(Request):
     return render(Request, 'analyst/base_site.html')
+
+def historicalData(Request):
+    return HttpResponse("HISTORICAL DATA")
 
 def addCrisisMarker(request, Crisis_id):
     latest_location_list = Location.objects.order_by('-crisis')[:5]
