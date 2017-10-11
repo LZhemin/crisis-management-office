@@ -6,20 +6,20 @@ from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, Location, A
 #Kindly help to remove unwanted modules
 
 def index(Request):
-    return render(Request, 'operator/base_site.html')
 
-def getCrisisAllocationList(request):
-    latest_crisis_list = Crisis.objects.order_by('-datetime')[:5]
+    getallcrisis = CrisisReport.objects.all();
+    return render(Request, 'operator/base_site.html',{'getallcrisis':getallcrisis})
+
+def getCrisisAllocationList(Request):
+    #latest_crisis_list = Crisis.objects.order_by('-datetime')[:5]
     # output = ', '.join([l.Location for l in latest_crisis_list])
-    context = {'latest_crisis_list': latest_crisis_list}
+    #context = {'latest_crisis_list': latest_crisis_list}
 
-    return render(request, 'operator/base_site.html', {
-        context,
-    })
+    return render(Request, 'operator/base_site.html', {})
 
 
 def allocateToExistingCrisis(request, crisis_id):
-    crisis_list = CrisisReport.objects.order_by('-datetime')[:5]
+    crisis_list = CrisisReport.objects.order_by('-datetime')
     # output = ', '.join([l.Location for l in latest_crisis_list])
     context = {'latest_crisis_list': crisis_list}
 
