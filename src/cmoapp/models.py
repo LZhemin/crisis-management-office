@@ -66,9 +66,7 @@ class ForceDeployment(models.Model):
     #a force can only be deleted after all force deployments are deleted
     name = models.ForeignKey(Force, on_delete= models.PROTECT)
     recommended = models.DecimalField(max_digits=5, decimal_places=2)
-    max = models.DecimalField(max_digits=5, decimal_places=2)
     ActionPlan =  models.ForeignKey(ActionPlan, on_delete= models.CASCADE)
-
 
 class EFUpdate(models.Model):
     #Attributes
@@ -80,3 +78,9 @@ class EFUpdate(models.Model):
     ActionPlan = models.ForeignKey(ActionPlan,null=True,on_delete = models.SET_NULL)
     #i leave this here in case the action plan can be deleted. we can thus still have a reference back to cris
     Crisis = models.ForeignKey(Crisis, on_delete =  models.CASCADE)
+
+class ForceUtilization(models.Model):
+    name = models.ForeignKey(Force,on_delete= models.CASCADE)
+    utilization = models.DecimalField(max_digits=5, decimal_places=2)
+    update = models.ForeignKey(EFUpdate, on_delete=models.CASCADE)
+
