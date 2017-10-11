@@ -27,7 +27,7 @@
         <link href="/static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
         <!-- JQVMap -->
         <link href="/static/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
-      {% endblock stylesheets %}
+      {% endblock vendor_stylesheets %}
       <!-- Custom Theme Style -->
       <link href="/static/build/css/custom.css" rel="stylesheet">
       {% block page_stylesheets %} {% endblock page_stylesheets %}
@@ -97,18 +97,5 @@
       <script src="/static/build/js/custom.js"></script>
       {% block page_scripts %}{% endblock page_scripts %}
     {% endblock body %}
-
-
-   <div style="float: right; width: 80%">Following are to get everything in CrisisReport<br>
-
-
-
-     {% for getall in getallcrisis %}
-   <a href="">{{getall}}</a><br>
-{% endfor %}
-
-   </div>
-
-
   </body>
 </html>

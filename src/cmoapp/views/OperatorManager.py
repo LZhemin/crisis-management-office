@@ -8,7 +8,7 @@ from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, Location, A
 def index(Request):
 
     getallcrisis = CrisisReport.objects.all();
-    return render(Request, 'operator/base_site.html',{'getallcrisis':getallcrisis})
+    return render(Request, 'operator/index.html',{'getallcrisis':getallcrisis})
 
 def getCrisisAllocationList(Request):
     #latest_crisis_list = Crisis.objects.order_by('-datetime')[:5]
