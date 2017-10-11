@@ -1,7 +1,5 @@
 """All models for myapp Django application.
 """
-
-
 from django.db import models
 
 #all models have automatically add an auto-increment id unless another field is explicitly specified as primary key
