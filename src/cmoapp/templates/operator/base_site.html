@@ -12,7 +12,7 @@
 
       <title>Crisis Operator{% block title %}{% endblock %}</title>
 
-      {% block stylesheets %}
+      {% block vendor_stylesheets %}
         <!-- Bootstrap -->
         <link href="/static/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
         <!-- Font Awesome -->
@@ -30,6 +30,7 @@
       {% endblock stylesheets %}
       <!-- Custom Theme Style -->
       <link href="/static/build/css/custom.css" rel="stylesheet">
+      {% block page_stylesheets %} {% endblock page_stylesheets %}
     {% endblock head %}
   </head>
 
@@ -40,13 +41,13 @@
 
           {% block sidebar %}
             <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
-              {% include "operator/sidebar.html" %}
+              {% include "operator/ui_components/sidebar.html" %}
             </div>
           {% endblock sidebar %}
 
           {% block top_navigation %}
             <div class="top_nav">
-              {% include "operator/top_navigation.html" %}
+              {% include "operator/ui_components/top_navigation.html" %}
             </div>
           {% endblock top_navigation %}
 
@@ -57,7 +58,7 @@
         </div>
       </div>
 
-      {% block javascripts %}
+      {% block vendor_javascripts %}
         <!-- jQuery -->
         <script src="/static/vendors/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap -->
@@ -94,6 +95,7 @@
       {% endblock %}
       <!-- Custom Theme Scripts -->
       <script src="/static/build/js/custom.js"></script>
+      {% block page_scripts %}{% endblock page_scripts %}
     {% endblock body %}
 
 

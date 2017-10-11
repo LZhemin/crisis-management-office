@@ -30,6 +30,7 @@
       {% endblock stylesheets %}
       <!-- Custom Theme Style -->
       <link href="/static/build/css/custom.css" rel="stylesheet">
+      {% block page_stylesheets %} {% endblock page_stylesheets %}
     {% endblock head %}
   </head>
 
@@ -57,7 +58,7 @@
         </div>
       </div>
 
-      {% block javascripts %}
+      {% block vendor_javascripts %}
         <!-- jQuery -->
         <script src="/static/vendors/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap -->
@@ -94,6 +95,7 @@
       {% endblock %}
       <!-- Custom Theme Scripts -->
       <script src="/static/build/js/custom.js"></script>
+      {% block page_javascripts %} {% endblock page_javascripts %}
     {% endblock body %}
   </body>
 </html>
