@@ -1,22 +1,286 @@
 {% extends 'operator/base_site.html' %}
 
 {% block title %} Index {% endblock title %}
+
+<head>
+
+<!-- Do not display this at the moment
+    block head %}
+-->
+   {% block page_stylesheets %}
+
+    <!-- Added for Operator Table Testing -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
+    <style type="text/css">
+       body {
+           color: #566787;
+           background: #f5f5f5;
+           font-family: 'Roboto', sans-serif;
+       }
+       .table-wrapper {
+           background: #fff;
+           padding: 20px;
+           margin: 30px 0;
+           box-shadow: 0 1px 1px rgba(0,0,0,.05);
+       }
+       .table-title {
+           padding-bottom: 10px;
+           margin: 0 0 10px;
+       }
+       .table-title h2 {
+           margin: 8px 0 0;
+           font-size: 22px;
+       }
+       .search-box {
+           position: relative;
+           float: right;
+       }
+       .search-box input {
+           height: 34px;
+           border-radius: 20px;
+           padding-left: 35px;
+           border-color: #ddd;
+           box-shadow: none;
+       }
+       .search-box input:focus {
+           border-color: #3FBAE4;
+       }
+       .search-box i {
+           color: #a0a5b1;
+           position: absolute;
+           font-size: 19px;
+           top: 8px;
+           left: 10px;
+       }
+       table.table tr th, table.table tr td {
+           border-color: #e9e9e9;
+       }
+       table.table-striped tbody tr:nth-of-type(odd) {
+           background-color: #fcfcfc;
+       }
+       table.table-striped.table-hover tbody tr:hover {
+           background: #f5f5f5;
+       }
+       table.table th i {
+           font-size: 13px;
+           margin: 0 5px;
+           cursor: pointer;
+       }
+       table.table td:last-child {
+           width: 130px;
+       }
+       table.table td a {
+           color: #a0a5b1;
+           display: inline-block;
+           margin: 0 5px;
+       }
+       table.table td a.view {
+           color: #03A9F4;
+       }
+       table.table td a.edit {
+           color: #FFC107;
+       }
+       table.table td a.delete {
+           color: #E34724;
+       }
+       table.table td i {
+           font-size: 19px;
+       }
+       .pagination {
+           float: right;
+           margin: 0 0 5px;
+       }
+       .pagination li a {
+           border: none;
+           font-size: 95%;
+           width: 30px;
+           height: 30px;
+           color: #999;
+           margin: 0 2px;
+           line-height: 30px;
+           border-radius: 30px !important;
+           text-align: center;
+           padding: 0;
+       }
+       .pagination li a:hover {
+           color: #666;
+       }
+       .pagination li.active a {
+           background: #03A9F4;
+       }
+       .pagination li.active a:hover {
+           background: #0397d6;
+       }
+       .pagination li.disabled i {
+           color: #ccc;
+       }
+       .pagination li i {
+           font-size: 16px;
+           padding-top: 6px
+       }
+       .hint-text {
+           float: left;
+           margin-top: 6px;
+           font-size: 95%;
+       }
+   </style>
+
+
+     <script type="text/javascript">
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+    </script>
+
+   {% endblock page_stylesheets %}
+
+<!-- Do not display this at the moment
+     endblock head %}
+-->
+
+</head>
+
+
 {% block content %}
+
+
+<!-- Do not display this at the moment
+     endblock head %}
+
  <div style="float: right; width: 80%">Following are to get everything in CrisisReport<br>
     {% for getall in getallcrisis %}
         <a href="">{{getall}}</a><br>
     {% endfor %}
-     OI
-     OI
-     OI
-     OI
-     OI
-     OI
-     OI
-     OI
-     OI
-     OI
-     OI
-     OI
+
  </div>
+-->
+
+ <body>
+
+    <div style="float: right; width: 86%">
+
+        <div class="container">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2> <b>Report</b> Details</h2></div>
+                        <div class="col-sm-4">
+                            <div class="search-box">
+                                <i class="material-icons">&#xE8B6;</i>
+                                <input type="text" class="form-control" placeholder="Search&hellip;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ReportID</th>
+                            <th>ReportName <i class="fa fa-sort"></i></th>
+                            <th>ReportDescription</th>
+                            <th>Latitude <i class="fa fa-sort"></i></th>
+                            <th>Longitude</th>
+                            <th>DateTime <i class="fa fa-sort"></i></th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Something</td>
+                            <td>Some thing come</td>
+                            <td>1.34213410</td>
+                            <td>1.64653400</td>
+                            <td>2017-10-06T09:00:30Z</td>
+                            <td>
+                                <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                                <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Bomb</td>
+                            <td>Bombing incident at orchard</td>
+                            <td>1.45452340</td>
+                            <td>124.45342000</td>
+                            <td>2017-07-05T10:00:00Z</td>
+                            <td>
+                                <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                                <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>GangFight</td>
+                            <td>Gang fight in a public area</td>
+                            <td>1.63221330</td>
+                            <td>134.32221520</td>
+                            <td>2017-06-06T04:00:00Z</td>
+                            <td>
+                                <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                                <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Bomb</td>
+                            <td>Bombing incident at orchard</td>
+                            <td>1.45452340</td>
+                            <td>124.45342000</td>
+                            <td>2017-07-05T10:00:00Z</td>
+                            <td>
+                                <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                                <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Something</td>
+                            <td>Some thing come</td>
+                            <td>1.34213410</td>
+                            <td>1.64653400</td>
+                            <td>2017-10-06T09:00:30Z</td>
+                            <td>
+                                <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                                <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="clearfix">
+                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                    <ul class="pagination">
+                        <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                        <li class="page-item"><a href="#" class="page-link">1</a></li>
+                        <li class="page-item"><a href="#" class="page-link">2</a></li>
+                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                        <li class="page-item"><a href="#" class="page-link">4</a></li>
+                        <li class="page-item"><a href="#" class="page-link">5</a></li>
+                        <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
 {% endblock %}
