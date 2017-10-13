@@ -155,73 +155,23 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Something</td>
-                                <td>Some thing come</td>
-                                <td>1.34213410</td>
-                                <td>1.64653400</td>
-                                <td>2017-10-06T09:00:30Z</td>
-                                <td>
-                                    <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                    <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                    <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Bomb</td>
-                                <td>Bombing incident at orchard</td>
-                                <td>1.45452340</td>
-                                <td>124.45342000</td>
-                                <td>2017-07-05T10:00:00Z</td>
-                                <td>
-                                    <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                    <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                    <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>GangFight</td>
-                                <td>Gang fight in a public area</td>
-                                <td>1.63221330</td>
-                                <td>134.32221520</td>
-                                <td>2017-06-06T04:00:00Z</td>
-                                <td>
-                                    <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                    <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                    <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Bomb</td>
-                                <td>Bombing incident at orchard</td>
-                                <td>1.45452340</td>
-                                <td>124.45342000</td>
-                                <td>2017-07-05T10:00:00Z</td>
-                                <td>
-                                    <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                    <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                    <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Something</td>
-                                <td>Some thing come</td>
-                                <td>1.34213410</td>
-                                <td>1.64653400</td>
-                                <td>2017-10-06T09:00:30Z</td>
-                                <td>
-                                    <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                    <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                    <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                                </td>
-                            </tr>
-                        </tbody>
+                         <tbody>
+                    {% for allcrisis in getallcrisis %}
+                        <tr>
+                            <td>{{allcrisis.pk}}</td>
+                            <td>Where got title???</td>
+                            <td>{{allcrisis.description}}</td>
+                            <td>{{allcrisis.latitude}}</td>
+                            <td>{{allcrisis.longitude}}</td>
+                            <td>{{allcrisis.datetime}}</td>
+                            <td>
+                                <a href={{allcrisis.pk}} class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                                <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                       {%endfor%}
+                    </tbody>
                     </table>
                     <div class="clearfix">
                         <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>

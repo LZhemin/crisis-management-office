@@ -17,6 +17,10 @@ def getCrisisAllocationList(Request):
 
     return render(Request, 'operator/base_site.html', {})
 
+def viewCrisis(Request, pk):
+    #change = CrisisReport.objects.get(id=pk)
+    getallcrisis = CrisisReport.objects.all()
+    return render(Request, 'operator/assigncrisis.html', {'getallcrisis':getallcrisis})
 
 def allocateToExistingCrisis(request, crisis_id):
     crisis_list = CrisisReport.objects.order_by('-datetime')
