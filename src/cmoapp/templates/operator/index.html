@@ -2,23 +2,12 @@
 
 {% block title %} Index {% endblock title %}
 
-<head>
+{% block page_stylesheets %}
 
-<!-- Do not display this at the moment
-    block head %}
--->
-   {% block page_stylesheets %}
+<!-- Added for Operator Table Testing -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-    <!-- Added for Operator Table Testing -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-
-    <style type="text/css">
-       body {
-           color: #566787;
-           background: #f5f5f5;
-           font-family: 'Roboto', sans-serif;
-       }
+<style type="text/css">
        .table-wrapper {
            background: #fff;
            padding: 20px;
@@ -125,29 +114,14 @@
            margin-top: 6px;
            font-size: 95%;
        }
-   </style>
+</style>
+{% endblock page_stylesheets %}
 
-
-     <script type="text/javascript">
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-    </script>
-
-   {% endblock page_stylesheets %}
-
-<!-- Do not display this at the moment
-     endblock head %}
--->
-
-</head>
 
 
 {% block content %}
 
-
 <!-- Do not display this at the moment
-     endblock head %}
 
  <div style="float: right; width: 80%">Following are to get everything in CrisisReport<br>
     {% for getall in getallcrisis %}
@@ -156,11 +130,7 @@
 
  </div>
 -->
-
- <body>
-
-    <div style="float: right; width: 86%">
-
+<div class="col-md-9">
         <div class="container">
             <div class="table-wrapper">
                 <div class="table-title">
@@ -268,19 +238,14 @@
                 </div>
             </div>
         </div>
+</div>
+{% endblock content %}
 
-    </div>
+{% block page_scripts %}
+     <script type="text/javascript">
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+    </script>
+{% endblock page_scripts %}
 
-</body>
-
-
-
-
-
-
-
-
-
-
-
-{% endblock %}
