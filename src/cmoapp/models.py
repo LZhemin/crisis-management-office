@@ -6,6 +6,7 @@ from django.db import models
 #note, on_delete assigns a Function 'Callback'
 #note, no fking clue in the django tutorial that says you can add a null option, only says field options are
 #avaliable to all field types, but no explict example wtf
+#note, if you want a FK that is null, you have to set blank=true so that validation will not be triggered
 
 class Account(models.Model):
     TYPES = (
@@ -27,11 +28,17 @@ class CrisisType(models.Model):
         return '{}'.format(self.name)
 
 #has nothing but a bunch of foreign keys such keys much wow
+#Crisis ID
 class Crisis(models.Model):
     #analyst is FK to crisis. This enables analyst to be deleted once the crisis is resolved
-    analyst = models.OneToOneField(Account,null=True,limit_choices_to={'type':'Analyst'}, on_delete=models.SET_NULL)
+    analyst = models.OneToOneField(Account,blank=True,null=True,limit_choices_to={'type':'Analyst'}, on_delete=models.SET_NULL)
     crisistypes = models.ManyToManyField(CrisisType)
-
+    TYPES = (
+        ('Clean-up','Clean up'),
+        ('Ongoing','Ongoing'),
+        ('Resolved', 'Resolved')
+    )
+    type = models.CharField(max_length=20, choices=TYPES)
 
 class CrisisReport(models.Model):
     #attributes
@@ -41,7 +48,7 @@ class CrisisReport(models.Model):
     datetime = models.DateTimeField()
 
     #Relations, can have no crisis assigned for the sake of testi
-    Crisis = models.ForeignKey(Crisis,null=True, on_delete=models.CASCADE)
+    Crisis = models.ForeignKey(Crisis,null=True,blank=True,on_delete=models.CASCADE)
 
     def __str__(self):
         return '{} - {}'.format(self.pk,self.description);
@@ -56,7 +63,8 @@ class Location(models.Model):
     def __str__(self):
         return 'ID: {}'.format(self.pk);
 
-#The response plan of the crsos
+#The response plan of the crsis.
+#The deployment id is the action plan id
 class ActionPlan(models.Model):
     #attributes
     description = models.TextField()
@@ -65,6 +73,11 @@ class ActionPlan(models.Model):
     ResolutionTime = models.DurationField()
     ProjectedCasualties = models.DecimalField(max_digits=5, decimal_places=2)
     #Relations
+    TYPES = (
+        ('Clean-up','Clean up'),
+        ('Combat','Combat')
+    )
+    type = models.CharField(max_length=20, choices=TYPES)
     crisis = models.ForeignKey(Crisis, on_delete= models.CASCADE)
 
     def __str__(self):
@@ -93,9 +106,13 @@ class EFUpdate(models.Model):
     ActionPlan = models.ForeignKey(ActionPlan,null=True,on_delete = models.SET_NULL)
     #i leave this here in case the action plan can be deleted. we can thus still have a reference back to cris
     Crisis = models.ForeignKey(Crisis, on_delete =  models.CASCADE)
-
+    TYPES = (
+        ('Clean-up','Clean up'),
+        ('Combat','Combat')
+    )
+    type = models.CharField(max_length=20, choices=TYPES)
     def __str__(self):
-        return 'ID: {}'.format(self.pk);
+        return 'ID: {}'.format(self.pk)
 
 class ForceUtilization(models.Model):
     name = models.ForeignKey(Force,on_delete= models.CASCADE)
