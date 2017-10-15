@@ -1,5 +1,6 @@
 from django.core.serializers import serialize
 from django.db.models.query import QuerySet
+from django.db.models import Model
 from django.utils.safestring import mark_safe
 from django.template import Library
 import json
@@ -8,6 +9,8 @@ register = Library()
 
 def jsonify(object):
     if isinstance(object, QuerySet):
+        return mark_safe(serialize('json', object))
+    if isinstance(object, Model):
         return mark_safe(serialize('json', object))
     return mark_safe(json.dumps(object))
 

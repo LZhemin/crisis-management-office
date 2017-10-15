@@ -40,6 +40,12 @@ class Crisis(models.Model):
     )
     type = models.CharField(max_length=20, choices=TYPES)
 
+    def injuries(self):
+        return self.efupdate_set.latest('datetime').totalDeaths
+
+    def deaths(self):
+        return self.efupdate_set.latest('datetime').totalInjured
+
 class CrisisReport(models.Model):
     #attributes
     latitude = models.DecimalField(max_digits=12, decimal_places=8)
@@ -106,6 +112,7 @@ class EFUpdate(models.Model):
     ActionPlan = models.ForeignKey(ActionPlan,null=True,on_delete = models.SET_NULL)
     #i leave this here in case the action plan can be deleted. we can thus still have a reference back to cris
     Crisis = models.ForeignKey(Crisis, on_delete =  models.CASCADE)
+    description = models.TextField()
     TYPES = (
         ('Clean-up','Clean up'),
         ('Combat','Combat')

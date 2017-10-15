@@ -31,32 +31,6 @@
       <!-- Custom Theme Style -->
       <link href="/static/build/css/custom.css" rel="stylesheet">
       {% block page_stylesheets %} {% endblock page_stylesheets %}
-    {% endblock head %}
-  </head>
-
-  <body class="{% block body_class %}nav-md {% endblock body_class %}">
-    {% block body %}
-      <div class="container body">
-        <div class="main_container">
-
-          {% block sidebar %}
-            <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
-              {% include "analyst/ui_components/sidebar.html" %}
-            </div>
-          {% endblock sidebar %}
-
-          {% block top_navigation %}
-            <div class="top_nav">
-              {% include "analyst/ui_components/top_navigation.html" %}
-            </div>
-          {% endblock top_navigation %}
-
-          {% block content %}
-            <!-- {{ content }} -->
-          {% endblock content %}
-
-        </div>
-      </div>
 
       {% block vendor_javascripts %}
         <!-- jQuery -->
@@ -96,6 +70,34 @@
       <!-- Custom Theme Scripts -->
       <script src="/static/build/js/custom.js"></script>
       {% block page_javascripts %}{% endblock page_javascripts %}
+
+    {% endblock head %}
+  </head>
+
+  <body class="{% block body_class %}nav-md {% endblock body_class %}">
+    {% block body %}
+      <div class="container body">
+        <div class="main_container">
+
+          {% block sidebar %}
+            <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
+              {% include "analyst/ui_components/sidebar.html" %}
+            </div>
+          {% endblock sidebar %}
+
+          {% block top_navigation %}
+            <div class="top_nav">
+              {% include "analyst/ui_components/top_navigation.html" %}
+            </div>
+          {% endblock top_navigation %}
+
+          {% block content %}
+            <!-- {{ content }} -->
+          {% endblock content %}
+
+        </div>
+      </div>
+
     {% endblock body %}
   </body>
 </html>
