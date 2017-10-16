@@ -5,7 +5,7 @@
 {% block page_stylesheets %}
 
 <!-- Added for Operator Table Testing -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 
 <style type="text/css">
        .table-wrapper {
@@ -115,8 +115,9 @@
            font-size: 95%;
        }
 </style>
-{% endblock page_stylesheets %}
 
+
+{% endblock page_stylesheets %}
 
 
 {% block content %}
@@ -129,25 +130,23 @@
 
  </div>
 
- $.ajax({
-                cache: false,
-                type: 'POST',
-                url: 'backend.php',
-                data: 'EID='+essay_id,
-                success: function(data)
-                {
-
-                $modal.find('.edit-content').html(esseyId);
-            }
-        });
+ <div class="col-md-12 col-sm-12 col-xs-12">
 
 -->
 
 
+<div class="clearfix"></div>
+
+
+
+
 <div class="right_col">
+
+  {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
     <div class="x_panel">
       <div class="x_title">
-        <h2>Crisis Report List <small>: Crisis</small></h2>
+        <h2>Crisis Allocation List <small>: Crisis - Analyst</small></h2>
         <ul class="nav navbar-right panel_toolbox">
           <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
           </li>
@@ -179,11 +178,8 @@
                   </div>
                 </th>
                 <th class="column-title">ID </th>
-                <th class="column-title">Name </th>
-                <th class="column-title">Description </th>
-                <th class="column-title">Latitude </th>
-                <th class="column-title">Longitude </th>
-                <th class="column-title">DateTime </th>
+                <th class="column-title">Type </th>
+                <th class="column-title">Analyst </th>
                 <th class="column-title no-link last"><span class="nobr">Action</span>
                 </th>
                 <th class="bulk-actions" colspan="7">
@@ -193,29 +189,26 @@
             </thead>
 
             <tbody>
-                {% for allcrisis in getallcrisis %}
-              <tr class="even pointer">
-                <td class="a-center ">
-                  <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                </td>
-                <td class=" ">{{allcrisis.pk}}</td>
-                <td class=" ">{{allcrisis.Crisis.crisistypes.name}}</td>
-                <td class=" ">{{allcrisis.description}} <i class="success fa fa-long-arrow-up"></i></td>
-                <td class=" ">{{allcrisis.latitude}}</td>
-                <td class=" ">{{allcrisis.longitude}}</td>
-                <td class="a-right a-right ">{{allcrisis.datetime}}</td>
-
-                  <!-- Do not display this at the moment
-                <td class=" last"><a href={{allcrisis.pk}}>View</a>
-                -->
-                <td class=" last">
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".view-crisis"
-                          data-id={{allcrisis.pk}} data-des={{allcrisis.description}} data-lat={{allcrisis.latitude}}
-                          data-long={{allcrisis.longitude}} data-datetime={{allcrisis.datetime}}>View</button>
+                {% for allo in getAllocationList %}
+                  <tr class="even pointer">
+                    <td class="a-center ">
+                      <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                    </td>
+                    <td class=" ">{{allo.pk}}</td>
+                    <td class=" ">{{allo.crisistypes.name}}</td>
+                    <td class="a-right a-right ">{{allo.analyst}}</td>
+                     <!-- Do not display this at the moment
+                    <td class=" last"><a href={{allcrisis.pk}}>View</a>
+                    -->
+                    <td class=" last">
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".view-allo"
+                              data-id={{allo.pk}} data-name={{allo.crisistypes.name}} data-ana={{allo.analyst}} >View</button>
 
 
-                </td>
-              </tr>
+                    </td>
+
+                    </td>
+                  </tr>
                 {%endfor%}
             </tbody>
           </table>
@@ -227,8 +220,7 @@
   </div>
 
 
-
-<div class="modal fade view-crisis" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+<div class="modal fade view-allo" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
 
@@ -238,14 +230,13 @@
           <h4 class="modal-title" id="myModalLabel">Crisis</h4>
             <h4 class="modal-title edit-id" id="myModalLabel2">data-id</h4>
         </div>
-        <div class="modal-body edit-des">
+        <div class="modal-body edit-name">
           <h4>Crisis stuffs</h4>
           <p>edit-des</p>
 
         </div>
-          <h4 class="modal-title edit-lat" > lat </h4>
-          <h4 class="modal-title edit-long" > lat </h4>
-          <h4 class="modal-title edit-datetime" > lat </h4>
+          <h4 class="modal-title edit-ana" > lat </h4>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary">Save changes</button>
@@ -256,34 +247,27 @@
   </div>
 
 
-
-
 {% endblock content %}
 
 {% block page_scripts %}
-     <script type="text/javascript">
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-    </script>
 
-    <script>
-        $('.view-crisis').on('show.bs.modal', function(e) {
+
+  <script>
+        $('.view-allo').on('show.bs.modal', function(e) {
 
             var $modal = $(this),
                 crisisId = e.relatedTarget.dataset.id;
-                crisisDes = e.relatedTarget.dataset.des;
-                crisisLat = e.relatedTarget.dataset.lat;
-                crisisLong = e.relatedTarget.dataset.long;
-                crisisDatetime = e.relatedTarget.dataset.datetime;
+                crisisName = e.relatedTarget.dataset.name;
+                crisisAna = e.relatedTarget.dataset.ana;
 
                 $modal.find('.edit-id').html(crisisId);
-                $modal.find('.edit-des').html(crisisDes);
-                $modal.find('.edit-lat').html(crisisLat);
-                $modal.find('.edit-long').html(crisisLong);
-                $modal.find('.edit-datetime').html(crisisDatetime);
+                $modal.find('.edit-name').html(crisisName);
+                $modal.find('.edit-ana').html(crisisAna);
 
 
         })
     </script>
+
+
 {% endblock page_scripts %}
+

@@ -146,9 +146,9 @@
                     <table class="table table-striped table-hover table-bordered">
                         <thead>
                             <tr>
-                                <th>ReportID</th>
-                                <th>ReportName <i class="fa fa-sort"></i></th>
-                                <th>ReportDescription</th>
+                                <th>ID</th>
+                                <th>Name <i class="fa fa-sort"></i></th>
+                                <th>Description</th>
                                 <th>Latitude <i class="fa fa-sort"></i></th>
                                 <th>Longitude</th>
                                 <th>DateTime <i class="fa fa-sort"></i></th>
@@ -159,7 +159,7 @@
                     {% for allcrisis in getallcrisis %}
                         <tr>
                             <td>{{allcrisis.pk}}</td>
-                            <td>Where got time?</td>
+                            <td>{{allcrisis.Crisis.crisistypes.name}}</td>
                             <td>{{allcrisis.description}}</td>
                             <td>{{allcrisis.latitude}}</td>
                             <td>{{allcrisis.longitude}}</td>
