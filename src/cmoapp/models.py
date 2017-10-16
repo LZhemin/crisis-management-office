@@ -89,6 +89,8 @@ class ActionPlan(models.Model):
 
 class Force(models.Model):
     name = models.TextField(primary_key=True)
+    #Current Utilisation can be NULL, in the event that EF cannot be provide, then the field is set to NULL
+    currentUtilisation = models.DecimalField(null=True, max_digits=5, decimal_places=2)
     def __str__(self):
         return '{}'.format(self.name);
 
