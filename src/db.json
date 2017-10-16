@@ -2,8 +2,8 @@
 {
     "model": "auth.user",
     "fields": {
-        "password": "pbkdf2_sha256$36000$KTSJucyyAZBr$KdKqdkSf5Z1DE9/LvuYKjDJ6RNdaS8Pn54hNPy7VdP4=",
-        "last_login": "2017-10-11T08:44:02.317Z",
+        "password": "pbkdf2_sha256$36000$rcpW6JiwmwAu$BO7sBMS7s4vjTSoLZ+ziKQNneflK0yKK//rwoMXhhjM=",
+        "last_login": "2017-10-14T17:19:47.298Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -11,9 +11,17 @@
         "email": "admin@hotmail.com",
         "is_staff": true,
         "is_active": true,
-        "date_joined": "2017-10-11T08:43:50.163Z",
+        "date_joined": "2017-10-14T17:19:37.714Z",
         "groups": [],
         "user_permissions": []
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "av0bwpfdj9x9ke7mhqzrj58ng8xbgybd",
+    "fields": {
+        "session_data": "MzYwMjU4MjQ4NzUxMzFhMGM0OTNkZWQ5NzkwNGE4OGNjM2Y1ZjQ4Yjp7Il9hdXRoX3VzZXJfaGFzaCI6IjAwN2IzMDhlZDg5NTkxOWIzYzMwNjBjNGM2Zjg1YTRiN2I3ODZiMzMiLCJfYXV0aF91c2VyX2lkIjoiMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=",
+        "expire_date": "2017-10-28T17:19:47.313Z"
     }
 },
 {
@@ -36,25 +44,25 @@
     "model": "cmoapp.account",
     "pk": 2,
     "fields": {
-        "login": "operator1",
+        "login": "analyst2",
         "password": "password",
-        "type": "Operator"
+        "type": "Analyst"
     }
 },
 {
     "model": "cmoapp.account",
     "pk": 3,
     "fields": {
-        "login": "chief1",
+        "login": "analyst3",
         "password": "password",
-        "type": "Chief"
+        "type": "Analyst"
     }
 },
 {
     "model": "cmoapp.account",
     "pk": 4,
     "fields": {
-        "login": "analyst2",
+        "login": "analyst4",
         "password": "password",
         "type": "Analyst"
     }
@@ -63,7 +71,7 @@
     "model": "cmoapp.account",
     "pk": 5,
     "fields": {
-        "login": "operator2",
+        "login": "operator1",
         "password": "password",
         "type": "Operator"
     }
@@ -72,9 +80,9 @@
     "model": "cmoapp.account",
     "pk": 6,
     "fields": {
-        "login": "analyst3",
+        "login": "operator2",
         "password": "password",
-        "type": "Analyst"
+        "type": "Operator"
     }
 },
 {
@@ -87,10 +95,28 @@
     }
 },
 {
+    "model": "cmoapp.account",
+    "pk": 8,
+    "fields": {
+        "login": "operator4",
+        "password": "password",
+        "type": "Operator"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 9,
+    "fields": {
+        "login": "chief1",
+        "password": "password",
+        "type": "Chief"
+    }
+},
+{
     "model": "cmoapp.crisistype",
     "pk": 1,
     "fields": {
-        "name": "Terrorism"
+        "name": "terrorism"
     }
 },
 {
@@ -112,6 +138,7 @@
     "pk": 1,
     "fields": {
         "analyst": 1,
+        "type": "Ongoing",
         "crisistypes": [
             1
         ]
@@ -121,7 +148,8 @@
     "model": "cmoapp.crisis",
     "pk": 2,
     "fields": {
-        "analyst": 4,
+        "analyst": 2,
+        "type": "Clean-up",
         "crisistypes": [
             2
         ]
@@ -131,7 +159,8 @@
     "model": "cmoapp.crisis",
     "pk": 3,
     "fields": {
-        "analyst": 6,
+        "analyst": 3,
+        "type": "Resolved",
         "crisistypes": [
             3
         ]
@@ -144,7 +173,7 @@
         "latitude": "1.34213410",
         "longitude": "1.64653400",
         "description": "Some thing come",
-        "datetime": "2017-10-06T09:00:30Z",
+        "datetime": "2017-10-05T17:43:07Z",
         "Crisis": 1
     }
 },
@@ -167,7 +196,7 @@
         "longitude": "134.32221520",
         "description": "Gang fight in a public area",
         "datetime": "2017-06-06T04:00:00Z",
-        "Crisis": 3
+        "Crisis": null
     }
 },
 {
@@ -209,6 +238,7 @@
         "PMOApproval": false,
         "ResolutionTime": "00:00:04",
         "ProjectedCasualties": "25.00",
+        "type": "Combat",
         "crisis": 1
     }
 },
@@ -221,6 +251,7 @@
         "PMOApproval": false,
         "ResolutionTime": "00:00:01",
         "ProjectedCasualties": "5.00",
+        "type": "Clean-up",
         "crisis": 2
     }
 },
@@ -233,6 +264,7 @@
         "PMOApproval": false,
         "ResolutionTime": "00:00:02",
         "ProjectedCasualties": "30.00",
+        "type": "Combat",
         "crisis": 3
     }
 },
@@ -282,39 +314,42 @@
     "model": "cmoapp.efupdate",
     "pk": 1,
     "fields": {
-        "datetime": "2017-09-28T04:00:00Z",
+        "datetime": "2017-09-27T20:00:00Z",
         "affectedRadius": "5.00",
         "totalInjured": 5,
         "totalDeaths": 10,
         "duration": "00:01:00",
         "ActionPlan": 1,
-        "Crisis": 1
+        "Crisis": 1,
+        "type": "Combat"
     }
 },
 {
     "model": "cmoapp.efupdate",
     "pk": 2,
     "fields": {
-        "datetime": "2017-09-13T02:00:00Z",
+        "datetime": "2017-09-12T18:00:00Z",
         "affectedRadius": "10.00",
         "totalInjured": 20,
         "totalDeaths": 10,
         "duration": "00:02:00",
         "ActionPlan": 2,
-        "Crisis": 2
+        "Crisis": 2,
+        "type": "Clean-up"
     }
 },
 {
     "model": "cmoapp.efupdate",
     "pk": 3,
     "fields": {
-        "datetime": "2017-09-23T06:16:10Z",
+        "datetime": "2017-09-22T22:16:10Z",
         "affectedRadius": "10.00",
         "totalInjured": 30,
         "totalDeaths": 0,
         "duration": "00:01:00",
         "ActionPlan": 3,
-        "Crisis": 3
+        "Crisis": 3,
+        "type": "Combat"
     }
 },
 {
@@ -348,7 +383,7 @@
     "model": "admin.logentry",
     "pk": 1,
     "fields": {
-        "action_time": "2017-10-11T08:44:39.501Z",
+        "action_time": "2017-10-14T17:21:57.038Z",
         "user": [
             "admin"
         ],
@@ -357,7 +392,7 @@
             "account"
         ],
         "object_id": "1",
-        "object_repr": "Account object",
+        "object_repr": "analyst1",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -366,7 +401,7 @@
     "model": "admin.logentry",
     "pk": 2,
     "fields": {
-        "action_time": "2017-10-11T08:45:00.091Z",
+        "action_time": "2017-10-14T17:22:05.735Z",
         "user": [
             "admin"
         ],
@@ -375,7 +410,7 @@
             "account"
         ],
         "object_id": "2",
-        "object_repr": "Account object",
+        "object_repr": "analyst2",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -384,7 +419,7 @@
     "model": "admin.logentry",
     "pk": 3,
     "fields": {
-        "action_time": "2017-10-11T08:45:16.146Z",
+        "action_time": "2017-10-14T17:22:13.480Z",
         "user": [
             "admin"
         ],
@@ -393,7 +428,7 @@
             "account"
         ],
         "object_id": "3",
-        "object_repr": "Account object",
+        "object_repr": "analyst3",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -402,7 +437,7 @@
     "model": "admin.logentry",
     "pk": 4,
     "fields": {
-        "action_time": "2017-10-11T08:45:27.707Z",
+        "action_time": "2017-10-14T17:22:24.911Z",
         "user": [
             "admin"
         ],
@@ -411,7 +446,7 @@
             "account"
         ],
         "object_id": "4",
-        "object_repr": "Account object",
+        "object_repr": "analyst4",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -420,7 +455,7 @@
     "model": "admin.logentry",
     "pk": 5,
     "fields": {
-        "action_time": "2017-10-11T08:45:38.790Z",
+        "action_time": "2017-10-14T17:22:35.114Z",
         "user": [
             "admin"
         ],
@@ -429,7 +464,7 @@
             "account"
         ],
         "object_id": "5",
-        "object_repr": "Account object",
+        "object_repr": "operator1",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -438,7 +473,7 @@
     "model": "admin.logentry",
     "pk": 6,
     "fields": {
-        "action_time": "2017-10-11T08:54:28.228Z",
+        "action_time": "2017-10-14T17:22:43.861Z",
         "user": [
             "admin"
         ],
@@ -446,26 +481,26 @@
             "cmoapp",
             "account"
         ],
-        "object_id": "1",
-        "object_repr": "Account object",
-        "action_flag": 2,
-        "change_message": "[]"
+        "object_id": "6",
+        "object_repr": "operator2",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
     }
 },
 {
     "model": "admin.logentry",
     "pk": 7,
     "fields": {
-        "action_time": "2017-10-11T08:54:44.721Z",
+        "action_time": "2017-10-14T17:22:54.101Z",
         "user": [
             "admin"
         ],
         "content_type": [
             "cmoapp",
-            "crisistype"
+            "account"
         ],
-        "object_id": "1",
-        "object_repr": "CrisisType object",
+        "object_id": "7",
+        "object_repr": "operator3",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -474,7 +509,61 @@
     "model": "admin.logentry",
     "pk": 8,
     "fields": {
-        "action_time": "2017-10-11T08:54:46.723Z",
+        "action_time": "2017-10-14T17:23:06.249Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "account"
+        ],
+        "object_id": "8",
+        "object_repr": "operator4",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+        "action_time": "2017-10-14T17:23:14.260Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "account"
+        ],
+        "object_id": "9",
+        "object_repr": "chief1",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 10,
+    "fields": {
+        "action_time": "2017-10-14T17:26:10.191Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisistype"
+        ],
+        "object_id": "1",
+        "object_repr": "terrorism",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 11,
+    "fields": {
+        "action_time": "2017-10-14T17:26:31.806Z",
         "user": [
             "admin"
         ],
@@ -490,9 +579,9 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 9,
+    "pk": 12,
     "fields": {
-        "action_time": "2017-10-11T08:54:55.057Z",
+        "action_time": "2017-10-14T17:30:02.383Z",
         "user": [
             "admin"
         ],
@@ -501,70 +590,16 @@
             "actionplan"
         ],
         "object_id": "1",
-        "object_repr": "ActionPlan object",
+        "object_repr": "ID: 1",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 10,
-    "fields": {
-        "action_time": "2017-10-11T08:55:42.691Z",
-        "user": [
-            "admin"
-        ],
-        "content_type": [
-            "cmoapp",
-            "account"
-        ],
-        "object_id": "6",
-        "object_repr": "Account object",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 11,
-    "fields": {
-        "action_time": "2017-10-11T08:55:57.198Z",
-        "user": [
-            "admin"
-        ],
-        "content_type": [
-            "cmoapp",
-            "account"
-        ],
-        "object_id": "7",
-        "object_repr": "Account object",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 12,
-    "fields": {
-        "action_time": "2017-10-11T08:57:05.685Z",
-        "user": [
-            "admin"
-        ],
-        "content_type": [
-            "cmoapp",
-            "account"
-        ],
-        "object_id": "4",
-        "object_repr": "Account object",
-        "action_flag": 2,
-        "change_message": "[]"
     }
 },
 {
     "model": "admin.logentry",
     "pk": 13,
     "fields": {
-        "action_time": "2017-10-11T08:57:36.857Z",
+        "action_time": "2017-10-14T17:38:10.837Z",
         "user": [
             "admin"
         ],
@@ -573,7 +608,7 @@
             "crisistype"
         ],
         "object_id": "2",
-        "object_repr": "CrisisType object",
+        "object_repr": "Bombing",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -582,7 +617,7 @@
     "model": "admin.logentry",
     "pk": 14,
     "fields": {
-        "action_time": "2017-10-11T08:57:39.595Z",
+        "action_time": "2017-10-14T17:38:19.982Z",
         "user": [
             "admin"
         ],
@@ -600,7 +635,7 @@
     "model": "admin.logentry",
     "pk": 15,
     "fields": {
-        "action_time": "2017-10-11T08:57:44.235Z",
+        "action_time": "2017-10-14T17:38:24.363Z",
         "user": [
             "admin"
         ],
@@ -609,7 +644,7 @@
             "actionplan"
         ],
         "object_id": "2",
-        "object_repr": "ActionPlan object",
+        "object_repr": "ID: 2",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -618,25 +653,7 @@
     "model": "admin.logentry",
     "pk": 16,
     "fields": {
-        "action_time": "2017-10-11T08:58:42.098Z",
-        "user": [
-            "admin"
-        ],
-        "content_type": [
-            "cmoapp",
-            "account"
-        ],
-        "object_id": "6",
-        "object_repr": "Account object",
-        "action_flag": 2,
-        "change_message": "[]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 17,
-    "fields": {
-        "action_time": "2017-10-11T08:59:27.109Z",
+        "action_time": "2017-10-14T17:39:35.717Z",
         "user": [
             "admin"
         ],
@@ -645,16 +662,16 @@
             "crisistype"
         ],
         "object_id": "3",
-        "object_repr": "CrisisType object",
+        "object_repr": "Riot",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
 },
 {
     "model": "admin.logentry",
-    "pk": 18,
+    "pk": 17,
     "fields": {
-        "action_time": "2017-10-11T08:59:28.955Z",
+        "action_time": "2017-10-14T17:39:42.192Z",
         "user": [
             "admin"
         ],
@@ -670,9 +687,9 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 19,
+    "pk": 18,
     "fields": {
-        "action_time": "2017-10-11T08:59:31.307Z",
+        "action_time": "2017-10-14T17:40:28.009Z",
         "user": [
             "admin"
         ],
@@ -681,7 +698,25 @@
             "actionplan"
         ],
         "object_id": "3",
-        "object_repr": "ActionPlan object",
+        "object_repr": "ID: 3",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 19,
+    "fields": {
+        "action_time": "2017-10-14T17:43:19.718Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "1",
+        "object_repr": "1 - Some thing come",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -690,7 +725,7 @@
     "model": "admin.logentry",
     "pk": 20,
     "fields": {
-        "action_time": "2017-10-11T09:00:46.102Z",
+        "action_time": "2017-10-14T17:44:02.088Z",
         "user": [
             "admin"
         ],
@@ -698,8 +733,8 @@
             "cmoapp",
             "crisisreport"
         ],
-        "object_id": "1",
-        "object_repr": "CrisisReport object",
+        "object_id": "2",
+        "object_repr": "2 - Bombing incident at orchard",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -708,7 +743,7 @@
     "model": "admin.logentry",
     "pk": 21,
     "fields": {
-        "action_time": "2017-10-11T09:01:32.930Z",
+        "action_time": "2017-10-14T17:45:01.323Z",
         "user": [
             "admin"
         ],
@@ -716,8 +751,8 @@
             "cmoapp",
             "crisisreport"
         ],
-        "object_id": "2",
-        "object_repr": "CrisisReport object",
+        "object_id": "3",
+        "object_repr": "3 - Gang fight in a public area",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -726,16 +761,16 @@
     "model": "admin.logentry",
     "pk": 22,
     "fields": {
-        "action_time": "2017-10-11T09:04:45.522Z",
+        "action_time": "2017-10-14T17:46:32.015Z",
         "user": [
             "admin"
         ],
         "content_type": [
             "cmoapp",
-            "crisisreport"
+            "efupdate"
         ],
-        "object_id": "3",
-        "object_repr": "CrisisReport object",
+        "object_id": "1",
+        "object_repr": "ID: 1",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -744,7 +779,7 @@
     "model": "admin.logentry",
     "pk": 23,
     "fields": {
-        "action_time": "2017-10-11T09:05:50.673Z",
+        "action_time": "2017-10-14T17:47:18.498Z",
         "user": [
             "admin"
         ],
@@ -752,8 +787,8 @@
             "cmoapp",
             "efupdate"
         ],
-        "object_id": "1",
-        "object_repr": "EFUpdate object",
+        "object_id": "2",
+        "object_repr": "ID: 2",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -762,7 +797,7 @@
     "model": "admin.logentry",
     "pk": 24,
     "fields": {
-        "action_time": "2017-10-11T09:06:37.497Z",
+        "action_time": "2017-10-14T17:47:55.113Z",
         "user": [
             "admin"
         ],
@@ -770,8 +805,8 @@
             "cmoapp",
             "efupdate"
         ],
-        "object_id": "2",
-        "object_repr": "EFUpdate object",
+        "object_id": "3",
+        "object_repr": "ID: 3",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -780,25 +815,7 @@
     "model": "admin.logentry",
     "pk": 25,
     "fields": {
-        "action_time": "2017-10-11T09:07:24.118Z",
-        "user": [
-            "admin"
-        ],
-        "content_type": [
-            "cmoapp",
-            "efupdate"
-        ],
-        "object_id": "3",
-        "object_repr": "EFUpdate object",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 26,
-    "fields": {
-        "action_time": "2017-10-11T09:08:05.001Z",
+        "action_time": "2017-10-14T17:48:29.813Z",
         "user": [
             "admin"
         ],
@@ -807,7 +824,25 @@
             "force"
         ],
         "object_id": "SAF",
-        "object_repr": "Force object",
+        "object_repr": "SAF",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 26,
+    "fields": {
+        "action_time": "2017-10-14T17:48:46.860Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "1",
+        "object_repr": "ID: 1 Name: SAF",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -816,25 +851,7 @@
     "model": "admin.logentry",
     "pk": 27,
     "fields": {
-        "action_time": "2017-10-11T09:08:26.835Z",
-        "user": [
-            "admin"
-        ],
-        "content_type": [
-            "cmoapp",
-            "forcedeployment"
-        ],
-        "object_id": "1",
-        "object_repr": "ForceDeployment object",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 28,
-    "fields": {
-        "action_time": "2017-10-11T09:08:36.693Z",
+        "action_time": "2017-10-14T17:48:52.955Z",
         "user": [
             "admin"
         ],
@@ -843,7 +860,25 @@
             "force"
         ],
         "object_id": "SDF",
-        "object_repr": "Force object",
+        "object_repr": "SDF",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 28,
+    "fields": {
+        "action_time": "2017-10-14T17:48:59.436Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2 Name: SDF",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -852,25 +887,7 @@
     "model": "admin.logentry",
     "pk": 29,
     "fields": {
-        "action_time": "2017-10-11T09:08:44.402Z",
-        "user": [
-            "admin"
-        ],
-        "content_type": [
-            "cmoapp",
-            "forcedeployment"
-        ],
-        "object_id": "2",
-        "object_repr": "ForceDeployment object",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 30,
-    "fields": {
-        "action_time": "2017-10-11T09:08:54.798Z",
+        "action_time": "2017-10-14T17:49:08.795Z",
         "user": [
             "admin"
         ],
@@ -879,16 +896,16 @@
             "force"
         ],
         "object_id": "Police Force",
-        "object_repr": "Force object",
+        "object_repr": "Police Force",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
 },
 {
     "model": "admin.logentry",
-    "pk": 31,
+    "pk": 30,
     "fields": {
-        "action_time": "2017-10-11T09:10:07.038Z",
+        "action_time": "2017-10-14T17:49:24.364Z",
         "user": [
             "admin"
         ],
@@ -897,7 +914,25 @@
             "forcedeployment"
         ],
         "object_id": "3",
-        "object_repr": "ForceDeployment object",
+        "object_repr": "ID: 3 Name: Police Force",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 31,
+    "fields": {
+        "action_time": "2017-10-14T17:49:48.142Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forceutilization"
+        ],
+        "object_id": "1",
+        "object_repr": "SAF",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -906,7 +941,7 @@
     "model": "admin.logentry",
     "pk": 32,
     "fields": {
-        "action_time": "2017-10-11T09:10:35.537Z",
+        "action_time": "2017-10-14T17:49:55.258Z",
         "user": [
             "admin"
         ],
@@ -914,8 +949,8 @@
             "cmoapp",
             "forceutilization"
         ],
-        "object_id": "1",
-        "object_repr": "ForceUtilization object",
+        "object_id": "2",
+        "object_repr": "SDF",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -924,7 +959,7 @@
     "model": "admin.logentry",
     "pk": 33,
     "fields": {
-        "action_time": "2017-10-11T09:10:44.665Z",
+        "action_time": "2017-10-14T17:50:09.751Z",
         "user": [
             "admin"
         ],
@@ -932,8 +967,8 @@
             "cmoapp",
             "forceutilization"
         ],
-        "object_id": "2",
-        "object_repr": "ForceUtilization object",
+        "object_id": "3",
+        "object_repr": "Police Force",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -942,25 +977,7 @@
     "model": "admin.logentry",
     "pk": 34,
     "fields": {
-        "action_time": "2017-10-11T09:10:53.683Z",
-        "user": [
-            "admin"
-        ],
-        "content_type": [
-            "cmoapp",
-            "forceutilization"
-        ],
-        "object_id": "3",
-        "object_repr": "ForceUtilization object",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 35,
-    "fields": {
-        "action_time": "2017-10-11T09:11:29.801Z",
+        "action_time": "2017-10-14T17:50:46.214Z",
         "user": [
             "admin"
         ],
@@ -969,16 +986,16 @@
             "location"
         ],
         "object_id": "1",
-        "object_repr": "Location object",
+        "object_repr": "ID: 1",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
 },
 {
     "model": "admin.logentry",
-    "pk": 36,
+    "pk": 35,
     "fields": {
-        "action_time": "2017-10-11T09:11:44.937Z",
+        "action_time": "2017-10-14T17:51:03.127Z",
         "user": [
             "admin"
         ],
@@ -987,16 +1004,16 @@
             "location"
         ],
         "object_id": "2",
-        "object_repr": "Location object",
+        "object_repr": "ID: 2",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
 },
 {
     "model": "admin.logentry",
-    "pk": 37,
+    "pk": 36,
     "fields": {
-        "action_time": "2017-10-11T09:12:06.085Z",
+        "action_time": "2017-10-14T17:51:24.470Z",
         "user": [
             "admin"
         ],
@@ -1005,7 +1022,7 @@
             "location"
         ],
         "object_id": "3",
-        "object_repr": "Location object",
+        "object_repr": "ID: 3",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }

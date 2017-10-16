@@ -5,8 +5,19 @@ from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, Location, A
 
 #Kindly help to remove unwanted modules
 
+sessionId = 2
+
 def index(Request):
-    return render(Request, 'analyst/base_site.html')
+    #UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
+    try:
+        assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
+    except(KeyError, Crisis.DoesNotExist):
+        context = { 'assigned_crisis': False }
+    else:
+        context = {
+            'assigned_crisis': assigned_crisis
+        }
+    return render(Request, 'analyst/index.html',context)
 
 def historicalData(Request):
     return HttpResponse("HISTORICAL DATA")

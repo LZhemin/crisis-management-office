@@ -1,0 +1,178 @@
+{% extends 'analyst/base_site.html' %}
+{% load custom_tags %}
+
+{% block page_stylesheets %}
+<style text="text/css">
+    /* plz determine if should go into our own css or if remain separate */
+    .panel_toolbox
+    {
+        min-width: 24px;
+    }
+</style>
+{% endblock page_stylesheets %}
+
+{% block page_javascripts %}
+<script type="text/javascript">
+    {% if assigned_crisis %}
+        //JSON Fucking up.
+        var crisis = {{ True|jsonify }}
+    {% else %}
+        //JSON Fucking up.
+        var crisis = {{ False|jsonify }}
+    {% endif %}
+    $(document).ready(function(){
+        if(!crisis)
+        {
+            //reload page if no crisis every 5 seconds
+            //window.setTimeout('location.reload(true);',5000);
+        }
+    });
+
+    //Recommend using PNotify for notifications from EF or 911. looks good
+</script>
+{% endblock page_javascripts %}
+
+{% block content %}
+<div class="right_col">
+    {% if assigned_crisis %}
+    <div class="row">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Current Statistics</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="animated flipInY col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                        <div class="icon">
+                            <i class="fa fa-ambulance"></i>
+                        </div>
+                        <div class="count">{{ assigned_crisis.injuries|default:"0" }}</div>
+                        <h3>Current Injuries</h3>
+                    </div>
+                </div>
+                <div class="animated flipInY col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                        <div class="icon">
+                            <i class="fa fa-frown-o"></i>
+                        </div>
+                        <div class="count">{{ assigned_crisis.deaths|default:"0"}}</div>
+                        <h3>Current Deaths</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Reports from 911</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <ul class="list-unstyled timeline widget">
+                        {% for report in assigned_crisis.crisisreport_set.all %}
+                        <li>
+                            <div class="block">
+                                <div class="block_content">
+                                    <h2 class="title">I DON'T KNOW WHAT TO PUT IN TITLE SOMEONE HELP ME</h2>
+                                    <div class="byline">
+                                        <span>{{ report.datetime }}</span>
+                                    </div>
+                                    <p>
+                                        {{ report.description }}
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        {% empty %}
+                            <span>No Reports Yet</span>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Reports from Emergency Forces</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <ul class="list-unstyled timeline widget">
+                        {% for report in assigned_crisis.efupdate_set.all %}
+                        <li>
+                            <div class="block">
+                                <div class="block_content">
+                                    <h2 class="title">I DON'T KNOW WHAT TO PUT IN TITLE SOMEONE HELP ME</h2>
+                                    <div class="byline">
+                                        <span>{{ report.datetime }}</span>
+                                    </div>
+                                    <p>
+                                        {{ report.description }}
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        {% empty %}
+                            <span>No Reports Yet</span>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Crisis Map</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    PLZ INSERT MAP KTHXBAI
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="x_panel">
+            YOLOLOLOLOLO FORMS GO HERE WAIT FOR ME
+        </div>
+    </div>
+    {% else %}
+    <div class="row">
+        NO CRISIS FOUND SOMEONE STYLE THIS SHIT FOR ME
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}
