@@ -48,8 +48,6 @@ class Crisis(models.Model):
 
 class CrisisReport(models.Model):
     #attributes
-    latitude = models.DecimalField(max_digits=12, decimal_places=8)
-    longitude = models.DecimalField(max_digits=12, decimal_places=8)
     description = models.TextField()
     datetime = models.DateTimeField()
 
@@ -64,7 +62,7 @@ class Location(models.Model):
     latitude = models.DecimalField(max_digits=12, decimal_places=8)
     longitude = models.DecimalField(max_digits=12, decimal_places=8)
     radius = models.IntegerField()
-    crisis = models.ForeignKey(Crisis, on_delete=models.CASCADE)
+    crisis = models.ForeignKey(CrisisReport, on_delete=models.CASCADE)
 
     def __str__(self):
         return 'ID: {}'.format(self.pk);
@@ -98,6 +96,7 @@ class ForceDeployment(models.Model):
     #a force can only be deleted after all force deployments are deleted
     name = models.ForeignKey(Force, on_delete= models.PROTECT)
     recommended = models.DecimalField(max_digits=5, decimal_places=2)
+    max = models.DecimalField(max_digits=5, decimal_places=2)
     ActionPlan =  models.ForeignKey(ActionPlan, on_delete= models.CASCADE)
     def __str__(self):
         return 'ID: {} Name: {}'.format(self.pk,self.name);
