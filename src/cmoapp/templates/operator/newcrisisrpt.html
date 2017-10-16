@@ -174,48 +174,48 @@
           <div class="x_content">
             <br>
 
-            <form action="/operator/allocrisis/" method="post"
+            <form action="/operator/newcrisisrpt/" method="post"
               data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
               {% csrf_token %}
 
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="getcrisisname">Name <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" name="getcrisisname">Name <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="getcrisisname" required="required" class="form-control col-md-7 col-xs-12">
+                  <input type="text" name="getcrisisname" required="required" class="form-control col-md-7 col-xs-12">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="getcrisisdes">Description <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" name="getcrisisdes">Description <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="getcrisisdes" required="required" class="form-control col-md-7 col-xs-12">
+                  <input type="text" name="getcrisisdes" required="required" class="form-control col-md-7 col-xs-12">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="getcrisislong">Longitudes <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" name="getcrisislong">Longitudes <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="getcrisislong" required="required" class="form-control col-md-7 col-xs-12">
+                  <input type="text" name="getcrisislong" required="required" class="form-control col-md-7 col-xs-12">
                 </div>
               </div>
 
 
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="getcrisislat">Latitudes <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" name="getcrisislat">Latitudes <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="getcrisislat" required="required" class="form-control col-md-7 col-xs-12">
+                  <input type="text" name="getcrisislat" required="required" class="form-control col-md-7 col-xs-12">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="getcrisisdatetime">DateTime <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" name="getcrisisdatetime">DateTime <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="getcrisisdatetime" required="required" class="form-control col-md-7 col-xs-12">
+                  <input type="text" name="getcrisisdatetime" required="required" class="form-control col-md-7 col-xs-12">
                 </div>
               </div>
 

@@ -153,7 +153,7 @@
     <div class="row">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Allocate Crisis <small> for analyst </small></h2>
+            <h2>Allocate Existing Crisis <small> for analyst </small></h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -181,9 +181,10 @@
               <div class="form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Analyst</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select class="form-control" id="getanalyst" >
+                    <select class="form-control" name="getanalyst" >
 
                       {% for acc in getAccountList %}
+                        <% if(acc.login.TYPES = "Analyst"){ %>
                         <option>{{acc.login}}</option>
                       {%endfor%}
 
@@ -195,7 +196,7 @@
               <div class="form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Crisis</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select class="form-control" id="getcrisistype">
+                    <select class="form-control" name="getcrisistype">
 
                       {% for getct in getCrisisTypeList %}
                         <option>{{getct.name}}</option>

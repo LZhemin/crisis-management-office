@@ -61,7 +61,7 @@ def allocateToExistingCrisis(request):
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
-        return HttpResponseRedirect(reverse('operator/allolist.html'))
+        return HttpResponseRedirect(reverse('Operator_allocateToExistingCrisis'))
 
 
 def allocateCrisis(request):
@@ -76,8 +76,8 @@ def allocateCrisis(request):
     try:
         #selected_crisis = getCrisisList.objects.all.analyst.get(request.POST['getanalyst'])
         #selected_crisis = getCrisisList.objects.all.crisistypes.get(request.POST['getcrisistype'])
-        selected_analyst = request.POST['getanalyst']
-        selected_crisistype = request.POST['getcrisistype']
+        selected_analyst = request.POST["getanalyst"]
+        selected_crisistype = request.POST["getcrisistype"]
 
 
     except(KeyError, Crisis.DoesNotExist):
@@ -96,30 +96,7 @@ def allocateCrisis(request):
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
-        return HttpResponseRedirect(reverse('operator/allolist.html'))
-
-
-
-
-
-    # latest_crisis_list = Crisis.objects.order_by('-datetime')[:5]
-    # # output = ', '.join([l.Location for l in latest_crisis_list])
-    # context = {'latest_crisis_list': latest_crisis_list}
-    #
-    # try:
-    #     forCrisis = request.POST['Crisis']
-    #     selectedCrisis = Crisis.Crisis.get(forCrisis)
-    # except(KeyError, selectedCrisis.DoesNotExist):
-    # # Redisplay
-    #     return render(request, 'operator/base_site.html', {
-    #         context,
-    #         {'error_message': "You didn't select a Crisis."}
-    #     })
-    #
-    # else:
-    #     crisisList = Crisis(crisis_id=forCrisis)
-    #     crisisList.save()  # save to database
-    #     return HttpResponseRedirect(reverse('cmoapp:base_site', args=(analyst_id)))
+        return HttpResponseRedirect(reverse('Operator_AllocateCrisis'))
 
 
 def newCrisisReport(request):
@@ -134,9 +111,11 @@ def newCrisisReport(request):
     try:
         # selected_crisis = getCrisisList.objects.all.analyst.get(request.POST['getanalyst'])
         # selected_crisis = getCrisisList.objects.all.crisistypes.get(request.POST['getcrisistype'])
-        selected_analyst = request.POST['getanalyst']
-        selected_crisistype = request.POST['getcrisistype']
-
+        selected_crisisname = request.POST['getcrisisname']
+        selected_crisisdes = request.POST['getcrisisdes']
+        selected_crisislong = request.POST['getcrisislong']
+        selected_crisislat = request.POST['getcrisislat']
+        selected_crisisdatetime = request.POST['getcrisisdatetime']
 
     except(KeyError, Crisis.DoesNotExist):
         context = {'getCrisisReportList': getCrisisReportList,
@@ -149,9 +128,10 @@ def newCrisisReport(request):
                       )
 
     else:
-        created_crisis = Crisis(analyst=selected_analyst, crisistypes=selected_crisistype)
-        created_crisis.save()
+        created_crisisrpt = CrisisReport(latitude=selected_crisislat, longitude=selected_crisislong
+                                      ,description=selected_crisisdes, datetime=selected_crisisdatetime)
+        created_crisisrpt.save()
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
-        return HttpResponseRedirect(reverse('operator/allolist.html'))
+        return HttpResponseRedirect(reverse('Operator_NewCrisisReport'))

@@ -174,14 +174,14 @@
           <div class="x_content">
             <br>
 
-            <form action="/operator/allocrisis/" method="post"
+            <form action="/operator/alloexcrisis/" method="post"
               data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
               {% csrf_token %}
 
               <div class="form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Analyst</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select class="form-control" id="getanalyst" >
+                    <select class="form-control" name="getanalyst" >
 
                       {% for acc in getAccountList %}
                         <option>{{acc.login}}</option>
@@ -195,7 +195,7 @@
               <div class="form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Crisis</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select class="form-control" id="getcrisistype">
+                    <select class="form-control" name="getcrisistype">
 
                       {% for getct in getCrisisTypeList %}
                         <option>{{getct.name}}</option>
