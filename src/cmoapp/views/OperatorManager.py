@@ -1,18 +1,97 @@
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, QueryDict, JsonResponse
 from django.urls import reverse
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, Location, ActionPlan, Force, ForceDeployment, EFUpdate
+from cmoapp.forms import CrisisForm
+from django.forms.models import model_to_dict
 
+import json
 #Kindly help to remove unwanted modules
 
 def index(Request):
 
-    getallcrisis = CrisisReport.objects.order_by('-datetime')[:5]
-    context = {'getallcrisis': getallcrisis}
+    #getallcrisis = CrisisReport.objects.order_by('-datetime')[:5]
+    #context = {'getallcrisis': getallcrisis}
+    # if Request.method == 'GET':
+    #
+    #     context = {
+    #                'all_crisis': Crisis.objects.reverse(),
+    #
+    #                }
+    #     return render(Request, 'operator/index.html',
+    #                   context,
+    #                   {'error_message': "You didn't select a Crisis."}
+    #                   )
+    # else:
+
+    getCrisisList = Crisis.objects.all
+    getCrisisTypeList = CrisisType.objects.all
+    getTypeList = Crisis.objects.all
+    getAccountList = Account.objects.filter(type='Analyst')
+    getallcrisis = CrisisReport.objects.all()
+    context = {'getCrisisList': getCrisisList,
+               'getCrisisTypeList': getCrisisTypeList,
+               'getTypeList': getTypeList,
+               'getAccountList': getAccountList,
+               'getallcrisis': getallcrisis,
+
+               'all_crisis': Crisis.objects.reverse(),
+               'form': CrisisForm()
+
+               }
     return render(Request, 'operator/index.html',
                 context,
                 {'error_message': "You didn't select a Crisis."}
                 )
+
+
+def create_crisis(request):
+    if request.method == 'POST':
+
+        selected_analyst = request.POST.get('getanalyst')
+        selected_crisistype = request.POST.get('getcrisistype')
+        selected_type = request.POST.get('gettype')
+        #selected_crisistype = request.POST["getcrisistype"]
+        #selected_filtercrisistype = CrisisType.objects.filter(name='selected_crisistype')
+        response_data = {}
+
+        created_crisis = Crisis(analyst_id=selected_analyst, type=selected_type)
+        created_crisis.save()
+        created_crisis.crisistypes.add(selected_crisistype)
+
+        response_data['result'] = 'Create post successful!'
+        response_data['crisispk'] = created_crisis.pk
+        response_data['analyst'] = created_crisis.analyst_id
+        response_data['crisistypes'] = created_crisis.crisistypes.name
+        response_data['type'] = created_crisis.type
+
+        #return HttpResponse(
+         #   json.dumps(response_data),
+         #   content_type="application/json"
+        #)
+        #obj = Place.objects.get(id=object_id)
+        return JsonResponse(response_data)
+    else:
+        #return HttpResponse(
+         #   json.dumps({"nothing to see": "this isn't happening"}),
+          #  content_type="application/json"
+        #)
+        return JsonResponse(model_to_dict(0))
+
+def delete_crisis(request):
+
+    if request.method == 'DELETE':
+
+        selected_crisis = Crisis.objects.get(pk=int(QueryDict(request.body).get('crisispk')))
+
+        selected_crisis.delete()
+
+        response_data = {}
+        response_data['msg'] = 'Crisis was deleted.'
+
+        return JsonResponse(response_data)
+    else:
+        return JsonResponse(model_to_dict(0))
 
 def getCrisisAllocationList(Request):
 
@@ -67,7 +146,7 @@ def allocateToExistingCrisis(request):
 def allocateCrisis(request):
     getCrisisList = Crisis.objects.all
     getCrisisTypeList = CrisisType.objects.all
-    getAccountList = Account.objects.all
+    getAccountList = Account.objects.filter(type = 'Analyst')
     context = {'getCrisisList': getCrisisList,
                'getCrisisTypeList': getCrisisTypeList,
                'getAccountList': getAccountList}
@@ -78,7 +157,8 @@ def allocateCrisis(request):
         #selected_crisis = getCrisisList.objects.all.crisistypes.get(request.POST['getcrisistype'])
         selected_analyst = request.POST["getanalyst"]
         selected_crisistype = request.POST["getcrisistype"]
-
+        #get all crisis types types
+        selected_filtercrisistype = CrisisType.objects.filter(name = selected_crisistype)
 
     except(KeyError, Crisis.DoesNotExist):
         context = {'getCrisisList': getCrisisList,
@@ -91,8 +171,10 @@ def allocateCrisis(request):
                       )
 
     else:
-        created_crisis = Crisis(analyst=selected_analyst, crisistypes=selected_crisistype)
+        created_crisis = Crisis(analyst_id=selected_analyst)
         created_crisis.save()
+        created_crisis.crisistypes.add(selected_crisistype)
+
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.

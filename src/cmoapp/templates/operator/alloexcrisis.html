@@ -184,7 +184,7 @@
                     <select class="form-control" name="getanalyst" >
 
                       {% for acc in getAccountList %}
-                        <option>{{acc.login}}</option>
+                        <option value = {{acc.id}}>  {{acc.login}} </option>
                       {%endfor%}
 
                     </select>
@@ -193,18 +193,19 @@
 
 
               <div class="form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Crisis</label>
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Crisis Types</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <select class="form-control" name="getcrisistype">
 
                       {% for getct in getCrisisTypeList %}
-                        <option>{{getct.name}}</option>
+                        <option value = {{getct.id}}>{{getct.name}}</option>
                       {%endfor%}
 
                     </select>
                   </div>
                 </div>
 
+              <!-- Do not display this at the moment
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Crisis Type</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -221,6 +222,7 @@
                   </div>
                 </div>
               </div>
+              -->
 
 
               <div class="ln_solid"></div>

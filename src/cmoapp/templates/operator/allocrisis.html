@@ -153,7 +153,7 @@
     <div class="row">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Allocate Existing Crisis <small> for analyst </small></h2>
+            <h2>Allocate Crisis <small> for analyst </small></h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -182,30 +182,28 @@
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Analyst</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <select class="form-control" name="getanalyst" >
-
                       {% for acc in getAccountList %}
-                        <% if(acc.login.TYPES = "Analyst"){ %>
-                        <option>{{acc.login}}</option>
+                        <option value = {{acc.id}}>  {{acc.login}} </option>
                       {%endfor%}
-
                     </select>
                   </div>
                 </div>
 
 
               <div class="form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Crisis</label>
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Select CrisisType</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <select class="form-control" name="getcrisistype">
 
                       {% for getct in getCrisisTypeList %}
-                        <option>{{getct.name}}</option>
+                        <option value = {{getct.id}}>{{getct.name}}</option>
                       {%endfor%}
 
                     </select>
                   </div>
                 </div>
 
+              <!-- Do not display this at the moment
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Crisis Type</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -222,7 +220,7 @@
                   </div>
                 </div>
               </div>
-
+              -->
 
               <div class="ln_solid"></div>
               <div class="form-group">
@@ -297,6 +295,7 @@
                          <!-- Do not display this at the moment
                         <td class=" last"><a href={{allcrisis.pk}}>View</a>
                         -->
+
                         <td class=" last">
                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".view-allo"
                                   data-id={{allo.pk}} data-name={{allo.crisistypes.name}} data-ana={{allo.analyst}} >View</button>
@@ -363,7 +362,10 @@
 
 
         })
+
+
     </script>
+
 
 
 {% endblock page_scripts %}

@@ -114,36 +114,29 @@
            margin-top: 6px;
            font-size: 95%;
        }
+
+       .btn-xl {
+            padding: 20px 220px;
+            font-size: 30px;
+            border-radius: 10px;
+            width:100%;    //Specify your width here
+        }
+
+        .btn-x2 {
+            padding: 20px 60px;
+            font-size: 25px;
+            border-radius: 10px;
+            width:100%;    //Specify your width here
+        }
 </style>
 {% endblock page_stylesheets %}
 
 
 
 {% block content %}
-<!-- Do not display this at the moment
-
- <div style="float: right; width: 80%">Following are to get everything in CrisisReport<br>
-    {% for getall in getallcrisis %}
-        <a href="">{{getall}}</a><br>
-    {% endfor %}
-
- </div>
-
- $.ajax({
-                cache: false,
-                type: 'POST',
-                url: 'backend.php',
-                data: 'EID='+essay_id,
-                success: function(data)
-                {
-
-                $modal.find('.edit-content').html(esseyId);
-            }
-        });
-
--->
 
 
+<!--
 <div class="right_col">
     <div class="x_panel">
       <div class="x_title">
@@ -194,28 +187,28 @@
 
             <tbody>
                 {% for allcrisis in getallcrisis %}
-              <tr class="even pointer">
-                <td class="a-center ">
-                  <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                </td>
-                <td class=" ">{{allcrisis.pk}}</td>
-                <td class=" ">{{allcrisis.Crisis.crisistypes.name}}</td>
-                <td class=" ">{{allcrisis.description}} <i class="success fa fa-long-arrow-up"></i></td>
-                <td class=" ">{{allcrisis.latitude}}</td>
-                <td class=" ">{{allcrisis.longitude}}</td>
-                <td class="a-right a-right ">{{allcrisis.datetime}}</td>
-
-                  <!-- Do not display this at the moment
-                <td class=" last"><a href={{allcrisis.pk}}>View</a>
-                -->
-                <td class=" last">
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".view-crisis"
-                          data-id={{allcrisis.pk}} data-des={{allcrisis.description}} data-lat={{allcrisis.latitude}}
-                          data-long={{allcrisis.longitude}} data-datetime={{allcrisis.datetime}}>View</button>
+                  <tr class="even pointer">
+                    <td class="a-center ">
+                      <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                    </td>
+                    <td class=" ">{{allcrisis.pk}}</td>
+                    <td class=" ">{{allcrisis.Crisis.crisistypes.name}}</td>
+                    <td class=" ">{{allcrisis.description}} <i class="success fa fa-long-arrow-up"></i></td>
+                    <td class=" ">{{allcrisis.latitude}}</td>
+                    <td class=" ">{{allcrisis.longitude}}</td>
+                    <td class="a-right a-right ">{{allcrisis.datetime}}</td>
 
 
-                </td>
-              </tr>
+                    <td class=" last"><a href={{allcrisis.pk}}>View</a>
+
+                    <td class=" last">
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".view-crisis"
+                              data-id={{allcrisis.pk}} data-des={{allcrisis.description}} data-lat={{allcrisis.latitude}}
+                              data-long={{allcrisis.longitude}} data-datetime={{allcrisis.datetime}}>View</button>
+
+
+                    </td>
+                  </tr>
                 {%endfor%}
             </tbody>
           </table>
@@ -255,35 +248,520 @@
     </div>
   </div>
 
+<form action="/operator/create_crisis/" method="POST">
+-->
+
+
+<div class="right_col">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2><i class="fa fa-bars"></i> Operator <small>Menu</small></h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Settings 1</a>
+              </li>
+              <li><a href="#">Settings 2</a>
+              </li>
+            </ul>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+
+
+        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+          <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Home</a>
+            </li>
+            <li role="presentation" class=""><a href="#tab_content2" role="tab" id="allocate-tab" data-toggle="tab" aria-expanded="false">Allocate Crisis</a>
+            </li>
+            <li role="presentation" class=""><a href="#tab_content3" role="tab" id="map-tab" data-toggle="tab" aria-expanded="false">Map</a>
+            </li>
+          </ul>
+          <div id="myTabContent" class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+
+                <div class="row x_title">
+                    <div class="col-md-6">
+                      <h3>Crisis allocation <small>List View</small></h3>
+                    </div>
+                    <div class="col-md-6">
+                      <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                        <span>September 19, 2017 - October 18, 2017</span> <b class="caret"></b>
+                      </div>
+                    </div>
+                  </div>
+
+                <div class="col-md-3 col-sm-3 col-xs-12">
+                  <div class="x_panel">
+                    <div class="x_title">
+                      <h2>Recent Crisis <small>Sessions</small></h2>
+                      <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Settings 1</a>
+                            </li>
+                            <li><a href="#">Settings 2</a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                      </ul>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                      <div class="dashboard-widget-content">
+
+                        <ul class="list-unstyled timeline widget">
+                          <li>
+                            <div class="block">
+                              <div class="block_content">
+                                <h2 class="title">
+                                                  <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                              </h2>
+                                <div class="byline">
+                                  <span>13 hours ago</span> by <a>Jane Smith</a>
+                                </div>
+                                <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                </p>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="block">
+                              <div class="block_content">
+                                <h2 class="title">
+                                                  <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                              </h2>
+                                <div class="byline">
+                                  <span>13 hours ago</span> by <a>Jane Smith</a>
+                                </div>
+                                <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                </p>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="block">
+                              <div class="block_content">
+                                <h2 class="title">
+                                                  <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                              </h2>
+                                <div class="byline">
+                                  <span>13 hours ago</span> by <a>Jane Smith</a>
+                                </div>
+                                <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                </p>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="block">
+                              <div class="block_content">
+                                <h2 class="title">
+                                                  <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                              </h2>
+                                <div class="byline">
+                                  <span>13 hours ago</span> by <a>Jane Smith</a>
+                                </div>
+                                <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                </p>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-9">
+                    <div class="x_panel">
+                      <div class="x_title">
+                        <h2>Crisis Report List <small>: Crisis</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                          </li>
+                          <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="#">Settings 1</a>
+                              </li>
+                              <li><a href="#">Settings 2</a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a class="close-link"><i class="fa fa-close"></i></a>
+                          </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                      </div>
+
+                      <div class="x_content">
+
+                        <div class="table-responsive">
+                          <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                              <tr class="headings">
+                                <th>
+                                  <div class="icheckbox_flat-green" style="position: relative;">
+                                      <input type="checkbox" id="check-all1" class="flat" style="position: absolute; opacity: 0;">
+                                      <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                  </div>
+                                </th>
+                                <th class="column-title">ID </th>
+                                <th class="column-title">Name </th>
+                                <th class="column-title">Description </th>
+                                <th class="column-title">Latitude </th>
+                                <th class="column-title">Longitude </th>
+                                <th class="column-title">DateTime </th>
+                                <th class="column-title no-link last"><span class="nobr">Action</span>
+                                </th>
+                                <th class="bulk-actions" colspan="7">
+                                  <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                </th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for allcrisis in getallcrisis %}
+                                  <tr class="even pointer">
+                                    <td class="a-center ">
+                                      <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                    </td>
+                                    <td class=" ">{{allcrisis.pk}}</td>
+                                    <td class=" ">{{allcrisis.Crisis.crisistypes.name}}</td>
+                                    <td class=" ">{{allcrisis.description}} <i class="success fa fa-long-arrow-up"></i></td>
+                                    <td class=" ">{{allcrisis.latitude}}</td>
+                                    <td class=" ">{{allcrisis.longitude}}</td>
+                                    <td class="a-right a-right ">{{allcrisis.datetime}}</td>
+
+                                    <td class=" last">
+                                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".view-crisis"
+                                              data-id={{allcrisis.pk}} data-des={{allcrisis.description}} data-lat={{allcrisis.latitude}}
+                                              data-long={{allcrisis.longitude}} data-datetime={{allcrisis.datetime}}>View</button>
+
+
+                                    </td>
+                                  </tr>
+                                {%endfor%}
+                            </tbody>
+                          </table>
+                        </div>
+
+
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                <div class="modal fade view-crisis" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">Crisis</h4>
+                            <h4 class="modal-title edit-id" id="myModalLabel2">data-id</h4>
+                        </div>
+                        <div class="modal-body edit-des">
+                          <h4>Crisis stuffs</h4>
+                          <p>edit-des</p>
+
+                        </div>
+                          <h4 class="modal-title edit-lat" > lat </h4>
+                          <h4 class="modal-title edit-long" > lat </h4>
+                          <h4 class="modal-title edit-datetime" > lat </h4>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="allocate-tab">
+
+
+
+                  <div class="row white">
+                      <div class="columns large-12">
+                          <form method="POST" id="crisis-form">
+                              {% csrf_token %}
+                                  <!--
+                                  <div class="fieldWrapper" id="the_crisis">
+                                      {{ form.analyst }}
+                                  </div>
+                                  -->
+
+
+                                <div class="col-sm-3" style="background-color:lavenderblush;">
+
+                                    <h1 class="modal-title" id="Crisis_Title">Assign Crisis Type</h1>
+
+                                    <!--
+                                    <div id="getcrisistype2" class="btn-group" data-toggle="buttons">
+                                      {% for getct in getCrisisTypeList %}
+                                        <label class="btn btn-info btn-x2" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                          <input type="radio" id="getcrisistype" name="getcrisistype" value={{getct.id}} data-parsley-multiple="getcrisistype"> &nbsp; {{getct.name}} &nbsp;
+                                        </label>
+                                        <br>
+
+                                       {%endfor%}
+                                    </div>
+                                    -->
+                                    <select class="form-control" id="getcrisistype" name="getcrisistype">
+                                      {% for getct in getCrisisTypeList %}
+                                        <option value = {{getct.id}}>{{getct.name}}</option>
+                                      {%endfor%}
+                                    </select>
+
+                                </div>
+
+                                <div class="col-sm-3" style="background-color:lavender;">
+
+                                    <h1 class="modal-title" id="Type_Title">Assign Type</h1>
+
+                                    <!--
+                                    <div id="gettype" class="btn-group" data-toggle="buttons">
+
+                                        <label class="btn btn-info btn-x2" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                          <input type="radio" id="gettype4" name="gettype" value={{'Clean-up'}} data-parsley-multiple="gettype"> &nbsp; Clean-up &nbsp;
+                                        </label>
+                                        <br>
+
+                                        <label class="btn btn-info btn-x2" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                          <input type="radio" id="gettype1" name="gettype" value={{'Ongoing'}} data-parsley-multiple="gettype"> &nbsp; Ongoing &nbsp;
+                                        </label>
+                                        <br>
+
+                                        <label class="btn btn-info btn-x2" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                          <input type="radio" id="gettype2" name="gettype" value={{'Resolved'}} data-parsley-multiple="gettype"> &nbsp; Resolved &nbsp;
+                                        </label>
+                                        <br>
+
+                                    </div>
+                                    -->
+                                    <select class="form-control" id="gettype" name="gettype">
+
+                                        <option value = {{'Clean-up'}}>Clean-up</option>
+                                        <option value = {{'Ongoing'}}>Ongoing</option>
+                                        <option value = {{'Resolved'}}>Resolved</option>
+
+                                    </select>
+
+                                </div>
+
+
+
+                                <div class="col-sm-6" style="background-color:lavenderblush;">
+
+                                    <h1 class="modal-title" id="Analyst_Title">Assign Analyst</h1>
+
+                                    <!--
+                                    <div id="getanalyst" name="getanalyst" class="radio" data-toggle="buttons">
+                                      {% for acc in getAccountList %}
+                                        <label class="btn btn-info btn-xl" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                          <input type="radio"  value={{acc.id}}> &nbsp; {{acc.login}} &nbsp;
+                                        </label>
+                                        <br>
+
+                                       {%endfor%}
+                                    </div>
+                                    -->
+
+                                    <select class="form-control" id="getanalyst" name="getanalyst">
+                                      {% for acc in getAccountList %}
+                                        <option value = {{acc.id}}>  {{acc.login}} </option>
+                                      {%endfor%}
+                                    </select>
+
+                                </div>
+
+
+                              <div id="results"></div> <!-- errors go here -->
+
+                              <br><br><br><br><br>
+                              <input type="submit" value="Submit" class="btn btn-round btn-success btn-lg">
+
+                              <!-- Notification button
+                              <button class="btn btn-default source" onclick="new PNotify({
+                                  title: 'Regular Success',
+                                  text: 'That thing that you were trying to do worked!',
+                                  type: 'success',
+                                  styling: 'bootstrap3'
+                              });">Success</button>
+                                -->
+                          </form>
+                      </div>
+                  </div>
+
+                  <!-- The feed -->
+                  <div class="row white">
+                      <div class="columns large-12">
+                          <ul id="cmoapp">
+                              {% for crisis in all_crisis %}
+                                  <li id='crisis-{{crisis.pk}}'>
+                                      <strong>{{ crisis.analyst }}</strong> -
+                                      <em>{{ crisis.crisistypes }}</em> -
+                                      <span>{{ crisis.type }}</span> -
+                                      <a id='delete-post-{{crisis.id}}'>delete me</a>
+                                  </li>
+                              {% endfor %}
+                          </ul>
+                      </div>
+                  </div>
+
+
+
+                        <div class="x_panel">
+                          <div class="x_title">
+                            <h2>Crisis Allocation List <small>: Crisis - Analyst</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                              </li>
+                              <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                  <li><a href="#">Settings 1</a>
+                                  </li>
+                                  <li><a href="#">Settings 2</a>
+                                  </li>
+                                </ul>
+                              </li>
+                              <li><a class="close-link"><i class="fa fa-close"></i></a>
+                              </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                          </div>
+
+                          <div class="x_content">
+
+                            <div class="table-responsive">
+                              <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                  <tr class="headings">
+                                    <th>
+                                      <div class="icheckbox_flat-green" style="position: relative;">
+                                          <input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;">
+                                          <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                      </div>
+                                    </th>
+                                    <th class="column-title">ID </th>
+                                    <th class="column-title">Type </th>
+                                    <th class="column-title">Analyst </th>
+                                    <th class="column-title no-link last"><span class="nobr">Action</span>
+                                    </th>
+                                    <th class="bulk-actions" colspan="7">
+                                      <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                    </th>
+                                  </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for allo in getCrisisList %}
+                                      <tr class="even pointer">
+                                        <td class="a-center ">
+                                          <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                        </td>
+                                        <td class=" ">{{allo.pk}}</td>
+                                        <td class=" ">{{allo.crisistypes.name}}</td>
+                                        <td class="a-right a-right ">{{allo.analyst}}</td>
+                                         <!-- Do not display this at the moment
+                                        <td class=" last"><a href={{allcrisis.pk}}>View</a>
+                                        -->
+
+                                        <td class=" last">
+                                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".view-allo"
+                                                  data-id={{allo.pk}} data-name={{allo.crisistypes.name}} data-ana={{allo.analyst}} >View</button>
+
+
+                                        </td>
+
+                                        </td>
+                                      </tr>
+                                    {%endfor%}
+                                </tbody>
+                              </table>
+                            </div>
+
+
+                          </div>
+                        </div>
+
+
+
+
+
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="map-tab">
+              <p> Insert map? </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
 
 
 {% endblock content %}
 
 {% block page_scripts %}
-     <script type="text/javascript">
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-    </script>
 
     <script>
-        $('.view-crisis').on('show.bs.modal', function(e) {
+        $('.view-allo').on('show.bs.modal', function(e) {
 
             var $modal = $(this),
                 crisisId = e.relatedTarget.dataset.id;
-                crisisDes = e.relatedTarget.dataset.des;
-                crisisLat = e.relatedTarget.dataset.lat;
-                crisisLong = e.relatedTarget.dataset.long;
-                crisisDatetime = e.relatedTarget.dataset.datetime;
+                crisisName = e.relatedTarget.dataset.name;
+                crisisAna = e.relatedTarget.dataset.ana;
 
                 $modal.find('.edit-id').html(crisisId);
-                $modal.find('.edit-des').html(crisisDes);
-                $modal.find('.edit-lat').html(crisisLat);
-                $modal.find('.edit-long').html(crisisLong);
-                $modal.find('.edit-datetime').html(crisisDatetime);
+                $modal.find('.edit-name').html(crisisName);
+                $modal.find('.edit-ana').html(crisisAna);
 
 
         })
+
+
     </script>
+
+    <script src="/static/js/operator.js"></script>
+
+
+    <!-- Ajax Theme Scripts -->
+<!--
+    <script src="/static/build/js/operator.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js"></script>
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.2.3/css/foundation.css">
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+
+-->
+
+
 {% endblock page_scripts %}

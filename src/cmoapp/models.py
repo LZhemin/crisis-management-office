@@ -40,11 +40,17 @@ class Crisis(models.Model):
     )
     type = models.CharField(max_length=20, choices=TYPES)
 
+    #class Meta:
+     #   ordering = ['analyst']
+
     def injuries(self):
         return self.efupdate_set.latest('datetime').totalDeaths
 
     def deaths(self):
         return self.efupdate_set.latest('datetime').totalInjured
+
+    #def __unicode__(self):
+    #    return self.analyst + ' - ' + self.crisistypes
 
 class CrisisReport(models.Model):
     #attributes
