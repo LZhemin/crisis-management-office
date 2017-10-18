@@ -11,11 +11,14 @@ def index(Request):
     #UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
     try:
         assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
+        crisis_reports = CrisisReport.objects.get(id=assigned_crisis.id)
+        location_list = Location.objects.filter(crisis_id=crisis_reports.id)
     except(KeyError, Crisis.DoesNotExist):
         context = { 'assigned_crisis': False }
     else:
         context = {
-            'assigned_crisis': assigned_crisis
+            'assigned_crisis': assigned_crisis,
+            'location_list':location_list
         }
     return render(Request, 'analyst/index.html',context)
 
