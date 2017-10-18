@@ -40,7 +40,7 @@
         var markers;
         {% if location_list %}
             {% for loc in location_list%}
-                {% ifequal loc.crisis_id assigned_crisis.id%}
+                {% if loc.crisis_id%}
                 var cent = new google.maps.LatLng({{loc.latitude}},{{loc.longitude}});
                 console.log({{ loc.radius }});
                 var radius = {{ loc.radius }};
@@ -54,7 +54,8 @@
                     center: cent,
                     radius: radius,//in metres (cannot use the loc, wierdly causes the radius to become super big
                 });
-                {% endifequal %}
+
+                {% endif %}
             {% endfor %}
         {% endif %}
     }
