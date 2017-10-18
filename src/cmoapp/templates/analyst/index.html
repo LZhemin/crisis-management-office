@@ -12,6 +12,8 @@
 {% endblock page_stylesheets %}
 
 {% block page_javascripts %}
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDacnVEtNIWnbMCw_QI94kynm0_ytIalQ&callback=initMap"
+  type="text/javascript"></script>
 <script type="text/javascript">
     {% if assigned_crisis %}
         //JSON Fucking up.
@@ -21,15 +23,45 @@
         var crisis = {{ False|jsonify }}
     {% endif %}
     $(document).ready(function(){
-        if(!crisis)
-        {
+        if(!crisis) {
             //reload page if no crisis every 5 seconds
             //window.setTimeout('location.reload(true);',5000);
         }
     });
+    {% for loc in location_list%}
+        console.log({{ loc.radius }});
+    {%endfor %}
+    function initMap(){
+        var map = new google.maps.Map(document.getElementById("map"),{
+            zoom: 12,
+          center: new google.maps.LatLng(1.3521, 103.8198),
+          mapTypeId: 'roadmap'
+        });
+        var markers;
+        {% if location_list %}
+            {% for loc in location_list%}
+                {% ifequal loc.crisis_id assigned_crisis.id%}
+                var cent = new google.maps.LatLng({{loc.latitude}},{{loc.longitude}});
+                console.log({{ loc.radius }});
+                var radius = {{ loc.radius }};
+                var crisisCircle = new google.maps.Circle({
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '#FF0000',
+                    fillOpacity: 0.35,
+                    map: map,
+                    center: cent,
+                    radius: radius,//in metres (cannot use the loc, wierdly causes the radius to become super big
+                });
+                {% endifequal %}
+            {% endfor %}
+        {% endif %}
+    }
 
     //Recommend using PNotify for notifications from EF or 911. looks good
 </script>
+
 {% endblock page_javascripts %}
 
 {% block content %}
@@ -158,8 +190,8 @@
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <div class="x_content">
-                    PLZ INSERT MAP KTHXBAI
+                <div id="map" class="x_content" style="height:600px;">
+
                 </div>
             </div>
         </div>
