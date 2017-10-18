@@ -40,11 +40,17 @@ class Crisis(models.Model):
     )
     type = models.CharField(max_length=20, choices=TYPES)
 
+    #class Meta:
+     #   ordering = ['analyst']
+
     def injuries(self):
         return self.efupdate_set.latest('datetime').totalDeaths
 
     def deaths(self):
         return self.efupdate_set.latest('datetime').totalInjured
+
+    #def __unicode__(self):
+    #    return self.analyst + ' - ' + self.crisistypes
 
 class CrisisReport(models.Model):
     #attributes
@@ -65,7 +71,7 @@ class Location(models.Model):
     crisis = models.ForeignKey(CrisisReport, on_delete=models.CASCADE)
 
     def __str__(self):
-        return 'ID: {}'.format(self.pk);
+        return 'ID: {} crisis: {}'.format(self.pk,self.crisis_id);
 
 #The response plan of the crsis.
 #The deployment id is the action plan id
