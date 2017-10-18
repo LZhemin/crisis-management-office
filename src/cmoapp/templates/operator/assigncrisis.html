@@ -129,6 +129,8 @@
 
  </div>
 -->
+<form id="test" method = "POST">
+    {% csrf_token %}
 <div class="right_col">
             <div class="container">
                 <div class="table-wrapper">
@@ -146,51 +148,68 @@
                     <table class="table table-striped table-hover table-bordered">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Name <i class="fa fa-sort"></i></th>
-                                <th>Description</th>
+                                <th>ReportID</td>
+                                <th>ReportDescription</th>
                                 <th>Latitude <i class="fa fa-sort"></i></th>
                                 <th>Longitude</th>
                                 <th>DateTime <i class="fa fa-sort"></i></th>
-                                <th>Actions</th>
                             </tr>
                         </thead>
                          <tbody>
                     {% for allcrisis in getallcrisis %}
                         <tr>
                             <td>{{allcrisis.pk}}</td>
-                            <td>{{allcrisis.Crisis.crisistypes.name}}</td>
                             <td>{{allcrisis.description}}</td>
-                            <td>{{allcrisis.latitude}}</td>
-                            <td>{{allcrisis.longitude}}</td>
+                            <td>{{getlocation.latitude}}</td>
+                            <td>{{getlocation.longitude}}</td>
                             <td>{{allcrisis.datetime}}</td>
-                            <td>
-                                <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                            </td>
                         </tr>
                        {%endfor%}
                     </tbody>
                     </table>
-                    <div class="clearfix">
-                        <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                        <ul class="pagination">
-                            <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                            <li class="page-item"><a href="#" class="page-link">1</a></li>
-                            <li class="page-item"><a href="#" class="page-link">2</a></li>
-                            <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                            <li class="page-item"><a href="#" class="page-link">4</a></li>
-                            <li class="page-item"><a href="#" class="page-link">5</a></li>
-                            <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
-                        </ul>
-                    </div>
+
                 </div>
             </div>
+
+    Select Analyst to attend to this case:
+       <select name = "analystselection">
+                     {% for allanalyst in getallanalyst %}
+                            <option value="{{allanalyst.id}}">{{allanalyst.login}}</option>
+                       {%endfor%}
+             </select>
+    <br/>
+    <br/>
+     Select Crisis type to attend to this case:
+       <select name = "crisistypeSelection">
+                     {% for crisistype in getallcrisistype %}
+                            <option value="{{crisistype.id}}">{{crisistype.name}}</option>
+                       {%endfor%}
+             </select>
+        <input type = "submit"/>
+       <div id="map" style="height: 400px;"></div>
 </div>
+
+
+</form>
 {% endblock content %}
 
 {% block page_scripts %}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmx9R5y25qpehDO_3D2x7UO1VOJ8LmvyM"></script>
+<script>
+        function InitializeMap() {
+           alert({{getlocation.latitude}} + "testing");
+            var currentloc = { lat: {{getlocation.latitude}}, lng: {{getlocation.longitude}}};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: currentloc
+            });
+            var marker = new google.maps.Marker({
+                position: currentloc,
+                map: map
+            });
+        }
+        window.onload = InitializeMap;
+</script>
      <script type="text/javascript">
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();

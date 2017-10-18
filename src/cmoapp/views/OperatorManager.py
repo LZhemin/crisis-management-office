@@ -103,9 +103,32 @@ def getCrisisAllocationList(Request):
                   )
 
 def viewCrisis(Request, pk):
-    #change = CrisisReport.objects.get(id=pk)
-    getallcrisis = CrisisReport.objects.all()
-    return render(Request, 'operator/assigncrisis.html', {'getallcrisis':getallcrisis})
+
+    if Request.method == 'POST':
+        selected_analyst = Request.POST.get("analystselection")
+
+        selected_crisistype = Request.POST.get("crisistypeSelection")
+        created_crisis = Crisis(analyst_id=selected_analyst, type = 'Ongoing')
+        created_crisis.save()
+        created_crisis.crisistypes.add(selected_crisistype)
+        #crisistypes = models.ManyToManyField(CrisisType)
+        #type = models.CharField(max_length=20, choices=TYPES)
+        #('Clean-up', 'Clean up'),
+        #('Ongoing', 'Ongoing'),
+        #('Resolved', 'Resolved')
+        #temp = CrisisReport.objects.filter(pk=pky)
+        #temp.Crisis = created_crisis.pk
+        CrisisReport.objects.filter(pk=pk).update(Crisis = created_crisis.pk)
+
+
+    getallcrisis = CrisisReport.objects.filter(pk=pk)
+    getlocation = Location.objects.first();
+    getallanalyst = Account.objects.filter(type='Analyst')
+    getallcrisistype = CrisisType.objects.all()
+    getallcrisiss = Crisis.objects.all()
+    return render(Request, 'operator/assigncrisis.html',
+                  {'getallcrisis': getallcrisis, 'getallanalyst': getallanalyst, 'getallcrisistype': getallcrisistype,
+                   'getallcrisiss': getallcrisiss, 'getlocation': getlocation})
 
 
 def allocateToExistingCrisis(request):
