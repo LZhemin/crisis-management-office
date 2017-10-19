@@ -62,8 +62,8 @@ class CrisisReport(models.Model):
     Crisis = models.ForeignKey(Crisis,null=True,blank=True,on_delete=models.CASCADE)
     CrisisType = models.ForeignKey(CrisisType,null=True,blank=True,on_delete=models.DO_NOTHING)
 
-    def __str__(self):
-        return '{} - {}'.format(self.pk,self.description);
+    #def __str__(self):
+        #return '{} - {}'.format(self.pk,self.description);
 
 #The response plan of the crsis.
 #The deployment id is the action plan id

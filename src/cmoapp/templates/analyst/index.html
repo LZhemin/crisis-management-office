@@ -28,9 +28,7 @@
             //window.setTimeout('location.reload(true);',5000);
         }
     });
-    {% for loc in location_list%}
-        console.log({{ loc.radius }});
-    {%endfor %}
+
     function initMap(){
         var map = new google.maps.Map(document.getElementById("map"),{
             zoom: 12,
@@ -38,12 +36,29 @@
           mapTypeId: 'roadmap'
         });
         var markers;
-        {% if location_list %}
-            {% for loc in location_list%}
-                {% if loc.crisis_id%}
-                var cent = new google.maps.LatLng({{loc.latitude}},{{loc.longitude}});
-                console.log({{ loc.radius }});
-                var radius = {{ loc.radius }};
+        var icon_loc = '../static/images/map/'
+        var icons = {
+            Terrorism: icon_loc + "Terrorism.png",
+            Bombing:icon_loc + "Bombing.png",
+            Riot: icon_loc + "Riot.png",
+            Fire: icon_loc + "Fire.png"
+        };
+
+        {% if crisis_reports %}
+            {% for crisis in crisis_reports%}
+
+                var cent = new google.maps.LatLng({{crisis.latitude}},{{crisis.longitude}});
+                var radius = {{ crisis.radius }};
+
+                var image = {
+                  url: icons['{{ crisis.CrisisType }}'],
+                  //size: new google.maps.Size(100, 100),
+                  // The origin for this image is (0, 0).
+                  origin: new google.maps.Point(0, 0),
+                  // The anchor with respect to the Lat and Long
+                  anchor: new google.maps.Point(20, 20)
+                };
+
                 var crisisCircle = new google.maps.Circle({
                     strokeColor: '#FF0000',
                     strokeOpacity: 0.8,
@@ -55,7 +70,12 @@
                     radius: radius,//in metres (cannot use the loc, wierdly causes the radius to become super big
                 });
 
-                {% endif %}
+                var marker = new google.maps.Marker({
+                    position: cent,
+                    icon: image,
+                    map:map
+                });
+
             {% endfor %}
         {% endif %}
     }
@@ -123,13 +143,10 @@
                         <li>
                             <div class="block">
                                 <div class="block_content">
-                                    <h2 class="title">I DON'T KNOW WHAT TO PUT IN TITLE SOMEONE HELP ME</h2>
+                                    <h2 class="title">{{ report.description }}</h2>
                                     <div class="byline">
                                         <span>{{ report.datetime }}</span>
                                     </div>
-                                    <p>
-                                        {{ report.description }}
-                                    </p>
                                 </div>
                             </div>
                         </li>
@@ -159,13 +176,10 @@
                         <li>
                             <div class="block">
                                 <div class="block_content">
-                                    <h2 class="title">I DON'T KNOW WHAT TO PUT IN TITLE SOMEONE HELP ME</h2>
+                                    <h2 class="title">{{ report.description }}</h2>
                                     <div class="byline">
                                         <span>{{ report.datetime }}</span>
                                     </div>
-                                    <p>
-                                        {{ report.description }}
-                                    </p>
                                 </div>
                             </div>
                         </li>

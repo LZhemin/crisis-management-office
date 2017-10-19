@@ -11,22 +11,21 @@ def index(Request):
     #UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
     try:
         assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
-        crisis_type = CrisisType.objects.filter(crisis=assigned_crisis.id)
-        crisis_reports = CrisisReport.objects.get(id=assigned_crisis.id)
-
+        crisis_reports = CrisisReport.objects.filter(Crisis_id=assigned_crisis.id).select_related('CrisisType')
     except(KeyError, Crisis.DoesNotExist):
         context = { 'assigned_crisis': False }
     else:
         context = {
             'assigned_crisis': assigned_crisis,
-            'crisis_reports':crisis_reports,
-            'crisis_type':crisis_type
+            'crisis_reports': crisis_reports
         }
     return render(Request, 'analyst/index.html',context)
 
 def historicalData(Request):
     return HttpResponse("HISTORICAL DATA")
 
+'''
+#need to slowly take out cause we remove the location need some time to see what to modify
 def addCrisisMarker(request, Crisis_id):
     latest_location_list = Location.objects.order_by('-crisis')[:5]
     # output = ', '.join([l.Location for l in latest_location_list])
@@ -99,10 +98,10 @@ def getCrisisMarker(request, Crisis_id):
 
     else:
         return HttpResponseRedirect(reverse('cmoapp:base_site', args=(Crisis_id,)))
-
+'''
 
 def submitActionPlan(request, Crisis_id):
-    latest_actionplan_list = Location.objects.order_by('-crisis')[:5]
+    latest_actionplan_list = ActionPlan.objects.order_by('-crisis')[:5]
     # output = ', '.join([l.Location for l in latest_location_list])
     context = {'latest_actionplan_list': latest_actionplan_list}
     try:
@@ -147,7 +146,7 @@ def getCrisis(request, analyst_id):
 
 
 def editActionPlan(Request, Crisis_id):
-    latest_actionplan_list = Location.objects.order_by('-crisis')[:5]
+    latest_actionplan_list = ActionPlan.objects.order_by('-crisis')[:5]
     # output = ', '.join([l.Location for l in latest_actionplan_list])
     context = {'latest_actionplan_list': latest_actionplan_list}
 
