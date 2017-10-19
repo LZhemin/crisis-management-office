@@ -32,7 +32,6 @@ class CrisisType(models.Model):
 class Crisis(models.Model):
     #analyst is FK to crisis. This enables analyst to be deleted once the crisis is resolved
     analyst = models.OneToOneField(Account,blank=True,null=True,limit_choices_to={'type':'Analyst'}, on_delete=models.SET_NULL)
-    crisistypes = models.ManyToManyField(CrisisType)
     TYPES = (
         ('Clean-up','Clean up'),
         ('Ongoing','Ongoing'),
@@ -56,22 +55,15 @@ class CrisisReport(models.Model):
     #attributes
     description = models.TextField()
     datetime = models.DateTimeField()
-
-    #Relations, can have no crisis assigned for the sake of testi
-    Crisis = models.ForeignKey(Crisis,null=True,blank=True,on_delete=models.CASCADE)
-
-    def __str__(self):
-        return '{} - {}'.format(self.pk,self.description);
-
-class Location(models.Model):
-    #Relations
     latitude = models.DecimalField(max_digits=12, decimal_places=8)
     longitude = models.DecimalField(max_digits=12, decimal_places=8)
     radius = models.IntegerField()
-    crisis = models.ForeignKey(CrisisReport, on_delete=models.CASCADE)
+    #Relations, can have no crisis assigned for the sake of testi
+    Crisis = models.ForeignKey(Crisis,null=True,blank=True,on_delete=models.CASCADE)
+    CrisisType = models.ForeignKey(CrisisType,null=True,blank=True,on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return 'ID: {} crisis: {}'.format(self.pk,self.crisis_id);
+        return '{} - {}'.format(self.pk,self.description);
 
 #The response plan of the crsis.
 #The deployment id is the action plan id
