@@ -1,0 +1,368 @@
+
+[
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$36000$rcpW6JiwmwAu$BO7sBMS7s4vjTSoLZ+ziKQNneflK0yKK//rwoMXhhjM=",
+        "last_login": "2017-10-14T17:19:47.298Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@hotmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2017-10-14T17:19:37.714Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "av0bwpfdj9x9ke7mhqzrj58ng8xbgybd",
+    "fields": {
+        "session_data": "MzYwMjU4MjQ4NzUxMzFhMGM0OTNkZWQ5NzkwNGE4OGNjM2Y1ZjQ4Yjp7Il9hdXRoX3VzZXJfaGFzaCI6IjAwN2IzMDhlZDg5NTkxOWIzYzMwNjBjNGM2Zjg1YTRiN2I3ODZiMzMiLCJfYXV0aF91c2VyX2lkIjoiMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=",
+        "expire_date": "2017-10-28T17:19:47.313Z"
+    }
+},
+{
+    "model": "sites.site",
+    "fields": {
+        "domain": "example.com",
+        "name": "example.com"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 1,
+    "fields": {
+        "login": "analyst1",
+        "password": "password",
+        "type": "Analyst"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 2,
+    "fields": {
+        "login": "analyst2",
+        "password": "password",
+        "type": "Analyst"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 3,
+    "fields": {
+        "login": "analyst3",
+        "password": "password",
+        "type": "Analyst"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 4,
+    "fields": {
+        "login": "analyst4",
+        "password": "password",
+        "type": "Analyst"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 5,
+    "fields": {
+        "login": "operator1",
+        "password": "password",
+        "type": "Operator"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 6,
+    "fields": {
+        "login": "operator2",
+        "password": "password",
+        "type": "Operator"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 7,
+    "fields": {
+        "login": "operator3",
+        "password": "password",
+        "type": "Operator"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 8,
+    "fields": {
+        "login": "operator4",
+        "password": "password",
+        "type": "Operator"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 9,
+    "fields": {
+        "login": "chief1",
+        "password": "password",
+        "type": "Chief"
+    }
+},
+{
+    "model": "cmoapp.crisistype",
+    "pk": 1,
+    "fields": {
+        "name": "Terrorism"
+    }
+},
+{
+    "model": "cmoapp.crisistype",
+    "pk": 2,
+    "fields": {
+        "name": "Bombing"
+    }
+},
+{
+    "model": "cmoapp.crisistype",
+    "pk": 3,
+    "fields": {
+        "name": "Riot"
+    }
+},
+{
+    "model": "cmoapp.crisistype",
+    "pk": 4,
+    "fields": {
+        "name": "Fire"
+    }
+},
+{
+    "model": "cmoapp.crisis",
+    "pk": 1,
+    "fields": {
+        "analyst": 1,
+        "type": "Ongoing"
+    }
+},
+{
+    "model": "cmoapp.crisis",
+    "pk": 2,
+    "fields": {
+        "analyst": 2,
+        "type": "Clean-up"
+    }
+},
+{
+    "model": "cmoapp.crisis",
+    "pk": 3,
+    "fields": {
+        "analyst": 3,
+        "type": "Resolved"
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 1,
+    "fields": {
+        "description": "Sengkang got fire! Its Hot!",
+        "datetime": "2017-10-05T17:43:07Z",
+        "latitude": "1.386456",
+        "longitude": "103.892056",
+        "radius": 300,
+        "Crisis": 1,
+        "CrisisType": 4
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 2,
+    "fields": {
+        "description": "Bombing incident at orchard",
+        "datetime": "2017-07-05T10:00:00Z",
+        "latitude": "1.303263",
+        "longitude": "103.834869",
+        "radius": 1000,
+        "Crisis": 2,
+        "CrisisType": 2
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 3,
+    "fields": {
+        "description": "Gang fight in a public area by students (Where else can it be! Teck Whye Sec)",
+        "datetime": "2017-06-06T04:00:00Z",
+        "latitude": "1.383187",
+        "longitude": "103.755097",
+        "radius": 700,
+        "Crisis": null,
+        "CrisisType": 3
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 1,
+    "fields": {
+        "description": "EF is to deploy the Police Forces, SCDF to assess the initial situation, Police Forces are to cordon the area, and ensure that the public is kept out of harm's way. SAF is to be deployed if Police Forces unable to neutralise the situation within 2h, of deployment.",
+        "COApproval": false,
+        "PMOApproval": false,
+        "ResolutionTime": "00:00:04",
+        "ProjectedCasualties": "25.00",
+        "type": "Combat",
+        "crisis": 1
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 2,
+    "fields": {
+        "description": "All the forces has to gather and guard an area within 1 hr of deployment",
+        "COApproval": false,
+        "PMOApproval": false,
+        "ResolutionTime": "00:00:01",
+        "ProjectedCasualties": "5.00",
+        "type": "Clean-up",
+        "crisis": 2
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 3,
+    "fields": {
+        "description": "Police fore are to deploy and patrol in a shopping mall within 2 h of deployment",
+        "COApproval": false,
+        "PMOApproval": false,
+        "ResolutionTime": "00:00:02",
+        "ProjectedCasualties": "30.00",
+        "type": "Combat",
+        "crisis": 3
+    }
+},
+{
+    "model": "cmoapp.force",
+    "pk": "Police Force",
+    "fields": {
+        "currentUtilisation": null
+    }
+},
+{
+    "model": "cmoapp.force",
+    "pk": "SAF",
+    "fields": {
+        "currentUtilisation": null
+    }
+},
+{
+    "model": "cmoapp.force",
+    "pk": "SDF",
+    "fields": {
+        "currentUtilisation": null
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 1,
+    "fields": {
+        "name": "SAF",
+        "recommended": "10.00",
+        "max": "0.00",
+        "ActionPlan": 1
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 2,
+    "fields": {
+        "name": "SDF",
+        "recommended": "5.00",
+        "max": "0.00",
+        "ActionPlan": 2
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 3,
+    "fields": {
+        "name": "Police Force",
+        "recommended": "5.00",
+        "max": "0.00",
+        "ActionPlan": 3
+    }
+},
+{
+    "model": "cmoapp.efupdate",
+    "pk": 1,
+    "fields": {
+        "datetime": "2017-09-27T20:00:00Z",
+        "affectedRadius": "5.00",
+        "totalInjured": 5,
+        "totalDeaths": 10,
+        "duration": "00:01:00",
+        "ActionPlan": 1,
+        "Crisis": 1,
+        "description": "",
+        "type": "Combat"
+    }
+},
+{
+    "model": "cmoapp.efupdate",
+    "pk": 2,
+    "fields": {
+        "datetime": "2017-09-12T18:00:00Z",
+        "affectedRadius": "10.00",
+        "totalInjured": 20,
+        "totalDeaths": 10,
+        "duration": "00:02:00",
+        "ActionPlan": 2,
+        "Crisis": 2,
+        "description": "",
+        "type": "Clean-up"
+    }
+},
+{
+    "model": "cmoapp.efupdate",
+    "pk": 3,
+    "fields": {
+        "datetime": "2017-09-22T22:16:10Z",
+        "affectedRadius": "10.00",
+        "totalInjured": 30,
+        "totalDeaths": 0,
+        "duration": "00:01:00",
+        "ActionPlan": 3,
+        "Crisis": 3,
+        "description": "",
+        "type": "Combat"
+    }
+},
+{
+    "model": "cmoapp.forceutilization",
+    "pk": 1,
+    "fields": {
+        "name": "SAF",
+        "utilization": "5.00",
+        "update": 1
+    }
+},
+{
+    "model": "cmoapp.forceutilization",
+    "pk": 2,
+    "fields": {
+        "name": "SDF",
+        "utilization": "2.00",
+        "update": 2
+    }
+},
+{
+    "model": "cmoapp.forceutilization",
+    "pk": 3,
+    "fields": {
+        "name": "Police Force",
+        "utilization": "5.00",
+        "update": 3
+    }
+}]
