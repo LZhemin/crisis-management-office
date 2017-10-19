@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate
+from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, Location, ActionPlan, Force, ForceDeployment, EFUpdate
 
 #Kindly help to remove unwanted modules
 
@@ -13,13 +13,13 @@ def index(Request):
         assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
         crisis_type = CrisisType.objects.filter(crisis=assigned_crisis.id)
         crisis_reports = CrisisReport.objects.get(id=assigned_crisis.id)
-
+        location_list = Location.objects.filter(crisis_id=crisis_reports.id)
     except(KeyError, Crisis.DoesNotExist):
         context = { 'assigned_crisis': False }
     else:
         context = {
             'assigned_crisis': assigned_crisis,
-            'crisis_reports':crisis_reports,
+            'location_list':location_list,
             'crisis_type':crisis_type
         }
     return render(Request, 'analyst/index.html',context)
