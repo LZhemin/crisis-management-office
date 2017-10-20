@@ -24,6 +24,7 @@
         var crisis = {{ False|jsonify }}
     {% endif %}
     $(document).ready(function(){
+        $('.ui-pnotify').remove();
         if(!crisis) {
             //reload page if no crisis every 5 seconds
             //window.setTimeout('location.reload(true);',5000);
@@ -81,9 +82,6 @@
                     else
                         $('#{{ crisis.id }}').addClass("bg-primary").parent().siblings().children().removeClass("bg-primary");
 
-                    setTimeout(function(){
-                        $('#{{ crisis.id }}').removeClass("bg-primary");
-                    },10000);
                     new PNotify({
                         title: 'Crisis Report Selected',
                         text: 'Check the 911 Reports for more Info!',
