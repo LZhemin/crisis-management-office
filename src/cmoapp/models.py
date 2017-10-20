@@ -71,16 +71,16 @@ class ActionPlan(models.Model):
     #attributes
     description = models.TextField(null=True,blank=True)
     STATUS= {
-        'Planning',
-        'Awaitng CO Approval',
-        'Awaiting PMO Approval',
-        'Rejected',
-        'Approved'
+        ('Planning','Planning'),
+        ('Awaitng CO Approval','Awaiting CO Approval'),
+        ('Awaiting PMO Approval','Awaiting PMO Approval'),
+        ('Rejected','Rejected'),
+        ('Approved','Approved')
     }
     status = models.CharField(null=True,blank=True,max_length=20, choices=STATUS)
-    COApproval = models.BooleanField(null=True,blank=True)
+    COApproval = models.NullBooleanField()
     COComments = models.TextField(null=True, blank=True)
-    PMOApproval = models.BooleanField(null=True,blank=True)
+    PMOApproval = models.NullBooleanField()
     PMOComments = models.TextField(null=True, blank=True)
     resolutionTime = models.DurationField(null=True,blank=True)
     projectedCasualties = models.DecimalField(null=True,blank=True,max_digits=5, decimal_places=2)
