@@ -1,0 +1,89 @@
+{% extends 'analyst/base_site.html' %}
+{% load custom_tags %}
+
+{% block page_stylesheets %}
+<style text="text/css">
+    /* plz determine if should go into our own css or if remain separate */
+    .panel_toolbox
+    {
+        min-width: 24px;
+    }
+</style>
+{% endblock page_stylesheets %}
+
+{% block page_javascripts %}
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDacnVEtNIWnbMCw_QI94kynm0_ytIalQ&callback=initMap" type="text/javascript"></script>
+<script type="text/javascript">
+    {% if assigned_crisis %}
+        //JSON Fucking up.
+        var crisis = {{ True|jsonify }}
+    {% else %}
+        //JSON Fucking up.
+        var crisis = {{ False|jsonify }}
+    {% endif %}
+    $(document).ready(function(){
+        if(!crisis) {
+            //reload page if no crisis every 5 seconds
+            //window.setTimeout('location.reload(true);',5000);
+        }
+    });
+
+    function initMap(){
+        var map = new google.maps.Map(document.getElementById("map"),{
+            zoom: 12,
+          center: new google.maps.LatLng(1.3521, 103.8198),
+          mapTypeId: 'roadmap'
+        });
+        var markers;
+        var icon_loc = '../static/images/map/'
+        var icons = {
+            Terrorism: icon_loc + "Terrorism.png",
+            Bombing:icon_loc + "Bombing.png",
+            Riot: icon_loc + "Riot.png",
+            Fire: icon_loc + "Fire.png"
+        };
+
+        {% if crisis_reports %}
+            {% for crisis in crisis_reports%}
+                var cent = new google.maps.LatLng({{crisis.latitude}},{{crisis.longitude}});
+                var radius = {{ crisis.radius }};
+
+                var image = {
+                  url: icons['{{ crisis.CrisisType }}'],
+                  //size: new google.maps.Size(100, 100),
+                  // The origin for this image is (0, 0).
+                  origin: new google.maps.Point(0, 0),
+                  // The anchor with respect to the Lat and Long
+                  anchor: new google.maps.Point(20, 20)
+                };
+
+                var crisisCircle = new google.maps.Circle({
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '#FF0000',
+                    fillOpacity: 0.35,
+                    map: map,
+                    center: cent,
+                    radius: radius,//in metres (cannot use the loc, wierdly causes the radius to become super big
+                });
+
+                var marker = new google.maps.Marker({
+                    position: cent,
+                    icon: image,
+                    map:map
+                });
+
+            {% endfor %}
+        {% endif %}
+    }
+
+    //Recommend using PNotify for notifications from EF or 911. looks good
+    </script>
+{% endblock page_javascripts %}
+
+{% block content %}
+
+<div id="map" style="height: 800px; width: 70%"></div>
+
+{% endblock content %}

@@ -7,7 +7,7 @@ from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan,
 
 
 def index(Request):
-    return render(Request, 'chief/base_site.html')
+    return render(Request, 'chief/index.html')
 
 def sendDeployment(request, CrisisID):
     latest_actionplan_list = ActionPlan.objects.order_by('-crisis')[:5]
