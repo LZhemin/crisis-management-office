@@ -28,7 +28,6 @@
             //window.setTimeout('location.reload(true);',5000);
         }
     });
-
     function initMap(){
         var map = new google.maps.Map(document.getElementById("map"),{
             zoom: 12,
@@ -51,7 +50,7 @@
                 var radius = {{ crisis.radius }};
 
                 var image = {
-                  url: icons['{{ crisis.CrisisType }}'],
+                  url: icons['{{ crisis.crisisType }}'],
                   //size: new google.maps.Size(100, 100),
                   // The origin for this image is (0, 0).
                   origin: new google.maps.Point(0, 0),
@@ -75,7 +74,22 @@
                     icon: image,
                     map:map
                 });
+                marker.addListener('click', function() {
+                    if($('#{{ crisis.id }}').hasClass("bg-primary"))
+                        $('#{{ crisis.id }}').removeClass("bg-primary");
+                    else
+                        $('#{{ crisis.id }}').addClass("bg-primary").parent().siblings().children().removeClass("bg-primary");
 
+                    setTimeout(function(){
+                        $('#{{ crisis.id }}').removeClass("bg-primary");
+                    },10000);
+                    new PNotify({
+                        title: 'Crisis Report Selected',
+                        text: 'Check the 911 Reports for more Info!',
+                        type: 'info',
+                        styling: 'bootstrap3'
+                    });
+                });
             {% endfor %}
         {% endif %}
     }
@@ -141,7 +155,7 @@
                     <ul class="list-unstyled timeline widget">
                         {% for report in assigned_crisis.crisisreport_set.all %}
                         <li>
-                            <div class="block">
+                            <div id="{{ report.id }}" class="block">
                                 <div class="block_content">
                                     <h2 class="title">{{ report.description }}</h2>
                                     <div class="byline">

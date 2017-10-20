@@ -11,7 +11,7 @@ def index(Request):
     #UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
     try:
         assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
-        crisis_reports = CrisisReport.objects.filter(Crisis_id=assigned_crisis.id).select_related('CrisisType')
+        crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
     except(KeyError, Crisis.DoesNotExist):
         context = { 'assigned_crisis': False }
     else:
