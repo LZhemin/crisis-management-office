@@ -59,8 +59,8 @@ class CrisisReport(models.Model):
     longitude = models.DecimalField(max_digits=12, decimal_places=8)
     radius = models.IntegerField()
     #Relations, can have no crisis assigned for the sake of testi
-    Crisis = models.ForeignKey(Crisis,null=True,blank=True,on_delete=models.CASCADE)
-    CrisisType = models.ForeignKey(CrisisType,null=True,blank=True,on_delete=models.DO_NOTHING)
+    crisis = models.ForeignKey(Crisis,null=True,blank=True,on_delete=models.CASCADE)
+    crisisType = models.ForeignKey(CrisisType,null=True,blank=True,on_delete=models.DO_NOTHING)
 
     #def __str__(self):
         #return '{} - {}'.format(self.pk,self.description);
@@ -69,17 +69,27 @@ class CrisisReport(models.Model):
 #The deployment id is the action plan id
 class ActionPlan(models.Model):
     #attributes
-    description = models.TextField()
-    COApproval = models.BooleanField()
-    PMOApproval = models.BooleanField()
-    ResolutionTime = models.DurationField()
-    ProjectedCasualties = models.DecimalField(max_digits=5, decimal_places=2)
+    description = models.TextField(null=True,blank=True)
+    STATUS= {
+        'Planning',
+        'Awaitng CO Approval',
+        'Awaiting PMO Approval',
+        'Rejected',
+        'Approved'
+    }
+    status = models.CharField(null=True,blank=True,max_length=20, choices=STATUS)
+    COApproval = models.BooleanField(null=True,blank=True)
+    COComments = models.TextField(null=True, blank=True)
+    PMOApproval = models.BooleanField(null=True,blank=True)
+    PMOComments = models.TextField(null=True, blank=True)
+    resolutionTime = models.DurationField(null=True,blank=True)
+    projectedCasualties = models.DecimalField(null=True,blank=True,max_digits=5, decimal_places=2)
     #Relations
     TYPES = (
         ('Clean-up','Clean up'),
         ('Combat','Combat')
     )
-    type = models.CharField(max_length=20, choices=TYPES)
+    type = models.CharField(null=True,blank=True,max_length=20, choices=TYPES)
     crisis = models.ForeignKey(Crisis, on_delete= models.CASCADE)
 
     def __str__(self):
@@ -97,7 +107,7 @@ class ForceDeployment(models.Model):
     name = models.ForeignKey(Force, on_delete= models.PROTECT)
     recommended = models.DecimalField(max_digits=5, decimal_places=2)
     max = models.DecimalField(max_digits=5, decimal_places=2)
-    ActionPlan =  models.ForeignKey(ActionPlan, on_delete= models.CASCADE)
+    actionPlan =  models.ForeignKey(ActionPlan, on_delete= models.CASCADE)
     def __str__(self):
         return 'ID: {} Name: {}'.format(self.pk,self.name);
 
@@ -108,9 +118,9 @@ class EFUpdate(models.Model):
     totalInjured = models.IntegerField()
     totalDeaths = models.IntegerField()
     duration =  models.DurationField()
-    ActionPlan = models.ForeignKey(ActionPlan,null=True,on_delete = models.SET_NULL)
+    actionPlan = models.ForeignKey(ActionPlan,null=True,on_delete = models.SET_NULL)
     #i leave this here in case the action plan can be deleted. we can thus still have a reference back to cris
-    Crisis = models.ForeignKey(Crisis, on_delete =  models.CASCADE)
+    crisis = models.ForeignKey(Crisis, on_delete =  models.CASCADE)
     description = models.TextField()
     TYPES = (
         ('Clean-up','Clean up'),
