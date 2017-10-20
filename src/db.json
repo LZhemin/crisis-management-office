@@ -173,8 +173,8 @@
         "latitude": "1.38645600",
         "longitude": "103.89205600",
         "radius": 300,
-        "Crisis": 2,
-        "CrisisType": 3
+        "crisis": null,
+        "crisisType": 2
     }
 },
 {
@@ -186,8 +186,8 @@
         "latitude": "1.30326300",
         "longitude": "103.83486900",
         "radius": 1000,
-        "Crisis": 2,
-        "CrisisType": 1
+        "crisis": 2,
+        "crisisType": 1
     }
 },
 {
@@ -199,8 +199,8 @@
         "latitude": "1.38318700",
         "longitude": "103.75509700",
         "radius": 700,
-        "Crisis": null,
-        "CrisisType": 3
+        "crisis": 2,
+        "crisisType": 2
     }
 },
 {
@@ -208,10 +208,13 @@
     "pk": 1,
     "fields": {
         "description": "EF is to deploy the Police Forces, SCDF to assess the initial situation, Police Forces are to cordon the area, and ensure that the public is kept out of harm's way. SAF is to be deployed if Police Forces unable to neutralise the situation within 2h, of deployment.",
+        "status": null,
         "COApproval": false,
+        "COComments": null,
         "PMOApproval": false,
-        "ResolutionTime": "00:00:04",
-        "ProjectedCasualties": "25.00",
+        "PMOComments": null,
+        "resolutionTime": null,
+        "projectedCasualties": null,
         "type": "Combat",
         "crisis": 1
     }
@@ -221,10 +224,13 @@
     "pk": 2,
     "fields": {
         "description": "All the forces has to gather and guard an area within 1 hr of deployment",
+        "status": null,
         "COApproval": false,
+        "COComments": null,
         "PMOApproval": false,
-        "ResolutionTime": "00:00:01",
-        "ProjectedCasualties": "5.00",
+        "PMOComments": null,
+        "resolutionTime": null,
+        "projectedCasualties": null,
         "type": "Clean-up",
         "crisis": 2
     }
@@ -234,10 +240,13 @@
     "pk": 3,
     "fields": {
         "description": "Police fore are to deploy and patrol in a shopping mall within 2 h of deployment",
+        "status": null,
         "COApproval": false,
+        "COComments": null,
         "PMOApproval": false,
-        "ResolutionTime": "00:00:02",
-        "ProjectedCasualties": "30.00",
+        "PMOComments": null,
+        "resolutionTime": null,
+        "projectedCasualties": null,
         "type": "Combat",
         "crisis": 3
     }
@@ -270,7 +279,7 @@
         "name": "SAF",
         "recommended": "10.00",
         "max": "0.00",
-        "ActionPlan": 1
+        "actionPlan": 1
     }
 },
 {
@@ -280,7 +289,7 @@
         "name": "SDF",
         "recommended": "5.00",
         "max": "0.00",
-        "ActionPlan": 2
+        "actionPlan": 2
     }
 },
 {
@@ -290,7 +299,7 @@
         "name": "Police Force",
         "recommended": "5.00",
         "max": "0.00",
-        "ActionPlan": 3
+        "actionPlan": 3
     }
 },
 {
@@ -302,8 +311,8 @@
         "totalInjured": 5,
         "totalDeaths": 10,
         "duration": "00:01:00",
-        "ActionPlan": 1,
-        "Crisis": 1,
+        "actionPlan": 1,
+        "crisis": 1,
         "description": "",
         "type": "Combat"
     }
@@ -317,8 +326,8 @@
         "totalInjured": 20,
         "totalDeaths": 10,
         "duration": "00:02:00",
-        "ActionPlan": 2,
-        "Crisis": 2,
+        "actionPlan": 2,
+        "crisis": 2,
         "description": "WOW Fighting Force doing good job! Dont Worry! ;)",
         "type": "Clean-up"
     }
@@ -332,8 +341,8 @@
         "totalInjured": 30,
         "totalDeaths": 0,
         "duration": "00:01:00",
-        "ActionPlan": 3,
-        "Crisis": 3,
+        "actionPlan": 3,
+        "crisis": 3,
         "description": "",
         "type": "Combat"
     }

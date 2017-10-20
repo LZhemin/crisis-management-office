@@ -58,7 +58,7 @@ class CrisisReport(models.Model):
     latitude = models.DecimalField(max_digits=12, decimal_places=8)
     longitude = models.DecimalField(max_digits=12, decimal_places=8)
     radius = models.IntegerField()
-    #Relations, can have no crisis assigned for the sake of testi
+    #Relations, can have no crisis assigned for the sake of testing
     crisis = models.ForeignKey(Crisis,null=True,blank=True,on_delete=models.CASCADE)
     crisisType = models.ForeignKey(CrisisType,null=True,blank=True,on_delete=models.DO_NOTHING)
 
