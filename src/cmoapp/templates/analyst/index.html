@@ -77,17 +77,25 @@
                     map:map
                 });
                 marker.addListener('click', function() {
-                    if($('#{{ crisis.id }}').hasClass("bg-primary"))
+                    if($('#{{ crisis.id }}').hasClass("bg-primary")){
                         $('#{{ crisis.id }}').removeClass("bg-primary");
-                    else
-                        $('#{{ crisis.id }}').addClass("bg-primary").parent().siblings().children().removeClass("bg-primary");
+                        new PNotify({
+                        title: 'Crisis Report Deselected',
+                        type: 'warning',
+                        styling: 'bootstrap3'
+                        });
+                    }
 
-                    new PNotify({
+                    else{
+                        $('#{{ crisis.id }}').addClass("bg-primary").parent().siblings().children().removeClass("bg-primary");
+                        new PNotify({
                         title: 'Crisis Report Selected',
                         text: 'Check the 911 Reports for more Info!',
-                        type: 'info',
+                        type: 'success',
                         styling: 'bootstrap3'
-                    });
+                        });
+
+                    }
                 });
             {% endfor %}
         {% endif %}
