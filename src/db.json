@@ -174,7 +174,7 @@
         "longitude": "103.89205600",
         "radius": 300,
         "Crisis": 2,
-        "CrisisType": 4
+        "CrisisType": 3
     }
 },
 {
@@ -187,7 +187,7 @@
         "longitude": "103.83486900",
         "radius": 1000,
         "Crisis": 2,
-        "CrisisType": 2
+        "CrisisType": 1
     }
 },
 {
