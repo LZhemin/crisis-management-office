@@ -45,6 +45,38 @@ def index(Request):
                 )
 
 
+
+def viewCrisis(Request, pk):
+
+    if Request.method == 'POST':
+        selected_analyst = Request.POST.get("analystselection")
+
+        selected_crisistype = Request.POST.getlist("crisistypeT")
+        created_crisis = Crisis(analyst_id=selected_analyst, type = 'Ongoing')
+        created_crisis.save()
+        for s in selected_crisistype:
+            created_crisis.crisistypes.add(s)
+
+        #crisistypes = models.ManyToManyField(CrisisType)
+        #type = models.CharField(max_length=20, choices=TYPES)
+        #('Clean-up', 'Clean up'),
+        #('Ongoing', 'Ongoing'),
+        #('Resolved', 'Resolved')
+        #temp = CrisisReport.objects.filter(pk=pky)
+        #temp.Crisis = created_crisis.pk
+        CrisisReport.objects.filter(pk=pk).update(Crisis = created_crisis.pk)
+
+
+    getallcrisis = CrisisReport.objects.filter(pk=pk)
+    getlocation = Location.objects.first()
+    getallanalyst = Account.objects.filter(type='Analyst')
+    getallcrisistype = CrisisType.objects.all()
+    getallcrisiss = Crisis.objects.all()
+    return render(Request, 'operator/assigncrisis.html',
+                  {'getallcrisis': getallcrisis, 'getallanalyst': getallanalyst, 'getallcrisistype': getallcrisistype,
+                   'getallcrisiss': getallcrisiss, 'getlocation': getlocation})
+
+
 def create_crisis(request):
     if request.method == 'POST':
 
@@ -102,33 +134,6 @@ def getCrisisAllocationList(Request):
                   {'error_message': "You didn't select a Crisis."}
                   )
 
-def viewCrisis(Request, pk):
-
-    if Request.method == 'POST':
-        selected_analyst = Request.POST.get("analystselection")
-
-        selected_crisistype = Request.POST.get("crisistypeSelection")
-        created_crisis = Crisis(analyst_id=selected_analyst, type = 'Ongoing')
-        created_crisis.save()
-        created_crisis.crisistypes.add(selected_crisistype)
-        #crisistypes = models.ManyToManyField(CrisisType)
-        #type = models.CharField(max_length=20, choices=TYPES)
-        #('Clean-up', 'Clean up'),
-        #('Ongoing', 'Ongoing'),
-        #('Resolved', 'Resolved')
-        #temp = CrisisReport.objects.filter(pk=pky)
-        #temp.Crisis = created_crisis.pk
-        CrisisReport.objects.filter(pk=pk).update(Crisis = created_crisis.pk)
-
-
-    getallcrisis = CrisisReport.objects.filter(pk=pk)
-    getlocation = Location.objects.first();
-    getallanalyst = Account.objects.filter(type='Analyst')
-    getallcrisistype = CrisisType.objects.all()
-    getallcrisiss = Crisis.objects.all()
-    return render(Request, 'operator/assigncrisis.html',
-                  {'getallcrisis': getallcrisis, 'getallanalyst': getallanalyst, 'getallcrisistype': getallcrisistype,
-                   'getallcrisiss': getallcrisiss, 'getlocation': getlocation})
 
 
 def allocateToExistingCrisis(request):

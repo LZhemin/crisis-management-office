@@ -129,8 +129,8 @@
 
  </div>
 -->
-<form id="test" method = "POST">
-    {% csrf_token %}
+
+
 <div class="right_col">
             <div class="container">
                 <div class="table-wrapper">
@@ -170,7 +170,8 @@
 
                 </div>
             </div>
-
+<form id="test" method = "POST" class = "parsley-errors-list filled">
+       {% csrf_token %}
     Select Analyst to attend to this case:
        <select name = "analystselection">
                      {% for allanalyst in getallanalyst %}
@@ -180,17 +181,20 @@
     <br/>
     <br/>
      Select Crisis type to attend to this case:
-       <select name = "crisistypeSelection">
+        <br/>
+
                      {% for crisistype in getallcrisistype %}
-                            <option value="{{crisistype.id}}">{{crisistype.name}}</option>
-                       {%endfor%}
-             </select>
-        <input type = "submit"/>
+                <input type="checkbox" name="crisistypeT" value="{{crisistype.id}}">{{crisistype.name}}<br>
+                    {%endfor%}
+    <br/>
+    <input type = "submit"/>
+</form>
+
        <div id="map" style="height: 400px;"></div>
 </div>
 
 
-</form>
+
 {% endblock content %}
 
 {% block page_scripts %}
@@ -208,8 +212,10 @@
                 map: map
             });
         }
-        window.onload = InitializeMap;
+
+            window.onload = InitializeMap;
 </script>
+
      <script type="text/javascript">
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
