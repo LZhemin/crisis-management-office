@@ -8,23 +8,29 @@ from django.forms.models import model_to_dict
 import json
 #Kindly help to remove unwanted modules
 
-def index(Request):
-
+def sharedindex():
+    getunassignedCrisis = CrisisReport.objects.filter(crisis__isnull=True).order_by('datetime')
     getCrisisList = Crisis.objects.all
     getCrisisTypeList = CrisisType.objects.all
     getCrisisReportList = CrisisReport.objects.all
-    getAccountList = Account.objects.filter(type='Analyst')
 
+    getanalystacc = Crisis.objects.all().values_list('analyst_id', flat=True)
+    getAccountList = Account.objects.exclude(pk__in=getanalystacc).filter(type="Analyst")
+    #getAccountList = Account.objects.filter(type='Analyst')
 
     context = {'getCrisisList': getCrisisList,
                'getCrisisTypeList': getCrisisTypeList,
                'getCrisisReportList': getCrisisReportList,
                'getAccountList': getAccountList,
-
+                'getunassignedCrisis': getunassignedCrisis,
                'all_crisis': Crisis.objects.reverse(),
                'form': CrisisForm()
-
                }
+    return context
+
+def index(Request):
+
+    context = sharedindex();
     return render(Request, 'operator/index.html',
                 context,
                 {'error_message': "You didn't select a Crisis."}
@@ -32,34 +38,38 @@ def index(Request):
 
 
 
-def viewCrisis(Request, pk):
-
+def assignnewCrisis(Request, pk):
     if Request.method == 'POST':
         selected_analyst = Request.POST.get("analystselection")
-
-        selected_crisistype = Request.POST.getlist("crisistypeT")
-        created_crisis = Crisis(analyst_id=selected_analyst, status = 'Ongoing')
+        # hiddenid = Request.POST.get("hiddenid")
+        # selected_crisistype = Request.POST.getlist("crisistypeT")
+        selected_crisistype = Request.POST.get("crisistypeT")
+        created_crisis = Crisis(analyst_id=selected_analyst, status='Ongoing')
         created_crisis.save()
-        #for s in selected_crisistype:
+
+        # for s in selected_crisistype:
         #    created_crisis.crisistypes.add(s)
 
-        #crisistypes = models.ManyToManyField(CrisisType)
-        #type = models.CharField(max_length=20, choices=TYPES)
-        #('Clean-up', 'Clean up'),
-        #('Ongoing', 'Ongoing'),
-        #('Resolved', 'Resolved')
-        #temp = CrisisReport.objects.filter(pk=pky)
-        #temp.Crisis = created_crisis.pk
-        CrisisReport.objects.filter(pk=pk).update(Crisis = created_crisis.pk)
-
+        # crisistypes = models.ManyToManyField(CrisisType)
+        # type = models.CharField(max_length=20, choices=TYPES)
+        # ('Clean-up', 'Clean up'),
+        # ('Ongoing', 'Ongoing'),
+        # ('Resolved', 'Resolved')
+        # temp = CrisisReport.objects.filter(pk=pky)
+        # temp.Crisis = created_crisis.pk
+        CrisisReport.objects.filter(pk=pk).update(crisis=created_crisis.pk, crisisType=selected_crisistype)
+        context = sharedindex();
+        return HttpResponseRedirect(reverse('Operator_Index'))
 
     getallcrisis = CrisisReport.objects.filter(pk=pk)
-    getallanalyst = Account.objects.filter(type='Analyst')
+    getanalystacc = Crisis.objects.all().values_list('analyst_id', flat=True)
+    getallanalyst = Account.objects.exclude(pk__in = getanalystacc).filter(type = "Analyst")
+
     getallcrisistype = CrisisType.objects.all()
-    getallcrisiss = Crisis.objects.all()
+
     return render(Request, 'operator/assigncrisis.html',
                   {'getallcrisis': getallcrisis, 'getallanalyst': getallanalyst, 'getallcrisistype': getallcrisistype,
-                   'getallcrisiss': getallcrisiss})
+                   })
 
 
 def create_crisis(request):

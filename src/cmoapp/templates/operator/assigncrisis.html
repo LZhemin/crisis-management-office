@@ -205,8 +205,9 @@
 
         </div>
 
-        <form id="test" method = "POST" class = "parsley-errors-list filled">
+        <form id="test" method = "POST">
            {% csrf_token %}
+
             Select Analyst to attend to this case:
            <select name = "analystselection">
                          {% for allanalyst in getallanalyst %}
@@ -218,10 +219,11 @@
              Select Crisis type to attend to this case:
             <br/>
                  {% for crisistype in getallcrisistype %}
-                     <input type="checkbox" name="crisistypeT" value="{{crisistype.id}}">{{crisistype.name}}<br>
-                {%endfor%}
+                     <input type="radio" name="crisistypeT" value="{{crisistype.id}}" checked="checked"> {{crisistype.name}}<br>
+                           <input id="hiddenid" name="hiddenid" type="hidden" value="{{crisistype.id}}">
+            {%endfor%}
             <br/>
-            <input type = "submit"/>
+            <input type = "submit" onclick="success()"/>
         </form>
 
            <div id="map" style="height: 400px;"></div>
@@ -244,8 +246,13 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmx9R5y25qpehDO_3D2x7UO1VOJ8LmvyM"></script>
 <script>
         function InitializeMap() {
-           alert({{allcrisis.latitude}} + "testing");
-            var currentloc = { lat: {{allcrisis.latitude}}, lng: {{allcrisis.longitude}}};
+
+            {%for allcrisis in getallcrisis%}
+            var lati = {{allcrisis.latitude}};
+            var long = {{allcrisis.longitude}};
+            {%endfor%}
+
+            var currentloc = { lat: lati, lng: long};
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 12,
                 center: currentloc
@@ -255,8 +262,11 @@
                 map: map
             });
         }
+        function success(){
+            alert("Assign Successful");
+        }
 
-            window.onload = InitializeMap;
+            window.onload = InitializeMap();
 </script>
 
      <script type="text/javascript">

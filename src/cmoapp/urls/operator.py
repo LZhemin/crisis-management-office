@@ -2,7 +2,7 @@ from django.conf.urls import url
 from cmoapp.views import OperatorManager
 
 urlpatterns = [
-    url(r'^(?P<pk>\d+)', OperatorManager.viewCrisis, name='Operator_View'),
+    url(r'^(?P<pk>\d+)', OperatorManager.assignnewCrisis, name='Operator_AssignCrisis'),
 
     url(r'^allolist/$', OperatorManager.getCrisisAllocationList, name='Operator_ViewAllocationList'),
     url(r'^alloexcrisis/$', OperatorManager.allocateToExistingCrisis, name='Operator_allocateToExistingCrisis'),
