@@ -12,7 +12,7 @@
 
       <title>Chief Crisis Commander{% block title %}{% endblock %}</title>
 
-      {% block stylesheets %}
+      {% block vendor_stylesheets %}
         <!-- Bootstrap -->
         <link href="/static/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
         <!-- Font Awesome -->
@@ -27,10 +27,15 @@
         <link href="/static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
         <!-- JQVMap -->
         <link href="/static/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
-      {% endblock stylesheets %}
+        <!-- Pnotify -->
+        <link href="/static/vendors/pnotify/dist/pnotify.css" rel="stylesheet"/>
+        <link href="/static/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+        <link href="/static/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+      {% endblock vendor_stylesheets %}
       <!-- Custom Theme Style -->
       <link href="/static/build/css/custom.css" rel="stylesheet">
-      {% block page_stylesheets %} {% endblock page_stylesheets %}
+      {% block page_stylesheets %} {% endblock page_stylesheets%}
+
     {% endblock head %}
   </head>
 
@@ -52,12 +57,13 @@
           {% endblock top_navigation %}
 
           {% block content %}
-            <!-- {{ content }} -->
           {% endblock content %}
 
         </div>
       </div>
 
+    {% endblock body %}
+  </body>
       {% block vendor_javascripts %}
         <!-- jQuery -->
         <script src="/static/vendors/jquery/dist/jquery.min.js"></script>
@@ -92,11 +98,14 @@
         <script src="/static/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
         <!-- starrr -->
         <script src="/static/vendors/starrr/dist/starrr.js"></script>
+        <!-- Pnotify -->
+        <script src="/static/vendors/pnotify/dist/pnotify.js" type="text/javascript" optimized="true"></script>
+        <script src="/static/vendors/pnotify/dist/pnotify.buttons.js" type="text/javascript" optimized="true"></script>
+        <script src="/static/vendors/pnotify/dist/pnotify.nonblock.js" type="text/javascript" optimized="true"></script>
         <!-- Custom Theme Scripts -->
         <script src="/static/build/js/custom.js"></script>
       {% endblock %}
       {% block page_javascripts %}
       {% endblock page_javascripts %}
-    {% endblock body %}
-  </body>
+
 </html>
