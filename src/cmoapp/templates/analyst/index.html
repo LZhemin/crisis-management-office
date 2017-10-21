@@ -80,6 +80,7 @@
                         $('#{{ crisis.id }}').removeClass("bg-primary");
                         new PNotify({
                         title: 'Crisis Report Deselected',
+                        text: 'Click marker again to reselect the Crisis Report!',
                         type: 'warning',
                         styling: 'bootstrap3'
                         });
@@ -212,7 +213,7 @@
         </div>
     </div>
     <div class="row">
-            <div class="col-xs-12">
+        <div class="col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
                     <h2>Crisis Map</h2>
@@ -231,22 +232,51 @@
         </div>
     </div>
     <div class="row">
-        <div class="x_panel">
-            <div class="x_title">
-                <h2>Action Plans</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li>
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                    </li>
-                </ul>
-                <br>
-            </div>
-            <div class="x_content">
-                <form>
-
-                </form>
+        <div>
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Action Plans</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <br>
+                </div>
+                <div class="x_content">
+                    <div class="col-sm-9 col-xs-12 right-col sideBorder">
+                        <div role="tabpanel" data-example-id="togglable-tabs" style="font-size:larger">
+                          <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#current" id="current-tab" role="tab" data-toggle="tab" aria-expanded="true">Current Action Plan</a>
+                            </li>
+                            <li role="presentation" class=""><a href="#previous" role="tab" id="previous-tab" data-toggle="tab" aria-expanded="false">Previous Action Plans</a>
+                            </li>
+                          </ul>
+                          <div id="myTabContent" class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade active in" id="current" aria-labelledby="current-tab">
+                              <p> Current Plan Form Go here</p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="previous" aria-labelledby="previous-tab">
+                              <p> Previous Plans</p>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-12 right-col">
+                        <div class="profile_title">
+                            <div class="col-sm-12 col-xs-12 right-col">
+                                <h2><i class="fa fa-comments"></i>  Comments</h2>
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            <ul class="list-unstyled timeline widget">
+                                <p> NEED COMMENTS OBJECT OTHERWISE CANNOT DO LIKE A TIMELINE</p>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

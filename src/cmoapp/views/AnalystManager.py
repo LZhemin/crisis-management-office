@@ -14,6 +14,7 @@ def index(Request):
     try:
         assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
         crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
+        actionPlan = ActionPlan.objects.filter(crisis_id=assigned_crisis.id);
     except(KeyError, Crisis.DoesNotExist):
         context = { 'assigned_crisis': False }
     else:
