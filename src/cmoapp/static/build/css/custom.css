@@ -15,6 +15,23 @@ html , body{
  height:100%;
  }
 
+.collapse-right .fa{
+    text-align: center !important;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.sideBorder{
+    border-left: 1px solid #DBDBDB;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-right-color: rgb(219, 219, 219);
+    border-right: 1px solid #DBDBDB;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: rgb(219, 219, 219);
+}
+
 .daterangepicker .ranges li {
     color: #73879C
 }

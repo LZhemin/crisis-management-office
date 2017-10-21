@@ -71,13 +71,13 @@ class CrisisReport(models.Model):
 class ActionPlan(models.Model):
     #attributes
     description = models.TextField(null=True,blank=True)
-    STATUS= {
+    STATUS= (
         ('Planning','Planning'),
         ('CORequest','Awaiting CO Approval'),
         ('PMORequest','Awaiting PMO Approval'),
         ('Rejected','Rejected'),
         ('PMOApproved','Approved')
-    }
+    )
     status = models.CharField(max_length=20, choices=STATUS)
     COComments = models.TextField(null=True)
     PMOComments = models.TextField(null=True)
