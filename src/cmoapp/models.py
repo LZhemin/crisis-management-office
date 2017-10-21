@@ -32,7 +32,6 @@ class CrisisType(models.Model):
 class Crisis(models.Model):
     #analyst is FK to crisis. This enables analyst to be deleted once the crisis is resolved
     analyst = models.OneToOneField(Account,blank=True,null=True,limit_choices_to={'type':'Analyst'}, on_delete=models.SET_NULL)
-    crisistypes = models.ManyToManyField(CrisisType)
     TYPES = (
         ('Clean-up','Clean up'),
         ('Ongoing','Ongoing'),
@@ -56,38 +55,41 @@ class CrisisReport(models.Model):
     #attributes
     description = models.TextField()
     datetime = models.DateTimeField()
-
-    #Relations, can have no crisis assigned for the sake of testi
-    Crisis = models.ForeignKey(Crisis,null=True,blank=True,on_delete=models.CASCADE)
-
-    def __str__(self):
-        return '{} - {}'.format(self.pk,self.description);
-
-class Location(models.Model):
-    #Relations
     latitude = models.DecimalField(max_digits=12, decimal_places=8)
     longitude = models.DecimalField(max_digits=12, decimal_places=8)
     radius = models.IntegerField()
-    crisis = models.ForeignKey(CrisisReport, on_delete=models.CASCADE)
+    #Relations, can have no crisis assigned for the sake of testing
+    crisis = models.ForeignKey(Crisis,null=True,blank=True,on_delete=models.CASCADE)
+    crisisType = models.ForeignKey(CrisisType,null=True,blank=True,on_delete=models.DO_NOTHING)
 
-    def __str__(self):
-        return 'ID: {} crisis: {}'.format(self.pk,self.crisis_id);
+    #def __str__(self):
+        #return '{} - {}'.format(self.pk,self.description);
 
 #The response plan of the crsis.
 #The deployment id is the action plan id
 class ActionPlan(models.Model):
     #attributes
-    description = models.TextField()
-    COApproval = models.BooleanField()
-    PMOApproval = models.BooleanField()
-    ResolutionTime = models.DurationField()
-    ProjectedCasualties = models.DecimalField(max_digits=5, decimal_places=2)
+    description = models.TextField(null=True,blank=True)
+    STATUS= {
+        ('Planning','Planning'),
+        ('Awaitng CO Approval','Awaiting CO Approval'),
+        ('Awaiting PMO Approval','Awaiting PMO Approval'),
+        ('Rejected','Rejected'),
+        ('Approved','Approved')
+    }
+    status = models.CharField(null=True,blank=True,max_length=20, choices=STATUS)
+    COApproval = models.NullBooleanField()
+    COComments = models.TextField(null=True, blank=True)
+    PMOApproval = models.NullBooleanField()
+    PMOComments = models.TextField(null=True, blank=True)
+    resolutionTime = models.DurationField(null=True,blank=True)
+    projectedCasualties = models.DecimalField(null=True,blank=True,max_digits=5, decimal_places=2)
     #Relations
     TYPES = (
         ('Clean-up','Clean up'),
         ('Combat','Combat')
     )
-    type = models.CharField(max_length=20, choices=TYPES)
+    type = models.CharField(null=True,blank=True,max_length=20, choices=TYPES)
     crisis = models.ForeignKey(Crisis, on_delete= models.CASCADE)
 
     def __str__(self):
@@ -105,7 +107,7 @@ class ForceDeployment(models.Model):
     name = models.ForeignKey(Force, on_delete= models.PROTECT)
     recommended = models.DecimalField(max_digits=5, decimal_places=2)
     max = models.DecimalField(max_digits=5, decimal_places=2)
-    ActionPlan =  models.ForeignKey(ActionPlan, on_delete= models.CASCADE)
+    actionPlan =  models.ForeignKey(ActionPlan, on_delete= models.CASCADE)
     def __str__(self):
         return 'ID: {} Name: {}'.format(self.pk,self.name);
 
@@ -116,9 +118,9 @@ class EFUpdate(models.Model):
     totalInjured = models.IntegerField()
     totalDeaths = models.IntegerField()
     duration =  models.DurationField()
-    ActionPlan = models.ForeignKey(ActionPlan,null=True,on_delete = models.SET_NULL)
+    actionPlan = models.ForeignKey(ActionPlan,null=True,on_delete = models.SET_NULL)
     #i leave this here in case the action plan can be deleted. we can thus still have a reference back to cris
-    Crisis = models.ForeignKey(Crisis, on_delete =  models.CASCADE)
+    crisis = models.ForeignKey(Crisis, on_delete =  models.CASCADE)
     description = models.TextField()
     TYPES = (
         ('Clean-up','Clean up'),

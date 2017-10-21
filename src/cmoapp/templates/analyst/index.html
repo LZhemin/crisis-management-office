@@ -14,6 +14,7 @@
 {% block page_javascripts %}
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDacnVEtNIWnbMCw_QI94kynm0_ytIalQ&callback=initMap"
   type="text/javascript"></script>
+
 <script type="text/javascript">
     {% if assigned_crisis %}
         //JSON Fucking up.
@@ -23,14 +24,12 @@
         var crisis = {{ False|jsonify }}
     {% endif %}
     $(document).ready(function(){
+        $('.ui-pnotify').remove();
         if(!crisis) {
             //reload page if no crisis every 5 seconds
             //window.setTimeout('location.reload(true);',5000);
         }
     });
-    {% for loc in location_list%}
-        console.log({{ loc.radius }});
-    {%endfor %}
     function initMap(){
         var map = new google.maps.Map(document.getElementById("map"),{
             zoom: 12,
@@ -38,12 +37,29 @@
           mapTypeId: 'roadmap'
         });
         var markers;
-        {% if location_list %}
-            {% for loc in location_list%}
-                {% if loc.crisis_id%}
-                var cent = new google.maps.LatLng({{loc.latitude}},{{loc.longitude}});
-                console.log({{ loc.radius }});
-                var radius = {{ loc.radius }};
+        var icon_loc = '../static/images/map/'
+        var icons = {
+            Terrorism: icon_loc + "Terrorism.png",
+            Bombing:icon_loc + "Bombing.png",
+            Riot: icon_loc + "Riot.png",
+            Fire: icon_loc + "Fire.png"
+        };
+
+        {% if crisis_reports %}
+            {% for crisis in crisis_reports%}
+
+                var cent = new google.maps.LatLng({{crisis.latitude}},{{crisis.longitude}});
+                var radius = {{ crisis.radius }};
+
+                var image = {
+                  url: icons['{{ crisis.crisisType }}'],
+                  //size: new google.maps.Size(100, 100),
+                  // The origin for this image is (0, 0).
+                  origin: new google.maps.Point(0, 0),
+                  // The anchor with respect to the Lat and Long
+                  anchor: new google.maps.Point(30, 30)
+                };
+
                 var crisisCircle = new google.maps.Circle({
                     strokeColor: '#FF0000',
                     strokeOpacity: 0.8,
@@ -55,7 +71,32 @@
                     radius: radius,//in metres (cannot use the loc, wierdly causes the radius to become super big
                 });
 
-                {% endif %}
+                var marker = new google.maps.Marker({
+                    position: cent,
+                    icon: image,
+                    map:map
+                });
+                marker.addListener('click', function() {
+                    if($('#{{ crisis.id }}').hasClass("bg-primary")){
+                        $('#{{ crisis.id }}').removeClass("bg-primary");
+                        new PNotify({
+                        title: 'Crisis Report Deselected',
+                        type: 'warning',
+                        styling: 'bootstrap3'
+                        });
+                    }
+
+                    else{
+                        $('#{{ crisis.id }}').addClass("bg-primary").parent().siblings().children().removeClass("bg-primary");
+                        new PNotify({
+                        title: 'Crisis Report Selected',
+                        text: 'Check the 911 Reports for more Info!',
+                        type: 'success',
+                        styling: 'bootstrap3'
+                        });
+
+                    }
+                });
             {% endfor %}
         {% endif %}
     }
@@ -121,15 +162,12 @@
                     <ul class="list-unstyled timeline widget">
                         {% for report in assigned_crisis.crisisreport_set.all %}
                         <li>
-                            <div class="block">
+                            <div id="{{ report.id }}" class="block">
                                 <div class="block_content">
-                                    <h2 class="title">I DON'T KNOW WHAT TO PUT IN TITLE SOMEONE HELP ME</h2>
+                                    <h2 class="title">{{ report.description }}</h2>
                                     <div class="byline">
                                         <span>{{ report.datetime }}</span>
                                     </div>
-                                    <p>
-                                        {{ report.description }}
-                                    </p>
                                 </div>
                             </div>
                         </li>
@@ -159,13 +197,10 @@
                         <li>
                             <div class="block">
                                 <div class="block_content">
-                                    <h2 class="title">I DON'T KNOW WHAT TO PUT IN TITLE SOMEONE HELP ME</h2>
+                                    <h2 class="title">{{ report.description }}</h2>
                                     <div class="byline">
                                         <span>{{ report.datetime }}</span>
                                     </div>
-                                    <p>
-                                        {{ report.description }}
-                                    </p>
                                 </div>
                             </div>
                         </li>
@@ -192,14 +227,31 @@
                     <div class="clearfix"></div>
                 </div>
                 <div id="map" class="x_content" style="height:600px;">
-
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="x_panel">
-            YOLOLOLOLOLO FORMS GO HERE WAIT FOR ME
+            <div class="x_title">
+                <h2>Action Plans</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </li>
+                </ul>
+                <br>
+            </div>
+            <div class="x_content">
+                <div>
+
+                </div>
+                <form>
+
+                </form>
+            </div>
         </div>
     </div>
     {% else %}
