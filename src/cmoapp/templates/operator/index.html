@@ -915,12 +915,10 @@
 
                         <ul class="list-unstyled timeline widget">
                             {% for crisis in all_crisis %}
-
                               <li>
                                 <div class="block">
                                   <div class="block_content">
                                     <h2 class="title">
-
                                         <a>Crisis {{ crisis.pk }}&nbsp;</a>
                                     </h2>
                                       <br>
@@ -949,7 +947,7 @@
                 <div class=" x_panel">
 
                     <div class="sales report x_title ">
-                        <h2><i class="fa fa-archive"></i> Allocations </h2>
+                        <h2><i class="fa fa-archive"></i> Crisis Allocations </h2>
 
                         <div class="btn-group ">
                             <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -980,9 +978,11 @@
                               <ul id="cmoapp" class="topnav">
                                   {% for crisis in all_crisis %}
                                       <li id='crisis-{{crisis.pk}}'>
-                                          <strong>{{ crisis.analyst }}</strong> -
-                                          <em>{{ crisis.crisistypes }}</em> -
-                                          <span>{{ crisis.type }}</span> -
+                                          <strong>Crisis {{ crisis.pk }}</strong> -
+                                          <em>{{ crisis.analyst }}</em> -
+                                          <!--
+                                          <span>{{ crisis.status }}</span> -
+                                          -->
                                           <a id='delete-post-{{crisis.id}}'>delete me</a>
                                       </li>
                                   {% endfor %}
@@ -1003,8 +1003,7 @@
                                 </th>
                                 <th class="column-title">ID </th>
                                 <th class="column-title">Analyst </th>
-                                <th class="column-title">CrisisType </th>
-                                <th class="column-title">Type </th>
+                                <th class="column-title">Status </th>
                                 <th class="column-title no-link last"><span class="nobr">Action</span>
                                 </th>
                                 <th class="bulk-actions" colspan="7">
@@ -1022,8 +1021,7 @@
                                     </td>
                                     <td><span class="label label-default">{{allo.pk}}</span></td>
                                       <td class="a-right a-right "><b>{{allo.analyst}}</b></td>
-                                    <td><span class="label label-danger">{{allo.crisistypes.name}}</span></td>
-                                    <td><span class="label label-success">{{allo.type}}</span></td>
+                                    <td><span class="label label-success">{{allo.status}}</span></td>
                                      <!-- Do not display this at the moment
                                     <td class=" last"><a href={{allcrisis.pk}}>View</a>
                                     -->
@@ -1031,7 +1029,7 @@
                                     <td class=" last">
 
                                       <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target=".view-crisis"
-                                              data-id={{allo.pk}} data-name={{allo.crisistypes.name}} data-ana={{allo.analyst}} >
+                                              data-id={{allo.pk}} data-ana={{allo.analyst}} >
                                        <span class="glyphicon glyphicon-search"></span>
                                       </button>
 
@@ -1043,7 +1041,7 @@
                                           text: 'Delete the crisis!',
                                           type: 'delete',
                                           styling: 'bootstrap3'
-                                      });">
+                                      }); ">
                                       <span class="glyphicon glyphicon-trash"></span>
                                       </button>
 
@@ -1115,12 +1113,13 @@
                                   </div>
                                 </th>
                                 <th class="column-title">ID </th>
-                                <th class="column-title">Name </th>
+                                <th class="column-title">Crisis </th>
+                                <th class="column-title">Crisis Types </th>
                                 <th class="column-title">Description </th>
                                 <th class="column-title">Latitude </th>
                                 <th class="column-title">Longitude </th>
                                 <th class="column-title">DateTime </th>
-                                <th class="column-title no-link last"><span c   lass="nobr">Action</span>
+                                <th class="column-title no-link last"><span class="nobr">Action</span>
                                 </th>
                                 <th class="bulk-actions" colspan="7">
                                   <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
@@ -1129,24 +1128,28 @@
                             </thead>
 
                             <tbody>
-                                {% for allcrisis in getallcrisis %}
+                                {% for allcrisis in getCrisisReportList %}
                                   <tr class="even pointer">
                                     <td class="a-center ">
                                       <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
                                     </td>
-                                    <td class=" ">{{allcrisis.pk}}</td>
-                                    <td class=" ">{{allcrisis.Crisis.crisistypes.name}}</td>
+                                    <td class=" "><span class="label label-default">{{allcrisis.pk}}</span></td>
+                                    <td class=" "><span class="label label-danger">{{allcrisis.crisis.pk}}</span></td>
+                                    <td class=" "><span class="label label-warning">{{allcrisis.crisisType}}</span></td>
                                     <td class=" ">{{allcrisis.description}} </td>
                                     <td class=" ">{{allcrisis.latitude}}</td>
                                     <td class=" ">{{allcrisis.longitude}}</td>
                                     <td class="a-right a-right ">{{allcrisis.datetime}}</td>
 
                                     <td class=" last">
+                                        <!--
                                       <button type="button" href = "/operator/{{allcrisis.pk}}" class="btn btn-primary" data-toggle="modal" data-target=".view-crisis"
                                               data-id={{allcrisis.pk}} data-des={{allcrisis.description}} data-lat={{allcrisis.latitude}}
                                               data-long={{allcrisis.longitude}} data-datetime={{allcrisis.datetime}}>View</button>
+                                        -->
 
-                                     <button type="button" class="btn btn-primary" onclick="window.location='/operator/{{allcrisis.pk}}';">View 2</button>
+                                     <button type="button" class="btn btn-primary" onclick="window.location='/operator/{{allcrisis.pk}}';">
+                                         <span class="glyphicon glyphicon-search"></span></button>
                                     </td>
                                   </tr>
                                 {%endfor%}
@@ -1171,7 +1174,6 @@
                     <!-- End of table  -->
 
                 </div>
-
                 <!-- End of Report  -->
 
 
@@ -1243,19 +1245,21 @@
                       </div>
                       -->
 
-                    <h4 class="modal-title" id="Crisis_Title">Assign Crisis Type</h4>
-                    <select class="form-control" id="getcrisistype" name="getcrisistype">
-                      {% for getct in getCrisisTypeList %}
-                        <option value = {{getct.id}}>{{getct.name}}</option>
+                    <h4 class="modal-title" id="Crisis_Title">Assign Crisis</h4>
+                    <select class="form-control" id="getcrisis" name="getcrisis">
+                      {% for getc in getCrisisList %}
+                        <option value = {{getc.id}}>{{getc.pk}}</option>
                       {%endfor%}
                     </select>
 
-                    <h4 class="modal-title" id="Type_Title">Assign Type</h4>
-                    <select class="form-control" id="gettype" name="gettype">
+                    <!--
+                    <h4 class="modal-title" id="Status_Title">Assign Status</h4>
+                    <select class="form-control" id="getStatus" name="getstatus">
                         <option value = {{'Clean-up'}}>Clean-up</option>
                         <option value = {{'Ongoing'}}>Ongoing</option>
                         <option value = {{'Resolved'}}>Resolved</option>
                     </select>
+                    -->
 
                     <h4 class="modal-title" id="Analyst_Title">Assign Analyst</h4>
                     <select class="form-control" id="getanalyst" name="getanalyst">
@@ -1279,7 +1283,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="cancel" data-dismiss="modal">Close</button>
+                <!--
                 <button type="button" class="add-project" data-dismiss="modal">Save</button>
+                -->
             </div>
         </div>
 

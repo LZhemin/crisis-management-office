@@ -13,7 +13,7 @@ $(function() {
                 for (var i = 0; i < json.length; i++) {
                     console.log(json[i])
                     $("#cmoapp").prepend("<li id='crisis-"+json[i].crisispk+"'><strong>"+json[i].analyst+
-                        "</strong> - <em> "+json[i].crisistypes+"</em> - <span> "+json[i].type+
+                        "</strong> - <em> "+json[i].crisispk+"</em> - <span> "+json[i].status+
                         "</span> - <a id='delete-post-"+json[i].id+"'>delete me</a></li>");
                 }
                // console.log("load success"); // another sanity check
@@ -47,17 +47,17 @@ $(function() {
         $.ajax({
             url : "/operator/create_crisis/", // the endpoint
             type : "POST", // http method
-            data : { getanalyst : $('#getanalyst').val(), getcrisistype : $('#getcrisistype').val()
-             , gettype : $('#gettype').val()}, // data sent with the post request
+            data : { getanalyst : $('#getanalyst').val(), getcrisis : $('#getcrisis').val()
+             }, // data sent with the post request //, getstatus : $('#getstatus').val()
             // handle a successful response
             success : function(json) {
                 $('#getanalyst').val(''); // remove the value from the input
-                $('#getcrisistype').val(''); // remove the value from the input
-                $('#gettype').val(''); // remove the value from the input
+                $('#getcrisis').val(''); // remove the value from the input
+                //$('#getstatus').val(''); // remove the value from the input
                 console.log(json); // log the returned json to the console
 
-                $("#cmoapp").prepend("<li id='crisis-"+json.crisispk+"'><strong>"+'analyst'+json.analyst+"</strong> - <em> "+json.crisistypes+"</em> - <span> "+json.type+
-                    "</span> - <a id='delete-post-"+json.crisispk+"'>delete me</a></li>");
+                $("#cmoapp").prepend("<li id='crisis-"+json.crisispk+"'><strong>"+'Crisis '+json.crisispk+"</strong> - <em> "+'analyst'+json.analyst+
+                "</em>  - <a id='delete-post-"+json.crisispk+"'>delete me</a></li>"); //- <span> "+json.status+"</span>
 
                 /*
                  $("#cmoapp").prepend("<td id='crisis-"+json.crisispk+

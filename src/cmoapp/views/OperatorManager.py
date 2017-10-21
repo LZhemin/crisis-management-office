@@ -10,30 +10,16 @@ import json
 
 def index(Request):
 
-    #getallcrisis = CrisisReport.objects.order_by('-datetime')[:5]
-    #context = {'getallcrisis': getallcrisis}
-    # if Request.method == 'GET':
-    #
-    #     context = {
-    #                'all_crisis': Crisis.objects.reverse(),
-    #
-    #                }
-    #     return render(Request, 'operator/index.html',
-    #                   context,
-    #                   {'error_message': "You didn't select a Crisis."}
-    #                   )
-    # else:
-
     getCrisisList = Crisis.objects.all
     getCrisisTypeList = CrisisType.objects.all
-    getTypeList = Crisis.objects.all
+    getCrisisReportList = CrisisReport.objects.all
     getAccountList = Account.objects.filter(type='Analyst')
-    getallcrisis = CrisisReport.objects.all()
+
+
     context = {'getCrisisList': getCrisisList,
                'getCrisisTypeList': getCrisisTypeList,
-               'getTypeList': getTypeList,
+               'getCrisisReportList': getCrisisReportList,
                'getAccountList': getAccountList,
-               'getallcrisis': getallcrisis,
 
                'all_crisis': Crisis.objects.reverse(),
                'form': CrisisForm()
@@ -52,10 +38,10 @@ def viewCrisis(Request, pk):
         selected_analyst = Request.POST.get("analystselection")
 
         selected_crisistype = Request.POST.getlist("crisistypeT")
-        created_crisis = Crisis(analyst_id=selected_analyst, type = 'Ongoing')
+        created_crisis = Crisis(analyst_id=selected_analyst, status = 'Ongoing')
         created_crisis.save()
-        for s in selected_crisistype:
-            created_crisis.crisistypes.add(s)
+        #for s in selected_crisistype:
+        #    created_crisis.crisistypes.add(s)
 
         #crisistypes = models.ManyToManyField(CrisisType)
         #type = models.CharField(max_length=20, choices=TYPES)
@@ -68,34 +54,31 @@ def viewCrisis(Request, pk):
 
 
     getallcrisis = CrisisReport.objects.filter(pk=pk)
-    getlocation = Location.objects.first()
     getallanalyst = Account.objects.filter(type='Analyst')
     getallcrisistype = CrisisType.objects.all()
     getallcrisiss = Crisis.objects.all()
     return render(Request, 'operator/assigncrisis.html',
                   {'getallcrisis': getallcrisis, 'getallanalyst': getallanalyst, 'getallcrisistype': getallcrisistype,
-                   'getallcrisiss': getallcrisiss, 'getlocation': getlocation})
+                   'getallcrisiss': getallcrisiss})
 
 
 def create_crisis(request):
     if request.method == 'POST':
 
+        selected_crisis = request.POST.get('getcrisis')
         selected_analyst = request.POST.get('getanalyst')
-        selected_crisistype = request.POST.get('getcrisistype')
-        selected_type = request.POST.get('gettype')
+        #selected_status = request.POST.get('getstatus')
         #selected_crisistype = request.POST["getcrisistype"]
         #selected_filtercrisistype = CrisisType.objects.filter(name='selected_crisistype')
         response_data = {}
 
-        created_crisis = Crisis(analyst_id=selected_analyst, type=selected_type)
+        created_crisis = Crisis(pk = selected_crisis, analyst_id=selected_analyst, status = 'Ongoing')#status=selected_status
         created_crisis.save()
-        created_crisis.crisistypes.add(selected_crisistype)
 
         response_data['result'] = 'Create post successful!'
         response_data['crisispk'] = created_crisis.pk
         response_data['analyst'] = created_crisis.analyst_id
-        response_data['crisistypes'] = created_crisis.crisistypes.name
-        response_data['type'] = created_crisis.type
+        #response_data['status'] = created_crisis.status
 
         #return HttpResponse(
          #   json.dumps(response_data),
