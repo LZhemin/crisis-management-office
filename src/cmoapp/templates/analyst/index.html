@@ -24,7 +24,6 @@
         var crisis = {{ False|jsonify }}
     {% endif %}
     $(document).ready(function(){
-        $('.ui-pnotify').remove();
         if(!crisis) {
             //reload page if no crisis every 5 seconds
             //window.setTimeout('location.reload(true);',5000);
@@ -245,9 +244,6 @@
                 <br>
             </div>
             <div class="x_content">
-                <div>
-
-                </div>
                 <form>
 
                 </form>
