@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate
+from django.views.generic import ListView,DetailView
+
 
 #Kindly help to remove unwanted modules
 
@@ -161,3 +163,10 @@ def editActionPlan(Request, Crisis_id):
         })
     else:
         return HttpResponseRedirect(reverse('cmoapp:base_site', args=(Crisis_id,)))
+
+
+# class ActionPlanView(ListView):
+#
+#     #need to get session
+#     def get_queryset(self):
+#         return

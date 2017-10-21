@@ -32,12 +32,12 @@ class CrisisType(models.Model):
 class Crisis(models.Model):
     #analyst is FK to crisis. This enables analyst to be deleted once the crisis is resolved
     analyst = models.OneToOneField(Account,blank=True,null=True,limit_choices_to={'type':'Analyst'}, on_delete=models.SET_NULL)
-    TYPES = (
+    STATUS = (
         ('Clean-up','Clean up'),
         ('Ongoing','Ongoing'),
         ('Resolved', 'Resolved')
     )
-    type = models.CharField(max_length=20, choices=TYPES)
+    status = models.CharField(max_length=20, choices=STATUS)
 
     #class Meta:
      #   ordering = ['analyst']
@@ -48,8 +48,8 @@ class Crisis(models.Model):
     def deaths(self):
         return self.efupdate_set.latest('datetime').totalInjured
 
-    #def __unicode__(self):
-    #    return self.analyst + ' - ' + self.crisistypes
+    def __str__(self):
+        return 'ID: {} - assigned to: {}'.format(self.pk, self.analyst)
 
 class CrisisReport(models.Model):
     #attributes
@@ -57,13 +57,14 @@ class CrisisReport(models.Model):
     datetime = models.DateTimeField()
     latitude = models.DecimalField(max_digits=12, decimal_places=8)
     longitude = models.DecimalField(max_digits=12, decimal_places=8)
-    radius = models.IntegerField()
-    #Relations, can have no crisis assigned for the sake of testing
+    radius = models.IntegerField(verbose_name="Radius(Metres)")
+    #Relations, can have no crisis assigned for the sake of testi
+
     crisis = models.ForeignKey(Crisis,null=True,blank=True,on_delete=models.CASCADE)
     crisisType = models.ForeignKey(CrisisType,null=True,blank=True,on_delete=models.DO_NOTHING)
 
-    #def __str__(self):
-        #return '{} - {}'.format(self.pk,self.description);
+    def __str__(self):
+        return 'ID: {} - {}'.format(self.pk,self.description)
 
 #The response plan of the crsis.
 #The deployment id is the action plan id
@@ -72,33 +73,35 @@ class ActionPlan(models.Model):
     description = models.TextField(null=True,blank=True)
     STATUS= {
         ('Planning','Planning'),
-        ('Awaitng CO Approval','Awaiting CO Approval'),
-        ('Awaiting PMO Approval','Awaiting PMO Approval'),
+        ('CORequest','Awaiting CO Approval'),
+        ('PMORequest','Awaiting PMO Approval'),
         ('Rejected','Rejected'),
-        ('Approved','Approved')
+        ('PMOApproved','Approved')
     }
-    status = models.CharField(null=True,blank=True,max_length=20, choices=STATUS)
-    COApproval = models.NullBooleanField()
-    COComments = models.TextField(null=True, blank=True)
-    PMOApproval = models.NullBooleanField()
-    PMOComments = models.TextField(null=True, blank=True)
-    resolutionTime = models.DurationField(null=True,blank=True)
-    projectedCasualties = models.DecimalField(null=True,blank=True,max_digits=5, decimal_places=2)
+    status = models.CharField(max_length=20, choices=STATUS)
+    COComments = models.TextField(null=True)
+    PMOComments = models.TextField(null=True)
+    resolutionTime = models.DurationField()
+    projectedCasualties = models.DecimalField(max_digits=5, decimal_places=2)
     #Relations
     TYPES = (
         ('Clean-up','Clean up'),
-        ('Combat','Combat')
+        ('Combat','Combat'),
+        ('Resolved','Resolved')
     )
-    type = models.CharField(null=True,blank=True,max_length=20, choices=TYPES)
+    type = models.CharField(max_length=20, choices=TYPES)
     crisis = models.ForeignKey(Crisis, on_delete= models.CASCADE)
+
+    def abridged_description(self):
+        return self.description[70].append("...")
 
     def __str__(self):
         return 'ID: {}'.format(self.pk);
 
 class Force(models.Model):
-    name = models.TextField(primary_key=True)
-    #Current Utilisation can be NULL, in the event that EF cannot be provide, then the field is set to NULL
-    currentUtilisation = models.DecimalField(null=True, max_digits=5, decimal_places=2)
+    name = models.CharField(primary_key=True, max_length=200)
+    #Current Utilisation can be NULL, in the event that EF cannot provide, then the field is set to NULL and Blank
+    currentUtilisation = models.DecimalField(null=True,blank=True, max_digits=5, decimal_places=2)
     def __str__(self):
         return '{}'.format(self.name);
 
@@ -114,19 +117,19 @@ class ForceDeployment(models.Model):
 class EFUpdate(models.Model):
     #Attributes
     datetime = models.DateTimeField()
-    affectedRadius = models.DecimalField(max_digits=12,decimal_places=2)
-    totalInjured = models.IntegerField()
-    totalDeaths = models.IntegerField()
+    affectedRadius = models.DecimalField(max_digits=12,decimal_places=2, verbose_name="Affected Radius")
+    totalInjured = models.IntegerField(verbose_name="Total Injured")
+    totalDeaths = models.IntegerField(verbose_name="Total Deaths")
     duration =  models.DurationField()
     actionPlan = models.ForeignKey(ActionPlan,null=True,on_delete = models.SET_NULL)
     #i leave this here in case the action plan can be deleted. we can thus still have a reference back to cris
     crisis = models.ForeignKey(Crisis, on_delete =  models.CASCADE)
     description = models.TextField()
+    #We are removing types and adding a request
     TYPES = (
-        ('Clean-up','Clean up'),
-        ('Combat','Combat')
+        ('Request','Request'),
+        ('Notifications','Notifications')
     )
-    type = models.CharField(max_length=20, choices=TYPES)
     def __str__(self):
         return 'ID: {}'.format(self.pk)
 
