@@ -79,8 +79,6 @@ class ActionPlan(models.Model):
         ('PMOApproved','Approved')
     )
     status = models.CharField(max_length=20, choices=STATUS)
-    COComments = models.TextField(null=True)
-    PMOComments = models.TextField(null=True)
     resolutionTime = models.DurationField()
     projectedCasualties = models.DecimalField(max_digits=5, decimal_places=2)
     #Relations
@@ -97,6 +95,19 @@ class ActionPlan(models.Model):
 
     def __str__(self):
         return 'ID: {}'.format(self.pk);
+
+class Comments(models.Model):
+    comment = models.TextField()
+    authors = (
+        ('PMO','Prime Minister\'s Office'),
+        ('CO','Chief Officer')
+    )
+    author = models.CharField(max_length=20, choices=authors)
+    #If the CO comments, then it is rejected by CO. If PMO comments, then PMO has rejected.
+    actionPlan = models.OneToOneField(ActionPlan, on_delete= models.CASCADE)
+
+    def __str__(self):
+        return 'Comment: '.format(self.comment)
 
 class Force(models.Model):
     name = models.CharField(primary_key=True, max_length=200)
