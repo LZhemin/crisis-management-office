@@ -14,6 +14,7 @@
 {% block page_javascripts %}
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDacnVEtNIWnbMCw_QI94kynm0_ytIalQ&callback=initMap"
   type="text/javascript"></script>
+
 <script type="text/javascript">
     {% if assigned_crisis %}
         //JSON Fucking up.
@@ -28,7 +29,6 @@
             //window.setTimeout('location.reload(true);',5000);
         }
     });
-
     function initMap(){
         var map = new google.maps.Map(document.getElementById("map"),{
             zoom: 12,
@@ -51,7 +51,7 @@
                 var radius = {{ crisis.radius }};
 
                 var image = {
-                  url: icons['{{ crisis.CrisisType }}'],
+                  url: icons['{{ crisis.crisisType }}'],
                   //size: new google.maps.Size(100, 100),
                   // The origin for this image is (0, 0).
                   origin: new google.maps.Point(0, 0),
@@ -75,7 +75,27 @@
                     icon: image,
                     map:map
                 });
+                marker.addListener('click', function() {
+                    if($('#{{ crisis.id }}').hasClass("bg-primary")){
+                        $('#{{ crisis.id }}').removeClass("bg-primary");
+                        new PNotify({
+                        title: 'Crisis Report Deselected',
+                        type: 'warning',
+                        styling: 'bootstrap3'
+                        });
+                    }
 
+                    else{
+                        $('#{{ crisis.id }}').addClass("bg-primary").parent().siblings().children().removeClass("bg-primary");
+                        new PNotify({
+                        title: 'Crisis Report Selected',
+                        text: 'Check the 911 Reports for more Info!',
+                        type: 'success',
+                        styling: 'bootstrap3'
+                        });
+
+                    }
+                });
             {% endfor %}
         {% endif %}
     }
@@ -141,7 +161,7 @@
                     <ul class="list-unstyled timeline widget">
                         {% for report in assigned_crisis.crisisreport_set.all %}
                         <li>
-                            <div class="block">
+                            <div id="{{ report.id }}" class="block">
                                 <div class="block_content">
                                     <h2 class="title">{{ report.description }}</h2>
                                     <div class="byline">
@@ -224,9 +244,6 @@
                 <br>
             </div>
             <div class="x_content">
-                <div>
-
-                </div>
                 <form>
 
                 </form>

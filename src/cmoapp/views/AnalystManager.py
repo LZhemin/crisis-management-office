@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate
+from django.views.generic import ListView,DetailView
+
 
 #Kindly help to remove unwanted modules
 
@@ -11,7 +13,7 @@ def index(Request):
     #UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
     try:
         assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
-        crisis_reports = CrisisReport.objects.filter(Crisis_id=assigned_crisis.id).select_related('CrisisType')
+        crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
     except(KeyError, Crisis.DoesNotExist):
         context = { 'assigned_crisis': False }
     else:
@@ -161,3 +163,10 @@ def editActionPlan(Request, Crisis_id):
         })
     else:
         return HttpResponseRedirect(reverse('cmoapp:base_site', args=(Crisis_id,)))
+
+
+# class ActionPlanView(ListView):
+#
+#     #need to get session
+#     def get_queryset(self):
+#         return

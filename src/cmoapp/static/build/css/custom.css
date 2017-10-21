@@ -445,6 +445,13 @@ body .container.body .right_col {
     border: 1px solid #1ABB9C !important;
     color: #fff
 }
+
+.bg-primary{
+    font-size-adjust: 0.6;
+    transition: 1s ease-in-out;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
 .bg-red {
     background: #E74C3C !important;
     border: 1px solid #E74C3C !important;

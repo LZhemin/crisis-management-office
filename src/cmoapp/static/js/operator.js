@@ -43,7 +43,7 @@ $(function() {
 
     // AJAX for posting
     function create_crisis() {
-        console.log("create post is working!") // sanity check
+        console.log("create post is working! test") // sanity check
         $.ajax({
             url : "/operator/create_crisis/", // the endpoint
             type : "POST", // http method
@@ -55,8 +55,17 @@ $(function() {
                 $('#getcrisistype').val(''); // remove the value from the input
                 $('#gettype').val(''); // remove the value from the input
                 console.log(json); // log the returned json to the console
+
                 $("#cmoapp").prepend("<li id='crisis-"+json.crisispk+"'><strong>"+'analyst'+json.analyst+"</strong> - <em> "+json.crisistypes+"</em> - <span> "+json.type+
                     "</span> - <a id='delete-post-"+json.crisispk+"'>delete me</a></li>");
+
+                /*
+                 $("#cmoapp").prepend("<td id='crisis-"+json.crisispk+
+                                    "'><td class="">"+json.crisispk"</td>"
+                                    "'><td class="">"+json.analyst"</td>"
+                                    "'><td class="">"+json.crisistypes"</td>"
+                                    "'><td class="">"+json.type"</td>" );
+                 */
                 console.log("success"); // another sanity check
             },
             // handle a non-successful response
