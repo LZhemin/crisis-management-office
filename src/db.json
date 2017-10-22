@@ -17,11 +17,36 @@
     }
 },
 {
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$36000$2yFMDMPcepoJ$UHVIIiizsXye9HPMcAJz5nuPvdtB5lCnopq5Gi8L3iY=",
+        "last_login": "2017-10-21T11:15:23.334Z",
+        "is_superuser": true,
+        "username": "admin1",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin1@hotmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2017-10-21T11:15:03.716Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
     "model": "sessions.session",
     "pk": "1wx3mlz9lrfuzzywzq22aigwhhk25tyy",
     "fields": {
         "session_data": "YTcxNTQxMTI4ODUzYzEyOTMwNDc1MjcyZDA1MmI2YWU1YzA5YWMwMjp7Il9hdXRoX3VzZXJfaGFzaCI6IjgyM2M2ZjU5ZDZmMDcyYTZjOGYwMWZlZTdlYWQ0OGFkN2M4ZWQ5NmMiLCJfYXV0aF91c2VyX2lkIjoiMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=",
         "expire_date": "2017-11-03T18:19:13.440Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "5pgq725qe2vieyun8gcyp8s98hfslk89",
+    "fields": {
+        "session_data": "OWYwYTM3ZjBlNmM3ZDU1YmY4MjgwMGY2ODY1NGY2YWE0M2I0M2Y3OTp7Il9hdXRoX3VzZXJfaGFzaCI6ImY1NGUwN2JhMWVhYjYxMjE4ZDJjNTI1N2RhOWMyZWFiOGI2Mjc2OGUiLCJfYXV0aF91c2VyX2lkIjoiMiIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=",
+        "expire_date": "2017-11-04T11:15:23.343Z"
     }
 },
 {
@@ -68,6 +93,15 @@
     }
 },
 {
+    "model": "cmoapp.account",
+    "pk": 5,
+    "fields": {
+        "login": "Analyst3",
+        "password": "pass",
+        "type": "Analyst"
+    }
+},
+{
     "model": "cmoapp.crisistype",
     "pk": 1,
     "fields": {
@@ -92,8 +126,24 @@
     "model": "cmoapp.crisis",
     "pk": 1,
     "fields": {
-        "analyst": 2,
-        "status": "Clean-up"
+        "analyst": null,
+        "status": "Ongoing"
+    }
+},
+{
+    "model": "cmoapp.crisis",
+    "pk": 2,
+    "fields": {
+        "analyst": 1,
+        "status": "Resolved"
+    }
+},
+{
+    "model": "cmoapp.crisis",
+    "pk": 3,
+    "fields": {
+        "analyst": 5,
+        "status": "Ongoing"
     }
 },
 {
@@ -118,7 +168,7 @@
         "latitude": "1.27342500",
         "longitude": "103.84126200",
         "radius": 55,
-        "crisis": 1,
+        "crisis": 2,
         "crisisType": 3
     }
 },
@@ -131,7 +181,7 @@
         "latitude": "1.26398200",
         "longitude": "103.31523000",
         "radius": 65,
-        "crisis": null,
+        "crisis": 3,
         "crisisType": 1
     }
 },
@@ -359,6 +409,168 @@
         "object_repr": "ID: 3 - Seng Kang got fire everytime like this",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 12,
+    "fields": {
+        "action_time": "2017-10-21T11:15:41.908Z",
+        "user": [
+            "admin1"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2 - assigned to: Analyst1",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+        "action_time": "2017-10-21T11:38:39.719Z",
+        "user": [
+            "admin1"
+        ],
+        "content_type": [
+            "cmoapp",
+            "account"
+        ],
+        "object_id": "5",
+        "object_repr": "Analyst3",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+        "action_time": "2017-10-21T11:38:58.179Z",
+        "user": [
+            "admin1"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "3",
+        "object_repr": "ID: 3 - assigned to: Analyst3",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+        "action_time": "2017-10-21T11:39:07.854Z",
+        "user": [
+            "admin1"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "3",
+        "object_repr": "ID: 3 - Seng Kang got fire everytime like this",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"crisis\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+        "action_time": "2017-10-21T12:30:06.817Z",
+        "user": [
+            "admin1"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2 - Little India got Riot again",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"crisis\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+        "action_time": "2017-10-21T12:30:45.150Z",
+        "user": [
+            "admin1"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2 - Little India got Riot again",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"crisis\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 18,
+    "fields": {
+        "action_time": "2017-10-21T12:31:44.843Z",
+        "user": [
+            "admin1"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2 - Little India got Riot again",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"crisis\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 19,
+    "fields": {
+        "action_time": "2017-10-21T13:29:24.118Z",
+        "user": [
+            "admin1"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "1",
+        "object_repr": "ID: 1 - assigned to: Analyst2",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 20,
+    "fields": {
+        "action_time": "2017-10-21T13:29:28.316Z",
+        "user": [
+            "admin1"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "3",
+        "object_repr": "ID: 3 - assigned to: Analyst3",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
     }
 }
 ]

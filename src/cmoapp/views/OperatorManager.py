@@ -8,6 +8,7 @@ from django.forms.models import model_to_dict
 import json
 #Kindly help to remove unwanted modules
 
+
 def sharedindex():
     getunassignedCrisis = CrisisReport.objects.filter(crisis__isnull=True).order_by('datetime')
     getCrisisList = Crisis.objects.all
@@ -24,6 +25,7 @@ def sharedindex():
                'getAccountList': getAccountList,
                 'getunassignedCrisis': getunassignedCrisis,
                'all_crisis': Crisis.objects.reverse(),
+               'all_crisisreport': CrisisReport.objects.reverse(),
                'form': CrisisForm()
                }
     return context
@@ -47,16 +49,6 @@ def assignnewCrisis(Request, pk):
         created_crisis = Crisis(analyst_id=selected_analyst, status='Ongoing')
         created_crisis.save()
 
-        # for s in selected_crisistype:
-        #    created_crisis.crisistypes.add(s)
-
-        # crisistypes = models.ManyToManyField(CrisisType)
-        # type = models.CharField(max_length=20, choices=TYPES)
-        # ('Clean-up', 'Clean up'),
-        # ('Ongoing', 'Ongoing'),
-        # ('Resolved', 'Resolved')
-        # temp = CrisisReport.objects.filter(pk=pky)
-        # temp.Crisis = created_crisis.pk
         CrisisReport.objects.filter(pk=pk).update(crisis=created_crisis.pk, crisisType=selected_crisistype)
         context = sharedindex();
         return HttpResponseRedirect(reverse('Operator_Index'))

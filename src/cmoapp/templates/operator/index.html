@@ -972,9 +972,34 @@
                     <!-- Start of Table  -->
                     <div class="x_content">
 
+                    <!-- For CrisisReport Update -->
+                   <div class="row white">
+                      <div class="columns large-12">
+                          <span class="label label-default">Crisis Reports API Update</span>
+                          <ul id="cmoapp1" >
+                              {% for crisisreport in all_crisisreport %}
+                                  <li id='crisisreport-{{crisisreport.pk}}'>
+                                      <strong>{{ crisisreport.pk }}</strong> -
+                                      <em>{{ crisisreport.description }}</em> -
+                                       <em>{{ crisisreport.datetime }}</em> -
+                                       <em>{{ crisisreport.latitude }}</em> -
+                                       <em>{{ crisisreport.longitude }}</em> -
+                                       <em>{{ crisisreport.radius }}</em> -
+                                       <em>{{ crisisreport.crisis }}</em> -
+                                       <span>{{ crisisreport.crisisType }}</span> -
+
+                                      <a id='delete-post-{{crisisreport.id}}'>delete me</a>
+                                  </li>
+                              {% endfor %}
+                          </ul>
+                      </div>
+                    </div>
+
+                        <!-- For Crisis Update -->
 
                       <div class="row white">
                           <div class="columns large-12">
+                              <span class="label label-default">----------------- Crisis ----------------</span>
                               <ul id="cmoapp" class="topnav">
                                   {% for crisis in all_crisis %}
                                       <li id='crisis-{{crisis.pk}}'>
@@ -1433,6 +1458,15 @@
         });
     </script>
 
+    <script>
+            /*
+           setTimeout(function(){
+               //window.location.reload(1);
+               load_crisisreports();
+            }, 5000);
+            */
+
+    </script>
 
     <script src="/static/vendors/pnotify/dist/pnotify.js" type="text/javascript" optimized="true"></script>
     <script src="/static/vendors/pnotify/dist/pnotify.buttons.js" type="text/javascript" optimized="true"></script>

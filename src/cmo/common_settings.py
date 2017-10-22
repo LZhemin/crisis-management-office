@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cmoapp',
+	'rest_framework',
 
     # Uncomment the next line to enable the admin:
 
