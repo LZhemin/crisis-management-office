@@ -15,14 +15,17 @@ def sharedindex():
     getCrisisReportList = CrisisReport.objects.all
     getUnassignedCrisisReport = CrisisReport.objects.filter(crisis__isnull=True).order_by('datetime')
 
+    getResolvedCrisis = Crisis.objects.exclude(status='Resolved').values_list('pk', flat=True)
+    getAssignedCrisisReport = CrisisReport.objects.exclude(crisis__isnull=True).filter(crisis__in = getResolvedCrisis)
+
     #getanalystacc = Crisis.objects.filter(analyst__isnull=False)
     #getAccountList = Account.objects.exclude(pk__in=getanalystacc).filter(type="Analyst")
 
     getcrisisacc = CrisisReport.objects.filter(crisis__isnull=False)
     getUnassignedCrisis = Crisis.objects.all().exclude(pk__in=getcrisisacc)
 
-    getanalystacc = Crisis.objects.all().values_list('analyst_id', flat=True)
-    getAccountList = Account.objects.exclude(pk__in=getanalystacc).filter(type="Analyst")
+    getanalystacc = Crisis.objects.exclude(analyst__isnull = True).values_list('analyst_id', flat=True)
+    getAccountList = Account.objects.filter(type="Analyst").exclude(pk__in=getanalystacc)
 
     context = {'getCrisisList': getCrisisList,
                'getCrisisTypeList': getCrisisTypeList,
@@ -30,7 +33,7 @@ def sharedindex():
                'getUnassignedCrisisReport': getUnassignedCrisisReport,
                'getAccountList': getAccountList,
                'getUnassignedCrisis': getUnassignedCrisis,
-
+                'getAssignedCrisisReport':getAssignedCrisisReport,
                'all_crisis': Crisis.objects.reverse(),
                'all_crisisreport': CrisisReport.objects.reverse(),
                'form': CrisisForm()
@@ -49,25 +52,28 @@ def index(Request):
 
 def assignnewCrisis(Request, pk):
     if Request.method == 'POST':
-        selected_analyst = Request.POST.get("analystselection")
-        # hiddenid = Request.POST.get("hiddenid")
-        # selected_crisistype = Request.POST.getlist("crisistypeT")
+        #selected_analyst = Request.POST.get("analystselection")
         selected_crisistype = Request.POST.get("crisistypeT")
-        created_crisis = Crisis(analyst_id=selected_analyst, status='Ongoing')
+        created_crisis = Crisis(analyst_id=pk, status='Ongoing')
         created_crisis.save()
 
-        CrisisReport.objects.filter(pk=pk).update(crisis=created_crisis.pk, crisisType=selected_crisistype)
+        selectedCrisis= Request.POST.getlist('crisisSelector')
+
+        for sc in selectedCrisis:
+            CrisisReport.objects.filter(pk=sc).update(crisis=created_crisis.pk, crisisType=selected_crisistype)
+
         context = sharedindex();
         return HttpResponseRedirect(reverse('Operator_Index'))
 
-    getallcrisis = CrisisReport.objects.filter(pk=pk)
-    getanalystacc = Crisis.objects.all().values_list('analyst_id', flat=True)
-    getallanalyst = Account.objects.exclude(pk__in = getanalystacc).filter(type = "Analyst")
+    getallcrisis = CrisisReport.objects.filter(crisis__isnull = True)
+    #getallanalyst = Account.objects.filter(pk=pk)
+    #getanalystacc = Crisis.objects.exclude(analyst__isnull = True).values_list('analyst_id', flat=True)
+    #getallanalyst = Account.objects.exclude(pk__in = getanalystacc).filter(type = "Analyst")
 
     getallcrisistype = CrisisType.objects.all()
 
     return render(Request, 'operator/assigncrisis.html',
-                  {'getallcrisis': getallcrisis, 'getallanalyst': getallanalyst, 'getallcrisistype': getallcrisistype,
+                  {'getallcrisis': getallcrisis, 'getallcrisistype': getallcrisistype,
                    })
 
 

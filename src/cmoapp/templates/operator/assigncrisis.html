@@ -129,7 +129,8 @@
 
  </div>
 -->
-
+        <form id="test" method = "POST">
+           {% csrf_token %}
 
 <!-- Start of Report  -->
 <div class="right_col ">
@@ -154,6 +155,7 @@
                           <input type="checkbox" id="check-all1" class="flat" style="position: absolute; opacity: 0;">
                           <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
                       </div>
+
                     </th>
                     <th class="column-title">ID </th>
                     <th class="column-title">Crisis </th>
@@ -174,7 +176,10 @@
                     {% for allcrisis in getallcrisis %}
                       <tr class="even pointer">
                         <td class="a-center ">
-                          <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                          <!--
+                            <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                        -->
+                            <input type="checkbox" name="crisisSelector" value="{{allcrisis.pk}}"><br>
                         </td>
                         <td class=" "><span class="label label-default">{{allcrisis.pk}}</span></td>
                         <td class=" "><span class="label label-danger">{{allcrisis.crisis.pk}}</span></td>
@@ -205,16 +210,6 @@
 
         </div>
 
-        <form id="test" method = "POST">
-           {% csrf_token %}
-
-            Select Analyst to attend to this case:
-           <select name = "analystselection">
-                         {% for allanalyst in getallanalyst %}
-                                <option value="{{allanalyst.id}}">{{allanalyst.login}}</option>
-                           {%endfor%}
-            </select>
-            <br/><br/>
 
              Select Crisis type to attend to this case:
             <br/>
@@ -266,7 +261,7 @@
             alert("Assign Successful");
         }
 
-            window.onload = InitializeMap();
+          //  window.onload = InitializeMap();
 </script>
 
      <script type="text/javascript">
