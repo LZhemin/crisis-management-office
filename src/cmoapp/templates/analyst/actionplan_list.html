@@ -1,0 +1,20 @@
+{% extends 'analyst/base_site.html' %}
+{% load custom_tags %}
+
+{% block content %}
+
+<div class="right_col">
+    <div class="row">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Action Plans</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                {% include 'analyst/ui_components/action_plan_table.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'analyst/base_site.html' %}
+{% load custom_tags %}
+
+{% block page_stylesheets %}
+<style text="text/css">
+    ul.stats-overview li
+    {
+        width: 22.5%
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <div class="right_col">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h1>Plan Details</h1>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="col-sm-9 col-xs-12">
+                                <ul class="stats-overview">
+                                    <li>
+                                        <span class="name">Plan Type</span>
+                                        <span class="value">{{ Action_Plan.get_type_display }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="name">Approval Status</span>
+                                        <span class="value">{{ Action_Plan.get_status_display }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="name">Estimated Resolution Time</span>
+                                        <span class="value">{{ Action_Plan.resolutionTime }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="name">Projected Casualties</span>
+                                        <span class="value">{{ Action_Plan.projectedCasualties }}</span>
+                                    </li>
+                                </ul>
+                                <br>
+                                <div class="form-group">
+                                    <div>
+                                        <label class="control-label">Description </label>
+                                    </div>
+                                    <div>
+                                        <textarea class="form-control" readonly>{{ Action_Plan.description|default:"None provided" }} </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 col-xs-12">
+                                <section class="panel">
+                                    <div class="x_title">
+                                        <h2>Recommended Force Deployments</h2>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="panel_body">
+                                        <ul class="list-unstyled msg_list">
+                                            {% for force in Action_Plan.forcedeployment_set.all %}
+                                            <a>
+                                                <span>Name: {{ force.name }}</span>
+                                                <span class="message">Recommended: {{ force.recommended }}</span>
+                                                <span class="message">Max: {{ force.max }} </span>
+                                            </a>
+                                            {% empty %}
+                                            No forces
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

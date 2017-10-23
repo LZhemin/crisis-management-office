@@ -79,10 +79,8 @@ class ActionPlan(models.Model):
         ('PMOApproved','Approved')
     )
     status = models.CharField(max_length=20, choices=STATUS)
-    COComments = models.TextField(null=True)
-    PMOComments = models.TextField(null=True)
     resolutionTime = models.DurationField()
-    projectedCasualties = models.DecimalField(max_digits=5, decimal_places=2)
+    projectedCasualties = models.IntegerField()
     #Relations
     TYPES = (
         ('Clean-up','Clean up'),
@@ -93,10 +91,27 @@ class ActionPlan(models.Model):
     crisis = models.ForeignKey(Crisis, on_delete= models.CASCADE)
 
     def abridged_description(self):
-        return self.description[70].append("...")
+        return self.description[:140] + "..."
 
     def __str__(self):
         return 'ID: {}'.format(self.pk);
+
+
+class Comment(models.Model):
+    text = models.TextField()
+    authors = (
+        ('PMO','Prime Minister\'s Office'),
+        ('CO','Chief Officer')
+    )
+    author = models.CharField(max_length=20, choices=authors)
+    #If the CO comments, then it is rejected by CO. If PMO comments, then PMO has rejected.
+    actionPlan = models.OneToOneField(ActionPlan, on_delete= models.CASCADE)
+
+    def abridged(self):
+        return self.description[:140] + "..."
+
+    def __str__(self):
+        return 'ID: {} - Author: {} - Comment: {}'.format(self.id, self.author,self.comment)
 
 class Force(models.Model):
     name = models.CharField(primary_key=True, max_length=200)
@@ -105,6 +120,7 @@ class Force(models.Model):
     def __str__(self):
         return '{}'.format(self.name);
 
+#Force deployment tracks how much force to deploy for an action plan
 class ForceDeployment(models.Model):
     #a force can only be deleted after all force deployments are deleted
     name = models.ForeignKey(Force, on_delete= models.PROTECT)
@@ -133,6 +149,7 @@ class EFUpdate(models.Model):
     def __str__(self):
         return 'ID: {}'.format(self.pk)
 
+#Force Utilization tracks how much each force is being used for the current action plan
 class ForceUtilization(models.Model):
     name = models.ForeignKey(Force,on_delete= models.CASCADE)
     utilization = models.DecimalField(max_digits=5, decimal_places=2)

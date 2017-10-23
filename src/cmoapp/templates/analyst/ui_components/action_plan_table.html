@@ -1,0 +1,45 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th style="width:5%">#</th>
+        <th style="width:5%">Type</th>
+        <th style="width:40%;">Description</th>
+        <th>Forces Involved</th>
+        <th style="width:10%">Resolution Time <br>(HH:MM:SS)</th>
+        <th style="width:5%">Status</th>
+        <th>Comments</th>
+        <th style="width:5%">Comment's Author</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for actionPlan in ActionPlanList %}
+    <tr>
+        <td>{{ actionPlan.id }}</td>
+        <td>{{ actionPlan.type }}</td>
+        <td>{{ actionPlan.abridged_description }}</td>
+        <td>{% for force in actionPlan.forcedeployment_set.all %}
+            <span class="label label-primary">{{ force.name }}</span>
+            {% endfor %}
+        </td>
+        <td>{{ actionPlan.resolutionTime }}</td>
+        <td>{% if actionPlan.status == 'Approved' %} <span class="label label-success">
+                                {% elif actionPlan.status == 'Rejected' %} <span class="label label-danger">
+                                {% elif actionPlan.status == 'Planning' %} <span class="label label-default">
+                                {% else %} <span class="label label-info">
+                                {% endif %}
+                                {{ actionPlan.get_status_display }}</span>
+        </td>
+        <td>{{ actionPlan.comment.text|default_if_none:"-" }}</td>
+        <td>{{ actionPlan.comment.author|default_if_none:"-" }}</td>
+        <td><a href="{% url 'Analyst_Action_Plan_Detail' actionPlan.id %}" class="btn btn-block btn-primary btn-xs"><i
+                class="fa fa-eye"></i> View </a>
+            {% if actionPlan.status == 'Planning' %}
+            <a href="{% url 'Analyst_Action_Plan_Detail' actionPlan.id %}" class="btn btn-block btn-warning btn-xs"><i
+                    class="fa fa-pencil"></i> Edit </a>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>

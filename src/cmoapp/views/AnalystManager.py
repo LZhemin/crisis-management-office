@@ -3,7 +3,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate
 from django.views.generic import ListView,DetailView
-
+#Future use in session-based views
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 #Kindly help to remove unwanted modules
 
@@ -14,13 +15,14 @@ def index(Request):
     try:
         assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
         crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
-        actionPlan = ActionPlan.objects.filter(crisis_id=assigned_crisis.id);
+        actionPlanList = ActionPlan.objects.filter(crisis_id=assigned_crisis.id).exclude(status='Planning')
     except(KeyError, Crisis.DoesNotExist):
         context = { 'assigned_crisis': False }
     else:
         context = {
             'assigned_crisis': assigned_crisis,
-            'crisis_reports': crisis_reports
+            'crisis_reports': crisis_reports,
+            'ActionPlanList': actionPlanList
         }
     return render(Request, 'analyst/index.html',context)
 
@@ -166,8 +168,15 @@ def editActionPlan(Request, Crisis_id):
         return HttpResponseRedirect(reverse('cmoapp:base_site', args=(Crisis_id,)))
 
 
-# class ActionPlanView(ListView):
-#
-#     #need to get session
-#     def get_queryset(self):
-#         return
+#Add the LoginRequiredMixin as the leftmost inheritance
+class ActionPlanList(ListView):
+    context_object_name = "ActionPlanList"
+    template_name = 'analyst/actionplan_list.html'
+    #need to get session
+    def get_queryset(self):
+        return ActionPlan.objects.filter(crisis__analyst = sessionId).prefetch_related('forcedeployment_set')
+
+class ActionPlanDetail(DetailView):
+    context_object_name = "Action_Plan"
+    template_name='analyst/actionplan_detail.html'
+    model = ActionPlan
