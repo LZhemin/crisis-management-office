@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate
+from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment
 from django.views.generic import ListView,DetailView
 #Future use in session-based views
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -16,13 +16,15 @@ def index(Request):
         assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
         crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
         actionPlanList = ActionPlan.objects.filter(crisis_id=assigned_crisis.id).exclude(status='Planning')
+        comments = Comment.objects.all().order_by('timeCreated')
     except(KeyError, Crisis.DoesNotExist):
         context = { 'assigned_crisis': False }
     else:
         context = {
             'assigned_crisis': assigned_crisis,
             'crisis_reports': crisis_reports,
-            'ActionPlanList': actionPlanList
+            'ActionPlanList': actionPlanList,
+            'comments': comments
         }
     return render(Request, 'analyst/index.html',context)
 

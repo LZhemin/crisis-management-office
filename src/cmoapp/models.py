@@ -1,6 +1,7 @@
 """All models for myapp Django application.
 """
 from django.db import models
+from django.utils import timezone
 
 #all models have automatically add an auto-increment id unless another field is explicitly specified as primary key
 #note, on_delete assigns a Function 'Callback'
@@ -96,6 +97,9 @@ class ActionPlan(models.Model):
     def __str__(self):
         return 'ID: {}'.format(self.pk);
 
+    def comments(self):
+        return self.comment_set.all.order_by('timeCreated')
+
 
 class Comment(models.Model):
     text = models.TextField()
@@ -104,6 +108,9 @@ class Comment(models.Model):
         ('CO','Chief Officer')
     )
     author = models.CharField(max_length=20, choices=authors)
+    #timeCreated = models.DateTimeField(auto_now=True/auto_now_add=True) not used cause it causes the field to not be seen
+    #on the DB/ admin site, it can still be referenced (hard to debug/ check)
+    timeCreated = models.DateTimeField(default=timezone.now,editable=False)
     #If the CO comments, then it is rejected by CO. If PMO comments, then PMO has rejected.
     actionPlan = models.OneToOneField(ActionPlan, on_delete= models.CASCADE)
 
@@ -111,7 +118,7 @@ class Comment(models.Model):
         return self.description[:140] + "..."
 
     def __str__(self):
-        return 'ID: {} - Author: {} - Comment: {}'.format(self.id, self.author,self.comment)
+        return 'ID: {} - Author: {} - Comment: {}'.format(self.id, self.author,self.text)
 
 class Force(models.Model):
     name = models.CharField(primary_key=True, max_length=200)

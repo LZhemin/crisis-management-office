@@ -283,9 +283,27 @@
                             </div>
                         </div>
                         <div class="x_content">
-                            <ul class="list-unstyled timeline widget">
-                                <p> NEED COMMENTS OBJECT OTHERWISE CANNOT DO LIKE A TIMELINE</p>
-                            </ul>
+                            <div class="mail_list_column">
+                                {% for comment in comments %}
+                                    {% for actionPlan in ActionPlanList %}
+                                        {%ifequal comment.actionPlan_id actionPlan.id%}
+                                            <div class="mail_list">
+                                                <div class="right" style="padding-left: 1em;">
+                                                    <h3>
+                                                    {{comment.author}}
+                                                    <small>
+                                                    {{comment.timeCreated}}
+                                                    </small>
+                                                    </h3>
+                                                <p>
+                                                {{comment.text}}
+                                                </p>
+                                                </div>
+                                            </div>
+                                        {%endifequal%}
+                                    {%endfor%}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
