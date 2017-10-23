@@ -8,6 +8,13 @@
     {
         min-width: 24px;
     }
+
+    #myTab
+    {
+        margin-bottom: 21px;
+        font-size: larger;
+    }
+
 </style>
 {% endblock page_stylesheets %}
 
@@ -123,23 +130,28 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <div class="animated flipInY col-sm-6 col-xs-12">
-                    <div class="tile-stats">
-                        <div class="icon">
-                            <i class="fa fa-ambulance"></i>
+                <div class="row">
+                    <div class="animated flipInY col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                            <div class="icon">
+                                <i class="fa fa-ambulance"></i>
+                            </div>
+                            <div class="count">{{ assigned_crisis.injuries|default:"0" }}</div>
+                            <h3>Current Injuries</h3>
                         </div>
-                        <div class="count">{{ assigned_crisis.injuries|default:"0" }}</div>
-                        <h3>Current Injuries</h3>
+                    </div>
+                    <div class="animated flipInY col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                            <div class="icon">
+                                <i class="fa fa-frown-o"></i>
+                            </div>
+                            <div class="count">{{ assigned_crisis.deaths|default:"0"}}</div>
+                            <h3>Current Deaths</h3>
+                        </div>
                     </div>
                 </div>
-                <div class="animated flipInY col-sm-6 col-xs-12">
-                    <div class="tile-stats">
-                        <div class="icon">
-                            <i class="fa fa-frown-o"></i>
-                        </div>
-                        <div class="count">{{ assigned_crisis.deaths|default:"0"}}</div>
-                        <h3>Current Deaths</h3>
-                    </div>
+                <div class="row">
+                    Add sometihng about EF statistics
                 </div>
             </div>
         </div>
@@ -246,9 +258,9 @@
                     <br>
                 </div>
                 <div class="x_content">
-                    <div class="col-sm-9 col-xs-12 right-col sideBorder">
-                        <div role="tabpanel" data-example-id="togglable-tabs" style="font-size:larger">
-                          <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                    <div class="col-sm-9 col-xs-12 sideBorder">
+                        <div role="tabpanel" data-example-id="togglable-tabs">
+                          <ul id="myTab" class="nav nav-tabs nav-justified" role="tablist">
                             <li role="presentation" class="active"><a href="#current" id="current-tab" role="tab" data-toggle="tab" aria-expanded="true">Current Action Plan</a>
                             </li>
                             <li role="presentation" class=""><a href="#previous" role="tab" id="previous-tab" data-toggle="tab" aria-expanded="false">Previous Action Plans</a>
@@ -259,15 +271,15 @@
                               <p> Current Plan Form Go here</p>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="previous" aria-labelledby="previous-tab">
-                              <p> Previous Plans</p>
+                              {% include 'analyst/ui_components/action_plan_table.html' %}
                             </div>
                           </div>
                         </div>
                     </div>
-                    <div class="col-sm-3 col-xs-12 right-col">
+                    <div class="col-sm-3 col-xs-12">
                         <div class="profile_title">
                             <div class="col-sm-12 col-xs-12 right-col">
-                                <h2><i class="fa fa-comments"></i>  Comments</h2>
+                                <h2><i class="fa fa-comments"></i>Comments</h2>
                             </div>
                         </div>
                         <div class="x_content">
