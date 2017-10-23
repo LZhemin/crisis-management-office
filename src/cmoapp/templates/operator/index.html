@@ -867,81 +867,235 @@
          <!-- Start of Dashboard -->
         <div class="user-dashboard">
 
+            <!-- Start of Header 2 -->
             <div class="col-md-12 row">
-                <div class="col-md-6">
+                <div class="col-md-10 col-sm-10 col-xs-24">
                   <h3>Crisis <small>DashBoard</small></h3>
                 </div>
 
-
-                <div class="col-md-2 col-sm-2 col-xs-4">
+                <div class="col-md-1 col-sm-1 col-xs-2">
                     <a class="btn btn-primary" href="#primaryModal" class="add-project" data-toggle="modal" data-target="#add_project">
                             <i class="glyphicon glyphicon-plus"></i> Allocate Crisis</a>
                 </div>
 
-                <div class="col-md-4 col-sm-4 col-xs-8 form-group top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-
             </div>
-
-            <!-- Start of Left Side -->
-            <div class="col-md-3 col-sm-3 col-xs-6 gutter">
-
-                <div class="sales">
-
-                    <h2>Recent </h2>
-
-                    <div class="btn-group">
-                        <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span>Period:</span> Last Year
-                        </button>
-                        <div class="dropdown-menu">
-                            <a href="#">2012</a>
-                            <a href="#">2014</a>
-                            <a href="#">2015</a>
-                            <a href="#">2016</a>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 x_title">
-                    </div>
-
-                    <div class="dashboard-widget-content">
-
-                        <ul class="list-unstyled timeline widget">
-                            {% for crisis in all_crisis %}
-                              <li>
-                                <div class="block">
-                                  <div class="block_content">
-                                    <h2 class="title">
-                                        <a>Crisis {{ crisis.pk }}&nbsp;</a>
-                                    </h2>
-                                      <br>
-                                    <div class="byline">
-                                      <span>13 hours ago</span> by <a>{{ crisis.analyst }}</a>
-                                    </div>
-                                    <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
-                                    </p>
-                                  </div>
-                                </div>
-                              </li>
-                            {%endfor%}
-
-                        </ul>
-                  </div>
-
-                </div>
-            </div>
-            <!-- End of Left Side -->
-
+            <!-- End of header 2 -->
 
             <!-- Start of Right Side -->
-            <div class="col-md-9 col-sm-9 col-xs-16 gutter">
+            <div class="col-md-12 col-sm-12 col-xs-24 gutter">
+
+                <!-- Start of Unassigned Report.  -->
+                <div class="x_panel">
+
+                    <div class="sales report x_title">
+                        <h2><i class="fa fa-spinner"></i> New Incoming Report</h2>
+
+                        <ul class="nav navbar-right panel_toolbox">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                          </li>
+
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <!-- Start of Table  -->
+                    <div class="x_content">
+
+                        <div class="table-responsive">
+                          <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                              <tr class="headings">
+                                <th>
+                                  <div class="icheckbox_flat-green" style="position: relative;">
+                                      <input type="checkbox" id="check-all2" class="flat" style="position: absolute; opacity: 0;">
+                                      <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                  </div>
+                                </th>
+                                <th class="column-title">ID </th>
+                                <th class="column-title">Crisis </th>
+                                <th class="column-title">Crisis Types </th>
+                                <th class="column-title">Description </th>
+                                <th class="column-title">DateTime </th>
+                                <th class="column-title no-link last"><span class="nobr">Action</span>
+                                </th>
+                                <th class="bulk-actions" colspan="7">
+                                  <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                </th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for allcrisis in getUnassignedCrisisReport %}
+                                  <tr class="even pointer">
+                                    <td class="a-center ">
+                                      <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                    </td>
+                                    <td class=" "><span class="label label-default">{{allcrisis.pk}}</span></td>
+                                    <td class=" "><span class="label label-danger">Not Assigned</span></td>
+                                    <td class=" "><span class="label label-warning">{{allcrisis.crisisType}}</span></td>
+                                    <td class=" ">{{allcrisis.description}} </td>
+                                    <td class="a-right a-right ">{{allcrisis.datetime}}</td>
+
+                                    <td class=" last">
+                                        <!--
+                                      <button type="button" href = "/operator/{{allcrisis.pk}}" class="btn btn-primary" data-toggle="modal" data-target=".view-crisis"
+                                              data-id={{allcrisis.pk}} data-des={{allcrisis.description}} data-lat={{allcrisis.latitude}}
+                                              data-long={{allcrisis.longitude}} data-datetime={{allcrisis.datetime}}>View</button>
+                                        -->
+
+                                     <button type="button" class="btn btn-primary" onclick="window.location='/operator/{{allcrisis.pk}}';">
+                                         <span class="glyphicon glyphicon-search"></span></button>
+                                    </td>
+                                  </tr>
+                                {%endfor%}
+                            </tbody>
+                          </table>
+
+                            <div class="clearfix"></div>
+                            <ul class="pagination pull-right">
+                              <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                              <li class="active"><a href="#">1</a></li>
+                              <li><a href="#">2</a></li>
+                              <li><a href="#">3</a></li>
+                              <li><a href="#">4</a></li>
+                              <li><a href="#">5</a></li>
+                              <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                            </ul>
+
+                        </div>
+
+
+                    </div>
+                    <!-- End of table  -->
+
+                </div>
+                <!-- End of Unassigned Report  -->
+
+                <!-- Start of Unassigned 3rd Row  -->
+                <div class="col-md-12 row">
+
+                    <!-- Start of Unassigned Crisis  -->
+                    <div class="col-md-6">
+                        <div class="x_panel">
+                            <div class="sales report x_title">
+                                <h2><i class="fa fa-spinner"></i> Unassigned Crisis</h2>
+
+                                <ul class="nav navbar-right panel_toolbox col-sm-1">
+                                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                  </li>
+
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <!-- Start of Table  -->
+                            <div class="x_content">
+
+                                <div class="table-responsive">
+                                  <table class="table table-striped jambo_table bulk_action">
+                                    <thead>
+                                      <tr class="headings">
+                                        <th>
+                                          <div class="icheckbox_flat-green" style="position: relative;">
+                                              <input type="checkbox" id="check-all1" class="flat" style="position: absolute; opacity: 0;">
+                                              <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                          </div>
+                                        </th>
+                                        <th class="column-title">ID </th>
+                                        <th class="column-title">Crisis </th>
+                                        <th class="column-title">Analyst </th>
+                                        <th class="column-title no-link last">Status </th>
+                                        </th>
+                                        <th class="bulk-actions" colspan="7">
+                                          <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                        </th>
+                                      </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        {% for unacrisis in getUnassignedCrisis %}
+                                          <tr class="even pointer">
+                                            <td class="a-center ">
+                                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                            </td>
+                                            <td class=" "><span class="label label-default">{{unacrisis.pk}}</span></td>
+                                            <td class=" "><span class="label label-danger">{{unacrisis.pk}}</span></td>
+                                            <td class=" "><span class="label label-warning">{{unacrisis.analyst}}</span></td>
+                                            <td class=" "><span class="label label-success">{{unacrisis.status}}</span></td>
+
+                                          </tr>
+                                        {%endfor%}
+                                    </tbody>
+                                  </table>
+
+                                </div>
+
+                            </div>
+                            <!-- End of table  -->
+                        </div>
+                    </div>
+                    <!-- End of Report  -->
+
+                    <!-- Start of Unassigned Crisis  -->
+                    <div class="col-md-6">
+                        <div class="x_panel">
+                            <div class="sales report x_title">
+                                <h2><i class="fa fa-spinner"></i> Unassigned Analyst</h2>
+
+                                <ul class="nav navbar-right panel_toolbox col-sm-1">
+                                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                  </li>
+
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <!-- Start of Table  -->
+                            <div class="x_content">
+
+                                <div class="table-responsive">
+                                  <table class="table table-striped jambo_table bulk_action">
+                                    <thead>
+                                      <tr class="headings">
+                                        <th>
+                                          <div class="icheckbox_flat-green" style="position: relative;">
+                                              <input type="checkbox" id="check-all3" class="flat" style="position: absolute; opacity: 0;">
+                                              <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                          </div>
+                                        </th>
+                                        <th class="column-title">ID </th>
+                                        <th class="column-title no-link last">Analyst </th>
+                                        </th>
+                                        <th class="bulk-actions" colspan="7">
+                                          <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                        </th>
+                                      </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        {% for unaacc in getAccountList %}
+                                          <tr class="even pointer">
+                                            <td class="a-center ">
+                                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                            </td>
+                                            <td class=" "><span class="label label-default">{{unaacc.id}}</span></td>
+                                            <td class=" "><span class="label label-warning">{{unaacc.login}}</span></td>
+
+                                          </tr>
+                                        {%endfor%}
+                                    </tbody>
+                                  </table>
+
+                                </div>
+
+                            </div>
+                            <!-- End of table  -->
+                       </div>
+                    </div>
+                    <!-- End of Report  -->
+
+
+                </div>
 
                 <!-- Start of Crisis Table  -->
                 <div class=" x_panel">
@@ -1098,206 +1252,8 @@
                 </div>
                 <!-- End of Crisis Report  -->
 
-                <!-- Start of Unassigned Report.  -->
-                <div class="x_panel">
-
-                    <div class="sales report x_title">
-                        <h2><i class="fa fa-spinner"></i> New Incoming Report</h2>
-
-                        <div class="btn-group">
-                            <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span>Period:</span> Last Year
-                            </button>
-                            <div class="dropdown-menu">
-                                <a href="#">2012</a>
-                                <a href="#">2014</a>
-                                <a href="#">2015</a>
-                                <a href="#">2016</a>
-                            </div>
-                        </div>
-
-                        <ul class="nav navbar-right panel_toolbox col-sm-1">
-                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                          </li>
-
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-
-                    <!-- Start of Table  -->
-                    <div class="x_content">
-
-                        <div class="table-responsive">
-                          <table class="table table-striped jambo_table bulk_action">
-                            <thead>
-                              <tr class="headings">
-                                <th>
-                                  <div class="icheckbox_flat-green" style="position: relative;">
-                                      <input type="checkbox" id="check-all2" class="flat" style="position: absolute; opacity: 0;">
-                                      <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                  </div>
-                                </th>
-                                <th class="column-title">ID </th>
-                                <th class="column-title">Crisis </th>
-                                <th class="column-title">Crisis Types </th>
-                                <th class="column-title">Description </th>
-                                <th class="column-title">DateTime </th>
-                                <th class="column-title no-link last"><span class="nobr">Action</span>
-                                </th>
-                                <th class="bulk-actions" colspan="7">
-                                  <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                                </th>
-                              </tr>
-                            </thead>
-
-                            <tbody>
-                                {% for allcrisis in getunassignedCrisis %}
-                                  <tr class="even pointer">
-                                    <td class="a-center ">
-                                      <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                                    </td>
-                                    <td class=" "><span class="label label-default">{{allcrisis.pk}}</span></td>
-                                    <td class=" "><span class="label label-danger">{{allcrisis.crisis.pk}}</span></td>
-                                    <td class=" "><span class="label label-warning">Not Assigned</span></td>
-                                    <td class=" ">{{allcrisis.description}} </td>
-                                    <td class="a-right a-right ">{{allcrisis.datetime}}</td>
-
-                                    <td class=" last">
-                                        <!--
-                                      <button type="button" href = "/operator/{{allcrisis.pk}}" class="btn btn-primary" data-toggle="modal" data-target=".view-crisis"
-                                              data-id={{allcrisis.pk}} data-des={{allcrisis.description}} data-lat={{allcrisis.latitude}}
-                                              data-long={{allcrisis.longitude}} data-datetime={{allcrisis.datetime}}>View</button>
-                                        -->
-
-                                     <button type="button" class="btn btn-primary" onclick="window.location='/operator/{{allcrisis.pk}}';">
-                                         <span class="glyphicon glyphicon-search"></span></button>
-                                    </td>
-                                  </tr>
-                                {%endfor%}
-                            </tbody>
-                          </table>
-
-                            <div class="clearfix"></div>
-                            <ul class="pagination pull-right">
-                              <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                              <li class="active"><a href="#">1</a></li>
-                              <li><a href="#">2</a></li>
-                              <li><a href="#">3</a></li>
-                              <li><a href="#">4</a></li>
-                              <li><a href="#">5</a></li>
-                              <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-                            </ul>
-
-                        </div>
 
 
-                    </div>
-                    <!-- End of table  -->
-
-                </div>
-                <!-- End of Report  -->
-                <!-- Start of all Report  -->
-                <div class="x_panel">
-
-                    <div class="sales report x_title">
-                        <h2><i class="fa fa-spinner"></i> Crisis Report</h2>
-
-                        <div class="btn-group">
-                            <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span>Period:</span> Last Year
-                            </button>
-                            <div class="dropdown-menu">
-                                <a href="#">2012</a>
-                                <a href="#">2014</a>
-                                <a href="#">2015</a>
-                                <a href="#">2016</a>
-                            </div>
-                        </div>
-
-                        <ul class="nav navbar-right panel_toolbox col-sm-1">
-                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                          </li>
-
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-
-                    <!-- Start of Table  -->
-                    <div class="x_content">
-
-                        <div class="table-responsive">
-                          <table class="table table-striped jambo_table bulk_action">
-                            <thead>
-                              <tr class="headings">
-                                <th>
-                                  <div class="icheckbox_flat-green" style="position: relative;">
-                                      <input type="checkbox" id="check-all1" class="flat" style="position: absolute; opacity: 0;">
-                                      <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                  </div>
-                                </th>
-                                <th class="column-title">ID </th>
-                                <th class="column-title">Crisis </th>
-                                <th class="column-title">Crisis Types </th>
-                                <th class="column-title">Description </th>
-                                <th class="column-title">Latitude </th>
-                                <th class="column-title">Longitude </th>
-                                <th class="column-title">DateTime </th>
-                                <th class="column-title no-link last"><span class="nobr">Action</span>
-                                </th>
-                                <th class="bulk-actions" colspan="7">
-                                  <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                                </th>
-                              </tr>
-                            </thead>
-
-                            <tbody>
-                                {% for allcrisis in getCrisisReportList %}
-                                  <tr class="even pointer">
-                                    <td class="a-center ">
-                                      <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                                    </td>
-                                    <td class=" "><span class="label label-default">{{allcrisis.pk}}</span></td>
-                                    <td class=" "><span class="label label-danger">{{allcrisis.crisis.pk}}</span></td>
-                                    <td class=" "><span class="label label-warning">{{allcrisis.crisisType}}</span></td>
-                                    <td class=" ">{{allcrisis.description}} </td>
-                                    <td class=" ">{{allcrisis.latitude}}</td>
-                                    <td class=" ">{{allcrisis.longitude}}</td>
-                                    <td class="a-right a-right ">{{allcrisis.datetime}}</td>
-
-                                    <td class=" last">
-                                        <!--
-                                      <button type="button" href = "/operator/{{allcrisis.pk}}" class="btn btn-primary" data-toggle="modal" data-target=".view-crisis"
-                                              data-id={{allcrisis.pk}} data-des={{allcrisis.description}} data-lat={{allcrisis.latitude}}
-                                              data-long={{allcrisis.longitude}} data-datetime={{allcrisis.datetime}}>View</button>
-                                        -->
-
-                                     <button type="button" class="btn btn-primary" onclick="window.location='/operator/{{allcrisis.pk}}';">
-                                         <span class="glyphicon glyphicon-search"></span></button>
-                                    </td>
-                                  </tr>
-                                {%endfor%}
-                            </tbody>
-                          </table>
-
-                            <div class="clearfix"></div>
-                            <ul class="pagination pull-right">
-                              <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                              <li class="active"><a href="#">1</a></li>
-                              <li><a href="#">2</a></li>
-                              <li><a href="#">3</a></li>
-                              <li><a href="#">4</a></li>
-                              <li><a href="#">5</a></li>
-                              <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-                            </ul>
-
-                        </div>
-
-
-                    </div>
-                    <!-- End of table  -->
-
-                </div>
-                <!-- End of Report  -->
 
 
 
