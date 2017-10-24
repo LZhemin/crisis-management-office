@@ -15,8 +15,8 @@ def index(Request):
     try:
         assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
         crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
-        actionPlanList = ActionPlan.objects.filter(crisis_id=assigned_crisis.id).exclude(status='Planning')
-        comments = Comment.objects.all().order_by('timeCreated')
+        actionPlanList = ActionPlan.objects.filter(crisis_id=assigned_crisis.id).exclude(status='Planning').order_by('comment__timeCreated')
+        comments = Comment.objects.filter(actionPlan__crisis_id=assigned_crisis.id).order_by('timeCreated')
     except(KeyError, Crisis.DoesNotExist):
         context = { 'assigned_crisis': False }
     else:

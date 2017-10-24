@@ -258,12 +258,18 @@
                     <br>
                 </div>
                 <div class="x_content">
-                    <div class="col-sm-9 col-xs-12 sideBorder">
+                    <div id="own" class="col-sm-9 col-xs-12 sideBorder" style="height:100%;">
                         <div role="tabpanel" data-example-id="togglable-tabs">
                           <ul id="myTab" class="nav nav-tabs nav-justified" role="tablist">
                             <li role="presentation" class="active"><a href="#current" id="current-tab" role="tab" data-toggle="tab" aria-expanded="true">Current Action Plan</a>
                             </li>
                             <li role="presentation" class=""><a href="#previous" role="tab" id="previous-tab" data-toggle="tab" aria-expanded="false">Previous Action Plans</a>
+                            </li>
+                            <li>
+                                <a id="#comments" class="collapse-link-right">
+                                    Close Comments
+                                    <i class="fa fa-chevron-right right"></i>
+                                </a>
                             </li>
                           </ul>
                           <div id="myTabContent" class="tab-content">
@@ -276,7 +282,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-sm-3 col-xs-12">
+                    <div id="comments" class="col-sm-3 col-xs-12">
                         <div class="profile_title">
                             <div class="col-sm-12 col-xs-12 right-col">
                                 <h2><i class="fa fa-comments"></i>Comments</h2>
@@ -284,24 +290,16 @@
                         </div>
                         <div class="x_content">
                             <div class="mail_list_column">
-                                {% for comment in comments %}
-                                    {% for actionPlan in ActionPlanList %}
-                                        {%ifequal comment.actionPlan_id actionPlan.id%}
-                                            <div class="mail_list">
-                                                <div class="right" style="padding-left: 1em;">
-                                                    <h3>
-                                                    {{comment.author}}
-                                                    <small>
-                                                    {{comment.timeCreated}}
-                                                    </small>
-                                                    </h3>
-                                                <p>
-                                                {{comment.text}}
-                                                </p>
-                                                </div>
-                                            </div>
-                                        {%endifequal%}
-                                    {%endfor%}
+                                {% for actionPlan in ActionPlanList %}
+                                    <div class="mail_list">
+                                        <div class="right" style="padding-left: 1em;">
+                                            <h3>
+                                                {{actionPlan.comment.author}}
+                                                <small>{{actionPlan.comment.timeCreated}}</small>
+                                            </h3>
+                                            <p>{{actionPlan.comment.text}}</p>
+                                        </div>
+                                    </div>
                                 {% endfor %}
                             </div>
                         </div>

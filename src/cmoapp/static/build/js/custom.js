@@ -175,19 +175,24 @@ $(document).ready(function() {
     });
 
     //Collapse to the right
-    /*
     $('.collapse-link-right').on('click', function() {
-        var $BOX_PANEL = $(this).closest('.x_panel'),
+        var $BOX_PANEL = $(this).closest('.x_content'),
+            $TOGGLE_PANEL = $($(this).attr('id')),
+            $OWN_PANEL = $('#own'),
             $ICON = $(this).find('i'),
-            $BOX_CONTENT = $BOX_PANEL.find('.x_content'),
-            $BOX_TITLE = $BOX_PANEL.find('.x_title'),
-            $BOX_PARENT = $BOX_PANEL.parent();
-
+            $PLACEHOLDER = $(this).find('h2');
         // fix for some div with hardcoded fix class
 
-        $BOX_PANEL.parent().toggleClass('col-sm-3 col-sm-1');
-        $BOX_PANEL.parent().siblings().toggleClass('col-sm-9 col-sm-11');
-
+        $TOGGLE_PANEL.slideToggle();
+        $OWN_PANEL.toggleClass('col-sm-9 col-sm-12');
+        $ICON.toggleClass("fa-chevron-left fa-chevron-right");
+        if($ICON.attr('class')=="fa-chevron-left")
+            $PLACEHOLDER.html("View Comments<i class='fa fa-chevron-left'></i>");
+        else
+            $PLACEHOLDER.html("Close Comments<i class='fa fa-chevron-right'></i>");
+        $TOGGLE_PANEL.slideToggle(200);
+        console.log($TOGGLE_PANEL);
+        /*
         if(!$BOX_TITLE.find('h2:eq(1)').is(':visible')){
             console.log( $BOX_TITLE.find('h2:eq(1)').html());
             $BOX_TITLE.find('h2:eq(1)').show();
@@ -198,7 +203,7 @@ $(document).ready(function() {
             $BOX_TITLE.find('h2:eq(1)').hide();
             $BOX_CONTENT.hide();
         }
-        /*if ($BOX_TITLE.find('h2').attr('style')) {
+        if ($BOX_TITLE.find('h2').attr('style')) {
             $BOX_TITLE.find('h2').removeAttr('style');
             $BOX_TITLE.find('h2').toggleClass('.collapse-right')
         } else {
@@ -206,8 +211,8 @@ $(document).ready(function() {
             $BOX_PANEL.css('height', 'auto');
         }
 
-        $ICON.toggleClass('fa-chevron-right fa-chevron-left');
-    });*/
+        $ICON.toggleClass('fa-chevron-right fa-chevron-left');*/
+    });
 });
 
 // Tooltip
