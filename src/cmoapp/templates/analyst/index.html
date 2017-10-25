@@ -261,9 +261,9 @@
                     <div id="own" class="col-sm-9 col-xs-12 sideBorder" style="height:100%;">
                         <div role="tabpanel" data-example-id="togglable-tabs">
                           <ul id="myTab" class="nav nav-tabs nav-justified" role="tablist">
-                            <li role="presentation" class="active"><a href="#current" id="current-tab" role="tab" data-toggle="tab" aria-expanded="true">Current Action Plan</a>
+                            <li role="presentation" class="active"><a href="#current" id="current-tab" role="tab" data-toggle="tab" aria-expanded="true">Create Action Plan</a>
                             </li>
-                            <li role="presentation" class=""><a href="#previous" role="tab" id="previous-tab" data-toggle="tab" aria-expanded="false">Previous Action Plans</a>
+                            <li role="presentation" class=""><a href="#previous" role="tab" id="previous-tab" data-toggle="tab" aria-expanded="false">Submitted Action Plans</a>
                             </li>
                             <li>
                                 <a id="#comments" class="collapse-link-right">
@@ -294,7 +294,7 @@
                                     <div class="mail_list">
                                         <div class="right" style="padding-left: 1em;">
                                             <h3>
-                                                {{actionPlan.comment.author}}
+                                                {{actionPlan.comment.get_author_display}}
                                                 <small>{{actionPlan.comment.timeCreated}}</small>
                                             </h3>
                                             <p>{{actionPlan.comment.text}}</p>
