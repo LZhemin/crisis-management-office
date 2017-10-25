@@ -4,10 +4,23 @@ from django.urls import reverse
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate
 
 #Kindly help to remove unwanted modules
-
+sessionId = 2
 
 def index(Request):
-    return render(Request, 'chief/base_site.html')
+    # UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
+    try:
+        assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
+        #crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
+        crisis_reports = CrisisReport.objects.filter().select_related('crisisType')
+    except(KeyError, Crisis.DoesNotExist):
+        context = {'assigned_crisis': False}
+    else:
+        context = {
+            'assigned_crisis': assigned_crisis,
+            'crisis_reports': crisis_reports
+        }
+
+    return render(Request, 'chief/index.html', context)
 
 def sendDeployment(request, CrisisID):
     latest_actionplan_list = ActionPlan.objects.order_by('-crisis')[:5]
