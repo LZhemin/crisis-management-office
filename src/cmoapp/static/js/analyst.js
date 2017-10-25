@@ -4,21 +4,13 @@ $(document).ready(function() {
         var $BOX_PANEL = $(this).closest('.x_content'),
             $TOGGLE_PANEL = $($(this).attr('id')),
             $OWN_PANEL = $('#own'),
-            $ICON = $(this).find('i'),
-            $PLACEHOLDER = $(this).find('h2');
-        // fix for some div with hardcoded fix class
+            $ICON = $(this).find('i');
 
         $ICON.toggleClass("fa-chevron-left fa-chevron-right");
-        if ($ICON.attr('class') == "fa-chevron-left")
-            $PLACEHOLDER.html("View Comments<i class='fa fa-chevron-left'></i>");
-        else
-            $PLACEHOLDER.html("Close Comments<i class='fa fa-chevron-right'></i>");
-        console.log($TOGGLE_PANEL.is(":visible"));
         if($TOGGLE_PANEL.is(":visible")){
-
             $TOGGLE_PANEL.addClass('fadeOutRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-                $TOGGLE_PANEL.removeClass('fadeOutRight animated');
                 $OWN_PANEL.toggleClass('col-sm-9 col-sm-12');
+                $TOGGLE_PANEL.removeClass('fadeOutRight animated');
                 $TOGGLE_PANEL.hide();
             });
 

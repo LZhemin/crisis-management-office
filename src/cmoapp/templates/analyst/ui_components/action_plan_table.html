@@ -7,9 +7,7 @@
         <th style="width:7%">Forces Involved</th>
         <th style="width:8%">Resolution Time</th>
         <th style="width:5%">Status</th>
-        <th>Comments</th>
-        <th style="width:15%">Comment's Author</th>
-        <th style="width:5%">Actions</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -25,13 +23,14 @@
         <td>{{ actionPlan.resolutionTime }}</td>
         <td>{% if actionPlan.status == 'Approved' %} <span class="label label-success">
                                 {% elif actionPlan.status == 'Rejected' %} <span class="label label-danger">
-                                {% elif actionPlan.status == 'Planning' %} <span class="label label-default">
-                                {% else %} <span class="label label-info">
+                                {% elif actionPlan.status == 'Planning' %} <span class="label label-info">
+                                {% elif actionPlan.status == 'CORequest' %} <span class="label label-warning">
+                                {% elif actionPlan.status == 'PMORequest' %} <span class="label label-pmo">
+                                {% else %} <span class="label label-success">
                                 {% endif %}
                                 {{ actionPlan.get_status_display }}</span>
         </td>
-        <td>{{ actionPlan.comment.text|default_if_none:"-" }}</td>
-        <td>{{ actionPlan.comment.get_author_display|default_if_none:"-" }}</td>
+
         <td><a href="{% url 'Analyst_Action_Plan_Detail' actionPlan.id %}" class="btn btn-block btn-primary btn-xs"><i
                 class="fa fa-eye"></i> View </a>
             {% if actionPlan.status == 'Planning' %}

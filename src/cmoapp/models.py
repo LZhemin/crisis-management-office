@@ -97,9 +97,6 @@ class ActionPlan(models.Model):
     def __str__(self):
         return 'ID: {}'.format(self.pk);
 
-    def comments(self):
-        return self.comment_set.all.order_by('timeCreated')
-
 
 class Comment(models.Model):
     text = models.TextField()
@@ -135,7 +132,7 @@ class ForceDeployment(models.Model):
     max = models.DecimalField(max_digits=5, decimal_places=2)
     actionPlan =  models.ForeignKey(ActionPlan, on_delete= models.CASCADE)
     def __str__(self):
-        return 'ID: {} Name: {}'.format(self.pk,self.name);
+        return 'ID: {} Name: {}'.format(self.pk,self.name)
 
 class EFUpdate(models.Model):
     #Attributes

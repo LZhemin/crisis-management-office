@@ -31,6 +31,9 @@ html , body{
     border-right-style: solid;
     border-right-color: rgb(219, 219, 219);
 }
+.label-pmo{
+    background-color: #ef8c00;
+}
 
 .daterangepicker .ranges li {
     color: #73879C
