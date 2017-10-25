@@ -5,12 +5,7 @@
 {% block page_stylesheets %}
 
 <!-- Added for Operator Table Testing -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-
-<link href="/static/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
-<link href="/static/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
-<link href="/static/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
 
 <style type="text/css">
        .table-wrapper {
@@ -905,48 +900,31 @@
                           <table class="table table-striped jambo_table bulk_action">
                             <thead>
                               <tr class="headings">
-                                <th>
-                                  <div class="icheckbox_flat-green" style="position: relative;">
-                                      <input type="checkbox" id="check-all2" class="flat" style="position: absolute; opacity: 0;">
-                                      <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                  </div>
-                                </th>
-                                <th class="column-title">ID </th>
-                                <th class="column-title">Crisis </th>
-                                <th class="column-title">Crisis Types </th>
-                                <th class="column-title">Description </th>
-                                <th class="column-title">DateTime </th>
-                                <th class="column-title no-link last"><span class="nobr">Action</span>
-                                </th>
-                                <th class="bulk-actions" colspan="7">
-                                  <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                                </th>
+                                    <th></th>
+                                    <th class="column-title">ID </th>
+                                    <th class="column-title">Crisis </th>
+                                    <th class="column-title">Crisis Types </th>
+                                    <th class="column-title">Description </th>
+                                    <th class="column-title">DateTime </th>
+                                    <th class="column-title no-link last"><span class="nobr">Action</span>
+                                    </th>
                               </tr>
                             </thead>
 
-                            <tbody>
-                                {% for allcrisis in getUnassignedCrisisReport %}
-                                  <tr class="even pointer">
-                                    <td class="a-center ">
-                                      <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                                    </td>
-                                    <td class=" "><span class="label label-default">{{allcrisis.pk}}</span></td>
-                                    <td class=" "><span class="label label-danger">Not Assigned</span></td>
-                                    <td class=" "><span class="label label-warning">{{allcrisis.crisisType}}</span></td>
-                                    <td class=" ">{{allcrisis.description}} </td>
-                                    <td class="a-right a-right ">{{allcrisis.datetime}}</td>
-
-                                    <td class=" last">
-                                        <!--
-                                      <button type="button" href = "/operator/{{allcrisis.pk}}" class="btn btn-primary" data-toggle="modal" data-target=".view-crisis"
-                                              data-id={{allcrisis.pk}} data-des={{allcrisis.description}} data-lat={{allcrisis.latitude}}
-                                              data-long={{allcrisis.longitude}} data-datetime={{allcrisis.datetime}}>View</button>
-                                        -->
-
-                                     <button type="button" class="btn btn-primary" onclick="window.location='/operator/{{allcrisis.pk}}';">
-                                         <span class="glyphicon glyphicon-search"></span></button>
-                                    </td>
-                                  </tr>
+                            <tbody id="Unacrisrptlist">
+                                {% for crisisrpt in getUnassignedCrisisReport %}
+                                    <tr id="crisisreport-{{crisisrpt.pk}}">
+                                         <td></td>
+                                         <td><span class="label label-default">{{crisisrpt.pk}}</span></td>
+                                         <td><span class="label label-danger">Not Assigned</span></td>
+                                         <td><span class="label label-warning">{{crisisrpt.crisisType}}</span></td>
+                                         <td>{{crisisrpt.description}} </td>
+                                         <td>{{crisisrpt.datetime}}</td>
+                                         <td>
+                                          <button type="button" class="btn btn-primary" onclick="window.location='/operator/{{crisisrpt.pk}}';">
+                                              <span class="glyphicon glyphicon-search"></span></button>
+                                         </td>
+                                     </tr>
                                 {%endfor%}
                             </tbody>
                           </table>
@@ -978,7 +956,7 @@
                     <div class="col-md-6">
                         <div class="x_panel">
                             <div class="sales report x_title">
-                                <h2><i class="fa fa-spinner"></i> Assigned Crisis Report</h2>
+                                <h2><i class="fa fa-spinner"></i> Unassigned Crisis</h2>
 
                                 <ul class="nav navbar-right panel_toolbox col-sm-1">
                                   <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -995,30 +973,23 @@
                                   <table class="table table-striped jambo_table bulk_action">
                                     <thead>
                                       <tr class="headings">
-
+                                        <th></th>
                                         <th class="column-title">ID </th>
-                                        <th class="column-title">Crisis </th>
-                                        <th class="column-title">Crisis Types </th>
-                                        <th class="column-title">Description </th>
-                                        <th class="column-title">DateTime </th>
-                                        <th class="bulk-actions" colspan="7">
-                                          <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                                        </th>
+                                        <th class="column-title">Analyst </th>
+                                        <th class="column-title">Status </th>
                                       </tr>
                                     </thead>
 
-                                    <tbody>
-                                        {% for unacrisis in getAssignedCrisisReport %}
-                                          <tr class="even pointer">
-
-                                              <td class=" "><span class="label label-default">{{unacrisis.pk}}</span></td>
-                                              <td class=" "><span class="label label-danger">{{unacrisis.crisis_id}}</span></td>
-                                              <td class=" "><span class="label label-warning">{{unacrisis.crisisType}}</span></td>
-                                              <td class=" ">{{unacrisis.description}} </td>
-                                              <td class="a-right a-right ">{{unacrisis.datetime}}</td>
-
+                                    <tbody id="Unacrisislist">
+                                        {% for unacrisis in getUnassignedCrisis %}
+                                          <tr id="crisis-{{unacrisis.pk}}">
+                                            <td></td>
+                                            <td><span class="label label-default">{{unacrisis.pk}}</span></td>
+                                            <td><span class="label label-warning">{{unacrisis.analyst}}</span></td>
+                                            <td><span class="label label-success">{{unacrisis.status}}</span></td>
                                           </tr>
                                         {%endfor%}
+
                                     </tbody>
                                   </table>
 
@@ -1051,34 +1022,18 @@
                                   <table class="table table-striped jambo_table bulk_action">
                                     <thead>
                                       <tr class="headings">
-                                        <th>
-                                          <div class="icheckbox_flat-green" style="position: relative;">
-                                              <input type="checkbox" id="check-all3" class="flat" style="position: absolute; opacity: 0;">
-                                              <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                          </div>
-                                        </th>
+                                        <th></th>
                                         <th class="column-title">ID </th>
                                         <th class="column-title no-link last">Analyst </th>
-                                        </th>
-                                        <th class="bulk-actions" colspan="7">
-                                          <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                                        </th>
-                                          <th class="column-title no-link last"><span class="nobr">Action</span>
                                       </tr>
                                     </thead>
 
-                                    <tbody>
+                                    <tbody id="Unaacclist">
                                         {% for unaacc in getAccountList %}
-                                          <tr class="even pointer">
-                                            <td class="a-center ">
-                                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                                            </td>
+                                          <tr id="analysts-{{unaacc.pk}}">
+                                            <td></td>
                                             <td class=" "><span class="label label-default">{{unaacc.id}}</span></td>
                                             <td class=" "><span class="label label-warning">{{unaacc.login}}</span></td>
-                                    <td class=" last">
-                                     <button type="button" class="btn btn-primary" onclick="window.location='/operator/{{unaacc.id}}';">
-                                         <span class="glyphicon glyphicon-search"></span></button>
-                                    </td>
                                           </tr>
                                         {%endfor%}
                                     </tbody>
@@ -1093,9 +1048,11 @@
                     <!-- End of Report  -->
 
 
+
                 </div>
 
                 <!-- Start of Crisis Table  -->
+                <!--
                 <div class=" x_panel">
 
                     <div class="sales report x_title ">
@@ -1121,53 +1078,8 @@
                         <div class="clearfix"></div>
                     </div>
 
-                    <!-- Start of Table  -->
+
                     <div class="x_content">
-
-                    <!-- For CrisisReport Update -->
-                   <div class="row white">
-                      <div class="columns large-12">
-                          <span class="label label-default">Crisis Reports API Update</span>
-                          <ul id="cmoapp1" >
-                              {% for crisisreport in all_crisisreport %}
-                                  <li id='crisisreport-{{crisisreport.pk}}'>
-                                      <strong>{{ crisisreport.pk }}</strong> -
-                                      <em>{{ crisisreport.description }}</em> -
-                                       <em>{{ crisisreport.datetime }}</em> -
-                                       <em>{{ crisisreport.latitude }}</em> -
-                                       <em>{{ crisisreport.longitude }}</em> -
-                                       <em>{{ crisisreport.radius }}</em> -
-                                       <em>{{ crisisreport.crisis }}</em> -
-                                       <span>{{ crisisreport.crisisType }}</span> -
-
-                                      <a id='delete-post-{{crisisreport.id}}'>delete me</a>
-                                  </li>
-                              {% endfor %}
-                          </ul>
-                      </div>
-                    </div>
-
-                        <!-- For Crisis Update -->
-
-                      <div class="row white">
-                          <div class="columns large-12">
-                              <span class="label label-default">----------------- Crisis ----------------</span>
-                              <ul id="cmoapp" class="topnav">
-                                  {% for crisis in all_crisis %}
-                                      <li id='crisis-{{crisis.pk}}'>
-                                          <strong>Crisis {{ crisis.pk }}</strong> -
-                                          <em>{{ crisis.analyst }}</em> -
-                                          <!--
-                                          <span>{{ crisis.status }}</span> -
-                                          -->
-                                          <a id='delete-post-{{crisis.id}}'>delete me</a>
-                                      </li>
-                                  {% endfor %}
-                              </ul>
-                          </div>
-                      </div>
-
-
                       <div class="table-responsive">
                           <table class="table table-striped jambo_table bulk_action">
                             <thead>
@@ -1199,9 +1111,7 @@
                                     <td><span class="label label-default">{{allo.pk}}</span></td>
                                       <td class="a-right a-right "><b>{{allo.analyst}}</b></td>
                                     <td><span class="label label-success">{{allo.status}}</span></td>
-                                     <!-- Do not display this at the moment
-                                    <td class=" last"><a href={{allcrisis.pk}}>View</a>
-                                    -->
+
 
                                     <td class=" last">
 
@@ -1210,9 +1120,9 @@
                                        <span class="glyphicon glyphicon-search"></span>
                                       </button>
 
-                                        <!--
+
                                       <button type="button" class="btn btn-round btn-info" onclick="window.location='/operator/{{allo.pk}}';">View</button>
-                                         -->
+
                                       <button type="delete" ref="delete-post-{{allo.id}}" class="btn btn-round btn-danger" onclick="new PNotify({
                                           title: 'Deleted Crisis Successfully',
                                           text: 'Delete the crisis!',
@@ -1245,20 +1155,18 @@
 
 
                     </div>
-                    <!-- End of table  -->
+
 
                 </div>
+                -->
+
+
                 <!-- End of Crisis Report  -->
-
-
-
-
-
 
 
             </div>
             <!-- End of Right Side -->
-
+             <div class="clearfix"></div>
 
 
         </div>
@@ -1269,7 +1177,6 @@
 
     </div>
     <!-- End of right col -->
-
 
 
 </div>
@@ -1326,7 +1233,7 @@
 
                     <h4 class="modal-title" id="Crisis_Title">Assign Crisis</h4>
                     <select class="form-control" id="getcrisis" name="getcrisis">
-                      {% for getc in getCrisisList %}
+                      {% for getc in getUnassignedCrisis %}
                         <option value = {{getc.id}}>{{getc.pk}}</option>
                       {%endfor%}
                     </select>
@@ -1371,12 +1278,7 @@
     </div>
 </div>
 
-<!-- Filter go here -->
-<div class="right_col">
 
-
-
-</div>
 
 
 
@@ -1403,7 +1305,7 @@
     </script>
 
     <script src="/static/js/operator.js"></script>
-
+    <script src="/static/vendors/moment/min/moment.min.js" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
            $('[data-toggle="offcanvas"]').click(function(){
@@ -1411,20 +1313,6 @@
            });
         });
     </script>
-
-    <script>
-            /*
-           setTimeout(function(){
-               //window.location.reload(1);
-               load_crisisreports();
-            }, 5000);
-            */
-
-    </script>
-
-    <script src="/static/vendors/pnotify/dist/pnotify.js" type="text/javascript" optimized="true"></script>
-    <script src="/static/vendors/pnotify/dist/pnotify.buttons.js" type="text/javascript" optimized="true"></script>
-    <script src="/static/vendors/pnotify/dist/pnotify.nonblock.js" type="text/javascript" optimized="true"></script>
 
     <script>
        $(document).ready(function (){

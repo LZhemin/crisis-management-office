@@ -3,14 +3,22 @@ $(function() {
 
 
     //Load 911 API Reports
-    //Auto Refresh every 3 second
+    //Auto Refresh every 5 second
     setInterval(function() {
        // alert("happy");
        load_crisisreports();
-      }, 3000);
-    //load_crisisreports();
+       load_crisis();
+       load_analyst();
+      }, 5000);
 
-    //-------------------------------CrisisReport Ajax API Func Calls
+
+    // convert ugly date to human readable date
+    function convert_to_readable_date(date_time_string) {
+        var newDate = moment(date_time_string).format('lll')
+        return newDate
+    }
+
+    //---------CrisisReport Ajax API Func Calls
     // Load all posts on page load
     function load_crisisreports() {
         $.ajax({
@@ -19,24 +27,34 @@ $(function() {
             // handle a successful response
             success : function(json) {
                 for (var i = 0; i < json.length; i++) {
-                    $('#crisisreport-'+json[i].id).hide();
+                    //$("#crisisreport-"+json[i].id).hide();
+                    //alert("#crisisreport-"+json[i].id);
                 }
-                //for (var i = 0; i < json.length; i++) {
-                for (var i = json.length-1; i >= 0; i--) {
+
+                var html = '';
+
+                for (var i = 0; i < json.length; i++) {
+                //for (var i = json.length-1; i >= 0; i--) {
                     console.log(json[i])
-                    $("#cmoapp1").prepend("<li id='crisisreport-"+json[i].id+"'><strong>"+json[i].id+"</strong> - <em> "+json[i].description+"</em> - <em>"+json[i].datetime+"</em> - <em>"+json[i].latitude+"</em> - <em>"+json[i].longitude+"</em> - <em>"+json[i].radius+"</em> - <em>"+json[i].crisis+"</em> - <span>"+json[i].crisisType+"</span> - <a id='delete-post-"+json[i].id+"'>delete me</a></li>");
-                    /*
-                    $("#cmoapp1").prepend("<li id='crisisreport-"+json[i].id+"'><strong>"
-                                                                +json[i].id+"</strong> - <em> "
-                                                                +json[i].description+"</em> - <em>"
-                                                                +json[i].datetime+"</em> - <em>"
-                                                                +json[i].latitude+"</em> - <em>"
-                                                                +json[i].longitude+"</em> - <em>"
-                                                                +json[i].radius+"</em> - <em>"
-                                                                +json[i].crisis+"</em> - <span>"
-                                                                +json[i].crisisType+"</span> - <a id='delete-post-"
-                                                                +json[i].id+"'>delete me</a></li>");
-                                                                */
+                         $('#crisisreport-'+json[i].id).remove();
+                            //if(json[i].crisis == null)
+                            // {
+                                //html = '<tbody>';
+                                html = '<tr id ='+'crisisreport-'+json[i].id+'>';
+                                html += '<td></td>';
+                                html += '<td><span class="label label-default">'+json[i].id+'</span></td>';
+                                html += '<td><span class="label label-danger">'+'Not Assigned'+'</span></td>';
+                                html += '<td><span class="label label-warning">'+json[i].crisisType+'</span></td>';
+                                html += '<td>'+json[i].description+'</td>';
+                                dateString = convert_to_readable_date(json[i].datetime);
+                                html += '<td>'+dateString+'</td>';
+                                html += '<td>'+'<button type='+"button"+'  class="btn btn-primary"'+' onclick='+"window.location='/operator/"+json[i].id+"';"+'>'+
+                                                 '<span class=" glyphicon glyphicon-search"' + ' ></span></button></td>';
+                                html += '</tr>';
+                               // html += '</tbody>';
+                                $("#Unacrisrptlist").append(html);
+                            // }
+
                 }
 
             },
@@ -123,21 +141,29 @@ $(function() {
     };
 
 
-    //load_posts()
-
-    /*
-    // Load all posts on page load
-    function load_posts() {
+    // Load all crisis on page load
+    function load_crisis() {
         $.ajax({
-            url : "/operator/", // the endpoint
+            url : "api/crisis/", // the endpoint
             type : "GET", // http method
             // handle a successful response
+
+            //var html;
+
             success : function(json) {
                 for (var i = 0; i < json.length; i++) {
                     console.log(json[i])
-                    $("#cmoapp").prepend("<li id='crisis-"+json[i].crisispk+"'><strong>"+json[i].analyst+
-                        "</strong> - <em> "+json[i].crisispk+"</em> - <span> "+json[i].status+
-                        "</span> - <a id='delete-post-"+json[i].id+"'>delete me</a></li>");
+                    $('#crisis-'+json[i].id).remove();
+                    //if(json[i].crisis == null)
+                    // {
+                        var html = '<tr id ='+'crisis-'+json[i].id+'>';
+                        html += '<td></td>';
+                        html += '<td><span class="label label-default">'+json[i].id+'</span></td>';
+                        html += '<td><span class="label label-warning">'+json[i].analyst+'</span></td>';
+                        html += '<td><span class="label label-success">'+json[i].status+'</span></td>';
+                        html += '</tr>';
+                        $("#Unacrisislist").append(html);
+
                 }
                // console.log("load success"); // another sanity check
             },
@@ -149,7 +175,39 @@ $(function() {
             }
         });
     };
-    */
+
+
+    // Load all analyst on page load
+    function load_analyst() {
+        $.ajax({
+            url : "/operator/load_analyst/", // the endpoint
+            type : "GET", // http method
+            // handle a successful response
+            //var html;
+            success : function(json) {
+                for (var i = 0; i < json.length; i++) {
+                    console.log(json[i])
+                        $('#analysts-'+json[i].id).remove();
+                        if(json[i].id != null){
+                            var html = '<tr id ='+'analysts-'+json[i].id+'>';
+                            html += '<td></td>';
+                            html += '<td><span class="label label-default">'+json[i].id+'</span></td>';
+                            html += '<td><span class="label label-warning">'+json[i].login+'</span></td>';
+                            html += '</tr>';
+                            $("#Unaacclist").append(html);
+                         }
+
+                }
+               // console.log("load success"); // another sanity check
+            },
+            // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+                $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+        });
+    };
 
     // Submit post on submit
     $('#crisis-form').on('submit', function(event){
@@ -180,16 +238,16 @@ $(function() {
                 //$('#getstatus').val(''); // remove the value from the input
                 console.log(json); // log the returned json to the console
 
-                $("#cmoapp").prepend("<li id='crisis-"+json.crisispk+"'><strong>"+'Crisis '+json.crisispk+"</strong> - <em> "+'analyst'+json.analyst+
-                "</em>  - <a id='delete-post-"+json.crisispk+"'>delete me</a></li>"); //- <span> "+json.status+"</span>
-
                 /*
-                 $("#cmoapp").prepend("<td id='crisis-"+json.crisispk+
-                                    "'><td class="">"+json.crisispk"</td>"
-                                    "'><td class="">"+json.analyst"</td>"
-                                    "'><td class="">"+json.crisistypes"</td>"
-                                    "'><td class="">"+json.type"</td>" );
-                 */
+                html = '<tr id ='+'crisis-'+json.crisispk+'>';
+                html += '<td></td>';
+                html += '<td><span class="label label-default">'+json.crisispk+'</span></td>';
+                html += '<td><span class="label label-warning">'+json.analyst+'</span></td>';
+                html += '<td><span class="label label-success">'+json.status+'</span></td>';
+                html += '</tr>';
+                $("#Unacrisislist").append(html);
+                */
+
                 console.log("success"); // another sanity check
             },
             // handle a non-successful response

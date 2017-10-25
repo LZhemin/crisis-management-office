@@ -50,8 +50,10 @@ import json
 @permission_classes((permissions.AllowAny,))
 def crisis_collection(request):
     if request.method == 'GET':
-        crisiss = Crisis.objects.all()
-        serializer = CrisisSerializer(crisiss, many=True)
+        #crisiss = Crisis.objects.all()
+        getcrisisacc = CrisisReport.objects.filter(crisis__isnull=False)
+        getUnassignedCrisis = Crisis.objects.all().exclude(pk__in=getcrisisacc)
+        serializer = CrisisSerializer(getUnassignedCrisis, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
         #need to change the data.get according
@@ -89,7 +91,8 @@ def crisis_element(request, pk):
 @permission_classes((permissions.AllowAny,))
 def crisisreport_collection(request):
     if request.method == 'GET':
-        crisisreports = CrisisReport.objects.all()
+        #crisisreports = CrisisReport.objects.all()
+        crisisreports = CrisisReport.objects.filter(crisis__isnull=True).order_by('datetime')
         serializer = CrisisReportSerializer(crisisreports, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
