@@ -3,7 +3,7 @@
     "model": "auth.user",
     "fields": {
         "password": "pbkdf2_sha256$36000$O3pDBWZit6iy$hl6J4teEBMsxuqVUcInPkQLzKJWZ8a+TJFMz7rWeE1w=",
-        "last_login": "2017-10-20T18:19:13.191Z",
+        "last_login": "2017-10-23T17:18:19.489Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -12,23 +12,6 @@
         "is_staff": true,
         "is_active": true,
         "date_joined": "2017-10-20T18:19:01.210Z",
-        "groups": [],
-        "user_permissions": []
-    }
-},
-{
-    "model": "auth.user",
-    "fields": {
-        "password": "pbkdf2_sha256$36000$2yFMDMPcepoJ$UHVIIiizsXye9HPMcAJz5nuPvdtB5lCnopq5Gi8L3iY=",
-        "last_login": "2017-10-21T11:15:23.334Z",
-        "is_superuser": true,
-        "username": "admin1",
-        "first_name": "",
-        "last_name": "",
-        "email": "admin1@hotmail.com",
-        "is_staff": true,
-        "is_active": true,
-        "date_joined": "2017-10-21T11:15:03.716Z",
         "groups": [],
         "user_permissions": []
     }
@@ -43,10 +26,10 @@
 },
 {
     "model": "sessions.session",
-    "pk": "5pgq725qe2vieyun8gcyp8s98hfslk89",
+    "pk": "xo0nz4koihznuf7szw1u261jec1yx6tz",
     "fields": {
-        "session_data": "OWYwYTM3ZjBlNmM3ZDU1YmY4MjgwMGY2ODY1NGY2YWE0M2I0M2Y3OTp7Il9hdXRoX3VzZXJfaGFzaCI6ImY1NGUwN2JhMWVhYjYxMjE4ZDJjNTI1N2RhOWMyZWFiOGI2Mjc2OGUiLCJfYXV0aF91c2VyX2lkIjoiMiIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=",
-        "expire_date": "2017-11-04T11:15:23.343Z"
+        "session_data": "YjJiMGZlMDcwNjJmOTlhYmZjM2JkN2MwOWNkOGNhY2U2YTM0M2I1Yjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI4MjNjNmY1OWQ2ZjA3MmE2YzhmMDFmZWU3ZWFkNDhhZDdjOGVkOTZjIn0=",
+        "expire_date": "2017-11-06T17:18:19.505Z"
     }
 },
 {
@@ -97,7 +80,25 @@
     "pk": 5,
     "fields": {
         "login": "Analyst3",
-        "password": "pass",
+        "password": "password",
+        "type": "Analyst"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 6,
+    "fields": {
+        "login": "Analyst4",
+        "password": "password",
+        "type": "Analyst"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 7,
+    "fields": {
+        "login": "Analyst5",
+        "password": "password",
         "type": "Analyst"
     }
 },
@@ -126,8 +127,8 @@
     "model": "cmoapp.crisis",
     "pk": 1,
     "fields": {
-        "analyst": null,
-        "status": "Ongoing"
+        "analyst": 2,
+        "status": "Clean-up"
     }
 },
 {
@@ -135,7 +136,7 @@
     "pk": 2,
     "fields": {
         "analyst": 1,
-        "status": "Resolved"
+        "status": "Ongoing"
     }
 },
 {
@@ -144,6 +145,22 @@
     "fields": {
         "analyst": 5,
         "status": "Ongoing"
+    }
+},
+{
+    "model": "cmoapp.crisis",
+    "pk": 4,
+    "fields": {
+        "analyst": null,
+        "status": "Ongoing"
+    }
+},
+{
+    "model": "cmoapp.crisis",
+    "pk": 5,
+    "fields": {
+        "analyst": 7,
+        "status": "Resolved"
     }
 },
 {
@@ -168,7 +185,7 @@
         "latitude": "1.27342500",
         "longitude": "103.84126200",
         "radius": 55,
-        "crisis": 2,
+        "crisis": 1,
         "crisisType": 3
     }
 },
@@ -181,8 +198,21 @@
         "latitude": "1.26398200",
         "longitude": "103.31523000",
         "radius": 65,
-        "crisis": 3,
+        "crisis": null,
         "crisisType": 1
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 4,
+    "fields": {
+        "description": "WOW GANG FIGHT",
+        "datetime": "2017-10-04T02:25:09Z",
+        "latitude": "1.35375000",
+        "longitude": "103.72060000",
+        "radius": 1100,
+        "crisis": 1,
+        "crisisType": 3
     }
 },
 {
@@ -191,12 +221,130 @@
     "fields": {
         "description": "Wing It",
         "status": "Approved",
-        "COComments": null,
-        "PMOComments": null,
         "resolutionTime": "00:00:00",
-        "projectedCasualties": "25.00",
+        "projectedCasualties": 25,
         "type": "Combat",
         "crisis": 1
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 2,
+    "fields": {
+        "description": "CMI Time to Die",
+        "status": "Rejected",
+        "resolutionTime": "00:00:20",
+        "projectedCasualties": 1,
+        "type": "Combat",
+        "crisis": 1
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 3,
+    "fields": {
+        "description": "OMG DIE AGAIN",
+        "status": "Rejected",
+        "resolutionTime": "00:00:01",
+        "projectedCasualties": 1,
+        "type": "Combat",
+        "crisis": 1
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 4,
+    "fields": {
+        "description": "NABEI FAIL",
+        "status": "Rejected",
+        "resolutionTime": "00:00:01",
+        "projectedCasualties": 1,
+        "type": "Combat",
+        "crisis": 1
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 5,
+    "fields": {
+        "description": "PACK UP GO MALAYSIA",
+        "status": "Rejected",
+        "resolutionTime": "00:00:01",
+        "projectedCasualties": 1,
+        "type": "Combat",
+        "crisis": 1
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 6,
+    "fields": {
+        "description": "PACK UP GO INDONESIA",
+        "status": "Rejected",
+        "resolutionTime": "00:00:01",
+        "projectedCasualties": 1,
+        "type": "Clean-up",
+        "crisis": 1
+    }
+},
+{
+    "model": "cmoapp.comment",
+    "pk": 2,
+    "fields": {
+        "text": "PINOY LAND SEEMS BETTER",
+        "author": "CO",
+        "timeCreated": "2017-10-06T17:20:41Z",
+        "actionPlan": 1
+    }
+},
+{
+    "model": "cmoapp.comment",
+    "pk": 3,
+    "fields": {
+        "text": "REALLY",
+        "author": "CO",
+        "timeCreated": "2017-10-23T17:27:39Z",
+        "actionPlan": 2
+    }
+},
+{
+    "model": "cmoapp.comment",
+    "pk": 4,
+    "fields": {
+        "text": "NICE GO",
+        "author": "PMO",
+        "timeCreated": "2017-10-23T17:27:49Z",
+        "actionPlan": 3
+    }
+},
+{
+    "model": "cmoapp.comment",
+    "pk": 5,
+    "fields": {
+        "text": "KNN GO NOW",
+        "author": "CO",
+        "timeCreated": "2017-10-04T10:00:00Z",
+        "actionPlan": 4
+    }
+},
+{
+    "model": "cmoapp.comment",
+    "pk": 6,
+    "fields": {
+        "text": "PLZ LEAVE",
+        "author": "CO",
+        "timeCreated": "2017-10-12T05:28:25Z",
+        "actionPlan": 6
+    }
+},
+{
+    "model": "cmoapp.comment",
+    "pk": 7,
+    "fields": {
+        "text": "LEAVE BITCH",
+        "author": "PMO",
+        "timeCreated": "2017-10-13T13:28:40Z",
+        "actionPlan": 5
     }
 },
 {
@@ -415,27 +563,117 @@
     "model": "admin.logentry",
     "pk": 12,
     "fields": {
-        "action_time": "2017-10-21T11:15:41.908Z",
+        "action_time": "2017-10-23T17:20:42.706Z",
         "user": [
-            "admin1"
+            "admin"
         ],
         "content_type": [
             "cmoapp",
-            "crisis"
+            "comment"
         ],
         "object_id": "2",
-        "object_repr": "ID: 2 - assigned to: Analyst1",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
+        "object_repr": "ID: 2 - Author: CO - Comment: THis is awesome",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"text\", \"timeCreated\"]}}]"
     }
 },
 {
     "model": "admin.logentry",
     "pk": 13,
     "fields": {
-        "action_time": "2017-10-21T11:38:39.719Z",
+        "action_time": "2017-10-23T17:20:48.360Z",
         "user": [
-            "admin1"
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2 - Author: CO - Comment: THis is awesome",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+        "action_time": "2017-10-23T17:22:13.625Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+        "action_time": "2017-10-23T17:22:16.445Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+        "action_time": "2017-10-23T17:22:37.608Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "3",
+        "object_repr": "ID: 3",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+        "action_time": "2017-10-23T17:22:38.446Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "3",
+        "object_repr": "ID: 3",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 18,
+    "fields": {
+        "action_time": "2017-10-23T17:23:26.320Z",
+        "user": [
+            "admin"
         ],
         "content_type": [
             "cmoapp",
@@ -449,11 +687,65 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 14,
+    "pk": 19,
     "fields": {
-        "action_time": "2017-10-21T11:38:58.179Z",
+        "action_time": "2017-10-23T17:23:35.345Z",
         "user": [
-            "admin1"
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "account"
+        ],
+        "object_id": "6",
+        "object_repr": "Analyst4",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 20,
+    "fields": {
+        "action_time": "2017-10-23T17:23:41.781Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "account"
+        ],
+        "object_id": "7",
+        "object_repr": "Analyst5",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 21,
+    "fields": {
+        "action_time": "2017-10-23T17:24:05.889Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2 - assigned to: Analyst1",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 22,
+    "fields": {
+        "action_time": "2017-10-23T17:24:21.820Z",
+        "user": [
+            "admin"
         ],
         "content_type": [
             "cmoapp",
@@ -467,110 +759,218 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 15,
+    "pk": 23,
     "fields": {
-        "action_time": "2017-10-21T11:39:07.854Z",
+        "action_time": "2017-10-23T17:24:32.758Z",
         "user": [
-            "admin1"
-        ],
-        "content_type": [
-            "cmoapp",
-            "crisisreport"
-        ],
-        "object_id": "3",
-        "object_repr": "ID: 3 - Seng Kang got fire everytime like this",
-        "action_flag": 2,
-        "change_message": "[{\"changed\": {\"fields\": [\"crisis\"]}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 16,
-    "fields": {
-        "action_time": "2017-10-21T12:30:06.817Z",
-        "user": [
-            "admin1"
-        ],
-        "content_type": [
-            "cmoapp",
-            "crisisreport"
-        ],
-        "object_id": "2",
-        "object_repr": "ID: 2 - Little India got Riot again",
-        "action_flag": 2,
-        "change_message": "[{\"changed\": {\"fields\": [\"crisis\"]}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 17,
-    "fields": {
-        "action_time": "2017-10-21T12:30:45.150Z",
-        "user": [
-            "admin1"
-        ],
-        "content_type": [
-            "cmoapp",
-            "crisisreport"
-        ],
-        "object_id": "2",
-        "object_repr": "ID: 2 - Little India got Riot again",
-        "action_flag": 2,
-        "change_message": "[{\"changed\": {\"fields\": [\"crisis\"]}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 18,
-    "fields": {
-        "action_time": "2017-10-21T12:31:44.843Z",
-        "user": [
-            "admin1"
-        ],
-        "content_type": [
-            "cmoapp",
-            "crisisreport"
-        ],
-        "object_id": "2",
-        "object_repr": "ID: 2 - Little India got Riot again",
-        "action_flag": 2,
-        "change_message": "[{\"changed\": {\"fields\": [\"crisis\"]}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 19,
-    "fields": {
-        "action_time": "2017-10-21T13:29:24.118Z",
-        "user": [
-            "admin1"
+            "admin"
         ],
         "content_type": [
             "cmoapp",
             "crisis"
         ],
-        "object_id": "1",
-        "object_repr": "ID: 1 - assigned to: Analyst2",
-        "action_flag": 2,
-        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+        "object_id": "4",
+        "object_repr": "ID: 4 - assigned to: None",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
     }
 },
 {
     "model": "admin.logentry",
-    "pk": 20,
+    "pk": 24,
     "fields": {
-        "action_time": "2017-10-21T13:29:28.316Z",
+        "action_time": "2017-10-23T17:24:40.468Z",
         "user": [
-            "admin1"
+            "admin"
         ],
         "content_type": [
             "cmoapp",
             "crisis"
         ],
-        "object_id": "3",
-        "object_repr": "ID: 3 - assigned to: Analyst3",
+        "object_id": "5",
+        "object_repr": "ID: 5 - assigned to: Analyst5",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 25,
+    "fields": {
+        "action_time": "2017-10-23T17:24:42.832Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "5",
+        "object_repr": "ID: 5 - assigned to: Analyst5",
         "action_flag": 2,
-        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 26,
+    "fields": {
+        "action_time": "2017-10-23T17:26:03.367Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "4",
+        "object_repr": "ID: 4 - WOW GANG FIGHT",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 27,
+    "fields": {
+        "action_time": "2017-10-23T17:26:47.794Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "4",
+        "object_repr": "ID: 4",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 28,
+    "fields": {
+        "action_time": "2017-10-23T17:27:11.290Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "5",
+        "object_repr": "ID: 5",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 29,
+    "fields": {
+        "action_time": "2017-10-23T17:27:28.031Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "6",
+        "object_repr": "ID: 6",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 30,
+    "fields": {
+        "action_time": "2017-10-23T17:27:49.126Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "3",
+        "object_repr": "ID: 3 - Author: CO - Comment: REALLY",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 31,
+    "fields": {
+        "action_time": "2017-10-23T17:28:03.976Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "4",
+        "object_repr": "ID: 4 - Author: PMO - Comment: NICE GO",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 32,
+    "fields": {
+        "action_time": "2017-10-23T17:28:25.068Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "5",
+        "object_repr": "ID: 5 - Author: CO - Comment: KNN GO NOW",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 33,
+    "fields": {
+        "action_time": "2017-10-23T17:28:40.950Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "6",
+        "object_repr": "ID: 6 - Author: CO - Comment: PLZ LEAVE",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 34,
+    "fields": {
+        "action_time": "2017-10-23T17:29:01.178Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "7",
+        "object_repr": "ID: 7 - Author: PMO - Comment: LEAVE BITCH",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
     }
 }
 ]

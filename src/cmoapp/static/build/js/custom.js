@@ -173,41 +173,6 @@ $(document).ready(function() {
 
         $BOX_PANEL.remove();
     });
-
-    //Collapse to the right
-    /*
-    $('.collapse-link-right').on('click', function() {
-        var $BOX_PANEL = $(this).closest('.x_panel'),
-            $ICON = $(this).find('i'),
-            $BOX_CONTENT = $BOX_PANEL.find('.x_content'),
-            $BOX_TITLE = $BOX_PANEL.find('.x_title'),
-            $BOX_PARENT = $BOX_PANEL.parent();
-
-        // fix for some div with hardcoded fix class
-
-        $BOX_PANEL.parent().toggleClass('col-sm-3 col-sm-1');
-        $BOX_PANEL.parent().siblings().toggleClass('col-sm-9 col-sm-11');
-
-        if(!$BOX_TITLE.find('h2:eq(1)').is(':visible')){
-            console.log( $BOX_TITLE.find('h2:eq(1)').html());
-            $BOX_TITLE.find('h2:eq(1)').show();
-            $BOX_CONTENT.show();
-        }
-        else{
-            console.log( $BOX_TITLE.find('h2:eq(1)').html());
-            $BOX_TITLE.find('h2:eq(1)').hide();
-            $BOX_CONTENT.hide();
-        }
-        /*if ($BOX_TITLE.find('h2').attr('style')) {
-            $BOX_TITLE.find('h2').removeAttr('style');
-            $BOX_TITLE.find('h2').toggleClass('.collapse-right')
-        } else {
-            $BOX_CONTENT.slideToggle(200);
-            $BOX_PANEL.css('height', 'auto');
-        }
-
-        $ICON.toggleClass('fa-chevron-right fa-chevron-left');
-    });*/
 });
 
 // Tooltip

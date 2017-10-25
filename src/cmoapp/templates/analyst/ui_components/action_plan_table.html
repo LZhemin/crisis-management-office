@@ -1,15 +1,15 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th style="width:5%">#</th>
+        <th>#</th>
         <th style="width:5%">Type</th>
-        <th style="width:40%;">Description</th>
-        <th>Forces Involved</th>
-        <th style="width:10%">Resolution Time <br>(HH:MM:SS)</th>
+        <th style="width:35%">Description</th>
+        <th style="width:7%">Forces Involved</th>
+        <th style="width:8%">Resolution Time</th>
         <th style="width:5%">Status</th>
         <th>Comments</th>
-        <th style="width:5%">Comment's Author</th>
-        <th>Actions</th>
+        <th style="width:15%">Comment's Author</th>
+        <th style="width:5%">Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -31,7 +31,7 @@
                                 {{ actionPlan.get_status_display }}</span>
         </td>
         <td>{{ actionPlan.comment.text|default_if_none:"-" }}</td>
-        <td>{{ actionPlan.comment.author|default_if_none:"-" }}</td>
+        <td>{{ actionPlan.comment.get_author_display|default_if_none:"-" }}</td>
         <td><a href="{% url 'Analyst_Action_Plan_Detail' actionPlan.id %}" class="btn btn-block btn-primary btn-xs"><i
                 class="fa fa-eye"></i> View </a>
             {% if actionPlan.status == 'Planning' %}
