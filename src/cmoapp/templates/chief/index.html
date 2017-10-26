@@ -55,7 +55,7 @@
 
      //----------------------------------------------------------------------------------------------------------------------------
 
-    var markers = []
+    var markers = [], circles = [];
     // start out with filter features set to false, so no filtering happens by default
     var filters = {Cleanup:false, Ongoing:false, Resolved:false}
     $(function () {
@@ -82,6 +82,7 @@
       // for each marker, check to see if all required options are set
       for (i = 0; i < markers.length; i++) {
         marker = markers[i];
+        circle = circles[i]
 
         // start the filter check assuming the marker will be displayed
         // if any of the required features are missing, set 'keep' to false
@@ -93,7 +94,8 @@
             keep = false;
           }
         }
-        marker.setVisible(keep)
+        marker.setVisible(keep);
+        circle.setVisible(keep);
       }
     }
 
@@ -145,7 +147,7 @@
                     center: cent,
                     radius: radius,//in metres (cannot use the loc, wierdly causes the radius to become super big
                 });
-
+                circles.push(crisisCircle);
                 var infoWindow = new google.maps.InfoWindow()
 
                 var marker = new google.maps.Marker({
