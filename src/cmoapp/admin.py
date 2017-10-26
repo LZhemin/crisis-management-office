@@ -10,6 +10,8 @@ from django.contrib import admin
 from cmoapp import models
 import inspect
 
-for name,obj in inspect.getmembers(models,inspect.isclass):
-    admin.site.register(obj)
-
+try:
+    for name,obj in inspect.getmembers(models,inspect.isclass):
+        admin.site.register(obj)
+except(TypeError):
+    print("Obj Throwing error : %s " % obj)

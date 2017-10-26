@@ -174,7 +174,6 @@ $(document).ready(function() {
         $BOX_PANEL.remove();
     });
 });
-// /Panel toolbox
 
 // Tooltip
 $(document).ready(function() {

@@ -1,0 +1,395 @@
+{% extends 'analyst/base_site.html' %}
+{% load custom_tags %}
+
+{% block page_stylesheets %}
+<style text="text/css">
+    ul.stats-overview li
+    {
+        width: 22.5%
+    }
+</style>
+{% endblock %}
+
+{% block page_javascripts %}
+ <script type="text/javascript">
+     $(document).ready(function () {
+        initCharts();
+     });
+     function initCharts(){
+         var chartArea =  document.getElementById('chartsArea');
+         {%for force in Action_Plan.forcedeployment_set.all %}
+            // based on prepared DOM, initialize echarts instance
+            var name = '{{force.name}}';
+
+            var recommended = {{force.recommended}};
+            var max = {{force.max}};
+            var current = 100-{{force.name.currentUtilisation}};
+            var ctx = document.getElementById(name).getContext('2d');
+
+            var config = {
+                type:'doughnut',
+                data:{
+                    labels:[
+                        "Currently Available",
+                        "Maximum Utilisation Allowed",
+                        "Recommended Utilisation"
+                    ],
+                    datasets:[
+                        {
+                            data:[
+                                current,
+                                100-current
+                            ],
+                            backgroundColor:[
+                                "#004fce",
+                                "rgba(0,0,0,0)"
+                            ],
+                            hoverBackgroundColor:[
+                                "#609dff",
+                                "rgba(0,0,0,0)"
+                            ],
+                            hoverBorderColor:[
+                                "#2400ff",
+                                "rgba(0,0,0,0)"
+                            ]
+                        },
+                        {
+                            data:[
+                                max,
+                                100-max
+                            ],
+                            backgroundColor:[
+                                "#b70000",
+                                "rgba(0,0,0,0)"
+                            ],
+                            hoverBackgroundColor:[
+                                "#fe0200",
+                                "rgba(0,0,0,0)"
+                            ],
+                            hoverBorderColor:[
+                                "#8c000b",
+                                "rgba(0,0,0,0)"
+                            ]
+                        },
+                        {
+                            data:[
+                                recommended,
+                                100-recommended
+                            ],
+                            backgroundColor:[
+                                "#1a840a",
+                                "rgba(0,0,0,0)"
+                            ],
+                            hoverBackgroundColor:[
+                                "#4ed639",
+                                "rgba(0,0,0,0)"
+                            ],
+                            hoverBorderColor:[
+                                "#42952f",
+                                "rgba(0,0,0,0)"
+                            ]
+                        }
+                    ]
+                },
+                option:{
+                    title: name,
+                    responsive:true,
+                    legend: {
+                      position: 'bottom',
+                    }
+                    tooltips: {
+                      callbacks: {
+                        label: function(tooltipItem, data) {
+                          //get the concerned dataset
+                            if(tooltipItem.index%2==1){
+                                return;
+
+                            return data.labels[tooltipItem.index]+":"+data.datasets[tooltipItem.index].data[0]+ "%";
+                        }
+                      }
+                    }
+                }
+            };
+            var newChart = new Chart(ctx,config);
+
+            /* echarts code (WORST CHINA SHIT EVER)
+             var placeHolderStyle = {
+                normal: {
+                    color: 'rgba(0,0,0,0)',
+                    label: {
+                        show: false
+                    },
+                    labelLine: {
+                        show: false
+                    }
+                },
+                emphasis: {
+                    color: 'rgba(0,0,0,0)'
+                }
+            };
+            var dataStyle = {
+                normal: {
+                    label: {
+                        show: false
+                    },
+                    labelLine: {
+                        show: false
+                    }
+                }
+            };
+            var theme = {
+                color: [
+                    '#26B99A', '#34495E', '#BDC3C7', '#3498DB',
+                    '#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'
+                ],
+
+                title: {
+                    itemGap: 8,
+                    textStyle: {
+                        fontWeight: 'normal',
+                        color: '#408829'
+                    }
+                },
+
+                dataRange: {
+                    color: ['#1f610a', '#97b58d']
+                },
+
+                toolbox: {
+                    color: ['#408829', '#408829', '#408829', '#408829']
+                },
+
+                tooltip: {
+                    backgroundColor: 'rgba(0,0,0,0.5)',
+                    axisPointer: {
+                        type: 'line',
+                        lineStyle: {
+                            color: '#408829',
+                            type: 'dashed'
+                        },
+                        crossStyle: {
+                            color: '#408829'
+                        },
+                        shadowStyle: {
+                            color: 'rgba(200,200,200,0.3)'
+                        }
+                    }
+                }
+            }
+
+            var chart = echarts.init(chartDiv, theme);
+            // specify chart configuration item and data
+            var recTitle = "Recommended: "+recommended+"%", maxTitle = 'Recommended Maximum: '+max+"%", currTitle='Current Available: '+current+"%";
+            chart.setOption({
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    x: 'left',
+                    data:[recTitle,maxTitle,currTitle]
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        mark: {
+                            show: true
+                        },
+                        dataView: {
+                            show: true,
+                            title: "Text View",
+                            lang: [
+                                "Text View",
+                                "Close",
+                                "Refresh",
+                            ],
+                            readOnly: false
+                        },
+                        restore: {
+                            show: true,
+                            title: "Restore"
+                        },
+                        saveAsImage: {
+                            show: true,
+                            title: "Save Image"
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: currTitle,
+                        type: 'pie',
+                        clockWise: false,
+                        radius: ['50%', '60%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'outside'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '10',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data: [{
+                            value: current,
+                            name: currTitle
+                        }, {
+                            value: 100-current,
+                            name: 'invisible',
+                            itemStyle: placeHolderStyle
+                        }]
+                    },
+                    {
+                        name: maxTitle,
+                        type: 'pie',
+                        clockWise: false,
+                        radius: ['40%', '50%'],
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'outside'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '10',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data: [{
+                            value: max,
+                            name: maxTitle
+                        }, {
+                            value: 100-max,
+                            name: 'invisible',
+                            itemStyle: placeHolderStyle
+                        }]
+                        },
+                    {
+                        name: 'Recommended: '+recommended,
+                        type: 'pie',
+                        clockWise: false,
+                        radius: ['30%', '40%'],
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'outside'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '10',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data: [{
+                            value: recommended,
+                            name: recTitle
+                        },
+                        {
+                            value: 100-recommended,
+                            name: 'invisible',
+                            itemStyle: placeHolderStyle
+                        }]
+                    }
+                ]
+            });
+            */
+
+        {% endfor %}
+     }
+ </script>
+{% endblock %}
+
+{% block content %}
+    <div class="right_col">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h1>Plan Details</h1>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="col-sm-9 col-xs-12">
+                                <ul class="stats-overview">
+                                    <li>
+                                        <span class="name">Plan Type</span>
+                                        <span class="value">{{ Action_Plan.get_type_display }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="name">Approval Status</span>
+                                        <span class="value">{{ Action_Plan.get_status_display }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="name">Estimated Resolution Time</span>
+                                        <span class="value">{{ Action_Plan.resolutionTime }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="name">Projected Casualties</span>
+                                        <span class="value">{{ Action_Plan.projectedCasualties }}</span>
+                                    </li>
+                                </ul>
+                                <br>
+                                <div class="form-group">
+                                    <div>
+                                        <label class="control-label">Description </label>
+                                    </div>
+                                    <div>
+                                        <textarea class="form-control" readonly>{{ Action_Plan.description|default:"None provided" }} </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 col-xs-12">
+                                <section class="panel">
+                                    <div class="x_title">
+                                        <h2>Force Deployments</h2>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div id="chartsArea">
+                                        {%for force in Action_Plan.forcedeployment_set.all %}
+                                        <div class="x-panel">
+                                            <div class="x-title">
+                                                <h2 style="text-align: center;">{{force.name}}</h2>
+                                            </div>
+                                            <canvas class='x-content' id="{{force.name}}" style="width:100%;height:150px;"></canvas>
+
+                                        </div>
+
+
+                                        {%endfor%}
+                                    </div>
+                                    <div id="main" style=";height:350px;"></div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

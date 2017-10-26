@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse, QueryDict, JsonResponse
 from django.urls import reverse
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate
-from cmoapp.forms import CrisisForm
+#from cmoapp.forms import CrisisForm
 from django.forms.models import model_to_dict
 
 import json
@@ -36,7 +36,7 @@ def index(Request):
                'getallcrisis': getallcrisis,
 
                'all_crisis': Crisis.objects.reverse(),
-               'form': CrisisForm()
+               #'form': CrisisForm()
 
                }
     return render(Request, 'operator/index.html',

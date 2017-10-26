@@ -1,6 +1,8 @@
 """All models for myapp Django application.
 """
 from django.db import models
+from django.utils import timezone
+from django.core.validators import MaxLengthValidator,MinValueValidator
 
 #all models have automatically add an auto-increment id unless another field is explicitly specified as primary key
 #note, on_delete assigns a Function 'Callback'
@@ -57,7 +59,7 @@ class CrisisReport(models.Model):
     datetime = models.DateTimeField()
     latitude = models.DecimalField(max_digits=12, decimal_places=8)
     longitude = models.DecimalField(max_digits=12, decimal_places=8)
-    radius = models.IntegerField(verbose_name="Radius(Metres)")
+    radius = models.IntegerField(verbose_name="Radius(Metres)", validators=[MinValueValidator(0)])
     #Relations, can have no crisis assigned for the sake of testi
 
     crisis = models.ForeignKey(Crisis,null=True,blank=True,on_delete=models.CASCADE)
@@ -70,6 +72,14 @@ class CrisisReport(models.Model):
 #The deployment id is the action plan id
 class ActionPlan(models.Model):
     #attributes
+
+    #plan Number supports the CMO-PMO API as their endpoint is expecting "<<CrisisID>><<planNumber>> where "
+    #where planNumber is the running number of the plan related to its crisis
+    def _planNumber(self):
+        return self.crisis.actionplan_set.all().count()
+
+
+    planNumber = models.IntegerField(validators=[MinValueValidator(1)], editable=False,null=True, default=_planNumber);
     description = models.TextField(null=True,blank=True)
     STATUS= (
         ('Planning','Planning'),
@@ -79,10 +89,8 @@ class ActionPlan(models.Model):
         ('PMOApproved','Approved')
     )
     status = models.CharField(max_length=20, choices=STATUS)
-    COComments = models.TextField(null=True)
-    PMOComments = models.TextField(null=True)
     resolutionTime = models.DurationField()
-    projectedCasualties = models.DecimalField(max_digits=5, decimal_places=2)
+    projectedCasualties = models.IntegerField(validators=[MinValueValidator(0)])
     #Relations
     TYPES = (
         ('Clean-up','Clean up'),
@@ -93,10 +101,30 @@ class ActionPlan(models.Model):
     crisis = models.ForeignKey(Crisis, on_delete= models.CASCADE)
 
     def abridged_description(self):
-        return self.description[70].append("...")
+        return self.description[:140] + "..."
 
     def __str__(self):
         return 'ID: {}'.format(self.pk);
+
+
+class Comment(models.Model):
+    text = models.TextField()
+    authors = (
+        ('PMO','Prime Minister\'s Office'),
+        ('CO','Chief Officer')
+    )
+    author = models.CharField(max_length=20, choices=authors)
+    #timeCreated = models.DateTimeField(auto_now=True/auto_now_add=True) not used cause it causes the field to not be seen
+    #on the DB/ admin site, it can still be referenced (hard to debug/ check)
+    timeCreated = models.DateTimeField(default=timezone.now,editable=False)
+    #If the CO comments, then it is rejected by CO. If PMO comments, then PMO has rejected.
+    actionPlan = models.OneToOneField(ActionPlan, on_delete= models.CASCADE)
+
+    def abridged(self):
+        return self.description[:140] + "..."
+
+    def __str__(self):
+        return 'ID: {} - Author: {} - Comment: {}'.format(self.id, self.author,self.text)
 
 class Force(models.Model):
     name = models.CharField(primary_key=True, max_length=200)
@@ -105,6 +133,7 @@ class Force(models.Model):
     def __str__(self):
         return '{}'.format(self.name);
 
+#Force deployment tracks how much force to deploy for an action plan
 class ForceDeployment(models.Model):
     #a force can only be deleted after all force deployments are deleted
     name = models.ForeignKey(Force, on_delete= models.PROTECT)
@@ -112,7 +141,7 @@ class ForceDeployment(models.Model):
     max = models.DecimalField(max_digits=5, decimal_places=2)
     actionPlan =  models.ForeignKey(ActionPlan, on_delete= models.CASCADE)
     def __str__(self):
-        return 'ID: {} Name: {}'.format(self.pk,self.name);
+        return 'ID: {} Name: {}'.format(self.pk,self.name)
 
 class EFUpdate(models.Model):
     #Attributes
@@ -133,6 +162,7 @@ class EFUpdate(models.Model):
     def __str__(self):
         return 'ID: {}'.format(self.pk)
 
+#Force Utilization tracks how much each force is being used for the current action plan
 class ForceUtilization(models.Model):
     name = models.ForeignKey(Force,on_delete= models.CASCADE)
     utilization = models.DecimalField(max_digits=5, decimal_places=2)
