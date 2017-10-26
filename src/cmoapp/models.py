@@ -79,7 +79,7 @@ class ActionPlan(models.Model):
         return self.crisis.actionplan_set.all().count()
 
 
-    planNumber = models.IntegerField(validators=[MinValueValidator(1)], editable=False,null=True, default=_planNumber());
+    planNumber = models.IntegerField(validators=[MinValueValidator(1)], editable=False,null=True, default=_planNumber);
     description = models.TextField(null=True,blank=True)
     STATUS= (
         ('Planning','Planning'),

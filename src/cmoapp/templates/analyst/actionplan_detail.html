@@ -49,7 +49,7 @@
                                 "rgba(0,0,0,0)"
                             ],
                             hoverBorderColor:[
-                                "#4ed639",
+                                "#2400ff",
                                 "rgba(0,0,0,0)"
                             ]
                         },
@@ -67,7 +67,7 @@
                                 "rgba(0,0,0,0)"
                             ],
                             hoverBorderColor:[
-                                "#4ed639",
+                                "#8c000b",
                                 "rgba(0,0,0,0)"
                             ]
                         },
@@ -85,7 +85,7 @@
                                 "rgba(0,0,0,0)"
                             ],
                             hoverBorderColor:[
-                                "#4ed639",
+                                "#42952f",
                                 "rgba(0,0,0,0)"
                             ]
                         }
@@ -94,7 +94,20 @@
                 option:{
                     title: name,
                     responsive:true,
+                    legend: {
+                      position: 'bottom',
+                    }
+                    tooltips: {
+                      callbacks: {
+                        label: function(tooltipItem, data) {
+                          //get the concerned dataset
+                            if(tooltipItem.index%2==1){
+                                return;
 
+                            return data.labels[tooltipItem.index]+":"+data.datasets[tooltipItem.index].data[0]+ "%";
+                        }
+                      }
+                    }
                 }
             };
             var newChart = new Chart(ctx,config);
@@ -307,7 +320,6 @@
             */
 
         {% endfor %}
-        console.log(chartArea);
      }
  </script>
 {% endblock %}
