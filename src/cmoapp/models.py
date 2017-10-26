@@ -35,7 +35,7 @@ class Crisis(models.Model):
     #analyst is FK to crisis. This enables analyst to be deleted once the crisis is resolved
     analyst = models.OneToOneField(Account,blank=True,null=True,limit_choices_to={'type':'Analyst'}, on_delete=models.SET_NULL)
     STATUS = (
-        ('Clean-up','Clean up'),
+        ('Cleanup','Clean up'),
         ('Ongoing','Ongoing'),
         ('Resolved', 'Resolved')
     )

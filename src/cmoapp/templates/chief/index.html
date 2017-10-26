@@ -1,0 +1,357 @@
+{% extends 'chief/base_site.html' %}
+{% load custom_tags %}
+
+{% block page_stylesheets %}
+<style text="text/css">
+    /* plz determine if should go into our own css or if remain separate */
+    .panel_toolbox
+    {
+        min-width: 24px;
+    }
+    input.chk-btn {
+      display: none;
+    }
+    input.chk-btn + label {
+      border: 1px solid grey;
+      background: ghoswhite;
+      padding: 5px 8px;
+      cursor: pointer;
+      border-radius: 5px;
+
+    }
+    input.chk-btn:not(:checked) + label:hover {
+      box-shadow: 0px 1px 3px;
+
+    }
+    input.chk-btn + label:active,
+    input.chk-btn:checked + label {
+      box-shadow: 0px 0px 3px inset;
+      background: #8cc472;
+
+    }
+</style>
+{% endblock page_stylesheets %}
+
+{% block page_javascripts %}
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDacnVEtNIWnbMCw_QI94kynm0_ytIalQ&callback=initMap"
+  type="text/javascript"></script>
+
+<script type="text/javascript">
+    {% if assigned_crisis %}
+        //JSON Fucking up.
+        var crisis = {{ True|jsonify }}
+    {% else %}
+        //JSON Fucking up.
+        var crisis = {{ False|jsonify }}
+    {% endif %}
+    $(document).ready(function(){
+        if(!crisis) {
+            //reload page if no crisis every 5 seconds
+            //window.setTimeout('location.reload(true);',5000);
+        }
+        $('.ui-pnotify').remove();
+    });
+
+
+     //----------------------------------------------------------------------------------------------------------------------------
+
+    var markers = [], circles = [];
+    // start out with filter features set to false, so no filtering happens by default
+    var filters = {Cleanup:false, Ongoing:false, Resolved:false}
+    $(function () {
+    $('input[name=filter]').change(function (e) {
+
+         map_filter(this.id);
+          filter_markers()
+      });
+    })
+
+    var get_set_options = function() {
+      ret_array = []
+      for (option in filters) {
+        if (filters[option]) {
+          ret_array.push(option)
+        }
+      }
+      return ret_array;
+    }
+
+    var filter_markers = function() {
+      set_filters = get_set_options()
+
+      // for each marker, check to see if all required options are set
+      for (i = 0; i < markers.length; i++) {
+        marker = markers[i];
+        circle = circles[i]
+
+        // start the filter check assuming the marker will be displayed
+        // if any of the required features are missing, set 'keep' to false
+        // to discard this marker
+        keep=true
+        for (opt=0; opt<set_filters.length; opt++) {
+
+          if (marker.properties != set_filters[opt]) {
+            keep = false;
+          }
+        }
+        marker.setVisible(keep);
+        circle.setVisible(keep);
+      }
+    }
+
+    var map_filter = function(id_val) {
+       if (filters[id_val])
+          filters[id_val] = false
+       else
+          filters[id_val] = true
+    }
+     //----------------------------------------------------------------------------------------------------------------------------
+
+    function initMap(){
+        var map = new google.maps.Map(document.getElementById("map"),{
+            zoom: 12,
+          center: new google.maps.LatLng(1.3521, 103.8198),
+          mapTypeId: 'roadmap'
+        });
+       // var markers;
+        var icon_loc = '../static/images/map/'
+        var icons = {
+            Terrorism: icon_loc + "Terrorism.png",
+            Bombing:icon_loc + "Bombing.png",
+            Riot: icon_loc + "Riot.png",
+            Fire: icon_loc + "Fire.png"
+        };
+
+        {% if crisis_reports %}
+            {% for crisis in crisis_reports%}
+
+                var cent = new google.maps.LatLng({{crisis.latitude}},{{crisis.longitude}});
+                var radius = {{ crisis.radius }};
+
+                var image = {
+                  url: icons['{{ crisis.crisisType }}'],
+                  //size: new google.maps.Size(100, 100),
+                  // The origin for this image is (0, 0).
+                  origin: new google.maps.Point(0, 0),
+                  // The anchor with respect to the Lat and Long
+                  anchor: new google.maps.Point(30, 30)
+                };
+
+                var crisisCircle = new google.maps.Circle({
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '#FF0000',
+                    fillOpacity: 0.35,
+                    map: map,
+                    center: cent,
+                    radius: radius,//in metres (cannot use the loc, wierdly causes the radius to become super big
+                });
+                circles.push(crisisCircle);
+                var infoWindow = new google.maps.InfoWindow()
+
+                var marker = new google.maps.Marker({
+                    position: cent,
+                    icon: image,
+                    map:map,
+                    properties: '{{crisis.crisis.status}}'
+                });
+
+                var markerInfo = "<div><h3> Crisis " + "{{crisis.crisis.id}}" + "</h3>Status: " + "{{crisis.crisis.status}}" + "</div>"
+                marker.addListener('click', function() {
+                    if($('#{{ crisis.id }}').hasClass("bg-primary")){
+                        $('#{{ crisis.id }}').removeClass("bg-primary");
+                        new PNotify({
+                        title: 'Crisis Report Deselected',
+                        type: 'warning',
+                        styling: 'bootstrap3'
+                        });
+
+                    }
+
+                    else{
+                        $('#{{ crisis.id }}').addClass("bg-primary").parent().siblings().children().removeClass("bg-primary");
+                        new PNotify({
+                        title: 'Crisis Report Selected {{ crisis.crisis.id }}',
+                        text: 'Check the 911 Reports for more Info!',
+                        type: 'success',
+                        styling: 'bootstrap3'
+                        });
+
+                    }
+
+                    infoWindow.close()
+                     infoWindow.setContent(markerInfo)
+                     infoWindow.open(map, marker)
+                });
+
+                markers.push(marker)
+
+            {% endfor %}
+        {% endif %}
+
+    }
+
+
+
+
+
+    //Recommend using PNotify for notifications from EF or 911. looks good
+</script>
+
+{% endblock page_javascripts %}
+
+{% block content %}
+<div class="right_col">
+    {% if assigned_crisis %}
+    <div class="row">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Current Statistics</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="animated flipInY col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                        <div class="icon">
+                            <i class="fa fa-ambulance"></i>
+                        </div>
+                        <div class="count">{{ assigned_crisis.injuries|default:"0" }}</div>
+                        <h3>Current Injuries</h3>
+                    </div>
+                </div>
+                <div class="animated flipInY col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                        <div class="icon">
+                            <i class="fa fa-frown-o"></i>
+                        </div>
+                        <div class="count">{{ assigned_crisis.deaths|default:"0"}}</div>
+                        <h3>Current Deaths</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--
+    <div class="row">
+        <div class="col-sm-6 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Reports from 911</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <ul class="list-unstyled timeline widget">
+                        {% for report in assigned_crisis.crisisreport_set.all %}
+                        <li>
+                            <div id="{{ report.id }}" class="block">
+                                <div class="block_content">
+                                    <h2 class="title">{{ report.description }}</h2>
+                                    <div class="byline">
+                                        <span>{{ report.datetime }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {% empty %}
+                            <span>No Reports Yet</span>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Reports from Emergency Forces</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <ul class="list-unstyled timeline widget">
+                        {% for report in assigned_crisis.efupdate_set.all %}
+                        <li>
+                            <div class="block">
+                                <div class="block_content">
+                                    <h2 class="title">{{ report.description }}</h2>
+                                    <div class="byline">
+                                        <span>{{ report.datetime }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {% empty %}
+                            <span>No Reports Yet</span>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+
+    <div class="row">
+            <div class="col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Crisis Map</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+
+                <label>Filter For:</label>
+
+                <div id="buttons">
+
+                  <input type="checkbox" name="filter" id="Cleanup" class='chk-btn'>
+                  <label for='Cleanup'>Clean-up</label>
+
+                  <input type="checkbox" name="filter" id="Ongoing" class='chk-btn'>
+                  <label for='Ongoing'>Ongoing</label>
+
+                  <input type="checkbox" name="filter" id="Resolved" class='chk-btn'>
+                  <label for='Resolved'>Resolved</label>
+                  <br>
+                </div>
+
+
+                <div id="map" class="x_content" style="height:600px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <div class="row">
+
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}
