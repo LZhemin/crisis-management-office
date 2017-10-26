@@ -2,6 +2,7 @@
 """
 from django.db import models
 from django.utils import timezone
+from django.core.validators import MaxLengthValidator,MinValueValidator
 
 #all models have automatically add an auto-increment id unless another field is explicitly specified as primary key
 #note, on_delete assigns a Function 'Callback'
@@ -58,7 +59,7 @@ class CrisisReport(models.Model):
     datetime = models.DateTimeField()
     latitude = models.DecimalField(max_digits=12, decimal_places=8)
     longitude = models.DecimalField(max_digits=12, decimal_places=8)
-    radius = models.IntegerField(verbose_name="Radius(Metres)")
+    radius = models.IntegerField(verbose_name="Radius(Metres)", validators=[MinValueValidator(0)])
     #Relations, can have no crisis assigned for the sake of testi
 
     crisis = models.ForeignKey(Crisis,null=True,blank=True,on_delete=models.CASCADE)
@@ -71,6 +72,14 @@ class CrisisReport(models.Model):
 #The deployment id is the action plan id
 class ActionPlan(models.Model):
     #attributes
+
+    #plan Number supports the CMO-PMO API as their endpoint is expecting "<<CrisisID>><<planNumber>> where "
+    #where planNumber is the running number of the plan related to its crisis
+    def _planNumber(self):
+        return self.crisis.actionplan_set.all().count()
+
+
+    planNumber = models.IntegerField(validators=[MinValueValidator(1)], editable=False,null=True, default=_planNumber());
     description = models.TextField(null=True,blank=True)
     STATUS= (
         ('Planning','Planning'),
@@ -81,7 +90,7 @@ class ActionPlan(models.Model):
     )
     status = models.CharField(max_length=20, choices=STATUS)
     resolutionTime = models.DurationField()
-    projectedCasualties = models.IntegerField()
+    projectedCasualties = models.IntegerField(validators=[MinValueValidator(0)])
     #Relations
     TYPES = (
         ('Clean-up','Clean up'),

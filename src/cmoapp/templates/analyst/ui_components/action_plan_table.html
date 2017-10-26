@@ -1,13 +1,13 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>#</th>
-        <th style="width:5%">Type</th>
-        <th style="width:35%">Description</th>
-        <th style="width:7%">Forces Involved</th>
-        <th style="width:8%">Resolution Time</th>
+        <th style="width:1%">#</th>
+        <th style="width:7%">Type</th>
+        <th>Description</th>
+        <th style="width:10%">Forces Involved</th>
+        <th style="width:10%">Resolution Time</th>
         <th style="width:5%">Status</th>
-        <th>Actions</th>
+        <th style="width:10%">Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -21,16 +21,15 @@
             {% endfor %}
         </td>
         <td>{{ actionPlan.resolutionTime }}</td>
-        <td>{% if actionPlan.status == 'Approved' %} <span class="label label-success">
-                                {% elif actionPlan.status == 'Rejected' %} <span class="label label-danger">
-                                {% elif actionPlan.status == 'Planning' %} <span class="label label-info">
-                                {% elif actionPlan.status == 'CORequest' %} <span class="label label-warning">
-                                {% elif actionPlan.status == 'PMORequest' %} <span class="label label-pmo">
-                                {% else %} <span class="label label-success">
-                                {% endif %}
-                                {{ actionPlan.get_status_display }}</span>
+        <td>
+            {% if actionPlan.status == 'PMOApproved' %} <span class="label label-success">
+            {% elif actionPlan.status == 'Rejected' %} <span class="label label-danger">
+            {% elif actionPlan.status == 'Planning' %} <span class="label label-default">
+            {% elif actionPlan.status == 'CORequest' %} <span class="label label-warning">
+            {% elif actionPlan.status == 'PMORequest' %} <span class="label label-pmo">
+            {% else %} <span class="label label-info"> {% endif %}
+            {{ actionPlan.get_status_display }}</span>
         </td>
-
         <td><a href="{% url 'Analyst_Action_Plan_Detail' actionPlan.id %}" class="btn btn-block btn-primary btn-xs"><i
                 class="fa fa-eye"></i> View </a>
             {% if actionPlan.status == 'Planning' %}
