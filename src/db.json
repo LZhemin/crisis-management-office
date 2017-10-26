@@ -224,7 +224,8 @@
         "resolutionTime": "00:00:00",
         "projectedCasualties": 25,
         "type": "Combat",
-        "crisis": 1
+        "crisis": 1,
+        "planNumber":1
     }
 },
 {
@@ -236,7 +237,8 @@
         "resolutionTime": "00:00:20",
         "projectedCasualties": 1,
         "type": "Combat",
-        "crisis": 1
+        "crisis": 1,
+        "planNumber":2
     }
 },
 {
@@ -248,7 +250,8 @@
         "resolutionTime": "00:00:01",
         "projectedCasualties": 1,
         "type": "Combat",
-        "crisis": 1
+        "crisis": 1,
+        "planNumber":3
     }
 },
 {
@@ -260,7 +263,8 @@
         "resolutionTime": "00:00:01",
         "projectedCasualties": 1,
         "type": "Combat",
-        "crisis": 1
+        "crisis": 1,
+        "planNumber":4
     }
 },
 {
@@ -272,7 +276,8 @@
         "resolutionTime": "00:00:01",
         "projectedCasualties": 1,
         "type": "Combat",
-        "crisis": 1
+        "crisis": 1,
+        "planNumber":5
     }
 },
 {
@@ -284,7 +289,8 @@
         "resolutionTime": "00:00:01",
         "projectedCasualties": 1,
         "type": "Clean-up",
-        "crisis": 1
+        "crisis": 1,
+        "planNumber":6
     }
 },
 {

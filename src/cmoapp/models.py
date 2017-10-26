@@ -75,11 +75,7 @@ class ActionPlan(models.Model):
 
     #plan Number supports the CMO-PMO API as their endpoint is expecting "<<CrisisID>><<planNumber>> where "
     #where planNumber is the running number of the plan related to its crisis
-    def _planNumber(self):
-        return self.crisis.actionplan_set.all().count()
-
-
-    planNumber = models.IntegerField(validators=[MinValueValidator(1)], editable=False,null=True, default=_planNumber);
+    planNumber = models.IntegerField(validators=[MinValueValidator(1)], editable=False)
     description = models.TextField(null=True,blank=True)
     STATUS= (
         ('Planning','Planning'),
@@ -106,6 +102,12 @@ class ActionPlan(models.Model):
     def __str__(self):
         return 'ID: {}'.format(self.pk);
 
+    def _nextPlanNumber(self):
+        return self.crisis.actionplan_set.all().count() + 1
+
+    def save(self, *args, **kwargs):
+        self.planNumber = self._nextPlanNumber()
+        super().save(*args, **kwargs)  # Call the "real" save() method.
 
 class Comment(models.Model):
     text = models.TextField()
