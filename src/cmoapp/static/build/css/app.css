@@ -1,0 +1,21 @@
+.sideBorder{
+    border-left: 1px solid #DBDBDB;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgb(219, 219, 219);
+    border-right: 1px solid #DBDBDB;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: rgb(219, 219, 219);
+}
+
+.bottomBorder{
+    border-bottom: 1px solid #DBDBDB;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(219, 219, 219);
+}
+
+.padding{
+    padding:1em;
+}

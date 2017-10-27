@@ -22,7 +22,7 @@
 
             var recommended = {{force.recommended}};
             var max = {{force.max}};
-            var current = 100-{{force.name.currentUtilisation}};
+            var current = {{force.name.available}};
             var ctx = document.getElementById(name).getContext('2d');
 
             var config = {
@@ -35,15 +35,15 @@
                                 100-current
                             ],
                             backgroundColor:[
-                                "#004fce",
+                                "rgba(231,76,60,.88)",
                                 "rgba(0,0,0,0)"
                             ],
                             hoverBackgroundColor:[
-                                "#609dff",
+                                "rgba(231,76,60,.88)",
                                 "rgba(0,0,0,0)"
                             ],
                             hoverBorderColor:[
-                                "#2400ff",
+                                "rgba(231,76,60,.88)",
                                 "rgba(0,0,0,0)"
                             ],
                             label: "Current Available"
@@ -54,15 +54,15 @@
                                 100-max
                             ],
                             backgroundColor:[
-                                "#b70000",
+                                "rgba(52,152,219,.88)",
                                 "rgba(0,0,0,0)"
                             ],
                             hoverBackgroundColor:[
-                                "#fe0200",
+                                "rgba(52,152,219,.88)",
                                 "rgba(0,0,0,0)"
                             ],
                             hoverBorderColor:[
-                                "#8c000b",
+                                "rgba(52,152,219,.88)",
                                 "rgba(0,0,0,0)"
                             ],
                             label: "Max Recommended Utilisation"
@@ -73,15 +73,15 @@
                                 100-recommended
                             ],
                             backgroundColor:[
-                                "#1a840a",
+                                "#5cb85c",
                                 "rgba(0,0,0,0)"
                             ],
                             hoverBackgroundColor:[
-                                "#4ed639",
+                                "#50a050",
                                 "rgba(0,0,0,0)"
                             ],
                             hoverBorderColor:[
-                                "#42952f",
+                                "#5cb85c",
                                 "rgba(0,0,0,0)"
                             ],
                             label: "Recommended Utilisation"
@@ -92,13 +92,11 @@
                         ['Recommended Utilisation: '+recommended+'%',]]
                 },
                 options: {
-                    /*legend: {
-                        position: 'bottom'
-                    },*/
                     animation: {
                       animateScale: true,
                       animateRotate: true
                     },
+                    cutoutPercentage:15,
                     tooltips: {
                       callbacks: {
                         label: function(tooltipItem, data) {
@@ -107,221 +105,13 @@
                                 return;
                             }
                             else
-                                return data.labels[tooltipItem.datasetIndex] +": "+dataset.data[tooltipItem.index]+"%";
+                                return data.labels[tooltipItem.datasetIndex];
                         }
                       }
                     }
                 }
             };
             var newChart = new Chart(ctx,config);
-
-            /* echarts code (WORST CHINA SHIT EVER)
-             var placeHolderStyle = {
-                normal: {
-                    color: 'rgba(0,0,0,0)',
-                    label: {
-                        show: false
-                    },
-                    labelLine: {
-                        show: false
-                    }
-                },
-                emphasis: {
-                    color: 'rgba(0,0,0,0)'
-                }
-            };
-            var dataStyle = {
-                normal: {
-                    label: {
-                        show: false
-                    },
-                    labelLine: {
-                        show: false
-                    }
-                }
-            };
-            var theme = {
-                color: [
-                    '#26B99A', '#34495E', '#BDC3C7', '#3498DB',
-                    '#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'
-                ],
-
-                title: {
-                    itemGap: 8,
-                    textStyle: {
-                        fontWeight: 'normal',
-                        color: '#408829'
-                    }
-                },
-
-                dataRange: {
-                    color: ['#1f610a', '#97b58d']
-                },
-
-                toolbox: {
-                    color: ['#408829', '#408829', '#408829', '#408829']
-                },
-
-                tooltip: {
-                    backgroundColor: 'rgba(0,0,0,0.5)',
-                    axisPointer: {
-                        type: 'line',
-                        lineStyle: {
-                            color: '#408829',
-                            type: 'dashed'
-                        },
-                        crossStyle: {
-                            color: '#408829'
-                        },
-                        shadowStyle: {
-                            color: 'rgba(200,200,200,0.3)'
-                        }
-                    }
-                }
-            }
-
-            var chart = echarts.init(chartDiv, theme);
-            // specify chart configuration item and data
-            var recTitle = "Recommended: "+recommended+"%", maxTitle = 'Recommended Maximum: '+max+"%", currTitle='Current Available: '+current+"%";
-            chart.setOption({
-                tooltip: {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b}: {c} ({d}%)"
-                },
-                legend: {
-                    orient: 'vertical',
-                    x: 'left',
-                    data:[recTitle,maxTitle,currTitle]
-                },
-                toolbox: {
-                    show: true,
-                    feature: {
-                        mark: {
-                            show: true
-                        },
-                        dataView: {
-                            show: true,
-                            title: "Text View",
-                            lang: [
-                                "Text View",
-                                "Close",
-                                "Refresh",
-                            ],
-                            readOnly: false
-                        },
-                        restore: {
-                            show: true,
-                            title: "Restore"
-                        },
-                        saveAsImage: {
-                            show: true,
-                            title: "Save Image"
-                        }
-                    }
-                },
-                series: [
-                    {
-                        name: currTitle,
-                        type: 'pie',
-                        clockWise: false,
-                        radius: ['50%', '60%'],
-                        avoidLabelOverlap: false,
-                        label: {
-                            normal: {
-                                show: false,
-                                position: 'outside'
-                            },
-                            emphasis: {
-                                show: true,
-                                textStyle: {
-                                    fontSize: '10',
-                                    fontWeight: 'bold'
-                                }
-                            }
-                        },
-                        labelLine: {
-                            normal: {
-                                show: false
-                            }
-                        },
-                        data: [{
-                            value: current,
-                            name: currTitle
-                        }, {
-                            value: 100-current,
-                            name: 'invisible',
-                            itemStyle: placeHolderStyle
-                        }]
-                    },
-                    {
-                        name: maxTitle,
-                        type: 'pie',
-                        clockWise: false,
-                        radius: ['40%', '50%'],
-                        label: {
-                            normal: {
-                                show: false,
-                                position: 'outside'
-                            },
-                            emphasis: {
-                                show: true,
-                                textStyle: {
-                                    fontSize: '10',
-                                    fontWeight: 'bold'
-                                }
-                            }
-                        },
-                        labelLine: {
-                            normal: {
-                                show: false
-                            }
-                        },
-                        data: [{
-                            value: max,
-                            name: maxTitle
-                        }, {
-                            value: 100-max,
-                            name: 'invisible',
-                            itemStyle: placeHolderStyle
-                        }]
-                        },
-                    {
-                        name: 'Recommended: '+recommended,
-                        type: 'pie',
-                        clockWise: false,
-                        radius: ['30%', '40%'],
-                        label: {
-                            normal: {
-                                show: false,
-                                position: 'outside'
-                            },
-                            emphasis: {
-                                show: true,
-                                textStyle: {
-                                    fontSize: '10',
-                                    fontWeight: 'bold'
-                                }
-                            }
-                        },
-                        labelLine: {
-                            normal: {
-                                show: false
-                            }
-                        },
-                        data: [{
-                            value: recommended,
-                            name: recTitle
-                        },
-                        {
-                            value: 100-recommended,
-                            name: 'invisible',
-                            itemStyle: placeHolderStyle
-                        }]
-                    }
-                ]
-            });
-            */
-
         {% endfor %}
      }
  </script>
@@ -340,21 +130,39 @@
                         <div class="row">
                             <div class="col-sm-9 col-xs-12">
                                 <ul class="stats-overview">
-                                    <li>
-                                        <span class="name">Plan Type</span>
-                                        <span class="value">{{ Action_Plan.get_type_display }}</span>
+                                    {% if Action_Plan.get_type_display == 'Combat' %}
+                                    <li class="alert alert-danger">
+                                        <h2 class="name">Plan Type</h2>
+                                        <h3>{{ Action_Plan.get_type_display }}  <i class="fa fa-fighter-jet" aria-hidden="true"></i></h3>
+                                    </li>
+                                    {% else %}
+                                    <li class="alert alert-info">
+                                        <h2 class="name">Plan Type</h2>
+                                        <h3>{{ Action_Plan.get_type_display }}  <i class="fa fa-fighter-jet" aria-hidden="true"></i></h3>
+                                    </li>
+                                    {% endif %}
+                                    {% if Action_Plan.status == 'PMOApproved' %}
+                                    <li class="alert alert-success">
+                                        <h2 class="name">Approval Status</h2>
+                                        <h3>{{ Action_Plan.get_status_display }}  <i class="fa fa-check-circle" aria-hidden="true"></i></h3>
+                                    {% elif Action_Plan.status == 'Rejected' %}
+                                    <li class="alert alert-danger">
+                                        <h2 class="name">Approval Status</h2>
+                                        <h3>{{ Action_Plan.get_status_display }}  <i class="fa fa-times" aria-hidden="true"></i></h3>
+                                    {% elif Action_Plan.status == 'Planning' %}
+                                    {% else %}
+                                    <li class="label label-pmo">
+                                        <h2 class="name">Approval Status</h2>
+                                        <h3>{{ Action_Plan.get_status_display }} <i class="fa fa-spinner" aria-hidden="true"></i></h3></h2>
+                                    {% endif %}
                                     </li>
                                     <li>
-                                        <span class="name">Approval Status</span>
-                                        <span class="value">{{ Action_Plan.get_status_display }}</span>
+                                        <h2 class="name">  Estimated Resolution Time</h2>
+                                        <h3>{{ Action_Plan.resolutionTime }} <i class="fa fa-clock-o"></i></h3>
                                     </li>
                                     <li>
-                                        <span class="name">Estimated Resolution Time</span>
-                                        <span class="value">{{ Action_Plan.resolutionTime }}</span>
-                                    </li>
-                                    <li>
-                                        <span class="name">Projected Casualties</span>
-                                        <span class="value">{{ Action_Plan.projectedCasualties }}</span>
+                                        <h2 class="name">Projected Casualties</h2 class="name">
+                                        <h3>{{ Action_Plan.projectedCasualties }}  <i class="fa fa-heartbeat" aria-hidden="true"></i></h3>
                                     </li>
                                 </ul>
                                 <br>
@@ -373,14 +181,23 @@
                                         <h2>Force Deployments</h2>
                                         <div class="clearfix"></div>
                                     </div>
-                                    <div id="chartsArea">
+                                    <div id="chartsArea" class="sideBorder">
                                         {%for force in Action_Plan.forcedeployment_set.all %}
                                         <div class="x-panel">
                                             <div class="x-title">
-                                                <h2 style="text-align: center;">{{force.name}}</h2>
+                                                <h2 style="text-align:center;"><b>{{force.name}}</b></h2>
                                             </div>
-                                            <canvas class='x-content' id="{{force.name}}" style="height:150px;"></canvas>
+                                            <div class="bottomBorder padding">
+                                                <canvas class='x-content' id="{{force.name}}" style="height:200px;"></canvas>
+                                                <h4><b>Legend</b></h4>
+                                                <span class="label label-success">&nbsp&nbsp</span>
+                                                <span class="name">Recommended: {{force.recommended}}%</span><br>
+                                                <span class="label label-info">&nbsp&nbsp</span>
+                                                <span class="name">Maximum: {{force.max}}%</span><br>
+                                                <span class="label label-danger">&nbsp&nbsp</span>
+                                                <span class="name">Currently Available: {{force.name.available}}%</span>
 
+                                            </div>
                                         </div>
                                         {%endfor%}
                                     </div>

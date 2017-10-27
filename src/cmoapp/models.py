@@ -95,7 +95,6 @@ class ActionPlan(models.Model):
     )
     type = models.CharField(max_length=20, choices=TYPES)
     crisis = models.ForeignKey(Crisis, on_delete= models.CASCADE)
-
     def abridged_description(self):
         return self.description[:140] + "..."
 
@@ -134,6 +133,8 @@ class Force(models.Model):
     currentUtilisation = models.DecimalField(null=True,blank=True, max_digits=5, decimal_places=2)
     def __str__(self):
         return '{}'.format(self.name);
+    def available(self):
+        return 100-self.currentUtilisation;
 
 #Force deployment tracks how much force to deploy for an action plan
 class ForceDeployment(models.Model):

@@ -21,16 +21,6 @@ html , body{
     font-size: 20px;
 }
 
-.sideBorder{
-    border-left: 1px solid #DBDBDB;
-    border-left-width: 1px;
-    border-left-style: solid;
-    border-right-color: rgb(219, 219, 219);
-    border-right: 1px solid #DBDBDB;
-    border-right-width: 1px;
-    border-right-style: solid;
-    border-right-color: rgb(219, 219, 219);
-}
 .label-pmo{
     background-color: #ef8c00;
 }
