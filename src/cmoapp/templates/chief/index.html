@@ -33,8 +33,6 @@
 {% endblock page_stylesheets %}
 
 {% block page_javascripts %}
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDacnVEtNIWnbMCw_QI94kynm0_ytIalQ&callback=initMap"
-  type="text/javascript"></script>
 
 <script type="text/javascript">
     {% if assigned_crisis %}
@@ -132,7 +130,7 @@
     }
      //----------------------------------------------------------------------------------------------------------------------------
 
-    function initMap(){
+    var initMap = function(){
         var map = new google.maps.Map(document.getElementById("map"),{
             zoom: 12,
           center: new google.maps.LatLng(1.3521, 103.8198),
@@ -198,8 +196,17 @@
         {% endif %}
     }
     //Recommend using PNotify for notifications from EF or 911. looks good
+    var randomColorFactor = function() {
+      return Math.round(Math.random() * 255);
+    };
+    var randomColor = function(opacity) {
+      return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
+    };
+
 </script>
 
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDacnVEtNIWnbMCw_QI94kynm0_ytIalQ&callback=initMap"
+  type="text/javascript"></script>
 {% endblock page_javascripts %}
 
 {% block content %}
@@ -219,22 +226,18 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <div class="animated flipInY col-sm-6 col-xs-12">
-                    <div class="tile-stats">
-                        <div class="icon">
-                            <i class="fa fa-ambulance"></i>
+                <div class="col-sm-12 col-xs-12">
+                    <div class="tile-stats row padding">
+                        <h2 class="center">Current Force Utilisation</h2>
+                        <div class="col-sm-1"></div>
+                        {% for force in all_force%}
+                        <div class="animated flipInY col-sm-2 col-xs-12 padding">
+                            <div class="chart" data-percent="{{force.currentUtilisation}}">
+                                <div class ="percent">{{force.currentUtilisation}}%</div>
+                                <h2 class="center">{{force.name}}</h2>
+                            </div>
                         </div>
-                        <div class="count">{{ assigned_crisis.injuries|default:"0" }}</div>
-                        <h3>Current Injuries</h3>
-                    </div>
-                </div>
-                <div class="animated flipInY col-sm-6 col-xs-12">
-                    <div class="tile-stats">
-                        <div class="icon">
-                            <i class="fa fa-frown-o"></i>
-                        </div>
-                        <div class="count">{{ assigned_crisis.deaths|default:"0"}}</div>
-                        <h3>Current Deaths</h3>
+                        {%endfor%}
                     </div>
                 </div>
             </div>
@@ -339,6 +342,59 @@
                   <br>
                 </div>
                 <div id="map" class="x_content" style="height:600px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Action Plans</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <br>
+                </div>
+                <div class="x_content">
+                    <div id="own" class="col-sm-9 col-xs-12 sideBorder" style="height:100%;">
+                        <div role="tabpanel" data-example-id="togglable-tabs">
+                          <ul id="myTab" class="nav nav-tabs nav-justified" role="tablist">
+                            <li role="presentation" class="active"><a href="#current" id="current-tab" role="tab" data-toggle="tab" aria-expanded="true">Create Action Plan</a>
+                            </li>
+                            <li role="presentation" class=""><a href="#previous" role="tab" id="previous-tab" data-toggle="tab" aria-expanded="false">Submitted Action Plans</a>
+                            </li>
+                            <li>
+                                <a id="#chat" class="collapse-link-right">
+                                    Chat
+                                    <i class="fa fa-chevron-right right"></i>
+                                </a>
+                            </li>
+                          </ul>
+                          <div id="myTabContent" class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade active in" id="current" aria-labelledby="current-tab">
+                              <p> Current Plan Form Go here</p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="previous" aria-labelledby="previous-tab">
+                              {% include 'analyst/ui_components/action_plan_table.html' %}
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div id="chat" class="col-sm-3 col-xs-12">
+                        <div class="profile_title">
+                            <div class="col-sm-12 col-xs-12 right-col">
+                                <h2><i class="fa fa-comments"></i>  Chat</h2>
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            Chat Goes here
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

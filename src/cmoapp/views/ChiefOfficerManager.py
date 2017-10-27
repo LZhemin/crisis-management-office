@@ -1,6 +1,8 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+from django.db.models import fields
+from django.db.models.functions import Cast
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate
 
 #Kindly help to remove unwanted modules
@@ -10,12 +12,13 @@ def index(Request):
     # UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
     try:
         crisis = Crisis.objects.all().exclude(status='Resolved')
-        #crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
+        forces = Force.objects.all();
     except(KeyError, Crisis.DoesNotExist):
         context = {'all_crisis': False}
     else:
         context = {
-            'all_crisis': crisis
+            'all_crisis': crisis,
+            'all_force':forces
         }
 
     return render(Request, 'chief/index.html', context)

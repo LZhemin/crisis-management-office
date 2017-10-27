@@ -1983,7 +1983,7 @@ function init_EasyPieChart() {
     $('.chart').easyPieChart({
         easing: 'easeOutElastic',
         delay: 3000,
-        barColor: '#26B99A',
+        barColor: '#42a1f4',
         trackColor: '#fff',
         scaleColor: false,
         lineWidth: 20,

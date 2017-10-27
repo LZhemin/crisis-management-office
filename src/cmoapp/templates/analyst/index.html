@@ -31,10 +31,7 @@
         var crisis = {{ False|jsonify }}
     {% endif %}
     $(document).ready(function(){
-        if(!crisis) {
-            //reload page if no crisis every 5 seconds
-            //window.setTimeout('location.reload(true);',5000);
-        }
+        initCharts();
     });
     function initMap(){
         var map = new google.maps.Map(document.getElementById("map"),{
@@ -143,7 +140,7 @@
                     <div class="animated flipInY col-sm-6 col-xs-12">
                         <div class="tile-stats">
                             <div class="icon">
-                                <i class="fa fa-frown-o"></i>
+                                <i class="fa fa-hospital-o" aria-hidden="true"></i>
                             </div>
                             <div class="count">{{ assigned_crisis.deaths|default:"0"}}</div>
                             <h3>Current Deaths</h3>
