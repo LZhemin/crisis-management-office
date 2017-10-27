@@ -9,15 +9,13 @@ sessionId = 2
 def index(Request):
     # UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
     try:
-        assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
+        crisis = Crisis.objects.all().exclude(status='Resolved')
         #crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
-        crisis_reports = CrisisReport.objects.filter().select_related('crisisType')
     except(KeyError, Crisis.DoesNotExist):
-        context = {'assigned_crisis': False}
+        context = {'all_crisis': False}
     else:
         context = {
-            'assigned_crisis': assigned_crisis,
-            'crisis_reports': crisis_reports
+            'all_crisis': crisis
         }
 
     return render(Request, 'chief/index.html', context)

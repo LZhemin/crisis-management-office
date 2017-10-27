@@ -45,10 +45,6 @@
         var crisis = {{ False|jsonify }}
     {% endif %}
     $(document).ready(function(){
-        if(!crisis) {
-            //reload page if no crisis every 5 seconds
-            //window.setTimeout('location.reload(true);',5000);
-        }
         $('.ui-pnotify').remove();
     });
 
@@ -57,7 +53,7 @@
 
     var markers = [], circles = [];
     // start out with filter features set to false, so no filtering happens by default
-    var filters = {Cleanup:false, Ongoing:false, Resolved:false}
+    var filters = {'Clean-up':false, Combat:false}
     $(function () {
     $('input[name=filter]').change(function (e) {
 
@@ -75,7 +71,6 @@
       }
       return ret_array;
     }
-
     var filter_markers = function() {
       set_filters = get_set_options()
 
@@ -87,23 +82,53 @@
         // start the filter check assuming the marker will be displayed
         // if any of the required features are missing, set 'keep' to false
         // to discard this marker
-        keep=true
-        for (opt=0; opt<set_filters.length; opt++) {
+        keep=false;
+       // console.log(checkNoFilter());
+        if(!checkNoFilter()){
+            for (opt=0; opt<set_filters.length; opt++) {
 
-          if (marker.properties != set_filters[opt]) {
-            keep = false;
-          }
+              if (marker.properties == set_filters[opt]) {
+                keep = true;
+              }
+            }
         }
+        else {
+            keep = true;
+        }
+        //console.log("keep is equal to: "+keep);
         marker.setVisible(keep);
         circle.setVisible(keep);
       }
     }
-
+    //Check if there are not filters (set filters to true)
+    var checkNoFilter = function(){
+        for(filter in filters)
+        {
+            if(filters[filter]==true)
+                return false;
+        }
+        return true;
+    }
     var map_filter = function(id_val) {
-       if (filters[id_val])
-          filters[id_val] = false
-       else
-          filters[id_val] = true
+        var text;
+       if (filters[id_val]){
+          filters[id_val] = false;
+          if(checkNoFilter())
+              text = "Map has currently no filters!";
+          else
+              text = "Map is no longer being filtered by "+id_val+" Crisis!";
+       }
+       else{
+           filters[id_val] = true;
+           text = "Map is being filtered by "+id_val+" Crisis!";
+       }
+
+       new PNotify({
+           title: 'Map Filters',
+           text: text,
+           type: 'info',
+           styling: 'bootstrap3'
+       });
     }
      //----------------------------------------------------------------------------------------------------------------------------
 
@@ -122,80 +147,56 @@
             Fire: icon_loc + "Fire.png"
         };
 
-        {% if crisis_reports %}
-            {% for crisis in crisis_reports%}
+        {% if all_crisis %}
+            {% for crisis in all_crisis%}
+                {% for report in crisis.crisisreport_set.all %}
+                    var lat = {{report.latitude}}, long = {{report.longitude}};
+                    var cent = new google.maps.LatLng(lat,long);
+                    var radius = {{ report.radius }};
 
-                var cent = new google.maps.LatLng({{crisis.latitude}},{{crisis.longitude}});
-                var radius = {{ crisis.radius }};
 
-                var image = {
-                  url: icons['{{ crisis.crisisType }}'],
-                  //size: new google.maps.Size(100, 100),
-                  // The origin for this image is (0, 0).
-                  origin: new google.maps.Point(0, 0),
-                  // The anchor with respect to the Lat and Long
-                  anchor: new google.maps.Point(30, 30)
-                };
+                    var image = {
+                      url: icons['{{ report.crisisType }}'],
+                      //size: new google.maps.Size(100, 100),
+                      // The origin for this image is (0, 0).
+                      origin: new google.maps.Point(0, 0),
+                      // The anchor with respect to the Lat and Long
+                      anchor: new google.maps.Point(30, 30)
+                    };
 
-                var crisisCircle = new google.maps.Circle({
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.35,
-                    map: map,
-                    center: cent,
-                    radius: radius,//in metres (cannot use the loc, wierdly causes the radius to become super big
-                });
-                circles.push(crisisCircle);
-                var infoWindow = new google.maps.InfoWindow()
+                    var crisisCircle = new google.maps.Circle({
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: '#FF0000',
+                        fillOpacity: 0.35,
+                        map: map,
+                        center: cent,
+                        radius: radius,//in metres (cannot use the loc, wierdly causes the radius to become super big
+                    });
+                    circles.push(crisisCircle);
 
-                var marker = new google.maps.Marker({
-                    position: cent,
-                    icon: image,
-                    map:map,
-                    properties: '{{crisis.crisis.status}}'
-                });
-
-                var markerInfo = "<div><h3> Crisis " + "{{crisis.crisis.id}}" + "</h3>Status: " + "{{crisis.crisis.status}}" + "</div>"
-                marker.addListener('click', function() {
-                    if($('#{{ crisis.id }}').hasClass("bg-primary")){
-                        $('#{{ crisis.id }}').removeClass("bg-primary");
+                    var marker = new google.maps.Marker({
+                        position: cent,
+                        icon: image,
+                        map:map,
+                        properties: '{{crisis.status}}'
+                    });
+                    var markerInfo = "<div><h3> Crisis " + "{{crisis.id}}" + "</h3>Status: " + "{{crisis.status}}" + "</div>"
+                    marker.addListener('click', function() {
                         new PNotify({
-                        title: 'Crisis Report Deselected',
-                        type: 'warning',
-                        styling: 'bootstrap3'
+                            title: 'Crisis {{ crisis.id }}',
+                            text: '{{report.description}}',
+                            type: 'info',
+                            tag: 'map',
+                            styling: 'bootstrap3'
                         });
-
-                    }
-
-                    else{
-                        $('#{{ crisis.id }}').addClass("bg-primary").parent().siblings().children().removeClass("bg-primary");
-                        new PNotify({
-                        title: 'Crisis Report Selected {{ crisis.crisis.id }}',
-                        text: 'Check the 911 Reports for more Info!',
-                        type: 'success',
-                        styling: 'bootstrap3'
-                        });
-
-                    }
-
-                    infoWindow.close()
-                     infoWindow.setContent(markerInfo)
-                     infoWindow.open(map, marker)
-                });
-
-                markers.push(marker)
-
+                    });
+                    markers.push(marker);
+                {% endfor %}
             {% endfor %}
         {% endif %}
-
     }
-
-
-
-
-
     //Recommend using PNotify for notifications from EF or 911. looks good
 </script>
 
@@ -203,7 +204,7 @@
 
 {% block content %}
 <div class="right_col">
-    {% if assigned_crisis %}
+    {% if all_crisis %}
     <div class="row">
         <div class="x_panel">
             <div class="x_title">
@@ -330,18 +331,13 @@
 
                 <div id="buttons">
 
-                  <input type="checkbox" name="filter" id="Cleanup" class='chk-btn'>
-                  <label for='Cleanup'>Clean-up</label>
+                  <input type="checkbox" name="filter" id="Clean-up" class='chk-btn'>
+                  <label for='Clean-up'>Clean-up</label>
 
-                  <input type="checkbox" name="filter" id="Ongoing" class='chk-btn'>
-                  <label for='Ongoing'>Ongoing</label>
-
-                  <input type="checkbox" name="filter" id="Resolved" class='chk-btn'>
-                  <label for='Resolved'>Resolved</label>
+                  <input type="checkbox" name="filter" id="Combat" class='chk-btn'>
+                  <label for='Combat'>Ongoing</label>
                   <br>
                 </div>
-
-
                 <div id="map" class="x_content" style="height:600px;">
                 </div>
             </div>
