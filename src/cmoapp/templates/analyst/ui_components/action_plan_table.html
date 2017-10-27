@@ -17,6 +17,7 @@
         <td>{{ actionPlan.type }}</td>
         <td>{{ actionPlan.abridged_description }}</td>
         <td>{% for force in actionPlan.forcedeployment_set.all %}
+
             <span class="label label-primary">{{ force.name }}</span>
             {% endfor %}
         </td>
@@ -26,8 +27,7 @@
             {% elif actionPlan.status == 'Rejected' %} <span class="label label-danger">
             {% elif actionPlan.status == 'Planning' %} <span class="label label-default">
             {% elif actionPlan.status == 'CORequest' %} <span class="label label-warning">
-            {% elif actionPlan.status == 'PMORequest' %} <span class="label label-pmo">
-            {% else %} <span class="label label-info"> {% endif %}
+            {% else %} <span class="label label-pmo"> {% endif %}
             {{ actionPlan.get_status_display }}</span>
         </td>
         <td><a href="{% url 'Analyst_Action_Plan_Detail' actionPlan.id %}" class="btn btn-block btn-primary btn-xs"><i

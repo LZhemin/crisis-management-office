@@ -16,7 +16,6 @@
         initCharts();
      });
      function initCharts(){
-         var chartArea =  document.getElementById('chartsArea');
          {%for force in Action_Plan.forcedeployment_set.all %}
             // based on prepared DOM, initialize echarts instance
             var name = '{{force.name}}';
@@ -29,11 +28,6 @@
             var config = {
                 type:'doughnut',
                 data:{
-                    labels:[
-                        "Currently Available",
-                        "Maximum Utilisation Allowed",
-                        "Recommended Utilisation"
-                    ],
                     datasets:[
                         {
                             data:[
@@ -51,7 +45,8 @@
                             hoverBorderColor:[
                                 "#2400ff",
                                 "rgba(0,0,0,0)"
-                            ]
+                            ],
+                            label: "Current Available"
                         },
                         {
                             data:[
@@ -69,7 +64,8 @@
                             hoverBorderColor:[
                                 "#8c000b",
                                 "rgba(0,0,0,0)"
-                            ]
+                            ],
+                            label: "Max Recommended Utilisation"
                         },
                         {
                             data:[
@@ -87,24 +83,31 @@
                             hoverBorderColor:[
                                 "#42952f",
                                 "rgba(0,0,0,0)"
-                            ]
+                            ],
+                            label: "Recommended Utilisation"
                         }
-                    ]
+                    ],
+                    labels:[['Currently Available: '+current+'%', ],
+                        ['Maximum Utilisation Allowed: '+max+'%',],
+                        ['Recommended Utilisation: '+recommended+'%',]]
                 },
-                option:{
-                    title: name,
-                    responsive:true,
-                    legend: {
-                      position: 'bottom',
-                    }
+                options: {
+                    /*legend: {
+                        position: 'bottom'
+                    },*/
+                    animation: {
+                      animateScale: true,
+                      animateRotate: true
+                    },
                     tooltips: {
                       callbacks: {
                         label: function(tooltipItem, data) {
-                          //get the concerned dataset
+                            var dataset = data.datasets[tooltipItem.datasetIndex];
                             if(tooltipItem.index%2==1){
                                 return;
-
-                            return data.labels[tooltipItem.index]+":"+data.datasets[tooltipItem.index].data[0]+ "%";
+                            }
+                            else
+                                return data.labels[tooltipItem.datasetIndex] +": "+dataset.data[tooltipItem.index]+"%";
                         }
                       }
                     }
@@ -376,11 +379,9 @@
                                             <div class="x-title">
                                                 <h2 style="text-align: center;">{{force.name}}</h2>
                                             </div>
-                                            <canvas class='x-content' id="{{force.name}}" style="width:100%;height:150px;"></canvas>
+                                            <canvas class='x-content' id="{{force.name}}" style="height:150px;"></canvas>
 
                                         </div>
-
-
                                         {%endfor%}
                                     </div>
                                     <div id="main" style=";height:350px;"></div>
