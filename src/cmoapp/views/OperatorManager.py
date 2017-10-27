@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse, QueryDict, JsonResponse
 from django.urls import reverse
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate
-from cmoapp.forms import CrisisForm
+#from cmoapp.forms import CrisisForm
 from django.forms.models import model_to_dict
 from django.core import serializers
 
@@ -28,6 +28,7 @@ def sharedindex():
     getanalystacc = Crisis.objects.exclude(analyst__isnull=True).values_list('analyst_id', flat=True)
     getAccountList = Account.objects.exclude(pk__in=getanalystacc).filter(type="Analyst")
 
+    getUnassignedAnaCris = Crisis.objects.filter(analyst__isnull=True)
 
 
     context = {'getCrisisList': getCrisisList,
@@ -35,11 +36,12 @@ def sharedindex():
                'getCrisisReportList': getCrisisReportList,
                'getUnassignedCrisisReport': getUnassignedCrisisReport,
                'getAccountList': getAccountList,
+               'getUnassignedAnaCris': getUnassignedAnaCris,
                'getUnassignedCrisis': getUnassignedCrisis,
                 'getAssignedCrisisReport':getAssignedCrisisReport,
                'all_crisis': Crisis.objects.reverse(),
                'all_crisisreport': CrisisReport.objects.reverse(),
-               'form': CrisisForm()
+               #'form': CrisisForm()
                }
     return context
 

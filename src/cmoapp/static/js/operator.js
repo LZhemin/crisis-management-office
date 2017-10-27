@@ -184,18 +184,21 @@ $(function() {
             type : "GET", // http method
             // handle a successful response
             //var html;
+            alert("test");
             success : function(json) {
                 for (var i = 0; i < json.length; i++) {
                     console.log(json[i])
+
                         $('#analysts-'+json[i].id).remove();
-                        if(json[i].id != null){
+                        //if(json[i].id != null){
                             var html = '<tr id ='+'analysts-'+json[i].id+'>';
                             html += '<td></td>';
                             html += '<td><span class="label label-default">'+json[i].id+'</span></td>';
                             html += '<td><span class="label label-warning">'+json[i].login+'</span></td>';
                             html += '</tr>';
                             $("#Unaacclist").append(html);
-                         }
+                         //}
+                         alert(json[i].id);
 
                 }
                // console.log("load success"); // another sanity check
@@ -238,6 +241,8 @@ $(function() {
                 //$('#getstatus').val(''); // remove the value from the input
                 console.log(json); // log the returned json to the console
 
+                $('#analysts-'+json.id).remove();
+                alert(json.id+json.crisispk);
                 /*
                 html = '<tr id ='+'crisis-'+json.crisispk+'>';
                 html += '<td></td>';

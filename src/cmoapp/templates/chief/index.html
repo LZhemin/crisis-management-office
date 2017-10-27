@@ -36,6 +36,8 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDacnVEtNIWnbMCw_QI94kynm0_ytIalQ&callback=initMap"
   type="text/javascript"></script>
 
+<script src="/static/js/chief.js"></script>
+
 <script type="text/javascript">
     {% if assigned_crisis %}
         //JSON Fucking up.
@@ -82,7 +84,7 @@
       // for each marker, check to see if all required options are set
       for (i = 0; i < markers.length; i++) {
         marker = markers[i];
-
+        alert(marker.properties);
         // start the filter check assuming the marker will be displayed
         // if any of the required features are missing, set 'keep' to false
         // to discard this marker
@@ -121,13 +123,13 @@
         };
 
         {% if crisis_reports %}
-            {% for crisis in crisis_reports%}
+            {% for crisisrpt in crisis_reports%}
 
-                var cent = new google.maps.LatLng({{crisis.latitude}},{{crisis.longitude}});
-                var radius = {{ crisis.radius }};
+                var cent = new google.maps.LatLng({{crisisrpt.latitude}},{{crisisrpt.longitude}});
+                var radius = {{ crisisrpt.radius }};
 
                 var image = {
-                  url: icons['{{ crisis.crisisType }}'],
+                  url: icons['{{ crisisrpt.crisisType }}'],
                   //size: new google.maps.Size(100, 100),
                   // The origin for this image is (0, 0).
                   origin: new google.maps.Point(0, 0),
@@ -152,10 +154,11 @@
                     position: cent,
                     icon: image,
                     map:map,
-                    properties: '{{crisis.crisis.status}}'
+                    properties: '{{crisisrpt.crisis.status}}'
                 });
 
-                var markerInfo = "<div><h3> Crisis " + "{{crisis.crisis.id}}" + "</h3>Status: " + "{{crisis.crisis.status}}" + "</div>"
+
+                var markerInfo = "<div><h3> Crisis " + "{{crisisrpt.id}}" + "</h3>Status: " + "{{crisisrpt.crisis.status}}" + "</div>"
                 marker.addListener('click', function() {
                     if($('#{{ crisis.id }}').hasClass("bg-primary")){
                         $('#{{ crisis.id }}').removeClass("bg-primary");
@@ -168,9 +171,9 @@
                     }
 
                     else{
-                        $('#{{ crisis.id }}').addClass("bg-primary").parent().siblings().children().removeClass("bg-primary");
+                        $('#{{ crisisrpt.id }}').addClass("bg-primary").parent().siblings().children().removeClass("bg-primary");
                         new PNotify({
-                        title: 'Crisis Report Selected {{ crisis.crisis.id }}',
+                        title: 'Crisis Report Selected {{ crisis.id }}',
                         text: 'Check the 911 Reports for more Info!',
                         type: 'success',
                         styling: 'bootstrap3'
@@ -329,7 +332,7 @@
                 <div id="buttons">
 
                   <input type="checkbox" name="filter" id="Cleanup" class='chk-btn'>
-                  <label for='Cleanup'>Clean-up</label>
+                  <label for='Cleanup'>Cleanup</label>
 
                   <input type="checkbox" name="filter" id="Ongoing" class='chk-btn'>
                   <label for='Ongoing'>Ongoing</label>

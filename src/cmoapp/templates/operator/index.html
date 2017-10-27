@@ -1024,7 +1024,7 @@
                                       <tr class="headings">
                                         <th></th>
                                         <th class="column-title">ID </th>
-                                        <th class="column-title no-link last">Analyst </th>
+                                        <th class="column-title no-link last">Name </th>
                                       </tr>
                                     </thead>
 
@@ -1233,7 +1233,7 @@
 
                     <h4 class="modal-title" id="Crisis_Title">Assign Crisis</h4>
                     <select class="form-control" id="getcrisis" name="getcrisis">
-                      {% for getc in getUnassignedCrisis %}
+                      {% for getc in getUnassignedAnaCris %}
                         <option value = {{getc.id}}>{{getc.pk}}</option>
                       {%endfor%}
                     </select>
@@ -1257,7 +1257,7 @@
                     <div id="results"></div> <!-- errors go here -->
 
                     <br>
-                    <button type="submit" class="btn btn-round btn-success" onclick="new PNotify({
+                    <button type="submit"   class="btn btn-round btn-success" onclick="new PNotify({
                               title: 'Allocated Crisis Successfully',
                               text: 'Allocate analyst into the crisis!',
                               type: 'success',

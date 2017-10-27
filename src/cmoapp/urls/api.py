@@ -10,7 +10,9 @@ urlpatterns = [
     url(r'^crisisreports/(?P<pk>\d+)', ApiManager.crisisreport_element, name='Api_Crisisreport_element'),
 
     url(r'^actionplans/$', ApiManager.actionplan_collection, name='Api_Actionplan'),
-    url(r'^actionplans/(?P<pk>\d+)', ApiManager.actionplan_element, name='Api_Actionplan_element')
+    url(r'^actionplans/(?P<pk>\d+)', ApiManager.actionplan_element, name='Api_Actionplan_element'),
+
+    url(r'^auth/$', ApiManager.auth_collection, name='Api_Auth'),
 
     #Generic Based View
     #url(r'^crisiss/$', ApiManager.CrisisCollection.as_view(), name='Api_Crisisreport'),
