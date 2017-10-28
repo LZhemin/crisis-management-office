@@ -363,26 +363,26 @@
                 <div class="x_content">
                     <div id="own" class="col-sm-9 col-xs-12 sideBorder" style="height:100%;">
                         <div role="tabpanel" data-example-id="togglable-tabs">
-                          <ul id="myTab" class="nav nav-tabs nav-justified" role="tablist">
-                            <li role="presentation" class="active"><a href="#current" id="current-tab" role="tab" data-toggle="tab" aria-expanded="true">Create Action Plan</a>
-                            </li>
-                            <li role="presentation" class=""><a href="#previous" role="tab" id="previous-tab" data-toggle="tab" aria-expanded="false">Submitted Action Plans</a>
-                            </li>
-                            <li>
-                                <a id="#chat" class="collapse-link-right">
-                                    Chat
-                                    <i class="fa fa-chevron-right right"></i>
-                                </a>
-                            </li>
-                          </ul>
-                          <div id="myTabContent" class="tab-content">
-                            <div role="tabpanel" class="tab-pane fade active in" id="current" aria-labelledby="current-tab">
-                              <p> Current Plan Form Go here</p>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="previous" aria-labelledby="previous-tab">
-                              {% include 'analyst/ui_components/action_plan_table.html' %}
-                            </div>
-                          </div>
+                            <ul id="myTab" class="nav nav-tabs nav-justified" role="tablist">
+                              <li role="presentation" class="active"><a href="#previous" role="tab" id="previous-tab" data-toggle="tab" aria-expanded="false">Action Plans Awaiting Approval</a>
+                              </li>
+                              <li role="presentation" class=""><a href="#current" id="current-tab" role="tab" data-toggle="tab" aria-expanded="true">All Crisis</a>
+                              </li>
+                              <li>
+                                  <a id="#chat" class="collapse-link-right">
+                                      Chat
+                                      <i class="fa fa-chevron-right right"></i>
+                                  </a>
+                              </li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade active in" id="previous" aria-labelledby="previous-tab">
+                                  {% include 'chief/ui_components/action_plan_table.html' %}
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="current" aria-labelledby="current-tab">
+                                    {% include 'chief/ui_components/all_crisis.html' %}
+                                </div>
+                              </div>
                         </div>
                     </div>
                     <div id="chat" class="col-sm-3 col-xs-12">

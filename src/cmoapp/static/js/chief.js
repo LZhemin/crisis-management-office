@@ -44,3 +44,18 @@ $(document).ready(function() {
         $ICON.toggleClass('fa-chevron-right fa-chevron-left');*/
     });
 });
+
+function rejectActionPlan(id){
+    var commnet = document.getElementsById("commentAP"+id);
+
+}
+
+function acceptActionPlan(id){
+
+}
+
+$(".modal").on("hidden.bs.modal", function(){
+    var body = $(this).find(".modal-body");
+    var textArea = body.find('textArea');
+    textArea.val('');
+});
