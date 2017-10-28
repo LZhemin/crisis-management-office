@@ -47,7 +47,7 @@
                         </td>
                         <td>
                             {% if actionPlan.status != 'Planning' %}
-                                <button href="{% url 'Analyst_Action_Plan_Detail' actionPlan.id %}" class="btn btn-primary btn-xs"><i
+                                <button href="{% url 'Chief_Action_Plan_Detail' actionPlan.id %}" class="btn btn-primary btn-xs"><i
                                     class="fa fa-eye"></i> View </button>
                                 {% if actionPlan.status == 'CORequest' %}
                                 <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModalAP{{actionPlan.id}}">

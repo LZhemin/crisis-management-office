@@ -1,0 +1,213 @@
+{% extends 'chief/base_site.html' %}
+{% load custom_tags %}
+
+{% block page_stylesheets %}
+<style text="text/css">
+    ul.stats-overview li
+    {
+        width: 22.5%
+    }
+</style>
+{% endblock %}
+
+{% block page_javascripts %}
+ <script type="text/javascript">
+     $(document).ready(function () {
+        initCharts();
+     });
+     function initCharts(){
+         {%for force in Action_Plan.forcedeployment_set.all %}
+            // based on prepared DOM, initialize echarts instance
+            var name = '{{force.name}}';
+
+            var recommended = {{force.recommended}};
+            var max = {{force.max}};
+            var current = {{force.name.available}};
+            var ctx = document.getElementById(name).getContext('2d');
+
+            var config = {
+                type:'doughnut',
+                data:{
+                    datasets:[
+                        {
+                            data:[
+                                current,
+                                100-current
+                            ],
+                            backgroundColor:[
+                                "rgba(231,76,60,.88)",
+                                "rgba(0,0,0,0)"
+                            ],
+                            hoverBackgroundColor:[
+                                "rgba(231,76,60,.88)",
+                                "rgba(0,0,0,0)"
+                            ],
+                            hoverBorderColor:[
+                                "rgba(231,76,60,.88)",
+                                "rgba(0,0,0,0)"
+                            ],
+                            label: "Current Available"
+                        },
+                        {
+                            data:[
+                                max,
+                                100-max
+                            ],
+                            backgroundColor:[
+                                "rgba(52,152,219,.88)",
+                                "rgba(0,0,0,0)"
+                            ],
+                            hoverBackgroundColor:[
+                                "rgba(52,152,219,.88)",
+                                "rgba(0,0,0,0)"
+                            ],
+                            hoverBorderColor:[
+                                "rgba(52,152,219,.88)",
+                                "rgba(0,0,0,0)"
+                            ],
+                            label: "Max Recommended Utilisation"
+                        },
+                        {
+                            data:[
+                                recommended,
+                                100-recommended
+                            ],
+                            backgroundColor:[
+                                "#5cb85c",
+                                "rgba(0,0,0,0)"
+                            ],
+                            hoverBackgroundColor:[
+                                "#50a050",
+                                "rgba(0,0,0,0)"
+                            ],
+                            hoverBorderColor:[
+                                "#5cb85c",
+                                "rgba(0,0,0,0)"
+                            ],
+                            label: "Recommended Utilisation"
+                        }
+                    ],
+                    labels:[['Currently Available: '+current+'%', ],
+                        ['Maximum Utilisation Allowed: '+max+'%',],
+                        ['Recommended Utilisation: '+recommended+'%',]]
+                },
+                options: {
+                    animation: {
+                      animateScale: true,
+                      animateRotate: true
+                    },
+                    cutoutPercentage:15,
+                    tooltips: {
+                      callbacks: {
+                        label: function(tooltipItem, data) {
+                            var dataset = data.datasets[tooltipItem.datasetIndex];
+                            if(tooltipItem.index%2==1){
+                                return;
+                            }
+                            else
+                                return data.labels[tooltipItem.datasetIndex];
+                        }
+                      }
+                    }
+                }
+            };
+            var newChart = new Chart(ctx,config);
+        {% endfor %}
+     }
+ </script>
+{% endblock %}
+
+{% block content %}
+    <div class="right_col">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h1>Plan Details</h1>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="col-sm-9 col-xs-12">
+                                <ul class="stats-overview">
+                                    {% if Action_Plan.get_type_display == 'Combat' %}
+                                    <li class="alert alert-danger">
+                                        <h2 class="name">Plan Type</h2>
+                                        <h3>{{ Action_Plan.get_type_display }}  <i class="fa fa-fighter-jet" aria-hidden="true"></i></h3>
+                                    </li>
+                                    {% else %}
+                                    <li class="alert alert-info">
+                                        <h2 class="name">Plan Type</h2>
+                                        <h3>{{ Action_Plan.get_type_display }}  <i class="fa fa-trash" aria-hidden="true"></i></h3>
+                                    </li>
+                                    {% endif %}
+                                    {% if Action_Plan.status == 'PMOApproved' %}
+                                    <li class="alert alert-success">
+                                        <h2 class="name">Approval Status</h2>
+                                        <h3>{{ Action_Plan.get_status_display }}  <i class="fa fa-check-circle" aria-hidden="true"></i></h3>
+                                    {% elif Action_Plan.status == 'Rejected' %}
+                                    <li class="alert alert-danger">
+                                        <h2 class="name">Approval Status</h2>
+                                        <h3>{{ Action_Plan.get_status_display }}  <i class="fa fa-times" aria-hidden="true"></i></h3>
+                                    {% elif Action_Plan.status == 'Planning' %}
+                                    {% else %}
+                                    <li class="label label-pmo">
+                                        <h2 class="name">Approval Status</h2>
+                                        <h3>{{ Action_Plan.get_status_display }} <i class="fa fa-spinner" aria-hidden="true"></i></h3></h2>
+                                    {% endif %}
+                                    </li>
+                                    <li>
+                                        <h2 class="name">  Estimated Resolution Time</h2>
+                                        <h3>{{ Action_Plan.resolutionTime }} <i class="fa fa-clock-o"></i></h3>
+                                    </li>
+                                    <li>
+                                        <h2 class="name">Projected Casualties</h2 class="name">
+                                        <h3>{{ Action_Plan.projectedCasualties }}  <i class="fa fa-heartbeat" aria-hidden="true"></i></h3>
+                                    </li>
+                                </ul>
+                                <br>
+                                <div class="form-group">
+                                    <div>
+                                        <label class="control-label">Description </label>
+                                    </div>
+                                    <div>
+                                        <textarea class="form-control" readonly>{{ Action_Plan.description|default:"None provided" }} </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 col-xs-12">
+                                <section class="panel">
+                                    <div class="x_title">
+                                        <h2>Force Deployments</h2>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div id="chartsArea" class="sideBorder">
+                                        {%for force in Action_Plan.forcedeployment_set.all %}
+                                        <div class="x-panel">
+                                            <div class="x-title">
+                                                <h2 style="text-align:center;"><b>{{force.name}}</b></h2>
+                                            </div>
+                                            <div class="bottomBorder padding">
+                                                <canvas class='x-content' id="{{force.name}}" style="height:200px;"></canvas>
+                                                <h4><b>Legend</b></h4>
+                                                <span class="label label-success">&nbsp&nbsp</span>
+                                                <span class="name">Recommended: {{force.recommended}}%</span><br>
+                                                <span class="label label-info">&nbsp&nbsp</span>
+                                                <span class="name">Maximum: {{force.max}}%</span><br>
+                                                <span class="label label-danger">&nbsp&nbsp</span>
+                                                <span class="name">Currently Available: {{force.name.available}}%</span>
+
+                                            </div>
+                                        </div>
+                                        {%endfor%}
+                                    </div>
+                                    <div id="main" style="height:350px;"></div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

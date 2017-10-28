@@ -1,8 +1,8 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from django.views.generic import ListView,DetailView
-from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate
+from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment
+from django.views.generic import DetailView
 
 #Kindly help to remove unwanted modules
 
@@ -149,5 +149,5 @@ def addEFUpdate(request, CrisisID):
 #Add the LoginRequiredMixin as the leftmost inheritance
 class ActionPlanDetail(DetailView):
     context_object_name = "Action_Plan"
-    template_name='analyst/actionplan_detail.html'
+    template_name='chief/actionplan_detail.html'
     model = ActionPlan
