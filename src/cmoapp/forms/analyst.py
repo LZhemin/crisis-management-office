@@ -1,11 +1,15 @@
 from django.forms import ModelForm
 from cmoapp.models import ActionPlan,ForceDeployment
 
-class AnalystActionPlanForm(ModelForm):
+class ActionPlanForm(ModelForm):
+
     class Meta:
         model = ActionPlan
-        fields = ['description, resolutionTime, projectedCasulaties']
+        fields = ['description', 'resolution_time', 'projected_casualties', 'type']
 
-class AnalystForceForm(ModelForm):
-    model = ForceDeployment
-    fields = ['Name','Recommended','Max']
+
+class ForceForm(ModelForm):
+
+    class Meta:
+        model = ForceDeployment
+        fields = ['name','recommended','max']

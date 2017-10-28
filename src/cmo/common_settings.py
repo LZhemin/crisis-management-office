@@ -129,7 +129,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cmoapp',
-
+    #Fucking Django making it so hard to customize form input css classes
+    'widget_tweaks'
     # Uncomment the next line to enable the admin:
 
     # Uncomment the next line to enable admin documentation:

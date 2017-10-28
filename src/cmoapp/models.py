@@ -75,7 +75,7 @@ class ActionPlan(models.Model):
 
     #plan Number supports the CMO-PMO API as their endpoint is expecting "<<CrisisID>><<planNumber>> where "
     #where planNumber is the running number of the plan related to its crisis
-    planNumber = models.IntegerField(validators=[MinValueValidator(1)], editable=False)
+    plan_number = models.IntegerField(validators=[MinValueValidator(1)], editable=False)
     description = models.TextField(null=True,blank=True)
     STATUS= (
         ('Planning','Planning'),
@@ -85,8 +85,8 @@ class ActionPlan(models.Model):
         ('PMOApproved','Approved')
     )
     status = models.CharField(max_length=20, choices=STATUS)
-    resolutionTime = models.DurationField()
-    projectedCasualties = models.IntegerField(validators=[MinValueValidator(0)])
+    resolution_time = models.DurationField()
+    projected_casualties = models.IntegerField(validators=[MinValueValidator(0)])
     #Relations
     TYPES = (
         ('Clean-up','Clean up'),
@@ -101,6 +101,7 @@ class ActionPlan(models.Model):
     def __str__(self):
         return 'ID: {}'.format(self.pk);
 
+    #Method intended to be private
     def _nextPlanNumber(self):
         return self.crisis.actionplan_set.all().count() + 1
 
