@@ -17,11 +17,10 @@
         <td>{{ actionPlan.type }}</td>
         <td>{{ actionPlan.abridged_description }}</td>
         <td>{% for force in actionPlan.forcedeployment_set.all %}
-
             <span class="label label-primary">{{ force.name }}</span>
             {% endfor %}
         </td>
-        <td>{{ actionPlan.resolutionTime }}</td>
+        <td>{{ actionPlan.resolution_time }}</td>
         <td>
             {% if actionPlan.status == 'PMOApproved' %} <span class="label label-success">
             {% elif actionPlan.status == 'Rejected' %} <span class="label label-danger">

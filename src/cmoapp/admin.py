@@ -13,7 +13,7 @@ import inspect
 
 try:
     for name,obj in inspect.getmembers(models,inspect.isclass):
-        if(isinstance(obj, Model)):
+        if(issubclass(obj, Model)):
             admin.site.register(obj)
 except(TypeError):
     print("Obj Throwing error : %s " % obj)
