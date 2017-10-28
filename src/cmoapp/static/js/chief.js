@@ -66,3 +66,76 @@ $(".modal").on("hidden.bs.modal", function(){
     var textArea = body.find('textArea');
     textArea.val('');
 });
+
+function checkIfCrisisInactive(){
+    var $_PANELS = $('.panel-heading');
+    var result = true;
+    $_PANELS.each(function(){
+        if(!$(this).hasClass('collapsed'))
+            result = false;
+    });
+
+    return result;
+}
+
+function filterMapCrisis(id){
+    if(!checkIfCrisisInactive()){
+        for (i = 0; i < markers.length; i++) {
+            markers[i][0].setVisible(true);
+            circles[i].setVisible(true);
+        }
+    }
+    else{
+        for (i = 0; i < markers.length; i++) {
+            if(markers[i][1]==id){
+                markers[0].setVisible(true);
+                circles[i].setVisible(true);
+            }
+            else{
+                markers[0].setVisible(false);
+                circles[i].setVisible(false);
+            }
+        }
+    }
+}
+
+function checkIfCrisisInactive(){
+    var $_PANELS = $('.panel-heading');
+    var result = true;
+    $_PANELS.each(function(){
+        if(!$(this).hasClass('collapsed'))
+            result = false;
+    });
+
+    return result;
+}
+
+function filterMapCrisis(id){
+    var text;
+    if(!checkIfCrisisInactive()){
+        for (i = 0; i < markers.length; i++) {
+            markers[i][0].setVisible(true);
+            circles[i].setVisible(true);
+        }
+        text = "Map is no longer being filtered by any Crisis ID!";
+    }
+    else{
+        for (i = 0; i < markers.length; i++) {
+            if(markers[i][1]==id){
+                markers[i][0].setVisible(true);
+                circles[i].setVisible(true);
+            }
+            else{
+                markers[i][0].setVisible(false);
+                circles[i].setVisible(false);
+            }
+        }
+        text = "Map is being filtered by Crisis ID: "+id+"!";
+    }
+     new PNotify({
+            title: 'Map Filtered by Crisis',
+            text: text,
+            type: 'info',
+            styling: 'bootstrap3'
+     });
+}

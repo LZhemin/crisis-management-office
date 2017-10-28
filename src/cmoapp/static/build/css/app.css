@@ -24,3 +24,37 @@
 .center{
     text-align: center;
 }
+
+.left-align{
+    text-align: left;
+}
+.right-align{
+    text-align: right;
+}
+
+.accordion .panel-heading {
+    padding: 13px;
+    width: 100%;
+    display: block
+}
+accordion .panel-heading .alert-success {
+    color: #ffffff;
+    background-color: rgba(38, 185, 154, 0.88);
+    border-color: rgba(38, 185, 154, 0.88)
+}
+accordion .panel-heading .alert-info {
+    color: #E9EDEF;
+    background-color: rgba(52, 152, 219, 0.88);
+    border-color: rgba(52, 152, 219, 0.88)
+}
+accordion .panel-heading .alert-warning {
+    color: #E9EDEF;
+    background-color: rgba(243, 156, 18, 0.88);
+    border-color: rgba(243, 156, 18, 0.88)
+}
+accordion .panel-heading .alert-danger,
+accordion .panel-heading .alert-error {
+    color: #E9EDEF;
+    background-color: rgba(231, 76, 60, 0.88);
+    border-color: rgba(231, 76, 60, 0.88)
+}

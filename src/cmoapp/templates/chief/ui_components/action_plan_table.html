@@ -1,14 +1,14 @@
-<table class="table table-striped">
+<table class="table table-striped center">
     <thead>
     <tr>
-        <th class="sideBorder center" style="width:1%">Crisis#</th>
-        <th class="sideBorder center" style="width:1%">ActionPlan#</th>
-        <th class="sideBorder center" style="width:7%">Type</th>
-        <th class="sideBorder center">Description</th>
-        <th class="sideBorder center" style="width:10%">Forces Involved</th>
-        <th class="sideBorder center" style="width:10%">Resolution Time</th>
-        <th class="sideBorder center" style="width:5%">Status</th>
-        <th class="sideBorder center"style="width:20%">Actions</th>
+        <th class="center" style="width:1%">Crisis#</th>
+        <th class="center" style="width:1%">ActionPlan#</th>
+        <th class="center" style="width:7%">Type</th>
+        <th class="center">Description</th>
+        <th class="center" style="width:10%">Forces Involved</th>
+        <th class="center" style="width:10%">Resolution Time</th>
+        <th class="center" style="width:5%">Status</th>
+        <th class="center"style="width:20%">Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -19,7 +19,7 @@
             <td>{{ crisis.id }}</td>
             <td>{{ actionPlan.id }}</td>
             <td>{{ actionPlan.type }}</td>
-            <td>{{ actionPlan.abridged_description }}</td>
+            <td class="left-align">{{ actionPlan.abridged_description }}</td>
             <td>{% for force in actionPlan.forcedeployment_set.all %}
 
                 <span class="label label-primary">{{ force.name }}</span>

@@ -1,3 +1,114 @@
-<div>
+<div class="accordion" id="Crisis" role="tablist" aria-multiselectable="true">
+    {% for crisis in all_crisis %}
+    <div class="panel">
+        {% if crisis.status == 'Combat'%}
+        <a class="panel-heading collapsed alert-danger padding" role="tab" id="panelHeading{{crisis.id}}" onclick="filterMapCrisis({{crisis.id}})" data-toggle="collapse" data-parent="#accordion" href="#collapse{{crisis.id}}" aria-expanded="false" aria-controls="collapseTwo">
+            <span style="float:left;width:50%"><h3 class="panel-title">Crisis {{crisis.id}}</h3></span>
+            <span style="text-align:right;width:50%"><h3 class="panel-title">Status:&nbsp&nbsp<i class="fa fa-fighter-jet" aria-hidden="true"></i>&nbsp{{crisis.status}}</h3></span>
+        </a>
+        {% else%}
+        <a class="panel-heading collapsed alert-info" role="tab" id="panelHeading{{crisis.id}}" onclick="filterMapCrisis({{crisis.id}})" data-toggle="collapse" data-parent="#accordion" href="#collapse{{crisis.id}}" aria-expanded="false" aria-controls="collapseTwo">
+            <span style="float:left;width:50%"><h3 class="panel-title">Crisis {{crisis.id}}</h3></span>
+            <span style="text-align:right;width:50%"><h3 class="panel-title">Status:&nbsp&nbsp<i class="fa fa-trash" aria-hidden="true"></i>&nbsp{{crisis.status}}</h3></span>
+        </a>
+        {%endif%}
+        <div id="collapse{{crisis.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="center" style="width:1%">ActionPlan#</th>
+                        <th class="center" style="width:7%">Type</th>
+                        <th class="center">Description</th>
+                        <th class="center" style="width:10%">Forces Involved</th>
+                        <th class="center" style="width:10%">Resolution Time</th>
+                        <th class="center" style="width:5%">Status</th>
+                        <th class="center"style="width:20%">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for actionPlan in crisis.actionplan_set.all%}
+                    <tr>
+                        <td>{{ actionPlan.id }}</td>
+                        <td>{{ actionPlan.type }}</td>
+                        <td class="left-align">{{ actionPlan.abridged_description }}</td>
+                        <td>{% for force in actionPlan.forcedeployment_set.all %}
+                            <span class="label label-primary">{{ force.name }}</span>
+                            {% endfor %}
+                        </td>
+                        <td class="center">{{ actionPlan.resolutionTime }}</td>
+                        <td>
+                            {% if actionPlan.status == 'PMOApproved' %} <span class="label label-success">
+                            {% elif actionPlan.status == 'Rejected' %} <span class="label label-danger">
+                            {% elif actionPlan.status == 'Planning' %} <span class="label label-default">
+                            {% elif actionPlan.status == 'CORequest' %} <span class="label label-warning">
+                            {% else %} <span class="label label-pmo"> {% endif %}
+                            {{ actionPlan.get_status_display }}</span>
+                        </td>
+                        <td>
+                            {% if actionPlan.status != 'Planning' %}
+                                <button href="{% url 'Analyst_Action_Plan_Detail' actionPlan.id %}" class="btn btn-primary btn-xs"><i
+                                    class="fa fa-eye"></i> View </button>
+                                {% if actionPlan.status == 'CORequest' %}
+                                <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModalAP{{actionPlan.id}}">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>  Accept
+                                </button>
+                                <!-- Modal For Accepting Action Plan-->
+                                <div class="modal fade bs-example-modal-sm" id='acceptModalAP{{actionPlan.id}}' tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                                </button>
+                                                <h4 class="modal-title" >Accepting ActionPlan</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h4>Please confirm that you are accepting the Action Plan?</h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-danger" onclick="acceptActionPlan({{actionPlan.id}})"><i class="fa fa-times-circle" aria-hidden="true"></i>  Reject</button>
+                                            </div>
 
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#rejectModalAP{{actionPlan.id}}">
+                                    <i class="fa fa-times-circle" aria-hidden="true"></i>  Reject
+                                </button>
+                                <!-- Modal For Rejecting of  Action Plan-->
+                                <div class="modal fade bs-example-modal-sm" id='rejectModalAP{{actionPlan.id}}' tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span>
+                                                </button>
+                                                <h4 class="modal-title" >Reject ActionPlan</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h4>Rejecting Action Plan Id:{{actionPlan.id}}</h4>
+                                                <p>Please Enter the reason for rejecting the ActionPlan:</p>
+                                                <textarea id="commentAP{{actionPlan.id}}" class="form-control"></textarea>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-danger" onclick="rejectActionPlan({{actionPlan.id}})"><i class="fa fa-times-circle" aria-hidden="true"></i>  Reject</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            {%endif%}
+                            </td>
+                        {%endif%}
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
 </div>
