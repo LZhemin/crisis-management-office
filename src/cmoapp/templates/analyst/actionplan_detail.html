@@ -133,36 +133,36 @@
                                     {% if Action_Plan.get_type_display == 'Combat' %}
                                     <li class="alert alert-danger">
                                         <h2 class="name">Plan Type</h2>
-                                        <h3>{{ Action_Plan.get_type_display }}  <i class="fa fa-fighter-jet" aria-hidden="true"></i></h3>
+                                        <h4>{{ Action_Plan.get_type_display }}  <i class="fa fa-fighter-jet" aria-hidden="true"></i></h4>
                                     </li>
                                     {% else %}
                                     <li class="alert alert-info">
                                         <h2 class="name">Plan Type</h2>
-                                        <h3>{{ Action_Plan.get_type_display }}  <i class="fa fa-trash" aria-hidden="true"></i></h3>
+                                        <h4>{{ Action_Plan.get_type_display }}  <i class="fa fa-trash" aria-hidden="true"></i></h4>
                                     </li>
                                     {% endif %}
                                     {% if Action_Plan.status == 'PMOApproved' %}
                                     <li class="alert alert-success">
                                         <h2 class="name">Approval Status</h2>
-                                        <h3>{{ Action_Plan.get_status_display }}  <i class="fa fa-check-circle" aria-hidden="true"></i></h3>
+                                        <h4>{{ Action_Plan.get_status_display }}  <i class="fa fa-check-circle" aria-hidden="true"></i></h4>
                                     {% elif Action_Plan.status == 'Rejected' %}
                                     <li class="alert alert-danger">
                                         <h2 class="name">Approval Status</h2>
-                                        <h3>{{ Action_Plan.get_status_display }}  <i class="fa fa-times" aria-hidden="true"></i></h3>
+                                        <h4>{{ Action_Plan.get_status_display }}  <i class="fa fa-times" aria-hidden="true"></i></h4>
                                     {% elif Action_Plan.status == 'Planning' %}
                                     {% else %}
                                     <li class="label label-pmo">
                                         <h2 class="name">Approval Status</h2>
-                                        <h3>{{ Action_Plan.get_status_display }} <i class="fa fa-spinner" aria-hidden="true"></i></h3></h2>
+                                        <h4>{{ Action_Plan.get_status_display }} <i class="fa fa-spinner" aria-hidden="true"></i></h4></h2>
                                     {% endif %}
                                     </li>
                                     <li>
                                         <h2 class="name">  Estimated Resolution Time</h2>
-                                        <h3>{{ Action_Plan.resolutionTime }} <i class="fa fa-clock-o"></i></h3>
+                                        <h4>{{ Action_Plan.resolutionTime }} <i class="fa fa-clock-o"></i></h4>
                                     </li>
                                     <li>
                                         <h2 class="name">Projected Casualties</h2 class="name">
-                                        <h3>{{ Action_Plan.projectedCasualties }}  <i class="fa fa-heartbeat" aria-hidden="true"></i></h3>
+                                        <h4>{{ Action_Plan.projectedCasualties }}  <i class="fa fa-heartbeat" aria-hidden="true"></i></h4>
                                     </li>
                                 </ul>
                                 <br>

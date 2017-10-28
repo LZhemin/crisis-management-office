@@ -47,8 +47,8 @@
                         </td>
                         <td>
                             {% if actionPlan.status != 'Planning' %}
-                                <button href="{% url 'Chief_Action_Plan_Detail' actionPlan.id %}" class="btn btn-primary btn-xs"><i
-                                    class="fa fa-eye"></i> View </button>
+                                <a href="{% url 'Chief_Action_Plan_Detail' actionPlan.id %}" class="btn btn-primary btn-xs"><i
+                                    class="fa fa-eye"></i> View </a>
                                 {% if actionPlan.status == 'CORequest' %}
                                 <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModalAP{{actionPlan.id}}">
                                     <i class="fa fa-check-circle" aria-hidden="true"></i>  Accept
@@ -67,7 +67,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-danger" onclick="acceptActionPlan({{actionPlan.id}})"><i class="fa fa-times-circle" aria-hidden="true"></i>  Reject</button>
+                                                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="acceptActionPlan({{actionPlan.id}})"><i class="fa fa-check-circle" aria-hidden="true"></i>  Accept</button>
                                             </div>
 
                                         </div>
@@ -94,7 +94,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-danger" onclick="rejectActionPlan({{actionPlan.id}})"><i class="fa fa-times-circle" aria-hidden="true"></i>  Reject</button>
+                                                <button type="button" class="btn btn-danger" onclick="rejectActionPlan('rejectModalAP{{actionPlan.id}}')"><i class="fa fa-times-circle" aria-hidden="true"></i>  Reject</button>
                                             </div>
 
                                         </div>

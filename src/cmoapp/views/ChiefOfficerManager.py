@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment
 from django.views.generic import DetailView
@@ -98,24 +98,30 @@ def forwardActionPlan(request, CrisisID):
         return HttpResponseRedirect(reverse('cmoapp:base_site', args=(CrisisID)))
 
 
-def setApprovalStatus(request, CrisisID):
-    latest_actionplan_list = ActionPlan.objects.order_by('-crisis')[:5]
-    # output = ', '.join([l.Location for l in latest_actionplan_list])
-    context = {'latest_actionplan_list': latest_actionplan_list}
-
+#change to forwarding of ActionPlan Soon
+def ApproveActionPlan(request):
     try:
-        COApproval = request.POST['COApproval']
-    except(KeyError, COApproval.DoesNotExist):
-    # Redisplay
-        return render(request, 'chief/base_site.html', {
-            context,
-            {'error_message': "You didn't select a COApproval."}
-        })
+        actionPlanId = request.POST['id']
+    except(KeyError):
+        return JsonResponse('Error Found in keys!')
+    actionPlan = ActionPlan.objects.get(id=actionPlanId)
+    actionPlan.status = 'PMORequest'
+    actionPlan.save()
+    return JsonResponse({"success": True, "message": "Action Plan Approved Successfully!"})
 
+
+def RejectActionPlan(request):
+    try:
+        actionPlanId = request.POST['id']
+        comment = request.POST['comment']
+    except(KeyError):
+        return JsonResponse({"success":False,"error":"Error Occurred Problems check key names!"})
     else:
-        setActionPlan = ActionPlan(COApproval=COApproval)
-        setActionPlan.add()  # save to database
-        return HttpResponseRedirect(reverse('cmoapp:base_site', args=(CrisisID)))
+        actionPlan = ActionPlan.objects.get(id=actionPlanId)
+        actionPlan.status = 'Rejected'
+        commentObj = Comment(text=comment,author='CO',actionPlan_id=actionPlanId)
+        commentObj.save()
+        return JsonResponse({"success":True,"message":"Action Plan Rejected Successfully!"})
 
 
 def getCrisisList(request):
@@ -149,5 +155,5 @@ def addEFUpdate(request, CrisisID):
 #Add the LoginRequiredMixin as the leftmost inheritance
 class ActionPlanDetail(DetailView):
     context_object_name = "Action_Plan"
-    template_name='chief/actionplan_detail.html'
+    template_name='analyst/actionplan_detail.html'
     model = ActionPlan

@@ -29,14 +29,14 @@
             <td>
                 <span class="label label-warning">{{ actionPlan.get_status_display }}</span>
             </td>
-            <td><button href="{% url 'Chief_Action_Plan_Detail' actionPlan.id %}" class="btn btn-primary btn-xs"><i
-                    class="fa fa-eye"></i> View </button>
+            <td><a href="{% url 'Chief_Action_Plan_Detail' actionPlan.id %}" class="btn btn-primary btn-xs"><i
+                    class="fa fa-eye"></i> View </a>
 
-                <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModalAP{{actionPlan.id}}">
+                <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptTableModalAP{{actionPlan.id}}">
                     <i class="fa fa-check-circle" aria-hidden="true"></i>  Accept
                 </button>
                 <!-- Modal For Accepting Action Plan-->
-                <div class="modal fade bs-example-modal-sm" id='acceptModalAP{{actionPlan.id}}' tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                <div class="modal fade bs-example-modal-sm" id='acceptTableModalAP{{actionPlan.id}}' tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
                     <div class="modal-dialog modal-sm">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -49,7 +49,7 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-danger" onclick="acceptActionPlan({{actionPlan.id}})"><i class="fa fa-times-circle" aria-hidden="true"></i>  Reject</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="acceptActionPlan({{actionPlan.id}})"><i class="fa fa-check-circle" aria-hidden="true"></i>  Accept</button>
                         </div>
 
                       </div>
@@ -57,11 +57,11 @@
                   </div>
 
 
-                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#rejectModalAP{{actionPlan.id}}">
+                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#rejectTableModalAP{{actionPlan.id}}">
                     <i class="fa fa-times-circle" aria-hidden="true"></i>  Reject
                 </button>
                 <!-- Modal For Rejecting of  Action Plan-->
-                <div class="modal fade bs-example-modal-sm" id='rejectModalAP{{actionPlan.id}}' tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                <div class="modal fade bs-example-modal-sm" id='rejectTableModalAP{{actionPlan.id}}' tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
                     <div class="modal-dialog modal-sm">
                       <div class="modal-content">
                         <div class="modal-header">

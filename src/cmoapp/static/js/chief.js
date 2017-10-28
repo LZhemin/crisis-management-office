@@ -45,13 +45,46 @@ $(document).ready(function() {
     });
 });
 
-function rejectActionPlan(id){
-    var commnet = document.getElementsById("commentAP"+id);
-
+function rejectActionPlan(idval){
+    console.log($(this));
+    var commentObj = document.getElementsById("commentAP"+idval).getValue();
+    console.log(commentObj);
+    $.ajax({
+        type:"POST",
+        url: "{% url 'Reject_Action_Plan'%}",
+        data:JSON.stringify({ id: idval, comment: commentObj.getValue() }),
+        dataType: 'json',
+        success: function (data) {
+        new PNotify({
+            title: data.message,
+            text: text,
+            type: 'info',
+            styling: 'bootstrap3'
+        });
+        }
+    });
 }
 
 function acceptActionPlan(id){
-
+    console.log('hi');
+    var url = '{% url "Approve_Action_Plan" %}';
+    $.ajax({
+        type:"POST",
+        url: 'approve_action_plan/',
+        data:{ id: id},
+        dataType: 'json',
+        success: function (data) {
+            new PNotify({
+                title: data.message,
+                text: text,
+                type: 'info',
+                styling: 'bootstrap3'
+            });
+        },
+        error : function(xhr,errmsg,err) {
+                console.log(errmsg);
+            }
+    });
 }
 
 $("#msgBox").on('keyup', function (e) {
