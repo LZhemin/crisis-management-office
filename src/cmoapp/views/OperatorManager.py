@@ -5,6 +5,10 @@ from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan,
 #from cmoapp.forms import CrisisForm
 from django.forms.models import model_to_dict
 from django.core import serializers
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework import permissions, status,generics
+from rest_framework.response import Response
+from cmoapp.serializers import CrisisSerializer, CrisisReportSerializer, ActionPlanSerializer
 
 import json
 #Kindly help to remove unwanted modules
@@ -23,21 +27,21 @@ def sharedindex():
     #getAccountList = Account.objects.exclude(pk__in=getanalystacc).filter(type="Analyst")
 
     getcrisisacc = CrisisReport.objects.filter(crisis__isnull=False)
-    getUnassignedCrisis = Crisis.objects.all().exclude(pk__in=getcrisisacc)
 
-    getanalystacc = Crisis.objects.exclude(analyst__isnull=True).values_list('analyst_id', flat=True)
-    getAccountList = Account.objects.exclude(pk__in=getanalystacc).filter(type="Analyst")
+    getNotResolvedCrisisList = Crisis.objects.filter(analyst__isnull=False).exclude(status='Resolved')
 
-    getUnassignedAnaCris = Crisis.objects.filter(analyst__isnull=True)
 
+    getanalystacc = Crisis.objects.exclude(analyst__isnull = True).values_list('analyst_id', flat=True)
+    getAccountList = Account.objects.filter(type="Analyst").exclude(pk__in=getanalystacc)
 
     context = {'getCrisisList': getCrisisList,
                'getCrisisTypeList': getCrisisTypeList,
                'getCrisisReportList': getCrisisReportList,
                'getUnassignedCrisisReport': getUnassignedCrisisReport,
                'getAccountList': getAccountList,
-               'getUnassignedAnaCris': getUnassignedAnaCris,
-               'getUnassignedCrisis': getUnassignedCrisis,
+
+               'getNotResolvedCrisisList': getNotResolvedCrisisList,
+
                 'getAssignedCrisisReport':getAssignedCrisisReport,
                'all_crisis': Crisis.objects.reverse(),
                'all_crisisreport': CrisisReport.objects.reverse(),
@@ -53,6 +57,17 @@ def index(Request):
                 {'error_message': "You didn't select a Crisis."}
                 )
 
+def getallassignedCrisisReport(Request):
+    if Request.method == 'GET':
+
+        getResolvedCrisis = Crisis.objects.exclude(status='Resolved').values_list('pk', flat=True)
+        getAssignedCrisisReport = CrisisReport.objects.exclude(crisis__isnull=True).filter(crisis__in=getResolvedCrisis)
+        #getCrisisReportList = CrisisReport.objects.all()
+
+        response = serializers.serialize("json", getAssignedCrisisReport)
+        return HttpResponse(response, content_type='application/json')
+    else:
+      return JsonResponse(model_to_dict(0))
 
 
 def assignnewCrisis(Request, pk):
@@ -70,16 +85,10 @@ def assignnewCrisis(Request, pk):
         context = sharedindex();
         return HttpResponseRedirect(reverse('Operator_Index'))
 
-
     getallcrisis = CrisisReport.objects.filter(crisis__isnull = True)
     #getallanalyst = Account.objects.filter(pk=pk)
     #getanalystacc = Crisis.objects.exclude(analyst__isnull = True).values_list('analyst_id', flat=True)
     #getallanalyst = Account.objects.exclude(pk__in = getanalystacc).filter(type = "Analyst")
-
-    getallcrisis = CrisisReport.objects.filter(pk=pk)
-    getanalystacc = Crisis.objects.exclude(analyst__isnull=True).values_list('analyst_id', flat=True)
-    getallanalyst = Account.objects.exclude(pk__in = getanalystacc).filter(type = "Analyst")
-
 
     getallcrisistype = CrisisType.objects.all()
 
@@ -91,15 +100,20 @@ def assignnewCrisis(Request, pk):
 def create_crisis(request):
     if request.method == 'POST':
 
-        selected_crisis = request.POST.get('getcrisis')
+        selected_crisis = request.POST.get('getcrisistype')
         selected_analyst = request.POST.get('getanalyst')
+        selected_reportID = request.POST.get('crisisreportid')
         #selected_status = request.POST.get('getstatus')
         #selected_crisistype = request.POST["getcrisistype"]
         #selected_filtercrisistype = CrisisType.objects.filter(name='selected_crisistype')
         response_data = {}
 
-        created_crisis = Crisis(pk = selected_crisis, analyst_id=selected_analyst, status = 'Ongoing')#status=selected_status
+        created_crisis = Crisis(analyst_id=selected_analyst, status='Ongoing')
         created_crisis.save()
+        CrisisReport.objects.filter(pk=selected_reportID).update(crisis=created_crisis.pk, crisisType=selected_crisis)
+
+        #created_crisis = Crisis(pk = selected_crisis, analyst_id=selected_analyst, status = 'Ongoing')#status=selected_status
+        #created_crisis.save()
 
         response_data['result'] = 'Create post successful!'
         response_data['crisispk'] = created_crisis.pk
@@ -118,6 +132,31 @@ def create_crisis(request):
           #  content_type="application/json"
         #)
         return JsonResponse(model_to_dict(0))
+
+
+
+
+def assignexisting(request):
+    if request.method == 'POST':
+
+        selected_crisis = request.POST.get('getExisting')
+        selected_reportID = request.POST.get('existingreportid')
+        response_data = {}
+
+        selected_type = CrisisReport.objects.filter(crisis_id = selected_crisis).values_list('crisisType_id', flat=True)
+        CrisisReport.objects.filter(pk=selected_reportID).update(crisis=selected_crisis, crisisType=selected_type[0])
+
+        response_data['result'] = 'Create post successful!'
+        return JsonResponse(response_data)
+    else:
+        #return HttpResponse(
+         #   json.dumps({"nothing to see": "this isn't happening"}),
+          #  content_type="application/json"
+        #)
+        return JsonResponse(model_to_dict(0))
+
+
+
 
 def delete_crisis(request):
 
@@ -152,7 +191,7 @@ def load_analyst(request):
 
         getanalystacc = Crisis.objects.exclude(analyst__isnull=True).values_list('analyst_id', flat=True)
         getAccountList = Account.objects.exclude(pk__in=getanalystacc).filter(type="Analyst")
-
+        #getAccountList = Account.objects.all()
         response = serializers.serialize("json", getAccountList)
         return HttpResponse(response, content_type='application/json')
     else:

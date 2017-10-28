@@ -8,7 +8,7 @@ $(function() {
        // alert("happy");
        load_crisisreports();
        load_crisis();
-       load_analyst();
+      load_analyst();
       }, 5000);
 
 
@@ -48,12 +48,26 @@ $(function() {
                                 html += '<td>'+json[i].description+'</td>';
                                 dateString = convert_to_readable_date(json[i].datetime);
                                 html += '<td>'+dateString+'</td>';
-                                html += '<td>'+'<button type='+"button"+'  class="btn btn-primary"'+' onclick='+"window.location='/operator/"+json[i].id+"';"+'>'+
-                                                 '<span class=" glyphicon glyphicon-search"' + ' ></span></button></td>';
+                                html += '<td>'+' <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target="#add_existing" data-id='+json[i].id+'>'+
+                                       '<span class="glyphicon glyphicon-search"></span></button></td>';
+                                html += '<td>'+' <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target="#add_project" data-id='+json[i].id+'>'+
+                                       '<span class="glyphicon glyphicon-search"></span></button></td>';
+
                                 html += '</tr>';
                                // html += '</tbody>';
                                 $("#Unacrisrptlist").append(html);
                             // }
+                                      //<td>
+                                       //      <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target="#add_existing" data-id={{crisisrpt.pk}}>
+                                       //<span class="glyphicon glyphicon-search"></span>
+                                      //</button>
+                                       //  </td>
+                                        // <td>
+                                         //    <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target="#add_project" data-id={{crisisrpt.pk}}>
+                                       //<span class="glyphicon glyphicon-search"></span>
+                                      //</button>
+                                         //</td>
+
 
                 }
 
@@ -144,28 +158,36 @@ $(function() {
     // Load all crisis on page load
     function load_crisis() {
         $.ajax({
-            url : "api/crisis/", // the endpoint
+           // url : "api/crisis/", // the endpoint
+             url :"/operator/crisisdisplay/",
             type : "GET", // http method
             // handle a successful response
 
             //var html;
 
             success : function(json) {
+            //alert(json[0].pk + " " + json[0].fields.crisisType);
+            //alert(JSON.stringify(json[0]))
+
+           // alert("" + obj);
+
                 for (var i = 0; i < json.length; i++) {
                     console.log(json[i])
-                    $('#crisis-'+json[i].id).remove();
-                    //if(json[i].crisis == null)
-                    // {
-                        var html = '<tr id ='+'crisis-'+json[i].id+'>';
+                    $('#crisis-'+json[i].pk).remove();
+                        //if(json[i].id != null){
+                        var html = '<tr id ='+'crisis-'+json[i].pk+'>';
                         html += '<td></td>';
-                        html += '<td><span class="label label-default">'+json[i].id+'</span></td>';
-                        html += '<td><span class="label label-warning">'+json[i].analyst+'</span></td>';
-                        html += '<td><span class="label label-success">'+json[i].status+'</span></td>';
+                        html += '<td><span class="label label-default">'+json[i].pk+'</span></td>';
+                        html += '<td><span class="label label-danger">'+json[i].fields.crisis+'</span></td>';
+                        html += '<td><span class="label label-warning">'+json[i].fields.crisisType+'</span></td>';
+                        html += '<td>'+json[i].fields.description+'</td>';
+                        dateString = convert_to_readable_date(json[i].fields.datetime);
+                        html += '<td>'+dateString+'</td>';
                         html += '</tr>';
                         $("#Unacrisislist").append(html);
-
+                       // }
                 }
-               // console.log("load success"); // another sanity check
+                    // console.log("load success"); // another sanity check
             },
             // handle a non-successful response
             error : function(xhr,errmsg,err) {
@@ -184,17 +206,19 @@ $(function() {
             type : "GET", // http method
             // handle a successful response
             //var html;
-            alert("test");
+            //alert("test");
             success : function(json) {
                 for (var i = 0; i < json.length; i++) {
                     console.log(json[i])
 
-                        $('#analysts-'+json[i].id).remove();
-                        //if(json[i].id != null){
-                            var html = '<tr id ='+'analysts-'+json[i].id+'>';
+                        $('#analysts-'+json[i].pk).remove();
+                        if(json[i].pk != null){
+                            var html = '<tr id ='+'analysts-'+json[i].pk+'>';
                             html += '<td></td>';
-                            html += '<td><span class="label label-default">'+json[i].id+'</span></td>';
-                            html += '<td><span class="label label-warning">'+json[i].login+'</span></td>';
+                            html += '<td><span class="label label-default">'+json[i].pk+'</span></td>';
+                            html += '<td><span class="label label-warning">'+json[i].fields.login+'</span></td>';
+                            html += '<td>'+'<button type='+"button"+'  class="btn btn-primary"'+' onclick='+"window.location='/operator/"+json[i].pk+"';"+'>'+
+                                                 '<span class=" glyphicon glyphicon-search"' + ' ></span></button></td>';
                             html += '</tr>';
                             $("#Unaacclist").append(html);
                          //}
@@ -202,6 +226,7 @@ $(function() {
 
                 }
                // console.log("load success"); // another sanity check
+            }
             },
             // handle a non-successful response
             error : function(xhr,errmsg,err) {
@@ -212,6 +237,11 @@ $(function() {
         });
     };
 
+$('#existingcrisis-form').on('submit', function(event){
+        event.preventDefault();
+        console.log("form submitted!")  // sanity check
+        assign_existingcrisis();
+    });
     // Submit post on submit
     $('#crisis-form').on('submit', function(event){
         event.preventDefault();
@@ -232,12 +262,13 @@ $(function() {
         $.ajax({
             url : "/operator/create_crisis/", // the endpoint
             type : "POST", // http method
-            data : { getanalyst : $('#getanalyst').val(), getcrisis : $('#getcrisis').val()
+            data : { getanalyst : $('#getanalyst').val(), getcrisistype : $('#getcrisistype').val(), crisisreportid: $('#crisisreportid').val()
              }, // data sent with the post request //, getstatus : $('#getstatus').val()
             // handle a successful response
             success : function(json) {
                 $('#getanalyst').val(''); // remove the value from the input
-                $('#getcrisis').val(''); // remove the value from the input
+                $('#getcrisistype').val(''); // remove the value from the input
+                $('#crisisreportid').val('');
                 //$('#getstatus').val(''); // remove the value from the input
                 console.log(json); // log the returned json to the console
 
@@ -263,7 +294,28 @@ $(function() {
             }
         });
     };
-
+    function assign_existingcrisis() {
+        console.log("create post is working! test") // sanity check
+        $.ajax({
+            url : "/operator/assignexisting/", // the endpoint
+            type : "POST", // http method
+            data : { getExisting : $('#getExisting').val(),existingreportid: $('#existingreportid').val()
+             }, // data sent with the post request //, getstatus : $('#getstatus').val()
+            // handle a successful response
+            success : function(json) {
+                $('#getExisting').val(''); // remove the value from the input
+                $('#existingreportid').val(''); // remove the value from the input
+                console.log(json); // log the returned json to the console
+                console.log("success"); // another sanity check
+            },
+            // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+                $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+        });
+    };
     function delete_post(post_primary_key){
         if (confirm('are you sure you want to remove this post?')==true){
             $.ajax({
