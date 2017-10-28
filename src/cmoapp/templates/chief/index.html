@@ -421,9 +421,9 @@
                                             {% verbatim %}
                                             <p ng-repeat="m in messages">{{m.date | date:'short'}} - {{m.sender}}: {{m.message}}</p>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Message here..." ng-model="messageText">
+                                                <input id='msgBox' type="text" class="form-control" placeholder="Message here..." ng-model="messageText">
                                             </div>
-                                            <button type="submit" class="btn btn-default" ng-click="send()">Send</button>
+                                            <button id="msgSendBtn" type="submit" class="btn btn-default" ng-click="send()">Send</button>
                                             {% endverbatim %}
                                         </div>
                                     </div>

@@ -54,6 +54,13 @@ function acceptActionPlan(id){
 
 }
 
+$("#msgBox").on('keyup', function (e) {
+    if (e.keyCode == 13) {
+        $("#msgSendBtn").trigger('click');
+    }
+});
+
+
 $(".modal").on("hidden.bs.modal", function(){
     var body = $(this).find(".modal-body");
     var textArea = body.find('textArea');

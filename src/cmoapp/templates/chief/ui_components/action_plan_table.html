@@ -1,14 +1,14 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th style="width:1%">Crisis#</th>
-        <th style="width:1%">ActionPlan#</th>
-        <th style="width:7%">Type</th>
-        <th>Description</th>
-        <th style="width:10%">Forces Involved</th>
-        <th style="width:10%">Resolution Time</th>
-        <th style="width:5%">Status</th>
-        <th style="width:20%">Actions</th>
+        <th class="sideBorder center" style="width:1%">Crisis#</th>
+        <th class="sideBorder center" style="width:1%">ActionPlan#</th>
+        <th class="sideBorder center" style="width:7%">Type</th>
+        <th class="sideBorder center">Description</th>
+        <th class="sideBorder center" style="width:10%">Forces Involved</th>
+        <th class="sideBorder center" style="width:10%">Resolution Time</th>
+        <th class="sideBorder center" style="width:5%">Status</th>
+        <th class="sideBorder center"style="width:20%">Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -25,7 +25,7 @@
                 <span class="label label-primary">{{ force.name }}</span>
                 {% endfor %}
             </td>
-            <td>{{ actionPlan.resolutionTime }}</td>
+            <td class="center">{{ actionPlan.resolutionTime }}</td>
             <td>
                 <span class="label label-warning">{{ actionPlan.get_status_display }}</span>
             </td>
