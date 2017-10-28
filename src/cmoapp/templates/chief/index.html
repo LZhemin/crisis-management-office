@@ -33,6 +33,23 @@
 {% endblock page_stylesheets %}
 
 {% block page_javascripts %}
+    <!-- For Firebase -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+    <script>
+    // This will be generated in the firebase console
+    var config = {
+        apiKey: "AIzaSyCGfibas_wVxOWSR-uqewBTLtYdcbwW37k",
+        authDomain: "testapp-f3e73.firebaseapp.com",
+        databaseURL: "https://testapp-f3e73.firebaseio.com",
+        projectId: "testapp-f3e73",
+        storageBucket: "testapp-f3e73.appspot.com",
+        messagingSenderId: "300550730836"
+      };
+    firebase.initializeApp(config);
+    </script>
+    <script src="/static/js/firebaseapp.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.2.0/angularfire.min.js"></script>
 
 <script type="text/javascript">
     {% if assigned_crisis %}
@@ -392,7 +409,27 @@
                             </div>
                         </div>
                         <div class="x_content">
-                            Chat Goes here
+
+                            <body ng-controller="ChatController">
+                                <br>
+                                <div class="container">
+                                    <div class="panel panel-primary">
+                                        <!--
+                                        <div class="panel-heading">Web Based Firebase Chat Application</div>
+                                        -->
+                                        <div class="panel-body">
+                                            {% verbatim %}
+                                            <p ng-repeat="m in messages">{{m.date | date:'short'}} - {{m.sender}}: {{m.message}}</p>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Message here..." ng-model="messageText">
+                                            </div>
+                                            <button type="submit" class="btn btn-default" ng-click="send()">Send</button>
+                                            {% endverbatim %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </body>
+
                         </div>
                     </div>
                 </div>
