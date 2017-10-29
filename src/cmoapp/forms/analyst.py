@@ -42,13 +42,17 @@ class ActionPlanForm(ModelForm):
             #Causes a double call to Model.Clean() because ModelForm.is_valid calls Model.clean also
             #A small performance price to pay at this point in time until we change the ModelForm back to the normal Form
             ap.clean()
-            #ap.save()
+            ap.save()
         else:
             raise ValueError("Crisis ID of Action Plan Object needs to be sets before saving")
 
 class ForceForm(ModelForm):
 
+    #name =
+
     class Meta:
         model = ForceDeployment
         fields = ['name','recommended','max']
 
+    def update_or_create(self,action_plan=None):
+        pass

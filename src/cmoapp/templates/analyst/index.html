@@ -50,6 +50,10 @@
     {% endif %}
     $(document).ready(function(){
         //initCharts();
+        if(!crisis)
+        {
+            setTimeout(function(){ location.reload() },10000);
+        }
         /*
             Help me bind the form submission and figure out a way to display the raw data for the WSIWYG
             $('#mySubmission').val($('#editor').cleanHtml(true));
@@ -129,7 +133,6 @@
         {% endif %}
     }
 
-    //Recommend using PNotify for notifications from EF or 911. looks good
 </script>
 
 {% endblock page_javascripts %}
