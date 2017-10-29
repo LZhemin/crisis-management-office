@@ -10,9 +10,7 @@ class CrisisSerializer(serializers.ModelSerializer):
 
 
 class CrisisReportSerializer(serializers.ModelSerializer):
-    # crisisType = serializers.SlugRelatedField(
-    #     queryset=CrisisType.objects.all(), slug_field='selectCrisisType'
-    # )
+    crisisType = serializers.SlugRelatedField(queryset=CrisisType.objects.all(), slug_field='name')
 
     class Meta:
         model = CrisisReport

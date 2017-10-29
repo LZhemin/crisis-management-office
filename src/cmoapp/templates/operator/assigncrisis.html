@@ -151,10 +151,7 @@
                 <thead>
                   <tr class="headings">
                     <th>
-                      <div class="icheckbox_flat-green" style="position: relative;">
-                          <input type="checkbox" id="check-all1" class="flat" style="position: absolute; opacity: 0;">
-                          <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                      </div>
+
 
                     </th>
                     <th class="column-title">ID </th>
@@ -165,10 +162,6 @@
                     <th class="column-title">Longitude </th>
                     <th class="column-title">DateTime </th>
 
-                    </th>
-                    <th class="bulk-actions" colspan="7">
-                      <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                    </th>
                   </tr>
                 </thead>
 
@@ -210,13 +203,12 @@
 
         </div>
 
-
-             Select Crisis type to attend to this case:
+            <label>Select Crisis type to attend to this case:</label>
             <br/>
                  {% for crisistype in getallcrisistype %}
                      <input type="radio" name="crisistypeT" value="{{crisistype.id}}" checked="checked"> {{crisistype.name}}<br>
                            <input id="hiddenid" name="hiddenid" type="hidden" value="{{crisistype.id}}">
-            {%endfor%}
+                {%endfor%}
             <br/>
             <input type = "submit" onclick="success()"/>
         </form>

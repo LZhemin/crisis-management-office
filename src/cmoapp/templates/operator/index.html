@@ -1238,12 +1238,6 @@
             <div class="modal-body">
                 <form method="POST" id="crisis-form">
                   {% csrf_token %}
-                      <!--
-                      <div class="fieldWrapper" id="the_crisis">
-                          {{ form.analyst }}
-                      </div>
-                      -->
-
 
                     <h4 class="modal-title" id="Crisis_Title">Crisis Type</h4>
                       <input class="modal-title hidingid" type="hidden" name="crisisreportid" id = "crisisreportid">
@@ -1253,15 +1247,6 @@
 
                       {%endfor%}
                     </select>
-
-                    <!--
-                    <h4 class="modal-title" id="Status_Title">Assign Status</h4>
-                    <select class="form-control" id="getStatus" name="getstatus">
-                        <option value = {{'Clean-up'}}>Clean-up</option>
-                        <option value = {{'Ongoing'}}>Ongoing</option>
-                        <option value = {{'Resolved'}}>Resolved</option>
-                    </select>
-                    -->
 
                     <h4 class="modal-title" id="Analyst_Title">Assign Analyst</h4>
                     <select class="form-control" id="getanalyst" name="getanalyst">

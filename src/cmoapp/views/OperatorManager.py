@@ -64,6 +64,7 @@ def getallassignedCrisisReport(Request):
         getAssignedCrisisReport = CrisisReport.objects.exclude(crisis__isnull=True).filter(crisis__in=getResolvedCrisis)
         #getCrisisReportList = CrisisReport.objects.all()
 
+        #crisisType = serializers.SlugRelatedField(queryset=CrisisType.objects.all(), slug_field='name')
         response = serializers.serialize("json", getAssignedCrisisReport)
         return HttpResponse(response, content_type='application/json')
     else:

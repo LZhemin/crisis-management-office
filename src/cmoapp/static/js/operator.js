@@ -6,9 +6,9 @@ $(function() {
     //Auto Refresh every 5 second
     setInterval(function() {
        // alert("happy");
-       load_crisisreports();
-       load_crisis();
-      load_analyst();
+        load_crisisreports();
+        load_crisis();
+        load_analyst();
       }, 5000);
 
 
@@ -26,48 +26,29 @@ $(function() {
             type : "GET", // http method
             // handle a successful response
             success : function(json) {
-                for (var i = 0; i < json.length; i++) {
-                    //$("#crisisreport-"+json[i].id).hide();
-                    //alert("#crisisreport-"+json[i].id);
-                }
-
                 var html = '';
-
                 for (var i = 0; i < json.length; i++) {
-                //for (var i = json.length-1; i >= 0; i--) {
                     console.log(json[i])
-                         $('#crisisreport-'+json[i].id).remove();
-                            //if(json[i].crisis == null)
-                            // {
-                                //html = '<tbody>';
-                                html = '<tr id ='+'crisisreport-'+json[i].id+'>';
-                                html += '<td></td>';
-                                html += '<td><span class="label label-default">'+json[i].id+'</span></td>';
-                                html += '<td><span class="label label-danger">'+'Not Assigned'+'</span></td>';
-                                html += '<td><span class="label label-warning">'+json[i].crisisType+'</span></td>';
-                                html += '<td>'+json[i].description+'</td>';
-                                dateString = convert_to_readable_date(json[i].datetime);
-                                html += '<td>'+dateString+'</td>';
-                                html += '<td>'+' <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target="#add_existing" data-id='+json[i].id+'>'+
-                                       '<span class="glyphicon glyphicon-search"></span></button></td>';
-                                html += '<td>'+' <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target="#add_project" data-id='+json[i].id+'>'+
-                                       '<span class="glyphicon glyphicon-search"></span></button></td>';
+                     $('#crisisreport-'+json[i].id).remove();
+                        //if(json[i].crisis == null)
+                        // {
+                            //html = '<tbody>';
+                            html = '<tr id ='+'crisisreport-'+json[i].id+'>';
+                            html += '<td></td>';
+                            html += '<td><span class="label label-default">'+json[i].id+'</span></td>';
+                            html += '<td><span class="label label-danger">'+'Not Assigned'+'</span></td>';
+                            html += '<td><span class="label label-warning">'+json[i].crisisType+'</span></td>';
+                            html += '<td>'+json[i].description+'</td>';
+                            dateString = convert_to_readable_date(json[i].datetime);
+                            html += '<td>'+dateString+'</td>';
+                            html += '<td>'+' <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target="#add_existing" data-id='+json[i].id+'>'+
+                                   '<span class="glyphicon glyphicon-search"></span></button></td>';
+                            html += '<td>'+' <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target="#add_project" data-id='+json[i].id+'>'+
+                                   '<span class="glyphicon glyphicon-search"></span></button></td>';
 
-                                html += '</tr>';
-                               // html += '</tbody>';
-                                $("#Unacrisrptlist").append(html);
-                            // }
-                                      //<td>
-                                       //      <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target="#add_existing" data-id={{crisisrpt.pk}}>
-                                       //<span class="glyphicon glyphicon-search"></span>
-                                      //</button>
-                                       //  </td>
-                                        // <td>
-                                         //    <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target="#add_project" data-id={{crisisrpt.pk}}>
-                                       //<span class="glyphicon glyphicon-search"></span>
-                                      //</button>
-                                         //</td>
-
+                            html += '</tr>';
+                           // html += '</tbody>';
+                            $("#Unacrisrptlist").append(html);
 
                 }
 
@@ -162,13 +143,10 @@ $(function() {
              url :"/operator/crisisdisplay/",
             type : "GET", // http method
             // handle a successful response
-
             //var html;
-
             success : function(json) {
             //alert(json[0].pk + " " + json[0].fields.crisisType);
             //alert(JSON.stringify(json[0]))
-
            // alert("" + obj);
 
                 for (var i = 0; i < json.length; i++) {
@@ -222,7 +200,7 @@ $(function() {
                             html += '</tr>';
                             $("#Unaacclist").append(html);
                          //}
-                         alert(json[i].id);
+                        // alert(json[i].id);
 
                 }
                // console.log("load success"); // another sanity check
@@ -237,7 +215,7 @@ $(function() {
         });
     };
 
-$('#existingcrisis-form').on('submit', function(event){
+    $('#existingcrisis-form').on('submit', function(event){
         event.preventDefault();
         console.log("form submitted!")  // sanity check
         assign_existingcrisis();
@@ -273,7 +251,7 @@ $('#existingcrisis-form').on('submit', function(event){
                 console.log(json); // log the returned json to the console
 
                 $('#analysts-'+json.id).remove();
-                alert(json.id+json.crisispk);
+                //alert(json.id+json.crisispk);
                 /*
                 html = '<tr id ='+'crisis-'+json.crisispk+'>';
                 html += '<td></td>';
