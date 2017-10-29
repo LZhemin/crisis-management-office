@@ -129,8 +129,7 @@
 
  </div>
 -->
-        <form id="test" method = "POST">
-           {% csrf_token %}
+
 
 <!-- Start of Report  -->
 <div class="right_col ">
@@ -150,10 +149,7 @@
               <table class="table table-striped jambo_table bulk_action">
                 <thead>
                   <tr class="headings">
-                    <th>
-
-
-                    </th>
+                    <th> </th>
                     <th class="column-title">ID </th>
                     <th class="column-title">Crisis </th>
                     <th class="column-title">Crisis Types </th>
@@ -164,14 +160,12 @@
 
                   </tr>
                 </thead>
-
+                <form id="test" method = "POST">
+                 {% csrf_token %}
                 <tbody>
                     {% for allcrisis in getallcrisis %}
                       <tr class="even pointer">
                         <td class="a-center ">
-                          <!--
-                            <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                        -->
                             <input type="checkbox" name="crisisSelector" value="{{allcrisis.pk}}"><br>
                         </td>
                         <td class=" "><span class="label label-default">{{allcrisis.pk}}</span></td>
@@ -186,21 +180,7 @@
                     {%endfor%}
                 </tbody>
               </table>
-                <!--
-                <div class="clearfix"></div>
-                <ul class="pagination pull-right">
-                  <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                  <li class="active"><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-                </ul>
-                -->
             </div>
-
-
         </div>
 
             <label>Select Crisis type to attend to this case:</label>
@@ -210,7 +190,13 @@
                            <input id="hiddenid" name="hiddenid" type="hidden" value="{{crisistype.id}}">
                 {%endfor%}
             <br/>
-            <input type = "submit" onclick="success()"/>
+
+            <button type="submit"   class="btn btn-round btn-success" onclick="new PNotify({
+                  title: 'Allocated Crisis Report Successfully',
+                  text: 'Allocate crisis and crisis type into the crisis report!',
+                  type: 'success',
+                  styling: 'bootstrap3'
+              });">Submit</button>
         </form>
 
            <div id="map" style="height: 400px;"></div>
@@ -261,5 +247,8 @@
         $('[data-toggle="tooltip"]').tooltip();
     });
     </script>
+
+
+
 {% endblock page_scripts %}
 

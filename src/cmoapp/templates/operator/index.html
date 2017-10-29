@@ -880,7 +880,7 @@
                 <div class="x_panel">
 
                     <div class="sales report x_title">
-                        <h2><i class="fa fa-spinner"></i> New Incoming Report</h2>
+                        <h2><i class="fa fa-pencil-square-o"></i> New Incoming Report</h2>
 
                         <ul class="nav navbar-right panel_toolbox">
                           <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -893,14 +893,13 @@
                     <!-- Start of Table  -->
                     <div class="x_content">
 
-                        <div class="table-responsive">
+                        <div class="table-responsive" id="Unacrisrptlist2">
                           <table class="table table-striped jambo_table bulk_action">
                             <thead>
                               <tr class="headings">
                                     <th></th>
                                     <th class="column-title">ID </th>
                                     <th class="column-title">Crisis </th>
-                                    <th class="column-title">Crisis Types </th>
                                     <th class="column-title">Description </th>
                                     <th class="column-title">DateTime </th>
                                     <th class="column-title no-link last"><span class="nobr">Action Existing</span>
@@ -915,17 +914,16 @@
                                          <td></td>
                                          <td><span class="label label-default">{{crisisrpt.pk}}</span></td>
                                          <td><span class="label label-danger">Not Assigned</span></td>
-                                         <td><span class="label label-warning">{{crisisrpt.crisisType}}</span></td>
                                          <td>{{crisisrpt.description}} </td>
                                          <td>{{crisisrpt.datetime}}</td>
                                          <td>
                                              <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target="#add_existing" data-id={{crisisrpt.pk}}>
-                                       <span class="glyphicon glyphicon-search"></span>
+                                       <span class="glyphicon glyphicon-plus-sign"></span>
                                       </button>
                                          </td>
                                          <td>
                                              <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target="#add_project" data-id={{crisisrpt.pk}}>
-                                       <span class="glyphicon glyphicon-search"></span>
+                                       <span class="glyphicon glyphicon-plus-sign"></span>
                                       </button>
                                          </td>
                                      </tr>
@@ -960,7 +958,7 @@
                     <div class="col-md-7">
                         <div class="x_panel">
                             <div class="sales report x_title">
-                                <h2><i class="fa fa-spinner"></i> Assigned Crisis</h2>
+                                <h2><i class="fa fa-pencil-square"></i> Assigned Crisis</h2>
 
                                 <ul class="nav navbar-right panel_toolbox col-sm-1">
                                   <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -1013,7 +1011,7 @@
                     <div class="col-md-5">
                         <div class="x_panel">
                             <div class="sales report x_title">
-                                <h2><i class="fa fa-spinner"></i> Unassigned Analyst</h2>
+                                <h2><i class="fa fa-child"></i> Unassigned Analyst</h2>
 
                                 <ul class="nav navbar-right panel_toolbox col-sm-1">
                                   <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -1045,7 +1043,7 @@
                                             <td class=" "><span class="label label-warning">{{unaacc.login}}</span></td>
                                               <td class=" last">
                                                 <button type="button" class="btn btn-primary" onclick="window.location='/operator/{{unaacc.id}}';">
-                                                <span class="glyphicon glyphicon-search"></span></button>
+                                                <span class="glyphicon glyphicon-plus"></span></button>
                                               </td>
                                           </tr>
                                         {%endfor%}
@@ -1335,7 +1333,7 @@
 {% block page_scripts %}
 
     <script>
-            $('#add_existing').on('show.bs.modal', function(e) {
+        $('#add_existing').on('show.bs.modal', function(e) {
             var $modal = $(this),
                 crisisIdDisplay = "Allocate Crisis Report ID: " + e.relatedTarget.dataset.id;
                 crisisId = e.relatedTarget.dataset.id;
@@ -1352,9 +1350,6 @@
                 $modal.find('.show-id').html(crisisIdDisplay);
 
         })
-
-
-
 
     </script>
 
@@ -1374,20 +1369,5 @@
        });
     </script>
 
-
-    <!--
-    <script>
-
-        function ul2table(ul){
-            var tbl = $('<table class="topnav"/>');
-            ul.find('li').each(function(){
-                tbl.append($('<tr/>').append($('<td/>').html($(this).html())));
-            });
-            ul.replaceWith(tbl);
-        }
-
-         ul2table($('ul.topnav'));
-    </script>
-    -->
 
 {% endblock page_scripts %}

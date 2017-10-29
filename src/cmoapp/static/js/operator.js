@@ -37,14 +37,14 @@ $(function() {
                             html += '<td></td>';
                             html += '<td><span class="label label-default">'+json[i].id+'</span></td>';
                             html += '<td><span class="label label-danger">'+'Not Assigned'+'</span></td>';
-                            html += '<td><span class="label label-warning">'+json[i].crisisType+'</span></td>';
+                            //html += '<td><span class="label label-warning">'+json[i].crisisType+'</span></td>';
                             html += '<td>'+json[i].description+'</td>';
                             dateString = convert_to_readable_date(json[i].datetime);
                             html += '<td>'+dateString+'</td>';
                             html += '<td>'+' <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target="#add_existing" data-id='+json[i].id+'>'+
-                                   '<span class="glyphicon glyphicon-search"></span></button></td>';
+                                   '<span class="glyphicon glyphicon-plus-sign"></span></button></td>';
                             html += '<td>'+' <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target="#add_project" data-id='+json[i].id+'>'+
-                                   '<span class="glyphicon glyphicon-search"></span></button></td>';
+                                   '<span class="glyphicon glyphicon-plus-sign"></span></button></td>';
 
                             html += '</tr>';
                            // html += '</tbody>';
@@ -148,6 +148,7 @@ $(function() {
             //alert(json[0].pk + " " + json[0].fields.crisisType);
             //alert(JSON.stringify(json[0]))
            // alert("" + obj);
+            //$("#Unacrisrptlist2").load(location.href + " #Unacrisrptlist2");
 
                 for (var i = 0; i < json.length; i++) {
                     console.log(json[i])
@@ -165,6 +166,7 @@ $(function() {
                         $("#Unacrisislist").append(html);
                        // }
                 }
+
                     // console.log("load success"); // another sanity check
             },
             // handle a non-successful response
@@ -196,7 +198,7 @@ $(function() {
                             html += '<td><span class="label label-default">'+json[i].pk+'</span></td>';
                             html += '<td><span class="label label-warning">'+json[i].fields.login+'</span></td>';
                             html += '<td>'+'<button type='+"button"+'  class="btn btn-primary"'+' onclick='+"window.location='/operator/"+json[i].pk+"';"+'>'+
-                                                 '<span class=" glyphicon glyphicon-search"' + ' ></span></button></td>';
+                                                 '<span class=" glyphicon glyphicon-plus"' + ' ></span></button></td>';
                             html += '</tr>';
                             $("#Unaacclist").append(html);
                          //}

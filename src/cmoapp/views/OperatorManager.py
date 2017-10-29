@@ -2,13 +2,8 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse, QueryDict, JsonResponse
 from django.urls import reverse
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate
-#from cmoapp.forms import CrisisForm
 from django.forms.models import model_to_dict
 from django.core import serializers
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework import permissions, status,generics
-from rest_framework.response import Response
-from cmoapp.serializers import CrisisSerializer, CrisisReportSerializer, ActionPlanSerializer
 
 import json
 #Kindly help to remove unwanted modules
@@ -23,13 +18,7 @@ def sharedindex():
     getResolvedCrisis = Crisis.objects.exclude(status='Resolved').values_list('pk', flat=True)
     getAssignedCrisisReport = CrisisReport.objects.exclude(crisis__isnull=True).filter(crisis__in = getResolvedCrisis)
 
-    #getanalystacc = Crisis.objects.filter(analyst__isnull=False)
-    #getAccountList = Account.objects.exclude(pk__in=getanalystacc).filter(type="Analyst")
-
-    getcrisisacc = CrisisReport.objects.filter(crisis__isnull=False)
-
     getNotResolvedCrisisList = Crisis.objects.filter(analyst__isnull=False).exclude(status='Resolved')
-
 
     getanalystacc = Crisis.objects.exclude(analyst__isnull = True).values_list('analyst_id', flat=True)
     getAccountList = Account.objects.filter(type="Analyst").exclude(pk__in=getanalystacc)
@@ -39,13 +28,11 @@ def sharedindex():
                'getCrisisReportList': getCrisisReportList,
                'getUnassignedCrisisReport': getUnassignedCrisisReport,
                'getAccountList': getAccountList,
-
                'getNotResolvedCrisisList': getNotResolvedCrisisList,
-
-                'getAssignedCrisisReport':getAssignedCrisisReport,
+               'getAssignedCrisisReport':getAssignedCrisisReport,
                'all_crisis': Crisis.objects.reverse(),
                'all_crisisreport': CrisisReport.objects.reverse(),
-               #'form': CrisisForm()
+
                }
     return context
 
@@ -67,6 +54,8 @@ def getallassignedCrisisReport(Request):
         #crisisType = serializers.SlugRelatedField(queryset=CrisisType.objects.all(), slug_field='name')
         response = serializers.serialize("json", getAssignedCrisisReport)
         return HttpResponse(response, content_type='application/json')
+        #serializer = CrisisReportSerializer(getAssignedCrisisReport, many=True)
+        #return Response(serializer.data)
     else:
       return JsonResponse(model_to_dict(0))
 
@@ -157,8 +146,6 @@ def assignexisting(request):
         return JsonResponse(model_to_dict(0))
 
 
-
-
 def delete_crisis(request):
 
     if request.method == 'DELETE':
@@ -174,6 +161,7 @@ def delete_crisis(request):
     else:
         return JsonResponse(model_to_dict(0))
 
+
 def load_crisis(request):
     if request.method == 'GET':
 
@@ -184,7 +172,6 @@ def load_crisis(request):
         return HttpResponse(response, content_type='application/json')
     else:
        return JsonResponse(model_to_dict(0))
-
 
 def load_analyst(request):
 
