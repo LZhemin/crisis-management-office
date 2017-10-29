@@ -63,6 +63,19 @@
         $('.ui-pnotify').remove();
     });
 
+    function reload_js(src) {
+        $('script[src="' + src + '"]').remove();
+        $('<script>').attr('src', src).appendTo('head');
+    }
+    //reload_js('/static/js/firebaseapp.js');
+
+   function changeFunc($i) {
+        //alert($i);
+
+        select_crisischat($i);
+        reload_js('/static/js/firebaseapp.js');
+   }
+
 
     //----------------------------------------------------------------------------------------------------------------------------
 
@@ -411,28 +424,40 @@
                                 <h2><i class="fa fa-comments"></i>  Chat</h2>
                             </div>
                         </div>
-                        <div class="x_content">
 
-                            <body ng-controller="ChatController">
-                            <br>
-                            <div class="container">
-                                <div class="panel panel-primary">
-                                    <!--
-                                    <div class="panel-heading">Web Based Firebase Chat Application</div>
-                                    -->
-                                    <div class="panel-body">
-                                        {% verbatim %}
-                                        <p ng-repeat="m in messages">{{m.date | date:'short'}} - {{m.sender}}: {{m.message}}</p>
-                                        <div class="form-group">
-                                            <input id='msgBox' type="text" class="form-control" placeholder="Message here..." ng-model="messageText">
+                        <div id = "updatechat">
+                            <div ng-app="chatApp" class="x_content">
+
+                                <body ng-controller="ChatController">
+                                    <br>
+                                    <div class="container">
+                                        <div class="panel panel-primary">
+                                            <!--
+                                            <div class="panel-heading">Web Based Firebase Chat Application</div>
+                                            -->
+                                            <div class="panel-body">
+                                                {% verbatim %}
+                                                <p ng-repeat="m in messages">{{m.date | date:'short'}} - {{m.sender}}: {{m.message}}</p>
+                                                <div class="form-group">
+                                                    <input id='msgBox' type="text" class="form-control" placeholder="Message here..." ng-model="messageText">
+                                                </div>
+
+                                                <button id="msgSendBtn" type="submit" class="btn btn-default" ng-click="send()">Send</button>
+
+                                                {% endverbatim %}
+
+                                                <select id="selectBox" ng-model="crisisID" onchange="changeFunc(value);">
+                                                    {% for crisis in all_crisis %}
+                                                        <option value= {{crisis.id}} >Crisis {{crisis.id}}</option>
+                                                    {%endfor%}
+                                                </select>
+
+                                            </div>
                                         </div>
-                                        <button id="msgSendBtn" type="submit" class="btn btn-default" ng-click="send()">Send</button>
-                                        {% endverbatim %}
                                     </div>
-                                </div>
-                            </div>
-                            </body>
+                                </body>
 
+                            </div>
                         </div>
                     </div>
                 </div>

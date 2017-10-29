@@ -2,7 +2,9 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment
-from django.views.generic import DetailView
+from django.views.generic import ListView,DetailView
+from django.core import serializers
+
 
 #Kindly help to remove unwanted modules
 
@@ -16,10 +18,12 @@ def index(Request):
     else:
         context = {
             'all_crisis': crisis,
-            'all_force':forces
+            'all_force':forces,
+            'json_crisis': serializers.serialize('json', crisis)
         }
 
     return render(Request, 'chief/index.html', context)
+
 
 def sendDeployment(request, CrisisID):
     latest_actionplan_list = ActionPlan.objects.order_by('-crisis')[:5]
@@ -28,7 +32,7 @@ def sendDeployment(request, CrisisID):
 
     try:
         Name = request.POST['name']
-    except(KeyError, name.DoesNotExist):
+    except(KeyError, Name.DoesNotExist):
     # Redisplay
         return render(request, 'chief/base_site.html', {
             context,
@@ -157,3 +161,29 @@ class ActionPlanDetail(DetailView):
     context_object_name = "Action_Plan"
     template_name='analyst/actionplan_detail.html'
     model = ActionPlan
+
+
+
+def select_crisischat(request):
+    #select_id = CrisisID;
+    CrisisID= 0;
+    selectCrisis = Crisis.objects.filter(pk=CrisisID)
+
+    context = {
+        'json_crisis': serializers.serialize('json', selectCrisis)
+    }
+
+    return JsonResponse(serializers.serialize('json', selectCrisis), safe=False)
+
+
+
+def ReloadData(request):
+
+    if request.method == 'GET':
+
+        unresolvedCrisis = Crisis.objects.all().exclude(status='Resolved')
+
+        response = serializers.serialize("json", unresolvedCrisis)
+        return HttpResponse(response, content_type='application/json')
+    else:
+        return JsonResponse(0)

@@ -165,6 +165,7 @@ function filterMapCrisis(id){
         }
         text = "Map is being filtered by Crisis ID: "+id+"!";
     }
+
      new PNotify({
             title: 'Map Filtered by Crisis',
             text: text,
@@ -172,3 +173,78 @@ function filterMapCrisis(id){
             styling: 'bootstrap3'
      });
 }
+
+setInterval(function()
+{
+    //alert("hi");
+    reload_data();
+}, 5000);
+
+
+var oldJsonLength = 0;
+
+function reload_data() {
+    $.ajax({
+        url :"/chief/reload_data/",
+        type : "GET", // http method
+        // handle a successful response
+        //var html;
+        success : function(json) {
+            if(json.length != oldJsonLength )
+            {
+                $('#Crisis').load(location.href +  ' #Crisis');
+                $('#Actionplan').load(location.href +  ' #Actionplan');
+                oldJsonLength = json.length;
+
+            }
+
+        },
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+};
+
+
+function select_crisischat(id) {
+    $.ajax({
+        url : "/chief/select_crisischat/", // the endpoint
+        type : "GET", // http method
+        // handle a successful response
+        success : function(json) {
+
+             for (var i = 0; i < json.length; i++) {
+                //console.log(json[i])
+                //if(json[i].id == id)
+            }
+            //$('#updatechat').html(data);
+            $('#updatechat').load(location.href +  ' #updatechat');
+            /*
+             var res1;
+
+            for(var i = 0; i < data.length; i++)
+            {
+                // Parse through the JSON array which was returned.
+                // A proper error handling should be added here (check if
+                // everything went successful or not)
+
+                res1 = data[i].res1;
+
+                // Do something with the returned data
+                $('#updatechat').html(res1);
+            }
+            */
+
+            console.log("success"); // another sanity check
+        },
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+};
