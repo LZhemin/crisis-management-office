@@ -168,6 +168,8 @@ def editActionPlan(Request, Crisis_id):
         return HttpResponseRedirect(reverse('cmoapp:base_site', args=(Crisis_id,)))
 
 
+
+
 #Add the LoginRequiredMixin as the leftmost inheritance
 class ActionPlanList(ListView):
     context_object_name = "ActionPlanList"

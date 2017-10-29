@@ -21,6 +21,8 @@ urlpatterns = [ # pylint: disable=invalid-name
     url(r'^admin/', admin.site.urls),
     url(r'^analyst/', include('cmoapp.urls.analyst')),
     url(r'^operator/', include('cmoapp.urls.operator')),
-    url(r'^chief/', include('cmoapp.urls.chief'))
-    # url(r'^$', login, name='login'),
+    url(r'^chief/', include('cmoapp.urls.chief')),
+    url(r'^ActionPlan/', include('cmoapp.urls.actionplan')),
+    url(r'^login/', include('cmoapp.urls.login'))
+    #url(r'^$', login, name='login'),
 ]
