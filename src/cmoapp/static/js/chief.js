@@ -45,8 +45,34 @@ $(document).ready(function() {
     });
 });
 
+//Used to Get the CSRF Token later on
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+//Passing the CSRF Token with every ajax call
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        var csrfToken = getCookie('csrftoken');
+        xhr.setRequestHeader("X-CSRFToken", csrfToken);
+    }
+});
+
+//Rejecting a ActionPlan function called
 function rejectActionPlan(idval){
-    console.log($(this));
+
     var commentObj = document.getElementsById("commentAP"+idval).getValue();
     console.log(commentObj);
     $.ajax({
@@ -58,15 +84,16 @@ function rejectActionPlan(idval){
         new PNotify({
             title: data.message,
             text: text,
-            type: 'info',
+            type: 'success',
             styling: 'bootstrap3'
         });
         }
     });
 }
 
+//Accepting a ActionPlan (forward to PMO for Approval After this)
+ //Need to Add Connecting to PMO Notification API (within success field of the ajax call)
 function acceptActionPlan(id){
-    console.log('hi');
     var url = '{% url "Approve_Action_Plan" %}';
     $.ajax({
         type:"POST",
@@ -75,9 +102,9 @@ function acceptActionPlan(id){
         dataType: 'json',
         success: function (data) {
             new PNotify({
-                title: data.message,
-                text: text,
-                type: 'info',
+                title: "Accepting Action Plan:"+id ,
+                text: data.message,
+                type: 'success',
                 styling: 'bootstrap3'
             });
         },
@@ -85,15 +112,19 @@ function acceptActionPlan(id){
                 console.log(errmsg);
             }
     });
+
+
 }
 
+
+//Allow the user to send chat message by pressing the Enter Key
 $("#msgBox").on('keyup', function (e) {
     if (e.keyCode == 13) {
         $("#msgSendBtn").trigger('click');
     }
 });
 
-
+//Reset the Comments TextArea in the modal if the user cancels
 $(".modal").on("hidden.bs.modal", function(){
     var body = $(this).find(".modal-body");
     var textArea = body.find('textArea');
