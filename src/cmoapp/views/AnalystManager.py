@@ -26,14 +26,26 @@ def index(Request):
             'ActionPlanList': actionPlanList
         }
         if(Request.method == "GET"):
+            #WHY DJANGO WHY DONT YOU HAVE AN INBUILT GET OBJECT_OR_NONE
+            try:
+                planned_action_plan = assigned_crisis.actionplan_set.get(status="Planning")
+                context['ActionPlanForm'] = ActionPlanForm(instance=planned_action_plan)
+            except ActionPlan.DoesNotExist:
                 context['ActionPlanForm'] = ActionPlanForm()
         else:
             form = ActionPlanForm(Request.POST)
+            context['ActionPlanForm'] = form
             if form.is_valid():
-                context['ActionPlanForm'] = ActionPlanForm()
-            else:
-                context['ActionPlanForm'] = form
+                if(Request.POST['submitType'] == "Save"):
+                    form.update_or_create(assigned_crisis,"Planning")
+                else:
+                    #Create
+                    form.update_or_create(assigned_crisis,"Awaiting CO Approval")
+                    context['ActionPlanForm'] = ActionPlanForm()
     return render(Request, 'analyst/index.html',context)
+
+def crisis_statistics(Request):
+    pass
 
 def historicalData(Request):
     return HttpResponse("HISTORICAL DATA")

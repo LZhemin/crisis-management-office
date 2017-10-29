@@ -1,3 +1,4 @@
+{% load custom_tags %}
 <table class="table table-striped">
     <thead>
     <tr>
@@ -13,14 +14,19 @@
     <tbody>
     {% for actionPlan in ActionPlanList %}
     <tr>
-        <td>{{ actionPlan.id }}</td>
+        <td>{% if assigned_crisis %}
+                {{ actionPlan.plan_number }}
+            {% else %}
+                {{ actionPlat.id }}
+            {% endif%}
+        </td>
         <td>{{ actionPlan.type }}</td>
         <td>{{ actionPlan.abridged_description }}</td>
         <td>{% for force in actionPlan.forcedeployment_set.all %}
             <span class="label label-primary">{{ force.name }}</span>
             {% endfor %}
         </td>
-        <td>{{ actionPlan.resolution_time }}</td>
+        <td>{% render_duration actionPlan.resolution_time %}</td>
         <td>
             {% if actionPlan.status == 'PMOApproved' %} <span class="label label-success">
             {% elif actionPlan.status == 'Rejected' %} <span class="label label-danger">

@@ -21,6 +21,18 @@
         margin-bottom: 0px;
     }
 
+    .mail_list h4
+    {
+       margin: 0;
+       font-weight: bold;
+       font-size: 12px;
+    }
+
+    .btn-toolbar
+    {
+        margin-bottom: 10px;
+    }
+
 </style>
 {% endblock page_stylesheets %}
 
@@ -37,7 +49,13 @@
         var crisis = {{ False|jsonify }}
     {% endif %}
     $(document).ready(function(){
-        initCharts();
+        //initCharts();
+        /*
+            Help me bind the form submission and figure out a way to display the raw data for the WSIWYG
+            $('#mySubmission').val($('#editor').cleanHtml(true));
+            $('#submitForm').submit()
+            $('#id_description').wysiwyg()
+        */
     });
     function initMap(){
         var map = new google.maps.Map(document.getElementById("map"),{
@@ -134,7 +152,16 @@
             </div>
             <div class="x_content">
                 <div class="row">
-                    <div class="animated flipInY col-sm-6 col-xs-12">
+                     <div class="animated flipInY col-sm-4 col-xs-12">
+                        <div class="tile-stats">
+                            <div class="icon">
+                                <i class="fa fa-fighter-jet" aria-hidden="true"></i>
+                            </div>
+                            <div class="count">{{ assigned_crisis.get_status_display }}</div>
+                            <h3>Crisis Status</h3>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-sm-4 col-xs-12">
                         <div class="tile-stats">
                             <div class="icon">
                                 <i class="fa fa-ambulance"></i>
@@ -143,7 +170,7 @@
                             <h3>Current Injuries</h3>
                         </div>
                     </div>
-                    <div class="animated flipInY col-sm-6 col-xs-12">
+                    <div class="animated flipInY col-sm-4 col-xs-12">
                         <div class="tile-stats">
                             <div class="icon">
                                 <i class="fa fa-hospital-o" aria-hidden="true"></i>
@@ -279,6 +306,7 @@
                             <div role="tabpanel" class="tab-pane fade active in" id="current" aria-labelledby="current-tab">
                                 <form class="form-horizontal" method="POST">
                                     {% csrf_token %}
+                                    {{ form.non_field_errors }}
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-4">
                                             {% render_label ActionPlanForm.type class="control-label" content="Plan Type:" %}
@@ -287,21 +315,30 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-4">
                                             {% render_label ActionPlanForm.projected_casualties class="control-label" %}
-                                            {% render_field ActionPlanForm.projected_casualties class="form-control" %}
+                                            {% render_field ActionPlanForm.projected_casualties class="form-control" value=0 %}
                                             {{ ActionPlanForm.projected_casualties.errors }}
                                         </div>
                                         <div class="col-xs-12 col-sm-4">
-                                            {% render_label ActionPlanForm.resolution_time class="control-label" %}
-                                            {% render_field ActionPlanForm.resolution_time class="form-control" %}
-                                            {{ ActionPlanForm.resolution_time.errors }}
+                                            <div class="form-group">
+                                                {% render_label ActionPlanForm.duration_type class="control-label" %}
+                                                {% render_field ActionPlanForm.duration_type class="form-control" %}
+                                            </div>
+                                            <div class="form-group">
+                                                {% render_label ActionPlanForm.duration_count class="control-label" %}
+                                                {% render_field ActionPlanForm.duration_count class="form-control" value=0 %}
+                                            </div>
+                                            {{ ActionPlanForm.duration_type.errors }}
+                                            {{ ActionPlanForm.duration_count.errors }}
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         {% render_label ActionPlanForm.description class="control-label" %}
+                                        {% include 'analyst/ui_components/wysiwyg_toolbar.html' %}
                                         {% render_field ActionPlanForm.description class="form-control" rows=20 %}
                                         {{ ActionPlanForm.description.errors }}
                                     </div>
-                                    <button type="submit" class="btn btn-success">Submit Action Plan</button>
+                                    <button type="submit" class="btn btn-save" name="submitType" value="Save">Save Action Plan</button>
+                                    <button type="submit" class="btn btn-success" name="submitType" value="Submit">Submit Action Plan</button>
                                 </form>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="previous" aria-labelledby="previous-tab">
@@ -319,13 +356,17 @@
                         <div class="x_content">
                             <div class="mail_list_column">
                                 {% for actionPlan in ActionPlanList %}
+                                    {% if actionPlan.comment %}
                                     <div class="mail_list">
-                                        <div class="right" style="padding-left: 1em;">
+                                        <div style="padding-left: 1em;">
                                             <h3>{{actionPlan.comment.get_author_display}}</h3>
-                                            <div><small>{{actionPlan.comment.timeCreated}}</small></div>
+                                            <div>
+                                                <p class="small"><span style="float:left">Plan Number: {{ actionPlan.plan_number }}</span>&nbsp<span style="float:right">{{actionPlan.comment.timeCreated}}</span></p>
+                                            </div>
                                             <p>{{actionPlan.comment.text}}</p>
                                         </div>
                                     </div>
+                                    {% endif %}
                                 {% endfor %}
                             </div>
                         </div>
