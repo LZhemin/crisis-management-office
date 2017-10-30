@@ -88,8 +88,11 @@ function rejectActionPlan(idval,commentId){
                     type: 'success',
                     styling: 'bootstrap3'
                 });
-                reload_table();
-                reload_crisis();
+
+                window.setTimeout(function(){
+                    reload_table();
+                    reload_crisis();
+                },150);
             }
         });
     }
@@ -104,7 +107,7 @@ function rejectActionPlan(idval,commentId){
 }
 
 //Accepting a ActionPlan (forward to PMO for Approval After this)
- //Need to Add Connecting to PMO Notification API (within success field of the ajax call)
+//Need to Add Connecting to PMO Notification API (within success field of the ajax call)
 function acceptActionPlan(id){
     var url = '{% url "Approve_Action_Plan" %}';
     $.ajax({
@@ -119,12 +122,14 @@ function acceptActionPlan(id){
                 type: 'success',
                 styling: 'bootstrap3'
             });
-            reload_table();
-            reload_crisis();
+            window.setTimeout(function(){
+                reload_table();
+                reload_crisis();
+            },150);
         },
         error : function(xhr,errmsg,err) {
-                console.log(errmsg);
-            }
+            console.log(errmsg);
+        }
     });
 }
 
@@ -198,12 +203,12 @@ function filterMapCrisis(id){
         text = "Map is being filtered by Crisis ID: "+id+"!";
     }
 
-     new PNotify({
-            title: 'Map Filtered by Crisis',
-            text: text,
-            type: 'info',
-            styling: 'bootstrap3'
-     });
+    new PNotify({
+        title: 'Map Filtered by Crisis',
+        text: text,
+        type: 'info',
+        styling: 'bootstrap3'
+    });
 }
 
 //Auto Update After 30 Seconds
@@ -272,7 +277,7 @@ function select_crisischat(id) {
         // handle a successful response
         success : function(json) {
 
-             for (var i = 0; i < json.length; i++) {
+            for (var i = 0; i < json.length; i++) {
                 //console.log(json[i])
                 //if(json[i].id == id)
             }
