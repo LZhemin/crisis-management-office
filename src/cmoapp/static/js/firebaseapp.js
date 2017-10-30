@@ -11,7 +11,6 @@ app.controller('ChatController', function($scope, $firebaseArray) {
     //$scope.crisis = ["1", "2", "3"];
     $scope.assignCrisis = function() {
         crisisChatID = $scope.messageText;
-
     }
 
 	//Query

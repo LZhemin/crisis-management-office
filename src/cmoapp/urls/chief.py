@@ -6,7 +6,8 @@ urlpatterns = [
     url(r'^action_plans/(?P<pk>\d+)/$', ChiefOfficerManager.ActionPlanDetail.as_view(), name='Chief_Action_Plan_Detail'),
     url(r'^approve_action_plan/$', ChiefOfficerManager.ApproveActionPlan, name="Approve_Action_Plan"),
     url(r'^reject_action_plan/$', ChiefOfficerManager.RejectActionPlan, name="Reject_Action_Plan"),
-    url(r'^reload_data/$', ChiefOfficerManager.ReloadData, name="Reload_Data"),
+    url(r'^reload_table/$', ChiefOfficerManager.ReloadTable, name="Reload_Table"),
+    url(r'^reload_crisis/$', ChiefOfficerManager.ReloadCrisis, name="Reload_Crisis"),
     url(r'^select_crisischat/$', ChiefOfficerManager.select_crisischat, name="Select_Crisischat"),
 
 ]

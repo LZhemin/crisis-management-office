@@ -71,24 +71,36 @@ $.ajaxSetup({
 });
 
 //Rejecting a ActionPlan function called
-function rejectActionPlan(idval){
+function rejectActionPlan(idval,commentId){
 
-    var commentObj = document.getElementsById("commentAP"+idval).getValue();
-    console.log(commentObj);
-    $.ajax({
-        type:"POST",
-        url: "{% url 'Reject_Action_Plan'%}",
-        data:JSON.stringify({ id: idval, comment: commentObj.getValue() }),
-        dataType: 'json',
-        success: function (data) {
+    var comment = document.getElementById(commentId).value;
+    console.log(comment);
+    if(comment.length>0){
+        $.ajax({
+            type:"POST",
+            url: "reject_action_plan/",
+            data: { id: idval, comment: comment},
+            dataType: 'json',
+            success: function (data) {
+                new PNotify({
+                    title: "Action Plan "+idval+" Rejected Successfully!" ,
+                    text: "Notifying Analyst!",
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+                reload_table();
+                reload_crisis();
+            }
+        });
+    }
+    else{
         new PNotify({
-            title: data.message,
-            text: text,
-            type: 'success',
+            title: "Rejecting Action Plan Failed!",
+            text: "Please Ensure that your have keyed in a comment!",
+            type: 'error',
             styling: 'bootstrap3'
         });
-        }
-    });
+    }
 }
 
 //Accepting a ActionPlan (forward to PMO for Approval After this)
@@ -102,20 +114,19 @@ function acceptActionPlan(id){
         dataType: 'json',
         success: function (data) {
             new PNotify({
-                title: "Accepting Action Plan:"+id ,
-                text: data.message,
+                title: "Action Plan "+id+" Accepted Successfully!",
+                text: "Sending Action Plan to PMO for Approval!",
                 type: 'success',
                 styling: 'bootstrap3'
             });
+            reload_table();
+            reload_crisis();
         },
         error : function(xhr,errmsg,err) {
                 console.log(errmsg);
             }
     });
-
-
 }
-
 
 //Allow the user to send chat message by pressing the Enter Key
 $("#msgBox").on('keyup', function (e) {
@@ -131,6 +142,7 @@ $(".modal").on("hidden.bs.modal", function(){
     textArea.val('');
 });
 
+//Check if any of the Crisis Tabs are Expanded
 function checkIfCrisisInactive(){
     var $_PANELS = $('.panel-heading');
     var result = true;
@@ -161,17 +173,6 @@ function filterMapCrisis(id){
             }
         }
     }
-}
-
-function checkIfCrisisInactive(){
-    var $_PANELS = $('.panel-heading');
-    var result = true;
-    $_PANELS.each(function(){
-        if(!$(this).hasClass('collapsed'))
-            result = false;
-    });
-
-    return result;
 }
 
 function filterMapCrisis(id){
@@ -205,39 +206,63 @@ function filterMapCrisis(id){
      });
 }
 
+//Auto Update After 30 Seconds
 setInterval(function()
 {
-    //alert("hi");
-    reload_data();
-}, 5000);
+    //Reload the action_plan_template, and only reload
+    // all_crisis template if none of the crisis are selected
+    if($('#allClass').hasClass('active')){
+        reload_table();
+        if(checkIfCrisisInactive())
+            reload_crisis();
+    }
+    //if the ActionPlans Awaiting Approval tab is on
+    //reloads the all_crisis template, and only reload action_plan_template
+    //if there are no modals active
+    else{
+        reload_crisis();
+        if($('.modal:visible').size()==0)
+            reload_table();
+    }
 
+}, 30000);
 
-var oldJsonLength = 0;
-
-function reload_data() {
+//reloads the action_plan_table template
+function reload_table() {
     $.ajax({
-        url :"/chief/reload_data/",
+        url :"/chief/reload_table/",
         type : "GET", // http method
         // handle a successful response
         //var html;
-        success : function(json) {
-            if(json.length != oldJsonLength )
-            {
-                $('#Crisis').load(location.href +  ' #Crisis');
-                $('#Actionplan').load(location.href +  ' #Actionplan');
-                oldJsonLength = json.length;
-
-            }
-
+        success : function(data) {
+            console.log("reloading successfully!");
+            //$('#allCrisis').html();
+            $('#actionPlanTable').html(data);
         },
         // handle a non-successful response
         error : function(xhr,errmsg,err) {
-            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
     });
-};
+}
+//reloads the all_crisis template
+function reload_crisis() {
+    $.ajax({
+        url :"/chief/reload_crisis/",
+        type : "GET", // http method
+        // handle a successful response
+        //var html;
+        success : function(data) {
+            console.log("reloading successfully!");
+            //$('#allCrisis').html();
+            $('#allCrisis').html(data);
+        },
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+}
 
 
 function select_crisischat(id) {
