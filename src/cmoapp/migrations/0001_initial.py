@@ -24,6 +24,9 @@ class Migration(migrations.Migration):
                 ('password', models.CharField(max_length=1024)),
                 ('type', models.CharField(choices=[('Analyst', 'Analyst'), ('Operator', 'Operator'), ('Chief', 'Chief')], max_length=20)),
             ],
+            options={
+                'ordering': ['login'],
+            },
         ),
         migrations.CreateModel(
             name='ActionPlan',

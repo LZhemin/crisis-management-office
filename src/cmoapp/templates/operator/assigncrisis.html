@@ -129,76 +129,103 @@
 
  </div>
 -->
-<form id="test" method = "POST">
-    {% csrf_token %}
-<div class="right_col">
-            <div class="container">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-8"><h2> <b>Report</b> Details</h2></div>
-                            <div class="col-sm-4">
-                                <div class="search-box">
-                                    <i class="material-icons">&#xE8B6;</i>
-                                    <input type="text" class="form-control" placeholder="Search&hellip;">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table table-striped table-hover table-bordered">
-                        <thead>
-                            <tr>
-                                <th>ReportID</td>
-                                <th>ReportDescription</th>
-                                <th>Latitude <i class="fa fa-sort"></i></th>
-                                <th>Longitude</th>
-                                <th>DateTime <i class="fa fa-sort"></i></th>
-                            </tr>
-                        </thead>
-                         <tbody>
+
+
+<!-- Start of Report  -->
+<div class="right_col ">
+
+    <div class="sales report x_title col-md-10 col-sm-10 col-xs-18">
+        <h2><i class="fa fa-spinner"></i> Crisis Report</h2>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <!-- Start of Table  -->
+    <div class="col-md-10 col-sm-10 col-xs-18 gutter">
+
+        <div class="x_content">
+
+            <div class="table-responsive">
+              <table class="table table-striped jambo_table bulk_action">
+                <thead>
+                  <tr class="headings">
+                    <th> </th>
+                    <th class="column-title">ID </th>
+                    <th class="column-title">Crisis </th>
+                    <th class="column-title">Crisis Types </th>
+                    <th class="column-title">Description </th>
+                    <th class="column-title">Latitude </th>
+                    <th class="column-title">Longitude </th>
+                    <th class="column-title">DateTime </th>
+
+                  </tr>
+                </thead>
+                <form id="test" method = "POST">
+                 {% csrf_token %}
+                <tbody>
                     {% for allcrisis in getallcrisis %}
-                        <tr>
-                            <td>{{allcrisis.pk}}</td>
-                            <td>{{allcrisis.description}}</td>
-                            <td>{{getlocation.latitude}}</td>
-                            <td>{{getlocation.longitude}}</td>
-                            <td>{{allcrisis.datetime}}</td>
-                        </tr>
-                       {%endfor%}
-                    </tbody>
-                    </table>
+                      <tr class="even pointer">
+                        <td class="a-center ">
+                            <input type="checkbox" name="crisisSelector" value="{{allcrisis.pk}}"><br>
+                        </td>
+                        <td class=" "><span class="label label-default">{{allcrisis.pk}}</span></td>
+                        <td class=" "><span class="label label-danger">{{allcrisis.crisis.pk}}</span></td>
+                        <td class=" "><span class="label label-warning">{{allcrisis.crisisType}}</span></td>
+                        <td class=" ">{{allcrisis.description}} </td>
+                        <td class=" ">{{allcrisis.latitude}}</td>
+                        <td class=" ">{{allcrisis.longitude}}</td>
+                        <td class="a-right a-right ">{{allcrisis.datetime}}</td>
 
-                </div>
+                      </tr>
+                    {%endfor%}
+                </tbody>
+              </table>
             </div>
+        </div>
 
-    Select Analyst to attend to this case:
-       <select name = "analystselection">
-                     {% for allanalyst in getallanalyst %}
-                            <option value="{{allanalyst.id}}">{{allanalyst.login}}</option>
-                       {%endfor%}
-             </select>
-    <br/>
-    <br/>
-     Select Crisis type to attend to this case:
-       <select name = "crisistypeSelection">
-                     {% for crisistype in getallcrisistype %}
-                            <option value="{{crisistype.id}}">{{crisistype.name}}</option>
-                       {%endfor%}
-             </select>
-        <input type = "submit"/>
-       <div id="map" style="height: 400px;"></div>
+            <label>Select Crisis type to attend to this case:</label>
+            <br/>
+                 {% for crisistype in getallcrisistype %}
+                     <input type="radio" name="crisistypeT" value="{{crisistype.id}}" checked="checked"> {{crisistype.name}}<br>
+                           <input id="hiddenid" name="hiddenid" type="hidden" value="{{crisistype.id}}">
+                {%endfor%}
+            <br/>
+
+            <button type="submit"   class="btn btn-round btn-success" onclick="new PNotify({
+                  title: 'Allocated Crisis Report Successfully',
+                  text: 'Allocate crisis and crisis type into the crisis report!',
+                  type: 'success',
+                  styling: 'bootstrap3'
+              });">Submit</button>
+        </form>
+
+           <div id="map" style="height: 400px;"></div>
+
+    </div>
+    <!-- End of table  -->
+
 </div>
 
 
-</form>
+
+<!-- End of Report  -->
+
+
+
+
 {% endblock content %}
 
 {% block page_scripts %}
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmx9R5y25qpehDO_3D2x7UO1VOJ8LmvyM"></script>
 <script>
         function InitializeMap() {
-           alert({{getlocation.latitude}} + "testing");
-            var currentloc = { lat: {{getlocation.latitude}}, lng: {{getlocation.longitude}}};
+
+            {%for allcrisis in getallcrisis%}
+            var lati = {{allcrisis.latitude}};
+            var long = {{allcrisis.longitude}};
+            {%endfor%}
+
+            var currentloc = { lat: lati, lng: long};
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 12,
                 center: currentloc
@@ -208,12 +235,20 @@
                 map: map
             });
         }
-        window.onload = InitializeMap;
+        function success(){
+            alert("Assign Successful");
+        }
+
+          //  window.onload = InitializeMap();
 </script>
+
      <script type="text/javascript">
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
     });
     </script>
+
+
+
 {% endblock page_scripts %}
 

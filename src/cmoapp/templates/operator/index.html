@@ -5,12 +5,7 @@
 {% block page_stylesheets %}
 
 <!-- Added for Operator Table Testing -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-
-<link href="/static/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
-<link href="/static/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
-<link href="/static/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
 
 <style type="text/css">
        .table-wrapper {
@@ -867,89 +862,212 @@
          <!-- Start of Dashboard -->
         <div class="user-dashboard">
 
+            <!-- Start of Header 2 -->
             <div class="col-md-12 row">
-                <div class="col-md-6">
+                <div class="col-md-10 col-sm-10 col-xs-24">
                   <h3>Crisis <small>DashBoard</small></h3>
                 </div>
 
 
-                <div class="col-md-2 col-sm-2 col-xs-4">
-                    <a class="btn btn-primary" href="#primaryModal" class="add-project" data-toggle="modal" data-target="#add_project">
-                            <i class="glyphicon glyphicon-plus"></i> Allocate Crisis</a>
-                </div>
-
-                <div class="col-md-4 col-sm-4 col-xs-8 form-group top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
 
             </div>
-
-            <!-- Start of Left Side -->
-            <div class="col-md-3 col-sm-3 col-xs-6 gutter">
-
-                <div class="sales">
-
-                    <h2>Recent </h2>
-
-                    <div class="btn-group">
-                        <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span>Period:</span> Last Year
-                        </button>
-                        <div class="dropdown-menu">
-                            <a href="#">2012</a>
-                            <a href="#">2014</a>
-                            <a href="#">2015</a>
-                            <a href="#">2016</a>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 x_title">
-                    </div>
-
-                    <div class="dashboard-widget-content">
-
-                        <ul class="list-unstyled timeline widget">
-                            {% for crisis in all_crisis %}
-
-                              <li>
-                                <div class="block">
-                                  <div class="block_content">
-                                    <h2 class="title">
-
-                                        <a>Crisis {{ crisis.pk }}&nbsp;</a>
-                                    </h2>
-                                      <br>
-                                    <div class="byline">
-                                      <span>13 hours ago</span> by <a>{{ crisis.analyst }}</a>
-                                    </div>
-                                    <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
-                                    </p>
-                                  </div>
-                                </div>
-                              </li>
-                            {%endfor%}
-
-                        </ul>
-                  </div>
-
-                </div>
-            </div>
-            <!-- End of Left Side -->
-
+            <!-- End of header 2 -->
 
             <!-- Start of Right Side -->
-            <div class="col-md-9 col-sm-9 col-xs-16 gutter">
+            <div class="col-md-12 col-sm-12 col-xs-24 gutter">
+
+                <!-- Start of Unassigned Report.  -->
+                <div class="x_panel">
+
+                    <div class="sales report x_title">
+                        <h2><i class="fa fa-pencil-square-o"></i> New Incoming Report</h2>
+
+                        <ul class="nav navbar-right panel_toolbox">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                          </li>
+
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <!-- Start of Table  -->
+                    <div class="x_content">
+
+                        <div class="table-responsive" id="Unacrisrptlist2">
+                          <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                              <tr class="headings">
+                                    <th></th>
+                                    <th class="column-title">ID </th>
+                                    <th class="column-title">Crisis </th>
+                                    <th class="column-title">Description </th>
+                                    <th class="column-title">DateTime </th>
+                                    <th class="column-title no-link last"><span class="nobr">Action Existing</span>
+                                    <th class="column-title no-link last"><span class="nobr">Action</span>
+                                    </th>
+                              </tr>
+                            </thead>
+
+                            <tbody id="Unacrisrptlist">
+                                {% for crisisrpt in getUnassignedCrisisReport %}
+                                    <tr id="crisisreport-{{crisisrpt.pk}}">
+                                         <td></td>
+                                         <td><span class="label label-default">{{crisisrpt.pk}}</span></td>
+                                         <td><span class="label label-danger">Not Assigned</span></td>
+                                         <td>{{crisisrpt.description}} </td>
+                                         <td>{{crisisrpt.datetime}}</td>
+                                         <td>
+                                             <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target="#add_existing" data-id={{crisisrpt.pk}}>
+                                       <span class="glyphicon glyphicon-plus-sign"></span>
+                                      </button>
+                                         </td>
+                                         <td>
+                                             <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target="#add_project" data-id={{crisisrpt.pk}}>
+                                       <span class="glyphicon glyphicon-plus-sign"></span>
+                                      </button>
+                                         </td>
+                                     </tr>
+                                {%endfor%}
+                            </tbody>
+                          </table>
+
+                            <div class="clearfix"></div>
+                            <ul class="pagination pull-right">
+                              <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                              <li class="active"><a href="#">1</a></li>
+                              <li><a href="#">2</a></li>
+                              <li><a href="#">3</a></li>
+                              <li><a href="#">4</a></li>
+                              <li><a href="#">5</a></li>
+                              <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                            </ul>
+
+                        </div>
+
+
+                    </div>
+                    <!-- End of table  -->
+
+                </div>
+                <!-- End of Unassigned Report  -->
+
+                <!-- Start of Assigned 3rd Row  -->
+                <div class="col-md-12 row">
+
+                    <!-- Start of Assigned Crisis  -->
+                    <div class="col-md-7">
+                        <div class="x_panel">
+                            <div class="sales report x_title">
+                                <h2><i class="fa fa-pencil-square"></i> Assigned Crisis</h2>
+
+                                <ul class="nav navbar-right panel_toolbox col-sm-1">
+                                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                  </li>
+
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <!-- Start of Table  -->
+                            <div class="x_content">
+
+                                <div class="table-responsive">
+                                  <table class="table table-striped jambo_table bulk_action">
+                                    <thead>
+                                      <tr class="headings">
+                                          <th></th>
+                                        <th class="column-title">ID </th>
+                                        <th class="column-title">Crisis </th>
+                                        <th class="column-title">Crisis Types </th>
+                                        <th class="column-title">Description </th>
+                                        <th class="column-title">DateTime </th>
+                                      </tr>
+                                    </thead>
+
+                                    <tbody id="Unacrisislist">
+                                       {% for unacrisis in getAssignedCrisisReport %}
+                                          <tr id="crisis-{{unacrisis.pk}}">
+                                              <td></td>
+                                            <td class=" "><span class="label label-default">{{unacrisis.pk}}</span></td>
+                                              <td class=" "><span class="label label-danger">{{unacrisis.crisis_id}}</span></td>
+                                              <td class=" "><span class="label label-warning">{{unacrisis.crisisType}}</span></td>
+                                              <td class=" ">{{unacrisis.description}} </td>
+                                              <td class="a-right a-right ">{{unacrisis.datetime}}</td>
+                                          </tr>
+                                        {%endfor%}
+
+                                    </tbody>
+                                  </table>
+
+                                </div>
+
+                            </div>
+                            <!-- End of table  -->
+                        </div>
+                    </div>
+                    <!-- End of Report  -->
+
+                    <!-- Start of Unassigned Crisis  -->
+                    <div class="col-md-5">
+                        <div class="x_panel">
+                            <div class="sales report x_title">
+                                <h2><i class="fa fa-child"></i> Unassigned Analyst</h2>
+
+                                <ul class="nav navbar-right panel_toolbox col-sm-1">
+                                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                  </li>
+
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <!-- Start of Table  -->
+                            <div class="x_content">
+
+                                <div class="table-responsive">
+                                  <table class="table table-striped jambo_table bulk_action">
+                                    <thead>
+                                      <tr class="headings">
+                                        <th></th>
+                                        <th class="column-title">ID </th>
+                                        <th class="column-title no-link last">Analyst </th>
+                                          <th class="column-title no-link last"><span class="nobr">Action</span></th>
+                                      </tr>
+                                    </thead>
+
+                                    <tbody id="Unaacclist">
+                                        {% for unaacc in getAccountList %}
+                                          <tr id="analysts-{{unaacc.pk}}">
+                                            <td></td>
+                                            <td class=" "><span class="label label-default">{{unaacc.id}}</span></td>
+                                            <td class=" "><span class="label label-warning">{{unaacc.login}}</span></td>
+                                              <td class=" last">
+                                                <button type="button" class="btn btn-primary" onclick="window.location='/operator/{{unaacc.id}}';">
+                                                <span class="glyphicon glyphicon-plus"></span></button>
+                                              </td>
+                                          </tr>
+                                        {%endfor%}
+                                    </tbody>
+                                  </table>
+
+                                </div>
+
+                            </div>
+                            <!-- End of table  -->
+                       </div>
+                    </div>
+                    <!-- End of Report  -->
+
+
+
+                </div>
 
                 <!-- Start of Crisis Table  -->
+                <!--
                 <div class=" x_panel">
 
                     <div class="sales report x_title ">
-                        <h2><i class="fa fa-archive"></i> Allocations </h2>
+                        <h2><i class="fa fa-archive"></i> Crisis Allocations </h2>
 
                         <div class="btn-group ">
                             <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -971,26 +1089,8 @@
                         <div class="clearfix"></div>
                     </div>
 
-                    <!-- Start of Table  -->
+
                     <div class="x_content">
-
-
-                      <div class="row white">
-                          <div class="columns large-12">
-                              <ul id="cmoapp" class="topnav">
-                                  {% for crisis in all_crisis %}
-                                      <li id='crisis-{{crisis.pk}}'>
-                                          <strong>{{ crisis.analyst }}</strong> -
-                                          <em>{{ crisis.crisistypes }}</em> -
-                                          <span>{{ crisis.type }}</span> -
-                                          <a id='delete-post-{{crisis.id}}'>delete me</a>
-                                      </li>
-                                  {% endfor %}
-                              </ul>
-                          </div>
-                      </div>
-
-
                       <div class="table-responsive">
                           <table class="table table-striped jambo_table bulk_action">
                             <thead>
@@ -1003,8 +1103,7 @@
                                 </th>
                                 <th class="column-title">ID </th>
                                 <th class="column-title">Analyst </th>
-                                <th class="column-title">CrisisType </th>
-                                <th class="column-title">Type </th>
+                                <th class="column-title">Status </th>
                                 <th class="column-title no-link last"><span class="nobr">Action</span>
                                 </th>
                                 <th class="bulk-actions" colspan="7">
@@ -1022,28 +1121,25 @@
                                     </td>
                                     <td><span class="label label-default">{{allo.pk}}</span></td>
                                       <td class="a-right a-right "><b>{{allo.analyst}}</b></td>
-                                    <td><span class="label label-danger">{{allo.crisistypes.name}}</span></td>
-                                    <td><span class="label label-success">{{allo.type}}</span></td>
-                                     <!-- Do not display this at the moment
-                                    <td class=" last"><a href={{allcrisis.pk}}>View</a>
-                                    -->
+                                    <td><span class="label label-success">{{allo.status}}</span></td>
+
 
                                     <td class=" last">
 
                                       <button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target=".view-crisis"
-                                              data-id={{allo.pk}} data-name={{allo.crisistypes.name}} data-ana={{allo.analyst}} >
+                                              data-id={{allo.pk}} data-ana={{allo.analyst}} >
                                        <span class="glyphicon glyphicon-search"></span>
                                       </button>
 
-                                        <!--
+
                                       <button type="button" class="btn btn-round btn-info" onclick="window.location='/operator/{{allo.pk}}';">View</button>
-                                         -->
+
                                       <button type="delete" ref="delete-post-{{allo.id}}" class="btn btn-round btn-danger" onclick="new PNotify({
                                           title: 'Deleted Crisis Successfully',
                                           text: 'Delete the crisis!',
                                           type: 'delete',
                                           styling: 'bootstrap3'
-                                      });">
+                                      }); ">
                                       <span class="glyphicon glyphicon-trash"></span>
                                       </button>
 
@@ -1070,114 +1166,18 @@
 
 
                     </div>
-                    <!-- End of table  -->
+
 
                 </div>
+                -->
+
+
                 <!-- End of Crisis Report  -->
-
-                <!-- Start of Report  -->
-                <div class="x_panel">
-
-                    <div class="sales report x_title">
-                        <h2><i class="fa fa-spinner"></i> Crisis Report</h2>
-
-                        <div class="btn-group">
-                            <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span>Period:</span> Last Year
-                            </button>
-                            <div class="dropdown-menu">
-                                <a href="#">2012</a>
-                                <a href="#">2014</a>
-                                <a href="#">2015</a>
-                                <a href="#">2016</a>
-                            </div>
-                        </div>
-
-                        <ul class="nav navbar-right panel_toolbox col-sm-1">
-                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                          </li>
-
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-
-                    <!-- Start of Table  -->
-                    <div class="x_content">
-
-                        <div class="table-responsive">
-                          <table class="table table-striped jambo_table bulk_action">
-                            <thead>
-                              <tr class="headings">
-                                <th>
-                                  <div class="icheckbox_flat-green" style="position: relative;">
-                                      <input type="checkbox" id="check-all1" class="flat" style="position: absolute; opacity: 0;">
-                                      <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                  </div>
-                                </th>
-                                <th class="column-title">ID </th>
-                                <th class="column-title">Name </th>
-                                <th class="column-title">Description </th>
-                                <th class="column-title">Latitude </th>
-                                <th class="column-title">Longitude </th>
-                                <th class="column-title">DateTime </th>
-                                <th class="column-title no-link last"><span c   lass="nobr">Action</span>
-                                </th>
-                                <th class="bulk-actions" colspan="7">
-                                  <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                                </th>
-                              </tr>
-                            </thead>
-
-                            <tbody>
-                                {% for allcrisis in getallcrisis %}
-                                  <tr class="even pointer">
-                                    <td class="a-center ">
-                                      <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                                    </td>
-                                    <td class=" ">{{allcrisis.pk}}</td>
-                                    <td class=" ">{{allcrisis.Crisis.crisistypes.name}}</td>
-                                    <td class=" ">{{allcrisis.description}} </td>
-                                    <td class=" ">{{allcrisis.latitude}}</td>
-                                    <td class=" ">{{allcrisis.longitude}}</td>
-                                    <td class="a-right a-right ">{{allcrisis.datetime}}</td>
-
-                                    <td class=" last">
-                                      <button type="button" href = "/operator/{{allcrisis.pk}}" class="btn btn-primary" data-toggle="modal" data-target=".view-crisis"
-                                              data-id={{allcrisis.pk}} data-des={{allcrisis.description}} data-lat={{allcrisis.latitude}}
-                                              data-long={{allcrisis.longitude}} data-datetime={{allcrisis.datetime}}>View</button>
-
-                                     <button type="button" class="btn btn-primary" onclick="window.location='/operator/{{allcrisis.pk}}';">View 2</button>
-                                    </td>
-                                  </tr>
-                                {%endfor%}
-                            </tbody>
-                          </table>
-
-                            <div class="clearfix"></div>
-                            <ul class="pagination pull-right">
-                              <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                              <li class="active"><a href="#">1</a></li>
-                              <li><a href="#">2</a></li>
-                              <li><a href="#">3</a></li>
-                              <li><a href="#">4</a></li>
-                              <li><a href="#">5</a></li>
-                              <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-                            </ul>
-
-                        </div>
-
-
-                    </div>
-                    <!-- End of table  -->
-
-                </div>
-
-                <!-- End of Report  -->
 
 
             </div>
             <!-- End of Right Side -->
-
+             <div class="clearfix"></div>
 
 
         </div>
@@ -1188,7 +1188,6 @@
 
     </div>
     <!-- End of right col -->
-
 
 
 </div>
@@ -1232,29 +1231,19 @@
         <div class="modal-content">
             <div class="modal-header login-header">
                 <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title">Allocate Crisis</h4>
+                <h4 class="modal-title show-id" id="ModalLabel">Allocate Crisis</h4>
             </div>
             <div class="modal-body">
                 <form method="POST" id="crisis-form">
                   {% csrf_token %}
-                      <!--
-                      <div class="fieldWrapper" id="the_crisis">
-                          {{ form.analyst }}
-                      </div>
-                      -->
 
-                    <h4 class="modal-title" id="Crisis_Title">Assign Crisis Type</h4>
+                    <h4 class="modal-title" id="Crisis_Title">Crisis Type</h4>
+                      <input class="modal-title hidingid" type="hidden" name="crisisreportid" id = "crisisreportid">
                     <select class="form-control" id="getcrisistype" name="getcrisistype">
-                      {% for getct in getCrisisTypeList %}
-                        <option value = {{getct.id}}>{{getct.name}}</option>
-                      {%endfor%}
-                    </select>
+                      {% for getc in getCrisisTypeList %}
+                        <option value = {{getc.id}}>{{getc.name}}</option>
 
-                    <h4 class="modal-title" id="Type_Title">Assign Type</h4>
-                    <select class="form-control" id="gettype" name="gettype">
-                        <option value = {{'Clean-up'}}>Clean-up</option>
-                        <option value = {{'Ongoing'}}>Ongoing</option>
-                        <option value = {{'Resolved'}}>Resolved</option>
+                      {%endfor%}
                     </select>
 
                     <h4 class="modal-title" id="Analyst_Title">Assign Analyst</h4>
@@ -1265,6 +1254,53 @@
                     </select>
 
                     <div id="results"></div> <!-- errors go here -->
+
+                    <br>
+                    <button type="submit"   class="btn btn-round btn-success" onclick="new PNotify({
+                              title: 'Allocated Crisis Successfully',
+                              text: 'Allocate analyst into the crisis!',
+                              type: 'success',
+                              styling: 'bootstrap3'
+                          });">Submit</button>
+
+
+                  </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cancel" data-dismiss="modal">Close</button>
+                <!--
+                <button type="button" class="add-project" data-dismiss="modal">Save</button>
+                -->
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Start of allocate existing Crisis Modal -->
+<div id="add_existing" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header login-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title show-id" id="ModalLabel3">Allocate Crisis</h4>
+
+            </div>
+            <div class="modal-body">
+                <form method="POST" id="existingcrisis-form">
+                  {% csrf_token %}
+
+                    <h4 class="modal-title" id="existingCrisis">Select Existing Crisis ID</h4>
+                    <input class="modal-title hidingexisting" type="hidden" name="existingreportid" id = "existingreportid" value = "">
+                    <select class="form-control" id="getExisting" name="getExisting">
+                      {% for acc in getNotResolvedCrisisList %}
+                        <option value = {{acc.pk}}> {{acc.pk}} </option>
+                      {%endfor%}
+                    </select>
+
+                    <div id="result2"></div> <!-- errors go here -->
 
                     <br>
                     <button type="submit" class="btn btn-round btn-success" onclick="new PNotify({
@@ -1279,19 +1315,16 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="cancel" data-dismiss="modal">Close</button>
+                <!--
                 <button type="button" class="add-project" data-dismiss="modal">Save</button>
+                -->
             </div>
         </div>
 
     </div>
 </div>
 
-<!-- Filter go here -->
-<div class="right_col">
 
-
-
-</div>
 
 
 
@@ -1300,25 +1333,28 @@
 {% block page_scripts %}
 
     <script>
-        $('.view-crisis').on('show.bs.modal', function(e) {
-
+        $('#add_existing').on('show.bs.modal', function(e) {
             var $modal = $(this),
+                crisisIdDisplay = "Allocate Crisis Report ID: " + e.relatedTarget.dataset.id;
                 crisisId = e.relatedTarget.dataset.id;
-                crisisName = e.relatedTarget.dataset.name;
-                crisisAna = e.relatedTarget.dataset.ana;
-
-                $modal.find('.edit-id').html(crisisId);
-                $modal.find('.edit-name').html(crisisName);
-                $modal.find('.edit-ana').html(crisisAna);
-
+                $modal.find('.hidingexisting').val(crisisId);
+                $modal.find('.show-id').html(crisisIdDisplay);
 
         })
+        $('#add_project').on('show.bs.modal', function(e) {
+            var $modal = $(this),
+                crisisIdDisplay = "Allocate Crisis Report ID: " + e.relatedTarget.dataset.id;
+                crisisId = e.relatedTarget.dataset.id;
+                //$("#selected_groupname").val('Hello...How are you?');
+                $modal.find('.hidingid').val(crisisId);
+                $modal.find('.show-id').html(crisisIdDisplay);
 
+        })
 
     </script>
 
     <script src="/static/js/operator.js"></script>
-
+    <script src="/static/vendors/moment/min/moment.min.js" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
            $('[data-toggle="offcanvas"]').click(function(){
@@ -1327,31 +1363,11 @@
         });
     </script>
 
-
-    <script src="/static/vendors/pnotify/dist/pnotify.js" type="text/javascript" optimized="true"></script>
-    <script src="/static/vendors/pnotify/dist/pnotify.buttons.js" type="text/javascript" optimized="true"></script>
-    <script src="/static/vendors/pnotify/dist/pnotify.nonblock.js" type="text/javascript" optimized="true"></script>
-
     <script>
        $(document).ready(function (){
                $('.ui-pnotify').remove();
        });
     </script>
 
-
-    <!--
-    <script>
-
-        function ul2table(ul){
-            var tbl = $('<table class="topnav"/>');
-            ul.find('li').each(function(){
-                tbl.append($('<tr/>').append($('<td/>').html($(this).html())));
-            });
-            ul.replaceWith(tbl);
-        }
-
-         ul2table($('ul.topnav'));
-    </script>
-    -->
 
 {% endblock page_scripts %}

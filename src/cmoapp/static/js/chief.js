@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //Collapse to the right
 $(document).ready(function() {
     $('.collapse-link-right').on('click', function () {
