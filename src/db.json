@@ -3,7 +3,7 @@
     "model": "auth.user",
     "fields": {
         "password": "pbkdf2_sha256$36000$O3pDBWZit6iy$hl6J4teEBMsxuqVUcInPkQLzKJWZ8a+TJFMz7rWeE1w=",
-        "last_login": "2017-10-28T22:49:19.665Z",
+        "last_login": "2017-10-23T17:18:19.489Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -22,14 +22,6 @@
     "fields": {
         "session_data": "YTcxNTQxMTI4ODUzYzEyOTMwNDc1MjcyZDA1MmI2YWU1YzA5YWMwMjp7Il9hdXRoX3VzZXJfaGFzaCI6IjgyM2M2ZjU5ZDZmMDcyYTZjOGYwMWZlZTdlYWQ0OGFkN2M4ZWQ5NmMiLCJfYXV0aF91c2VyX2lkIjoiMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=",
         "expire_date": "2017-11-03T18:19:13.440Z"
-    }
-},
-{
-    "model": "sessions.session",
-    "pk": "2igp3hw1bw3s5askgbi96sesl8746w9k",
-    "fields": {
-        "session_data": "YTcxNTQxMTI4ODUzYzEyOTMwNDc1MjcyZDA1MmI2YWU1YzA5YWMwMjp7Il9hdXRoX3VzZXJfaGFzaCI6IjgyM2M2ZjU5ZDZmMDcyYTZjOGYwMWZlZTdlYWQ0OGFkN2M4ZWQ5NmMiLCJfYXV0aF91c2VyX2lkIjoiMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=",
-        "expire_date": "2017-11-11T22:49:19.749Z"
     }
 },
 {
@@ -294,7 +286,7 @@
     "fields": {
         "plan_number": 1,
         "description": "Wing It",
-        "status": "Approved",
+        "status": "PMOApproved",
         "resolution_time": "00:00:00",
         "projected_casualties": 25,
         "type": "Combat",
@@ -318,9 +310,9 @@
     "model": "cmoapp.actionplan",
     "pk": 3,
     "fields": {
-        "plan_number": 3,
+        "plan_number": 7,
         "description": "OMG DIE AGAIN",
-        "status": "Rejected",
+        "status": "PMORequest",
         "resolution_time": "00:00:01",
         "projected_casualties": 1,
         "type": "Combat",
@@ -331,9 +323,9 @@
     "model": "cmoapp.actionplan",
     "pk": 4,
     "fields": {
-        "plan_number": 4,
+        "plan_number": 7,
         "description": "NABEI FAIL",
-        "status": "Rejected",
+        "status": "PMORequest",
         "resolution_time": "00:00:01",
         "projected_casualties": 1,
         "type": "Combat",
@@ -357,13 +349,65 @@
     "model": "cmoapp.actionplan",
     "pk": 6,
     "fields": {
-        "plan_number": 6,
+        "plan_number": 7,
         "description": "PACK UP GO INDONESIA",
         "status": "Rejected",
         "resolution_time": "00:00:01",
         "projected_casualties": 1,
         "type": "Clean-up",
         "crisis": 1
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 7,
+    "fields": {
+        "plan_number": 2,
+        "description": "Nice LA another One",
+        "status": "PMORequest",
+        "resolution_time": "00:00:01",
+        "projected_casualties": 1,
+        "type": "Combat",
+        "crisis": 2
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 8,
+    "fields": {
+        "plan_number": 3,
+        "description": "Hello CO I Love u",
+        "status": "PMORequest",
+        "resolution_time": "00:00:01",
+        "projected_casualties": 1,
+        "type": "Combat",
+        "crisis": 3
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 9,
+    "fields": {
+        "plan_number": 3,
+        "description": "Dont sack me plz",
+        "status": "PMORequest",
+        "resolution_time": "00:00:01",
+        "projected_casualties": 1,
+        "type": "Clean-up",
+        "crisis": 3
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 10,
+    "fields": {
+        "plan_number": 2,
+        "description": "I hereby fire the CO cause he sucks",
+        "status": "PMORequest",
+        "resolution_time": "00:00:01",
+        "projected_casualties": 1,
+        "type": "Clean-up",
+        "crisis": 4
     }
 },
 {
@@ -378,42 +422,12 @@
 },
 {
     "model": "cmoapp.comment",
-    "pk": 3,
-    "fields": {
-        "text": "REALLY",
-        "author": "CO",
-        "timeCreated": "2017-10-23T17:27:39Z",
-        "actionPlan": 2
-    }
-},
-{
-    "model": "cmoapp.comment",
-    "pk": 4,
-    "fields": {
-        "text": "NICE GO",
-        "author": "PMO",
-        "timeCreated": "2017-10-23T17:27:49Z",
-        "actionPlan": 3
-    }
-},
-{
-    "model": "cmoapp.comment",
     "pk": 5,
     "fields": {
         "text": "KNN GO NOW",
         "author": "CO",
         "timeCreated": "2017-10-04T10:00:00Z",
         "actionPlan": 4
-    }
-},
-{
-    "model": "cmoapp.comment",
-    "pk": 6,
-    "fields": {
-        "text": "PLZ LEAVE",
-        "author": "CO",
-        "timeCreated": "2017-10-12T05:28:25Z",
-        "actionPlan": 6
     }
 },
 {
@@ -427,44 +441,98 @@
     }
 },
 {
-    "model": "cmoapp.force",
-    "pk": "SAF",
+    "model": "cmoapp.comment",
+    "pk": 14,
     "fields": {
-        "currentUtilisation": null
+        "text": "Nice reject",
+        "author": "CO",
+        "timeCreated": "2017-10-30T14:22:45.552Z",
+        "actionPlan": 6
     }
 },
 {
     "model": "cmoapp.force",
-    "pk": "SCDF",
+    "pk": "Chinese",
     "fields": {
-        "currentUtilisation": null
+        "currentUtilisation": "30.00"
     }
 },
 {
     "model": "cmoapp.force",
-    "pk": "SPF",
+    "pk": "Eurasian",
     "fields": {
-        "currentUtilisation": null
+        "currentUtilisation": "40.00"
+    }
+},
+{
+    "model": "cmoapp.force",
+    "pk": "Indian",
+    "fields": {
+        "currentUtilisation": "20.00"
+    }
+},
+{
+    "model": "cmoapp.force",
+    "pk": "Malay",
+    "fields": {
+        "currentUtilisation": "10.00"
+    }
+},
+{
+    "model": "cmoapp.force",
+    "pk": "Pinoy",
+    "fields": {
+        "currentUtilisation": "0.00"
     }
 },
 {
     "model": "cmoapp.forcedeployment",
     "pk": 1,
     "fields": {
-        "name": "SCDF",
-        "recommended": "5.00",
-        "max": "8.00",
-        "actionPlan": 2
+        "name": "Malay",
+        "recommended": "30.00",
+        "max": "40.00",
+        "actionPlan": 1
     }
 },
 {
     "model": "cmoapp.forcedeployment",
     "pk": 2,
     "fields": {
-        "name": "SAF",
-        "recommended": "2.00",
-        "max": "5.00",
-        "actionPlan": 2
+        "name": "Eurasian",
+        "recommended": "25.00",
+        "max": "30.00",
+        "actionPlan": 1
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 3,
+    "fields": {
+        "name": "Indian",
+        "recommended": "50.00",
+        "max": "70.00",
+        "actionPlan": 1
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 4,
+    "fields": {
+        "name": "Chinese",
+        "recommended": "20.00",
+        "max": "30.00",
+        "actionPlan": 1
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 5,
+    "fields": {
+        "name": "Pinoy",
+        "recommended": "50.00",
+        "max": "100.00",
+        "actionPlan": 1
     }
 },
 {
@@ -1089,96 +1157,6 @@
         ],
         "object_id": "7",
         "object_repr": "ID: 7 - Author: PMO - Comment: LEAVE BITCH",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 35,
-    "fields": {
-        "action_time": "2017-10-28T22:59:01.897Z",
-        "user": [
-            "admin"
-        ],
-        "content_type": [
-            "cmoapp",
-            "force"
-        ],
-        "object_id": "SCDF",
-        "object_repr": "SCDF",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 36,
-    "fields": {
-        "action_time": "2017-10-28T22:59:09.356Z",
-        "user": [
-            "admin"
-        ],
-        "content_type": [
-            "cmoapp",
-            "force"
-        ],
-        "object_id": "SAF",
-        "object_repr": "SAF",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 37,
-    "fields": {
-        "action_time": "2017-10-28T22:59:21.699Z",
-        "user": [
-            "admin"
-        ],
-        "content_type": [
-            "cmoapp",
-            "force"
-        ],
-        "object_id": "SPF",
-        "object_repr": "SPF",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 38,
-    "fields": {
-        "action_time": "2017-10-28T22:59:38.286Z",
-        "user": [
-            "admin"
-        ],
-        "content_type": [
-            "cmoapp",
-            "forcedeployment"
-        ],
-        "object_id": "1",
-        "object_repr": "ID: 1 Name: SCDF",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 39,
-    "fields": {
-        "action_time": "2017-10-28T22:59:48.004Z",
-        "user": [
-            "admin"
-        ],
-        "content_type": [
-            "cmoapp",
-            "forcedeployment"
-        ],
-        "object_id": "2",
-        "object_repr": "ID: 2 Name: SAF",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }

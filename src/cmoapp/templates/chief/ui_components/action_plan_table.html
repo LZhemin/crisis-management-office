@@ -1,3 +1,4 @@
+{% load custom_tags %}
 <div id="Actionplan">
     <table class="table table-striped center">
         <thead>
@@ -26,7 +27,7 @@
                     <span class="label label-primary">{{ force.name }}</span>
                     {% endfor %}
                 </td>
-                <td class="center">{{ actionPlan.resolutionTime }}</td>
+                <td class="center">{% render_duration actionPlan.resolution_time %}</td>
                 <td>
                     <span class="label label-warning">{{ actionPlan.get_status_display }}</span>
                 </td>
