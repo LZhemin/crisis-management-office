@@ -51,8 +51,6 @@
 <script src="/static/js/firebaseapp.js"></script>
 <script src="https://cdn.firebase.com/libs/angularfire/2.2.0/angularfire.min.js"></script>
 
-<script src="/static/js/chief.js"></script>
-
 <script type="text/javascript">
     {% if assigned_crisis %}
     //JSON Fucking up.
@@ -180,7 +178,6 @@
             Fire: icon_loc + "Fire.png"
         };
 
-<<<<<<< HEAD
         {% if all_crisis %}
         {% for crisis in all_crisis%}
         {% for report in crisis.crisisreport_set.all %}
@@ -197,71 +194,6 @@
             // The anchor with respect to the Lat and Long
             anchor: new google.maps.Point(30, 30)
         };
-=======
-        {% if crisis_reports %}
-            {% for crisisrpt in crisis_reports%}
-
-                var cent = new google.maps.LatLng({{crisisrpt.latitude}},{{crisisrpt.longitude}});
-                var radius = {{ crisisrpt.radius }};
-
-                var image = {
-                  url: icons['{{ crisisrpt.crisisType }}'],
-                  //size: new google.maps.Size(100, 100),
-                  // The origin for this image is (0, 0).
-                  origin: new google.maps.Point(0, 0),
-                  // The anchor with respect to the Lat and Long
-                  anchor: new google.maps.Point(30, 30)
-                };
-
-                var crisisCircle = new google.maps.Circle({
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.35,
-                    map: map,
-                    center: cent,
-                    radius: radius,//in metres (cannot use the loc, wierdly causes the radius to become super big
-                });
-
-                var infoWindow = new google.maps.InfoWindow()
-
-                var marker = new google.maps.Marker({
-                    position: cent,
-                    icon: image,
-                    map:map,
-                    properties: '{{crisisrpt.crisis.status}}'
-                });
-
-
-                var markerInfo = "<div><h3> Crisis " + "{{crisisrpt.id}}" + "</h3>Status: " + "{{crisisrpt.crisis.status}}" + "</div>"
-                marker.addListener('click', function() {
-                    if($('#{{ crisis.id }}').hasClass("bg-primary")){
-                        $('#{{ crisis.id }}').removeClass("bg-primary");
-                        new PNotify({
-                        title: 'Crisis Report Deselected',
-                        type: 'warning',
-                        styling: 'bootstrap3'
-                        });
-
-                    }
-
-                    else{
-                        $('#{{ crisisrpt.id }}').addClass("bg-primary").parent().siblings().children().removeClass("bg-primary");
-                        new PNotify({
-                        title: 'Crisis Report Selected {{ crisis.id }}',
-                        text: 'Check the 911 Reports for more Info!',
-                        type: 'success',
-                        styling: 'bootstrap3'
-                        });
-
-                    }
-
-                    infoWindow.close()
-                     infoWindow.setContent(markerInfo)
-                     infoWindow.open(map, marker)
-                });
->>>>>>> operator
 
         var crisisCircle = new google.maps.Circle({
             strokeColor: '#FF0000',
@@ -435,16 +367,8 @@
 
                 <div id="buttons">
 
-<<<<<<< HEAD
                     <input type="checkbox" name="filter" id="Clean-up" class='chk-btn'>
                     <label for='Clean-up'>Clean-up</label>
-=======
-                  <input type="checkbox" name="filter" id="Cleanup" class='chk-btn'>
-                  <label for='Cleanup'>Cleanup</label>
-
-                  <input type="checkbox" name="filter" id="Ongoing" class='chk-btn'>
-                  <label for='Ongoing'>Ongoing</label>
->>>>>>> operator
 
                     <input type="checkbox" name="filter" id="Combat" class='chk-btn'>
                     <label for='Combat'>Ongoing</label>

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 //Collapse to the right
 $(document).ready(function() {
     $('.collapse-link-right').on('click', function () {
@@ -306,4 +305,4 @@ function select_crisischat(id) {
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
     });
-};
+}
