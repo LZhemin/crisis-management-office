@@ -74,7 +74,6 @@ $.ajaxSetup({
 function rejectActionPlan(idval,commentId){
 
     var comment = document.getElementById(commentId).value;
-    console.log(comment);
     if(comment.length>0){
         $.ajax({
             type:"POST",
@@ -214,9 +213,11 @@ function filterMapCrisis(id){
 //Auto Update After 30 Seconds
 setInterval(function()
 {
+
+    console.log($('#allCrisis').hasClass('active'));
     //Reload the action_plan_template, and only reload
     // all_crisis template if none of the crisis are selected
-    if($('#allClass').hasClass('active')){
+    if($('#allCrisis').hasClass('active')){
         reload_table();
         if(checkIfCrisisInactive())
             reload_crisis();
@@ -240,8 +241,6 @@ function reload_table() {
         // handle a successful response
         //var html;
         success : function(data) {
-            console.log("reloading successfully!");
-            //$('#allCrisis').html();
             $('#actionPlanTable').html(data);
         },
         // handle a non-successful response
@@ -258,8 +257,6 @@ function reload_crisis() {
         // handle a successful response
         //var html;
         success : function(data) {
-            console.log("reloading successfully!");
-            //$('#allCrisis').html();
             $('#allCrisis').html(data);
         },
         // handle a non-successful response
