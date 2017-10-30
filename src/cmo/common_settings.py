@@ -130,7 +130,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'cmoapp',
     #Fucking Django making it so hard to customize form input css classes
-    'widget_tweaks'
+    'widget_tweaks',
 	'rest_framework',
     # Uncomment the next line to enable the admin:
 
