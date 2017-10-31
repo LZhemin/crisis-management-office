@@ -284,11 +284,11 @@
     "model": "cmoapp.actionplan",
     "pk": 1,
     "fields": {
-        "planNumber":1,
+        "plan_number": 1,
         "description": "Wing It",
-        "status": "Approved",
-        "resolutionTime": "00:00:00",
-        "projectedCasualties": 25,
+        "status": "PMOApproved",
+        "resolution_time": "00:00:00",
+        "projected_casualties": 25,
         "type": "Combat",
         "crisis": 1
     }
@@ -297,11 +297,11 @@
     "model": "cmoapp.actionplan",
     "pk": 2,
     "fields": {
-        "planNumber":2,
+        "plan_number": 2,
         "description": "CMI Time to Die",
         "status": "Rejected",
-        "resolutionTime": "00:00:20",
-        "projectedCasualties": 1,
+        "resolution_time": "00:00:20",
+        "projected_casualties": 1,
         "type": "Combat",
         "crisis": 1
     }
@@ -310,11 +310,11 @@
     "model": "cmoapp.actionplan",
     "pk": 3,
     "fields": {
-        "planNumber":3,
+        "plan_number": 7,
         "description": "OMG DIE AGAIN",
-        "status": "Rejected",
-        "resolutionTime": "00:00:01",
-        "projectedCasualties": 1,
+        "status": "PMORequest",
+        "resolution_time": "00:00:01",
+        "projected_casualties": 1,
         "type": "Combat",
         "crisis": 1
     }
@@ -323,11 +323,11 @@
     "model": "cmoapp.actionplan",
     "pk": 4,
     "fields": {
-        "planNumber":4,
+        "plan_number": 7,
         "description": "NABEI FAIL",
-        "status": "Rejected",
-        "resolutionTime": "00:00:01",
-        "projectedCasualties": 1,
+        "status": "PMORequest",
+        "resolution_time": "00:00:01",
+        "projected_casualties": 1,
         "type": "Combat",
         "crisis": 1
     }
@@ -336,11 +336,11 @@
     "model": "cmoapp.actionplan",
     "pk": 5,
     "fields": {
-        "planNumber":5,
+        "plan_number": 5,
         "description": "PACK UP GO MALAYSIA",
         "status": "Rejected",
-        "resolutionTime": "00:00:01",
-        "projectedCasualties": 1,
+        "resolution_time": "00:00:01",
+        "projected_casualties": 1,
         "type": "Combat",
         "crisis": 1
     }
@@ -349,13 +349,65 @@
     "model": "cmoapp.actionplan",
     "pk": 6,
     "fields": {
-        "planNumber":6,
+        "plan_number": 7,
         "description": "PACK UP GO INDONESIA",
         "status": "Rejected",
-        "resolutionTime": "00:00:01",
-        "projectedCasualties": 1,
+        "resolution_time": "00:00:01",
+        "projected_casualties": 1,
         "type": "Clean-up",
         "crisis": 1
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 7,
+    "fields": {
+        "plan_number": 2,
+        "description": "Nice LA another One",
+        "status": "PMORequest",
+        "resolution_time": "00:00:01",
+        "projected_casualties": 1,
+        "type": "Combat",
+        "crisis": 2
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 8,
+    "fields": {
+        "plan_number": 3,
+        "description": "Hello CO I Love u",
+        "status": "PMORequest",
+        "resolution_time": "00:00:01",
+        "projected_casualties": 1,
+        "type": "Combat",
+        "crisis": 3
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 9,
+    "fields": {
+        "plan_number": 3,
+        "description": "Dont sack me plz",
+        "status": "PMORequest",
+        "resolution_time": "00:00:01",
+        "projected_casualties": 1,
+        "type": "Clean-up",
+        "crisis": 3
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 10,
+    "fields": {
+        "plan_number": 2,
+        "description": "I hereby fire the CO cause he sucks",
+        "status": "PMORequest",
+        "resolution_time": "00:00:01",
+        "projected_casualties": 1,
+        "type": "Clean-up",
+        "crisis": 4
     }
 },
 {
@@ -370,26 +422,6 @@
 },
 {
     "model": "cmoapp.comment",
-    "pk": 3,
-    "fields": {
-        "text": "REALLY",
-        "author": "CO",
-        "timeCreated": "2017-10-23T17:27:39Z",
-        "actionPlan": 2
-    }
-},
-{
-    "model": "cmoapp.comment",
-    "pk": 4,
-    "fields": {
-        "text": "NICE GO",
-        "author": "PMO",
-        "timeCreated": "2017-10-23T17:27:49Z",
-        "actionPlan": 3
-    }
-},
-{
-    "model": "cmoapp.comment",
     "pk": 5,
     "fields": {
         "text": "KNN GO NOW",
@@ -400,22 +432,107 @@
 },
 {
     "model": "cmoapp.comment",
-    "pk": 6,
-    "fields": {
-        "text": "PLZ LEAVE",
-        "author": "CO",
-        "timeCreated": "2017-10-12T05:28:25Z",
-        "actionPlan": 6
-    }
-},
-{
-    "model": "cmoapp.comment",
     "pk": 7,
     "fields": {
         "text": "LEAVE BITCH",
         "author": "PMO",
         "timeCreated": "2017-10-13T13:28:40Z",
         "actionPlan": 5
+    }
+},
+{
+    "model": "cmoapp.comment",
+    "pk": 14,
+    "fields": {
+        "text": "Nice reject",
+        "author": "CO",
+        "timeCreated": "2017-10-30T14:22:45.552Z",
+        "actionPlan": 6
+    }
+},
+{
+    "model": "cmoapp.force",
+    "pk": "Chinese",
+    "fields": {
+        "currentUtilisation": "30.00"
+    }
+},
+{
+    "model": "cmoapp.force",
+    "pk": "Eurasian",
+    "fields": {
+        "currentUtilisation": "40.00"
+    }
+},
+{
+    "model": "cmoapp.force",
+    "pk": "Indian",
+    "fields": {
+        "currentUtilisation": "20.00"
+    }
+},
+{
+    "model": "cmoapp.force",
+    "pk": "Malay",
+    "fields": {
+        "currentUtilisation": "10.00"
+    }
+},
+{
+    "model": "cmoapp.force",
+    "pk": "Pinoy",
+    "fields": {
+        "currentUtilisation": "0.00"
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 1,
+    "fields": {
+        "name": "Malay",
+        "recommended": "30.00",
+        "max": "40.00",
+        "actionPlan": 1
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 2,
+    "fields": {
+        "name": "Eurasian",
+        "recommended": "25.00",
+        "max": "30.00",
+        "actionPlan": 1
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 3,
+    "fields": {
+        "name": "Indian",
+        "recommended": "50.00",
+        "max": "70.00",
+        "actionPlan": 1
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 4,
+    "fields": {
+        "name": "Chinese",
+        "recommended": "20.00",
+        "max": "30.00",
+        "actionPlan": 1
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 5,
+    "fields": {
+        "name": "Pinoy",
+        "recommended": "50.00",
+        "max": "100.00",
+        "actionPlan": 1
     }
 },
 {

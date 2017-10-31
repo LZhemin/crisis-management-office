@@ -2,7 +2,7 @@
 """
 from django.db import models
 from django.utils import timezone
-from django.core.validators import MaxLengthValidator,MinValueValidator
+from django.core.validators import MinValueValidator,ValidationError
 
 #all models have automatically add an auto-increment id unless another field is explicitly specified as primary key
 #note, on_delete assigns a Function 'Callback'
@@ -20,6 +20,8 @@ class Account(models.Model):
     password = models.CharField(max_length=1024)
     type = models.CharField(max_length=20, choices=TYPES)
 
+    class Meta:
+        ordering = ['login']
     def __str__(self):
         return '{}'.format(self.login)
 
@@ -35,7 +37,7 @@ class Crisis(models.Model):
     #analyst is FK to crisis. This enables analyst to be deleted once the crisis is resolved
     analyst = models.OneToOneField(Account,blank=True,null=True,limit_choices_to={'type':'Analyst'}, on_delete=models.SET_NULL)
     STATUS = (
-        ('Cleanup','Clean up'),
+        ('Clean-up','Clean Up'),
         ('Ongoing','Ongoing'),
         ('Resolved', 'Resolved')
     )
@@ -75,7 +77,7 @@ class ActionPlan(models.Model):
 
     #plan Number supports the CMO-PMO API as their endpoint is expecting "<<CrisisID>><<planNumber>> where "
     #where planNumber is the running number of the plan related to its crisis
-    planNumber = models.IntegerField(validators=[MinValueValidator(1)], editable=False)
+    plan_number = models.IntegerField(validators=[MinValueValidator(1)], editable=False)
     description = models.TextField(null=True,blank=True)
     STATUS= (
         ('Planning','Planning'),
@@ -85,27 +87,46 @@ class ActionPlan(models.Model):
         ('PMOApproved','Approved')
     )
     status = models.CharField(max_length=20, choices=STATUS)
-    resolutionTime = models.DurationField()
-    projectedCasualties = models.IntegerField(validators=[MinValueValidator(0)])
+    resolution_time = models.DurationField()
+    projected_casualties = models.IntegerField(validators=[MinValueValidator(0)])
     #Relations
     TYPES = (
-        ('Clean-up','Clean up'),
-        ('Combat','Combat'),
+        ('Combat', 'Combat'),
+        ('Clean-up','Clean Up'),
         ('Resolved','Resolved')
     )
     type = models.CharField(max_length=20, choices=TYPES)
     crisis = models.ForeignKey(Crisis, on_delete= models.CASCADE)
     def abridged_description(self):
-        return self.description[:140] + "..."
+        if(len(self.description) < 140):
+            return self.description
+        else:
+            return self.description[:140] + "..."
 
     def __str__(self):
-        return 'ID: {}'.format(self.pk);
+        return 'ID: {} | Type: {} | Status: {} | Abridged Description: {}'.format(
+            self.pk,
+            self.type,
+            self.get_status_display(),
+            self.abridged_description()
+        );
 
+    #Custom Model
+    def clean(self, *args, **kwargs):
+        # add custom validation here
+        try:
+            if self.status == "Planning" and ActionPlan.objects.filter(crisis=self.crisis,status="Planning").count() > 1:
+                raise ValidationError("Therre can only be 1 Action Plan in the planning phase")
+        except Crisis.DoesNotExist:
+            pass
+        super(ActionPlan, self).clean(*args, **kwargs)
+
+    #Method intended to be private
     def _nextPlanNumber(self):
         return self.crisis.actionplan_set.all().count() + 1
 
     def save(self, *args, **kwargs):
-        self.planNumber = self._nextPlanNumber()
+        self.plan_number = self._nextPlanNumber()
         super().save(*args, **kwargs)  # Call the "real" save() method.
 
 class Comment(models.Model):

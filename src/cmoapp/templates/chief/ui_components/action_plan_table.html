@@ -1,3 +1,4 @@
+{% load custom_tags %}
 <div id="Actionplan">
     <table class="table table-striped center">
         <thead>
@@ -26,7 +27,7 @@
                     <span class="label label-primary">{{ force.name }}</span>
                     {% endfor %}
                 </td>
-                <td class="center">{{ actionPlan.resolutionTime }}</td>
+                <td class="center">{% render_duration actionPlan.resolution_time %}</td>
                 <td>
                     <span class="label label-warning">{{ actionPlan.get_status_display }}</span>
                 </td>
@@ -37,7 +38,7 @@
                     <i class="fa fa-check-circle" aria-hidden="true"></i>  Accept
                 </button>
                 <!-- Modal For Accepting Action Plan-->
-                <div class="modal fade bs-example-modal-sm" id='acceptTableModalAP{{actionPlan.id}}' tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                <div class="modal fade bs-example-modal-sm" id='acceptTableModalAP{{actionPlan.id}}' data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
                     <div class="modal-dialog modal-sm">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -61,7 +62,7 @@
                         <i class="fa fa-times-circle" aria-hidden="true"></i>  Reject
                     </button>
                     <!-- Modal For Rejecting of  Action Plan-->
-                    <div class="modal fade bs-example-modal-sm" id='rejectTableModalAP{{actionPlan.id}}' tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                    <div class="modal fade bs-example-modal-sm" id='rejectTableModalAP{{actionPlan.id}}' data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
                         <div class="modal-dialog modal-sm">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -72,11 +73,11 @@
                             <div class="modal-body">
                               <h4>Rejecting Action Plan Id:{{actionPlan.id}}</h4>
                                 <p>Please Enter the reason for rejecting the ActionPlan:</p>
-                                <textarea id="commentAP{{actionPlan.id}}" class="form-control"></textarea>
+                                <textarea id="commentAPTable{{actionPlan.id}}" class="form-control"></textarea>
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                              <button type="button" class="btn btn-danger" onclick="rejectActionPlan({{actionPlan.id}})"><i class="fa fa-times-circle" aria-hidden="true"></i>  Reject</button>
+                              <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="rejectActionPlan({{actionPlan.id}},'commentAPTable{{actionPlan.id}}')"><i class="fa fa-times-circle" aria-hidden="true"></i>  Reject</button>
                             </div>
 
                           </div>

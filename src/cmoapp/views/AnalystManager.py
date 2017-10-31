@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment
+from cmoapp.forms.analyst import ActionPlanForm
 from django.views.generic import ListView,DetailView
 #Future use in session-based views
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -17,14 +18,34 @@ def index(Request):
         crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
         actionPlanList = ActionPlan.objects.filter(crisis_id=assigned_crisis.id).exclude(status='Planning')
     except(KeyError, Crisis.DoesNotExist):
-        context = { 'assigned_crisis': False }
+        context = {'assigned_crisis': False}
     else:
         context = {
             'assigned_crisis': assigned_crisis,
             'crisis_reports': crisis_reports,
             'ActionPlanList': actionPlanList
         }
+        if(Request.method == "GET"):
+            #WHY DJANGO WHY DONT YOU HAVE AN INBUILT GET OBJECT_OR_NONE
+            try:
+                planned_action_plan = assigned_crisis.actionplan_set.get(status="Planning")
+                context['ActionPlanForm'] = ActionPlanForm(instance=planned_action_plan)
+            except ActionPlan.DoesNotExist:
+                context['ActionPlanForm'] = ActionPlanForm()
+        else:
+            form = ActionPlanForm(Request.POST)
+            context['ActionPlanForm'] = form
+            if form.is_valid():
+                if(Request.POST['submitType'] == "Save"):
+                    form.update_or_create(assigned_crisis,"Planning")
+                else:
+                    #Create
+                    form.update_or_create(assigned_crisis,"Awaiting CO Approval")
+                    context['ActionPlanForm'] = ActionPlanForm()
     return render(Request, 'analyst/index.html',context)
+
+def crisis_statistics(Request):
+    pass
 
 def historicalData(Request):
     return HttpResponse("HISTORICAL DATA")

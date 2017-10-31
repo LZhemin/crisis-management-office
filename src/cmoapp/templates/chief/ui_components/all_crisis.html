@@ -54,7 +54,7 @@
                                     <i class="fa fa-check-circle" aria-hidden="true"></i>  Accept
                                 </button>
                                 <!-- Modal For Accepting Action Plan-->
-                                <div class="modal fade bs-example-modal-sm" id='acceptModalAP{{actionPlan.id}}' tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                <div class="modal fade bs-example-modal-sm" id='acceptModalAP{{actionPlan.id}}' data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
                                     <div class="modal-dialog modal-sm">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -79,7 +79,7 @@
                                     <i class="fa fa-times-circle" aria-hidden="true"></i>  Reject
                                 </button>
                                 <!-- Modal For Rejecting of  Action Plan-->
-                                <div class="modal fade bs-example-modal-sm" id='rejectModalAP{{actionPlan.id}}' tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                <div class="modal fade bs-example-modal-sm" id='rejectModalAP{{actionPlan.id}}' data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
                                     <div class="modal-dialog modal-sm">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -94,7 +94,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-danger" onclick="rejectActionPlan('rejectModalAP{{actionPlan.id}}')"><i class="fa fa-times-circle" aria-hidden="true"></i>  Reject</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="rejectActionPlan({{actionPlan.id}},'commentAP{{actionPlan.id}}')"><i class="fa fa-times-circle" aria-hidden="true"></i>  Reject</button>
                                             </div>
 
                                         </div>

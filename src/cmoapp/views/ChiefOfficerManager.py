@@ -15,6 +15,7 @@ def index(Request):
         forces = Force.objects.all()
         efUpdatesCount = EFUpdate.objects.count()
     except(KeyError, Crisis.DoesNotExist):
+
         context = {'all_crisis': False}
     else:
         context = {
@@ -22,8 +23,7 @@ def index(Request):
             'all_force':forces,
             'efUpdateCount': efUpdatesCount
         }
-
-    return render(Request, 'chief/index.html', context)
+        return render(Request, 'chief/index.html', context)
 
 
 def get_efupdates_count(request):
@@ -76,27 +76,6 @@ def sendDeployment(request, CrisisID):
         deployment.add()  # save to database
         return HttpResponseRedirect(reverse('cmoapp:base_site', args=(CrisisID)))
 
-
-def rejectActionPlan(request, CrisisID):
-    latest_actionplan_list = ActionPlan.objects.order_by('-crisis')[:5]
-    # output = ', '.join([l.Location for l in latest_actionplan_list])
-    context = {'latest_actionplan_list': latest_actionplan_list}
-
-    try:
-        COApproval = request.POST['COApproval']
-    except(KeyError, COApproval.DoesNotExist):
-    # Redisplay
-        return render(request, 'chief/base_site.html', {
-            context,
-            {'error_message': "You didn't select a COApproval."},
-        })
-
-    else:
-        fwActionPlan = ActionPlan(COApproval=COApproval)
-        fwActionPlan.add()  # save to database
-        return HttpResponseRedirect(reverse('cmoapp:base_site', args=(CrisisID)))
-
-
 def forwardActionPlan(request, CrisisID):
     latest_actionplan_list = ActionPlan.objects.order_by('-crisis')[:5]
     # output = ', '.join([l.Location for l in latest_actionplan_list])
@@ -126,21 +105,22 @@ def ApproveActionPlan(request):
     actionPlan = ActionPlan.objects.get(id=actionPlanId)
     actionPlan.status = 'PMORequest'
     actionPlan.save()
-    return JsonResponse({"success": True, "message": "Action Plan Approved Successfully!"})
+    return JsonResponse({"success": True, "message": "Action Plan"+actionPlanId+" Approved Successfully!"})
 
 
 def RejectActionPlan(request):
     try:
         actionPlanId = request.POST['id']
         comment = request.POST['comment']
-    except(KeyError):
+        actionPlan = ActionPlan.objects.get(id=actionPlanId)
+    except(KeyError, comment.DoesNotExist, actionPlanId.DoesNotExist):
         return JsonResponse({"success":False,"error":"Error Occurred Problems check key names!"})
     else:
-        actionPlan = ActionPlan.objects.get(id=actionPlanId)
         actionPlan.status = 'Rejected'
         commentObj = Comment(text=comment,author='CO',actionPlan_id=actionPlanId)
         commentObj.save()
-        return JsonResponse({"success":True,"message":"Action Plan Rejected Successfully!"})
+        actionPlan.save()
+        return JsonResponse({"success":True,"message":"Action Plan "+actionPlanId+" Rejected Successfully!"})
 
 
 def getCrisisList(request):
@@ -192,13 +172,24 @@ def select_crisischat(request):
 
 
 
-def ReloadData(request):
-
-    if request.method == 'GET':
-
-        unresolvedCrisis = Crisis.objects.all().exclude(status='Resolved')
-
-        response = serializers.serialize("json", unresolvedCrisis)
-        return HttpResponse(response, content_type='application/json')
+def ReloadTable(request):
+    try:
+        crisis = Crisis.objects.all().exclude(status='Resolved')
+    except(KeyError, crisis.DoesNotExist):
+        context = {'all_crisis': False}
     else:
-        return JsonResponse(0)
+        context = {
+            'all_crisis': crisis
+        }
+        return render(request, 'chief/ui_components/action_plan_table.html', context)
+
+def ReloadCrisis(request):
+    try:
+        crisis = Crisis.objects.all().exclude(status='Resolved')
+    except(KeyError, crisis.DoesNotExist):
+        context = {'all_crisis': False}
+    else:
+        context = {
+            'all_crisis': crisis
+        }
+        return render(request, 'chief/ui_components/all_crisis.html', context)
