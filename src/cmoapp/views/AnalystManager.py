@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment
-from cmoapp.forms.analyst import ActionPlanForm
+from cmoapp.forms.analyst import ActionPlanForm, ForceForm
 from django.views.generic import ListView,DetailView
 from rest_framework.serializers import ModelSerializer
 #Future use in session-based views
@@ -18,13 +18,15 @@ def index(Request):
         assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
         crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
         actionPlanList = ActionPlan.objects.filter(crisis_id=assigned_crisis.id).exclude(status='Planning')
+        all_forces = Force.objects.all()
     except(KeyError, Crisis.DoesNotExist):
         context = {'assigned_crisis': False}
     else:
         context = {
             'assigned_crisis': assigned_crisis,
             'crisis_reports': crisis_reports,
-            'ActionPlanList': actionPlanList
+            'ActionPlanList': actionPlanList,
+            'all_force': all_forces
         }
         if(Request.method == "GET"):
             #WHY DJANGO WHY DONT YOU HAVE AN INBUILT GET OBJECT_OR_NONE
@@ -36,6 +38,7 @@ def index(Request):
         else:
             form = ActionPlanForm(Request.POST)
             context['ActionPlanForm'] = form
+            #ADD SOME STUFF ABOUT FORCEFORM
             if form.is_valid():
                 if(Request.POST['submitType'] == "Save"):
                     form.update_or_create(assigned_crisis,"Planning")
