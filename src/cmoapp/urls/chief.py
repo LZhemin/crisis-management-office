@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^reject_action_plan/$', ChiefOfficerManager.RejectActionPlan, name="Reject_Action_Plan"),
     url(r'^reload_data/$', ChiefOfficerManager.ReloadData, name="Reload_Data"),
     url(r'^select_crisischat/$', ChiefOfficerManager.select_crisischat, name="Select_Crisischat"),
-
+    url(r'^get_efupdate_count/$', ChiefOfficerManager.get_efupdates_count, name="Get_EfUpdate_Count"),
+    url(r'^get_efupdates/$', ChiefOfficerManager.get_efupdates, name="Get_EfUpdates"),
 ]

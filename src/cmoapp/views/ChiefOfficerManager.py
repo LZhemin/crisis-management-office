@@ -12,18 +12,33 @@ def index(Request):
     # UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
     try:
         crisis = Crisis.objects.all().exclude(status='Resolved')
-        forces = Force.objects.all();
+        forces = Force.objects.all()
+        efUpdatesCount = EFUpdate.objects.count()
     except(KeyError, Crisis.DoesNotExist):
         context = {'all_crisis': False}
     else:
         context = {
             'all_crisis': crisis,
             'all_force':forces,
-            'json_crisis': serializers.serialize('json', crisis)
+            'efUpdateCount': efUpdatesCount
         }
 
     return render(Request, 'chief/index.html', context)
 
+
+def get_efupdates_count(request):
+    efCount = EFUpdate.objects.count
+    return JsonResponse(('json', efCount), safe=False)
+
+def get_efupdates(request):
+    try:
+        startNum = request['startNum']
+        efUpdates = EFUpdate.objects.all()[startNum:]
+    except(KeyError, startNum.DoesNotExist):
+        return JsonResponse({'success':False,'error':'Error in retrieving efupdates!'})
+
+
+    return JsonResponse(serializers.serialize('Json',efUpdates), safe=False)
 
 def sendDeployment(request, CrisisID):
     latest_actionplan_list = ActionPlan.objects.order_by('-crisis')[:5]

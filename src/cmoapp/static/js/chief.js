@@ -180,8 +180,10 @@ function filterMapCrisis(id){
         for (i = 0; i < markers.length; i++) {
             markers[i][0].setVisible(true);
             circles[i].setVisible(true);
+            $('#efCrisis'+i).show();
         }
         text = "Map is no longer being filtered by any Crisis ID!";
+
     }
     else{
         for (i = 0; i < markers.length; i++) {
@@ -194,6 +196,8 @@ function filterMapCrisis(id){
                 circles[i].setVisible(false);
             }
         }
+        $('#efCrisis'+id).show();
+        $('#efCrisis'+id).siblings.hide();
         text = "Map is being filtered by Crisis ID: "+id+"!";
     }
 

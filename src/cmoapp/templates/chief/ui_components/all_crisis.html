@@ -1,7 +1,7 @@
 <div class="accordion" id="Crisis" role="tablist" aria-multiselectable="true">
     {% for crisis in all_crisis %}
     <div class="panel" id="crisis-{{crisis.pk}}">
-        {% if crisis.status == 'Combat'%}
+        {% if crisis.status == 'Ongoing'%}
         <a class="panel-heading collapsed alert-danger padding" role="tab" id="panelHeading{{crisis.id}}" onclick="filterMapCrisis({{crisis.id}})" data-toggle="collapse" data-parent="#accordion" href="#collapse{{crisis.id}}" aria-expanded="false" aria-controls="collapseTwo">
             <span style="float:left;width:50%"><h3 class="panel-title">Crisis {{crisis.id}}</h3></span>
             <span style="text-align:right;width:50%"><h3 class="panel-title">Status:&nbsp&nbsp<i class="fa fa-fighter-jet" aria-hidden="true"></i>&nbsp{{crisis.status}}</h3></span>
