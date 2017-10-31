@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
+from django.utils import timezone
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment
 from django.views.generic import ListView,DetailView
 from django.core import serializers
@@ -214,3 +215,37 @@ def ReloadCrisis(request):
             'all_crisis': crisis
         }
         return render(request, 'chief/ui_components/all_crisis.html', context)
+
+
+def getDeploymentPlan(request):
+    try:
+        ap_id = request.POST['id'];
+        actionPlan = ActionPlan.objects.get(id=ap_id)
+        crisis = actionPlan.crisis
+        crisis_reports = CrisisReport.objects.filter(crisis_id=crisis.id)
+        forces = actionPlan.forcedeployment_set.all();
+    except(KeyError):
+        return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
+    else:
+
+        order_data ="'CrisisID':"+crisis.id+",'ActionPlanID': "+actionPlan.id+",'datetime': "+timezone.now()+",'Action': crisis.status,'location': {"
+        for report in crisis_reports:
+            order_data+=report.id+":{'lat':"+report.latitute+",'long':"+report.longitute+",'Aoe':"+report.radius+"}"
+
+        order_data += "'Category': {"
+        for report in crisis_reports:
+            order_data += report.id+":"+report.crisisType.name+","
+
+        order_data+="}, 'ActionPlanID':"+actionPlan.id+",'Action Plan Description': "+actionPlan.abridged_description()+",'Crisis description':'"
+
+        for report in crisis_reports:
+            order_data+=report.description+'. '
+
+        order_data +="','Force': {"
+        for force in forces:
+            order_data += "'"+force.name_id+"': {'Recommended': '"+force.recommended+"', 'Maximum': '"+force.recommended+"'},"
+
+        order_data+="}}}"
+        data = [{'Order':order_data}]
+
+        return JsonResponse(data)

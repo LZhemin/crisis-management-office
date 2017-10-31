@@ -1,3 +1,4 @@
+
 //Collapse to the right
 var efCount = -1;
 $(document).ready(function() {
@@ -137,7 +138,6 @@ function rejectActionPlan(idval,commentId){
 //Accepting a ActionPlan (forward to PMO for Approval After this)
 //Need to Add Connecting to PMO Notification API (within success field of the ajax call)
 function acceptActionPlan(id){
-    var url = '{% url "Approve_Action_Plan" %}';
     $.ajax({
         type:"POST",
         url: 'approve_action_plan/',
@@ -159,6 +159,7 @@ function acceptActionPlan(id){
             console.log(errmsg);
         }
     });
+    sendNotificationPMO(id);
 }
 
 //Allow the user to send chat message by pressing the Enter Key
