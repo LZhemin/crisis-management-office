@@ -36,6 +36,7 @@ def index(Request):
             except ActionPlan.DoesNotExist:
                 context['ActionPlanForm'] = ActionPlanForm()
         else:
+            print(Request.POST);
             form = ActionPlanForm(Request.POST)
             context['ActionPlanForm'] = form
             #ADD SOME STUFF ABOUT FORCEFORM

@@ -46,9 +46,9 @@ $(document).ready(function() {
 });
 
 /* Basic Templating JS */
-function attachTemplateToData(template, data)
+function attachDataToTemplate(template, data)
 {
-    var len = data.len,
+    var len = data.length,
     fragment = '';
 
     function replace(obj) {
@@ -56,13 +56,11 @@ function attachTemplateToData(template, data)
 
         for (key in obj)
         {
-            reg = new RegExp('{{' + key + '}}', 'ig')
+            reg = new RegExp('<<' + key + '>>', 'ig')
             t = (t || template).replace(reg, obj[key])
         }
-
         return t;
     }
-
     for(var i = 0; i < len; i++)
     {
         fragment+= replace(data[i])

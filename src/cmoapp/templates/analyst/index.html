@@ -48,21 +48,23 @@
         //JSON Fucking up.
         var crisis = {{ False|jsonify }}
     {% endif %}
-        var forces = {{ all_forces|jsonify }}
     $(document).ready(function(){
-        //initCharts();
-        if(!crisis)
-        {
-            setTimeout(function(){ location.reload() },10000);
-        }
         /*
             Help me bind the form submission and figure out a way to display the raw data for the WSIWYG
             $('#mySubmission').val($('#editor').cleanHtml(true));
             $('#submitForm').submit()
             $('#id_description').wysiwyg()
         */
-        $("#addForces").on('click',function(){
-
+        $("#btnAddForce").on('click',function(){
+            var force_form_template = $("#force_form_template").html();
+            data = [{ "force_name":  $("#force-list option:selected").val() }];
+            var force_form = attachDataToTemplate(force_form_template, data);
+            $("#force-adder").append(force_form);
+            $(".dial").knob({
+                'min':0,
+                'max':50,
+                'angleArc':50
+            });
         });
     });
     function initMap(){
@@ -142,12 +144,12 @@
 {% endblock page_javascripts %}
 
 {% block js_templates %}
-
-
-<script type="text/html" id="template_force_form">
-    <input type="text" type="knob" name="">
+<script type="text/html" id="force_form_template">
+    <div class="row" id="force_<<force_name>>">
+        <div class="col-xs-6"><input type="text" class="dial" name="max_<<force_name>>" value=0></div>
+        <div class="col-xs-6"><input type="text" class="dial" name="recommended_<<force_name>>" value=0></div>
+    </div>
 </script>
-
 {% endblock js_templates %}
 
 {% block content %}
@@ -351,19 +353,21 @@
                                 <form class="form-horizontal" method="POST">
                                     {% csrf_token %}
                                     {{ form.non_field_errors }}
-                                    <div class="col-xs-12 col-sm-8">
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-                                                <button class="btn btn-block btn-info" id="addForce">Add Forces</button>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-8">
-                                            <select>
-                                                <option>------</option>
-                                                {}
-                                            </select>  
+                                            <div class="row" id="force-adder">
+                                                <div class="col-xs-6">
+                                                    <select class="form-control" id="force-list">
+                                                        <option>------</option>
+                                                        {% for force in all_force %}
+                                                        <option value="{{force.name|lower}}">{{force.name}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <button class="btn btn-info btn-block" type="button" id="btnAddForce">Add Force</button>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-4">
                                             <div class="form-group">
