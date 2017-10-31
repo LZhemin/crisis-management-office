@@ -7,8 +7,8 @@ from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan,
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions, status,generics
 from rest_framework.response import Response
-
-from cmoapp.serializers import CrisisSerializer, CrisisReportSerializer, ActionPlanSerializer, CommentSerializer
+from rest_framework.renderers import JSONRenderer
+from cmoapp.serializers import CrisisSerializer, CrisisReportSerializer, NineOneOneSerializerA, NineOneOneSerializerB, EFSerializer, ActionPlanSerializer, CommentSerializer, AuthSerializer, PMOSerializer
 
 import json
 #Kindly help to remove unwanted modules
@@ -58,9 +58,9 @@ def crisis_collection(request):
         return Response(serializer.data)
     elif request.method == 'POST':
         #need to change the data.get according
-        data = {'id': request.DATA.get('getcrisis'),
-                'analyst': request.DATA.get('getanalyst'),
-                'status': request.DATA.get('getstatus')
+        data = {'id': request.data.get('getcrisis'),
+                'analyst': request.data.get('getanalyst'),
+                'status': request.data.get('getstatus')
                 }
         serializer = CrisisSerializer(data=data)
         if serializer.is_valid():
@@ -97,22 +97,17 @@ def crisisreport_collection(request):
         serializer = CrisisReportSerializer(crisisreports, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
-        #need to change the data.get according
-        data = {'getcrisisreport': request.DATA.get('getcrisisreport'),
-                'getdescription': request.DATA.get('getdescription'),
-                'getdatetime': request.DATA.get('getdatetime'),
-                'getlatitude': request.DATA.get('getlatitude'),
-                'getlongitude': request.DATA.get('getlongitude'),
-                'getradius': request.DATA.get('getradius'),
-                'getcrisis': request.DATA.get('getcrisis'),
-                'getcrisisType': request.DATA.get('getcrisisType')
-                }
+        serializer = NineOneOneSerializerB(data=request.data)
 
-        serializer = CrisisReportSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    response_data = {}
+    response_data['Status'] = 'Failed!' #+ serializer.errors
+    response_data['Message'] = 'CrisisReport Not Captured!'
+
+    return Response( serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'DELETE'])
@@ -144,15 +139,15 @@ def actionplan_collection(request):
         return Response(serializer.data)
     elif request.method == 'POST':
         #need to change the data.get according
-        data = {'id': request.DATA.get('getactionplan'),
-                'description': request.DATA.get('getdescription'),
-                'status': request.DATA.get('getstatus'),
-                'COComments': request.DATA.get('getCOComments'),
-                'PMOComments': request.DATA.get('getPMOComments'),
-                'resolutionTime': request.DATA.get('getresolutionTime'),
-                'projectedCasualties': request.DATA.get('getprojectedCasualties'),
-                'type': request.DATA.get('gettype'),
-                'crisis': request.DATA.get('getcrisis')
+        data = {'id': request.data.get('getactionplan'),
+                'description': request.data.get('getdescription'),
+                'status': request.data.get('getstatus'),
+                'COComments': request.data.get('getCOComments'),
+                'PMOComments': request.data.get('getPMOComments'),
+                'resolutionTime': request.data.get('getresolutionTime'),
+                'projectedCasualties': request.data.get('getprojectedCasualties'),
+                'type': request.data.get('gettype'),
+                'crisis': request.data.get('getcrisis')
                 }
 
         serializer = ActionPlanSerializer(data=data)
@@ -187,46 +182,76 @@ def actionplan_element(request, pk):
 def auth_collection(request):
     if request.method == 'POST':
         #need to change the data.get according
-        getStatus = request.DATA.get('getApproval')
-        if getStatus == True:
-            data = {'id': request.DATA.get('getPlanID'),
-                    'description': request.DATA.get('getDesp'),
-                    'status': 'Approved',
-                    'resolutionTime': request.DATA.get('getResTime'),
-                    'projectedCasualties': request.DATA.get('getProCas'),
-                    'type': request.DATA.get('getType'),
-                    'crisis': request.DATA.get('getCrisisID'),
-                    }
-           # fields = ('id', 'description', 'status', 'resolutionTime', 'projectedCasualties', 'type', 'crisis')
-
-        elif getStatus == False:
-            data = {'id': request.DATA.get('getPlanID'),
-                    'description': request.DATA.get('getDesp'),
-                    'status': 'Rejected',
-                    'resolutionTime': request.DATA.get('getResTime'),
-                    'projectedCasualties': request.DATA.get('getProCas'),
-                    'type': request.DATA.get('getType'),
-                    'crisis': request.DATA.get('getCrisisID'),
-                    }
-            data2 = {'text': request.DATA.get('getPMOComments'),
-                    'author' : 'PMO',
-                    'timeCreated': timezone.now,
-                    'actionPlan': data.id,
-                    }
+        # getStatus = request.data.query_params('status',None)
+        # if getStatus == True:
+        #     data = {'id': request.get('getPlanID'),
+        #             #'description': request.data.get('getDesp'),
+        #             'status': 'Approved',
+        #             #'resolutionTime': request.data.get('getResTime'),
+        #             #'projectedCasualties': request.data.get('getProCas'),
+        #             #'type': request.data.get('getType'),
+        #             #'crisis': request.data.get('getCrisisID'),
+        #             }
+        #    # fields = ('id', 'description', 'status', 'resolutionTime', 'projectedCasualties', 'type', 'crisis')
+        #
+        # elif getStatus == False:
+        #     data = {'id': request.data.get('getPlanID'),
+        #             #'description': request.data.get('getDesp'),
+        #             'status': 'Rejected',
+        #             ##'resolutionTime': request.data.get('getResTime'),
+        #             #'projectedCasualties': request.data.get('getProCas'),
+        #             #'type': request.data.get('getType'),
+        #             #'crisis': request.data.get('getCrisisID'),
+        #             }
+        #     data2 = {'text': request.data.get('getPMOComments'),
+        #             'author' : 'PMO',
+        #             'timeCreated': timezone.now,
+        #             'actionPlan': data.id,
+        #             }
             #fields = ('id', 'text', 'author', 'timeCreated', 'actionPlan')
 
-        serializer = ActionPlanSerializer(data=data)#data=request.data
-        serializer2 = CommentSerializer(data=data2)
-
+        #serializer = ActionPlanSerializer(data=request.data)#data=request.data
+        #serializer2 = CommentSerializer(data=request.data,many=True)
+        serializer = AuthSerializer(data=request.data)
         response_data = {}
 
-        if serializer.is_valid() and serializer2.is_valid():
+        if serializer.is_valid(): #and serializer2.is_valid():
+            #serializer.validated_data
+            #datatest = JSONRenderer().render(serializer.validated_data)
+            #datatryout = json.loads(datatest)
+
             serializer.save()
-            serializer2.save()
+         #   serializer2.save()
             response_data['Status'] = 'Success!'
             response_data['Message'] = 'Approval Captured!'
             return Response(response_data, status=status.HTTP_201_CREATED)
 
         response_data['Status'] = 'Failed!'
         response_data['Message'] = 'Approval Not Captured!'
-        return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        #return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+
+
+##PMO########################################
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def PMO_collection(request,status=None):
+    print(status)
+    if request.method == 'GET':
+        crisis_list = Crisis.objects.filter(status=status)
+        serializer = PMOSerializer(crisis_list, many=True)
+        return Response(serializer.data)
+
+    #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+##EF########################################
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def EF_collection(request):
+    if request.method == 'GET':
+        efupdate_list = EFUpdate.objects.all()
+        serializer = EFSerializer(efupdate_list, many=True)
+        return Response(serializer.data)

@@ -35,6 +35,7 @@ class CrisisType(models.Model):
 #Crisis ID
 class Crisis(models.Model):
     #analyst is FK to crisis. This enables analyst to be deleted once the crisis is resolved
+    #name = models.TextField()
     analyst = models.OneToOneField(Account,blank=True,null=True,limit_choices_to={'type':'Analyst'}, on_delete=models.SET_NULL)
     STATUS = (
         ('Clean-up','Clean Up'),
@@ -146,7 +147,7 @@ class Comment(models.Model):
         return self.description[:140] + "..."
 
     def __str__(self):
-        return 'ID: {} - Author: {} - Comment: {}'.format(self.id, self.author,self.text)
+        return 'ID: {} - Author: {} - Comment: {} for Action Plan: {}'.format(self.id, self.author,self.text, self.actionPlan.id)
 
 class Force(models.Model):
     name = models.CharField(primary_key=True, max_length=200)
