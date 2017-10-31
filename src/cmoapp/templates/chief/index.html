@@ -259,20 +259,7 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <div class="col-sm-12 col-xs-12">
-                    <div class="tile-stats row padding">
-                        <h2 class="center">Current Force Utilisation</h2>
-                        <div class="col-sm-1"></div>
-                        {% for force in all_force%}
-                        <div class="animated flipInY col-sm-2 col-xs-12 padding">
-                            <div class="chart" data-percent="{{force.currentUtilisation}}">
-                                <div class ="percent">{{force.currentUtilisation}}%</div>
-                                <h2 class="center">{{force.name}}</h2>
-                            </div>
-                        </div>
-                        {%endfor%}
-                    </div>
-                </div>
+                {% include 'chief/ui_components/force_utilisation.html' %}
             </div>
         </div>
     </div>

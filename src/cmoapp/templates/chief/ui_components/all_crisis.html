@@ -1,19 +1,92 @@
-<div class="accordion" id="Crisis" role="tablist" aria-multiselectable="true">
+<div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
     {% for crisis in all_crisis %}
-    <div class="panel" id="crisis-{{crisis.pk}}">
+    <div class="panel" id="crisis{{crisis.pk}}">
         {% if crisis.status == 'Ongoing'%}
-        <a class="panel-heading collapsed alert-danger padding" role="tab" id="panelHeading{{crisis.id}}" onclick="filterMapCrisis({{crisis.id}})" data-toggle="collapse" data-parent="#accordion" href="#collapse{{crisis.id}}" aria-expanded="false" aria-controls="collapseTwo">
+        <a class="panel-heading collapsed alert-danger padding" role="tab" id="heading{{crisis.id}}" onclick="filterMapCrisis({{crisis.id}})" data-toggle="collapse" data-parent="#accordion" href="#collapse{{crisis.id}}" aria-expanded="false" aria-controls="collapse{{crisis.id}}">
             <span style="float:left;width:50%"><h3 class="panel-title">Crisis {{crisis.id}}</h3></span>
-            <span style="text-align:right;width:50%"><h3 class="panel-title">Status:&nbsp&nbsp<i class="fa fa-fighter-jet" aria-hidden="true"></i>&nbsp{{crisis.status}}</h3></span>
+            <span style="text-align:right;width:50%"><h3 class="panel-title">Status:&nbsp&nbsp&nbsp<i class="fa fa-fighter-jet" aria-hidden="true"></i>&nbsp&nbsp{{crisis.status}}</h3></span>
         </a>
         {% else%}
-        <a class="panel-heading collapsed alert-info" role="tab" id="panelHeading{{crisis.id}}" onclick="filterMapCrisis({{crisis.id}})" data-toggle="collapse" data-parent="#accordion" href="#collapse{{crisis.id}}" aria-expanded="false" aria-controls="collapseTwo">
+        <a class="panel-heading collapsed alert-info" role="tab" id="heading{{crisis.id}}" onclick="filterMapCrisis({{crisis.id}})" data-toggle="collapse" data-parent="#accordion" href="#collapse{{crisis.id}}" aria-expanded="false" aria-controls="collapse{{crisis.id}}">
             <span style="float:left;width:50%"><h3 class="panel-title">Crisis {{crisis.id}}</h3></span>
-            <span style="text-align:right;width:50%"><h3 class="panel-title">Status:&nbsp&nbsp<i class="fa fa-trash" aria-hidden="true"></i>&nbsp{{crisis.status}}</h3></span>
+            <span style="text-align:right;width:50%"><h3 class="panel-title">Status:&nbsp&nbsp&nbsp<i class="fa fa-trash" aria-hidden="true"></i>&nbsp&nbsp{{crisis.status}}
+            </h3></span>
         </a>
         {%endif%}
-        <div id="collapse{{crisis.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
+        <div id="collapse{{crisis.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panelHeading{{crisis.id}}" aria-expanded="false" style="height: 0px;">
             <div class="panel-body">
+                <div class="x_title">
+                    <div class="btn-group" style="width:100%">
+                        <h2 style="float: left;">Change Status to: &nbsp&nbsp</h2>
+                        {% if crisis.status == 'Ongoing'%}
+                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#cleanupModal{{crisis.id}}" style="float: right;">Clean-up</button>
+                        {% else%}
+                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#ongoingModal{{crisis.id}}" style="float: right;">Ongoing</button>
+                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#resolvedModal{{crisis.id}}" style="float: right;">Resolved</button>
+                        {%endif%}
+                        <!-- Modal For Changing Status to Ongoing-->
+                        <div class="modal fade bs-example-modal-sm" id='ongoingModal{{crisis.id}}' data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                        </button>
+                                        <h4 class="modal-title" ><i class="fa fa-warning"></i>&nbsp;&nbsp;Crisis {{crisis.id}} status Chaging!</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Please confirm that you are wish to change the status to Ongoing!</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="changeStatus({{crisis.id}},'Ongoing')"><i class="fa fa-check-circle" aria-hidden="true"></i>  Accept</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal For Changing Status to Clean-up-->
+                        <div class="modal fade bs-example-modal-sm" id='cleanupModal{{crisis.id}}' data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                        </button>
+                                        <h4 class="modal-title" ><i class="fa fa-warning"></i>&nbsp;&nbsp;Crisis {{crisis.id}} status Chaging!</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Please confirm that you are wish to change the status to Clean-Up!</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="changeStatus({{crisis.id}},'Clean-up')"><i class="fa fa-check-circle" aria-hidden="true"></i>  Accept</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal For Changing Status to Resolved-->
+                        <div class="modal fade bs-example-modal-sm" id='resolvedModal{{crisis.id}}' data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                        </button>
+                                        <h4 class="modal-title" ><i class="fa fa-warning"></i>&nbsp;&nbsp;Crisis {{crisis.id}} status Chaging!</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Please confirm that you are wish to change the status to Resolved!</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="changeStatus({{crisis.id}},'Resolved')"><i class="fa fa-check-circle" aria-hidden="true"></i>  Accept</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+
+                <h2> Actions Plans</h2>
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -47,61 +120,61 @@
                         </td>
                         <td>
                             {% if actionPlan.status != 'Planning' %}
-                                <a href="{% url 'Chief_Action_Plan_Detail' actionPlan.id %}" class="btn btn-primary btn-xs"><i
+                            <a href="{% url 'Chief_Action_Plan_Detail' actionPlan.id %}" class="btn btn-primary btn-xs"><i
                                     class="fa fa-eye"></i> View </a>
-                                {% if actionPlan.status == 'CORequest' %}
-                                <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModalAP{{actionPlan.id}}">
-                                    <i class="fa fa-check-circle" aria-hidden="true"></i>  Accept
-                                </button>
-                                <!-- Modal For Accepting Action Plan-->
-                                <div class="modal fade bs-example-modal-sm" id='acceptModalAP{{actionPlan.id}}' data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-                                    <div class="modal-dialog modal-sm">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
-                                                </button>
-                                                <h4 class="modal-title" >Accepting ActionPlan</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <h4>Please confirm that you are accepting the Action Plan?</h4>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="acceptActionPlan({{actionPlan.id}})"><i class="fa fa-check-circle" aria-hidden="true"></i>  Accept</button>
-                                            </div>
-
+                            {% if actionPlan.status == 'CORequest' %}
+                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#acceptModalAP{{actionPlan.id}}">
+                                <i class="fa fa-check-circle" aria-hidden="true"></i>  Accept
+                            </button>
+                            <!-- Modal For Accepting Action Plan-->
+                            <div class="modal fade bs-example-modal-sm" id='acceptModalAP{{actionPlan.id}}' data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                            </button>
+                                            <h4 class="modal-title" >Accepting ActionPlan</h4>
                                         </div>
+                                        <div class="modal-body">
+                                            <h4>Please confirm that you are accepting the Action Plan?</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="acceptActionPlan({{actionPlan.id}})"><i class="fa fa-check-circle" aria-hidden="true"></i>  Accept</button>
+                                        </div>
+
                                     </div>
                                 </div>
+                            </div>
 
 
-                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#rejectModalAP{{actionPlan.id}}">
-                                    <i class="fa fa-times-circle" aria-hidden="true"></i>  Reject
-                                </button>
-                                <!-- Modal For Rejecting of  Action Plan-->
-                                <div class="modal fade bs-example-modal-sm" id='rejectModalAP{{actionPlan.id}}' data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-                                    <div class="modal-dialog modal-sm">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span>
-                                                </button>
-                                                <h4 class="modal-title" >Reject ActionPlan</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <h4>Rejecting Action Plan Id:{{actionPlan.id}}</h4>
-                                                <p>Please Enter the reason for rejecting the ActionPlan:</p>
-                                                <textarea id="commentAP{{actionPlan.id}}" class="form-control"></textarea>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="rejectActionPlan({{actionPlan.id}},'commentAP{{actionPlan.id}}')"><i class="fa fa-times-circle" aria-hidden="true"></i>  Reject</button>
-                                            </div>
-
+                            <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#rejectModalAP{{actionPlan.id}}">
+                                <i class="fa fa-times-circle" aria-hidden="true"></i>  Reject
+                            </button>
+                            <!-- Modal For Rejecting of  Action Plan-->
+                            <div class="modal fade bs-example-modal-sm" id='rejectModalAP{{actionPlan.id}}' data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span>
+                                            </button>
+                                            <h4 class="modal-title" >Reject ActionPlan</h4>
                                         </div>
+                                        <div class="modal-body">
+                                            <h4>Rejecting Action Plan Id:{{actionPlan.id}}</h4>
+                                            <p>Please Enter the reason for rejecting the ActionPlan:</p>
+                                            <textarea id="commentAP{{actionPlan.id}}" class="form-control"></textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="rejectActionPlan({{actionPlan.id}},'commentAP{{actionPlan.id}}')"><i class="fa fa-times-circle" aria-hidden="true"></i>  Reject</button>
+                                        </div>
+
                                     </div>
                                 </div>
+                            </div>
                             {%endif%}
-                            </td>
+                        </td>
                         {%endif%}
                     </tr>
                     {% endfor %}

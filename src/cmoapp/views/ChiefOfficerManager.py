@@ -14,6 +14,9 @@ def index(Request):
         crisis = Crisis.objects.all().exclude(status='Resolved')
         forces = Force.objects.all()
         efUpdatesCount = EFUpdate.objects.count()
+        forceWidth = int(12/Force.objects.count())
+        sideWidth =  int((12-forceWidth*Force.objects.count())/2)
+
     except(KeyError, Crisis.DoesNotExist):
 
         context = {'all_crisis': False}
@@ -21,24 +24,42 @@ def index(Request):
         context = {
             'all_crisis': crisis,
             'all_force':forces,
-            'efUpdateCount': efUpdatesCount
+            'efUpdateCount': efUpdatesCount,
+            'forceWidth':forceWidth,
+            'sideWidth':sideWidth
         }
         return render(Request, 'chief/index.html', context)
 
+# Changing the status from here need to add post resolved methods here
+def change_status(request):
+    try:
+        crisis_id = request.POST['id']
+        new_status = request.POST['status']
+        crisis = Crisis.objects.get(id=crisis_id)
+    except(KeyError, crisis.DoesNotExist):
+        return JsonResponse({'success': False, 'error': 'Error in retrieving efupdates!'})
+
+    crisis.status = new_status;
+    crisis.save();
+
+    return JsonResponse({'success': True, 'message': 'Crisis '+crisis_id+'Status Changed to '+new_status})
+
+
+
 
 def get_efupdates_count(request):
-    efCount = EFUpdate.objects.count
-    return JsonResponse(('json', efCount), safe=False)
+    efCount = EFUpdate.objects.count()
+    return JsonResponse({'count':efCount}, safe=False)
 
 def get_efupdates(request):
     try:
-        startNum = request['startNum']
+        startNum = int(request.POST['startNum'])
         efUpdates = EFUpdate.objects.all()[startNum:]
-    except(KeyError, startNum.DoesNotExist):
+    except(KeyError):
         return JsonResponse({'success':False,'error':'Error in retrieving efupdates!'})
 
-
-    return JsonResponse(serializers.serialize('Json',efUpdates), safe=False)
+    data = serializers.serialize('json',efUpdates)
+    return JsonResponse(data, safe=False)
 
 def sendDeployment(request, CrisisID):
     latest_actionplan_list = ActionPlan.objects.order_by('-crisis')[:5]

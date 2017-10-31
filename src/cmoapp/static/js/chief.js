@@ -1,5 +1,7 @@
 //Collapse to the right
+var efCount = -1;
 $(document).ready(function() {
+    //Collapse to the right code
     $('.collapse-link-right').on('click', function () {
         var $BOX_PANEL = $(this).closest('.x_content'),
             $TOGGLE_PANEL = $($(this).attr('id')),
@@ -69,6 +71,33 @@ $.ajaxSetup({
         xhr.setRequestHeader("X-CSRFToken", csrfToken);
     }
 });
+
+//Change Status of the Crisis
+function changeStatus(id,status){
+    $.ajax({
+        type:"POST",
+        url: "change_status/",
+        data: { id: id, status: status},
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+            new PNotify({
+                title: "Crisis Status Changed!",
+                text: "Crisis "+id+" Status Changed to "+status+"!",
+                type: 'success',
+                styling: 'bootstrap3'
+            });
+            $('#collapse'+id).addClass('collapse');
+            window.setTimeout(function(){
+                reload_table();
+                reload_crisis();
+            },150);
+        },
+        error: function(data){
+            console.log(data);
+        }
+    });
+}
 
 //Rejecting a ActionPlan function called
 function rejectActionPlan(idval,commentId){
@@ -159,37 +188,21 @@ function checkIfCrisisInactive(){
 }
 
 function filterMapCrisis(id){
-    if(!checkIfCrisisInactive()){
-        for (i = 0; i < markers.length; i++) {
-            markers[i][0].setVisible(true);
-            circles[i].setVisible(true);
-        }
-    }
-    else{
-        for (i = 0; i < markers.length; i++) {
-            if(markers[i][1]==id){
-                markers[0].setVisible(true);
-                circles[i].setVisible(true);
-            }
-            else{
-                markers[0].setVisible(false);
-                circles[i].setVisible(false);
-            }
-        }
-    }
-}
-
-function filterMapCrisis(id){
     var text;
+    //Dont Filter anything if no Crisis Selected
     if(!checkIfCrisisInactive()){
         for (i = 0; i < markers.length; i++) {
             markers[i][0].setVisible(true);
             circles[i].setVisible(true);
-            $('#efCrisis'+i).show();
         }
-        text = "Map is no longer being filtered by any Crisis ID!";
 
+        //Show all EFUpdates
+        $('#efUpdateList').find('li').each(function(){
+            $(this).show();
+        });
+        text = "Site no longer being filtered by Crisis ID!";
     }
+    //Filter if Crisis is selected
     else{
         for (i = 0; i < markers.length; i++) {
             if(markers[i][1]==id){
@@ -201,13 +214,19 @@ function filterMapCrisis(id){
                 circles[i].setVisible(false);
             }
         }
-        $('#efCrisis'+id).show();
-        $('#efCrisis'+id).siblings.hide();
-        text = "Map is being filtered by Crisis ID: "+id+"!";
+        //Filter the EFUpdates based on the Crisis Selected
+        $('#efUpdateList').find('li').each(function(){
+            var div = $(this).find('div')[0];
+            if(div.id==('efCrisis'+(id)))
+                $(this).show();
+            else
+                $(this).hide();
+        });
+        text = "Showing Stats of Crisis ID: "+id+"!";
     }
 
     new PNotify({
-        title: 'Map Filtered by Crisis',
+        title: 'Stats Filtered by Crisis',
         text: text,
         type: 'info',
         styling: 'bootstrap3'
@@ -234,8 +253,60 @@ setInterval(function()
         if($('.modal:visible').size()==0)
             reload_table();
     }
+    checkEfUpdate();
 
 }, 30000);
+
+//Checking for New EFUpdates
+function checkEfUpdate(){
+    $.ajax({
+        type:"GET",
+        url: "get_efupdate_count/",
+        dataType: 'json',
+        success: function (data) {
+            var newEfCount = data['count'];
+            if(efCount==-1)
+                efCount = newEfCount;
+            else if(efCount<newEfCount) {
+                reloadEfUpdate(efCount);
+                efCount = newEfCount
+            }
+        },
+        error: function(data){
+            console.log(data);
+        }
+    });
+}
+
+function reloadEfUpdate(count){
+    var array = [];
+    var html = "";
+    $.ajax({
+        type:"POST",
+        url: "get_efupdates/",
+        data:{'startNum':count},
+        dataType: 'json',
+        success: function (data) {
+            array = JSON.parse(data);
+            console.log(array[0]['fields']);
+            for(update in array){
+                html += "<li><div id='efCrisis"+array[update]['fields']['crisis']+"' class='block'>" +
+                            "<div class='block_content'> " +
+                                "<h2 class='title'>Crisis "+array[update]['fields']['crisis']+"</h2> " +
+                                "<div class='byline'>Posted on "+array[update]['fields']['datetime']+"</div> " +
+                                    "<p class='excerpt'>"+array[update]['fields']['description']+"</p> " +
+                                "</div> " +
+                            "</div> " +
+                        "</li>";
+            }
+            $('#efUpdateList').append(html);
+        },
+        error: function(data){
+            console.log(data);
+        }
+    });
+}
+
 
 //reloads the action_plan_table template
 function reload_table() {
