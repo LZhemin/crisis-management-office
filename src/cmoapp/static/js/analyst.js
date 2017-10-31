@@ -44,3 +44,27 @@ $(document).ready(function() {
         $ICON.toggleClass('fa-chevron-right fa-chevron-left');*/
     });
 });
+
+/* Basic Templating JS */
+function attachDataToTemplate(template, data)
+{
+    var len = data.length,
+    fragment = '';
+
+    function replace(obj) {
+        var t, key, reg
+
+        for (key in obj)
+        {
+            reg = new RegExp('<<' + key + '>>', 'ig')
+            t = (t || template).replace(reg, obj[key])
+        }
+        return t;
+    }
+    for(var i = 0; i < len; i++)
+    {
+        fragment+= replace(data[i])
+    }
+
+    return fragment;
+}

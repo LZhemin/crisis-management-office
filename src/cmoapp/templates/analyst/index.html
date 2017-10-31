@@ -49,17 +49,23 @@
         var crisis = {{ False|jsonify }}
     {% endif %}
     $(document).ready(function(){
-        //initCharts();
-        if(!crisis)
-        {
-            setTimeout(function(){ location.reload() },10000);
-        }
         /*
             Help me bind the form submission and figure out a way to display the raw data for the WSIWYG
             $('#mySubmission').val($('#editor').cleanHtml(true));
             $('#submitForm').submit()
             $('#id_description').wysiwyg()
         */
+        $("#btnAddForce").on('click',function(){
+            var force_form_template = $("#force_form_template").html();
+            data = [{ "force_name":  $("#force-list option:selected").val() }];
+            var force_form = attachDataToTemplate(force_form_template, data);
+            $("#force-adder").append(force_form);
+            $(".dial").knob({
+                'min':0,
+                'max':50,
+                'angleArc':50
+            });
+        });
     });
     function initMap(){
         var map = new google.maps.Map(document.getElementById("map"),{
@@ -137,6 +143,15 @@
 
 {% endblock page_javascripts %}
 
+{% block js_templates %}
+<script type="text/html" id="force_form_template">
+    <div class="row" id="force_<<force_name>>">
+        <div class="col-xs-6"><input type="text" class="dial" name="max_<<force_name>>" value=0></div>
+        <div class="col-xs-6"><input type="text" class="dial" name="recommended_<<force_name>>" value=0></div>
+    </div>
+</script>
+{% endblock js_templates %}
+
 {% block content %}
 <div class="right_col">
     {% if assigned_crisis %}
@@ -184,36 +199,35 @@
                     </div>
                 </div>
                 <div class="row">
-
-        <div class="x_panel">
-            <div class="x_title">
-                <h2>Current Statistics</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li>
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                    </li>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <div class="col-sm-12 col-xs-12">
-                    <div class="tile-stats row padding">
-                        <h2 class="center">Current Force Utilisation</h2>
-                        <div class="col-sm-1"></div>
-                        {% for force in all_force%}
-                        <div class="animated flipInY col-sm-2 col-xs-12 padding">
-                            <div class="chart" data-percent="{{force.currentUtilisation}}">
-                                <div class ="percent">{{force.currentUtilisation}}%</div>
-                                <h2 class="center">{{force.name}}</h2>
+                   <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Current Statistics</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li>
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="tile-stats row padding">
+                                    <h2 class="center">Current Force Utilisation</h2>
+                                    <div class="col-sm-1"></div>
+                                    {% for force in all_force%}
+                                    <div class="animated flipInY col-sm-2 col-xs-12 padding">
+                                        <div class="chart" data-percent="{{force.currentUtilisation}}">
+                                            <div class ="percent">{{force.currentUtilisation}}%</div>
+                                            <h2 class="center">{{force.name}}</h2>
+                                        </div>
+                                    </div>
+                                    {%endfor%}
+                                </div>
                             </div>
                         </div>
-                        {%endfor%}
                     </div>
-                </div>
-            </div>
-        </div>
                 </div>
             </div>
         </div>
@@ -340,17 +354,32 @@
                                     {% csrf_token %}
                                     {{ form.non_field_errors }}
                                     <div class="row">
+                                        <div class="col-xs-12 col-sm-8">
+                                            <div class="row" id="force-adder">
+                                                <div class="col-xs-6">
+                                                    <select class="form-control" id="force-list">
+                                                        <option>------</option>
+                                                        {% for force in all_force %}
+                                                        <option value="{{force.name|lower}}">{{force.name}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <button class="btn btn-info btn-block" type="button" id="btnAddForce">Add Force</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="col-xs-12 col-sm-4">
+                                            <div class="form-group">
                                             {% render_label ActionPlanForm.type class="control-label" content="Plan Type:" %}
                                             {% render_field ActionPlanForm.type class="form-control" %}
                                             {{ ActionPlanForm.type.errors }}
-                                        </div>
-                                        <div class="col-xs-12 col-sm-4">
+                                            </div>
+                                            <div class="form-group">
                                             {% render_label ActionPlanForm.projected_casualties class="control-label" %}
                                             {% render_field ActionPlanForm.projected_casualties class="form-control" value=0 %}
                                             {{ ActionPlanForm.projected_casualties.errors }}
-                                        </div>
-                                        <div class="col-xs-12 col-sm-4">
+                                            </div>
                                             <div class="form-group">
                                                 {% render_label ActionPlanForm.duration_type class="control-label" %}
                                                 {% render_field ActionPlanForm.duration_type class="form-control" %}
@@ -365,7 +394,6 @@
                                     </div>
                                     <div class="form-group">
                                         {% render_label ActionPlanForm.description class="control-label" %}
-                                        {% include 'analyst/ui_components/wysiwyg_toolbar.html' %}
                                         {% render_field ActionPlanForm.description class="form-control" rows=20 %}
                                         {{ ActionPlanForm.description.errors }}
                                     </div>

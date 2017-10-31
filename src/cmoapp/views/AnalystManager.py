@@ -2,8 +2,9 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment
-from cmoapp.forms.analyst import ActionPlanForm
+from cmoapp.forms.analyst import ActionPlanForm, ForceForm
 from django.views.generic import ListView,DetailView
+from rest_framework.serializers import ModelSerializer
 #Future use in session-based views
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -17,13 +18,15 @@ def index(Request):
         assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
         crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
         actionPlanList = ActionPlan.objects.filter(crisis_id=assigned_crisis.id).exclude(status='Planning')
+        all_forces = Force.objects.all()
     except(KeyError, Crisis.DoesNotExist):
         context = {'assigned_crisis': False}
     else:
         context = {
             'assigned_crisis': assigned_crisis,
             'crisis_reports': crisis_reports,
-            'ActionPlanList': actionPlanList
+            'ActionPlanList': actionPlanList,
+            'all_force': all_forces
         }
         if(Request.method == "GET"):
             #WHY DJANGO WHY DONT YOU HAVE AN INBUILT GET OBJECT_OR_NONE
@@ -33,8 +36,10 @@ def index(Request):
             except ActionPlan.DoesNotExist:
                 context['ActionPlanForm'] = ActionPlanForm()
         else:
+            print(Request.POST);
             form = ActionPlanForm(Request.POST)
             context['ActionPlanForm'] = form
+            #ADD SOME STUFF ABOUT FORCEFORM
             if form.is_valid():
                 if(Request.POST['submitType'] == "Save"):
                     form.update_or_create(assigned_crisis,"Planning")
@@ -45,6 +50,7 @@ def index(Request):
     return render(Request, 'analyst/index.html',context)
 
 def crisis_statistics(Request):
+
     pass
 
 def historicalData(Request):
@@ -153,44 +159,6 @@ def submitActionPlan(request, Crisis_id):
         actionPlan.save()  # save to database
         return HttpResponseRedirect(reverse('cmoapp:base_site', args=(Crisis_id,)))
 
-
-def getCrisis(request, analyst_id):
-    latest_crisis_list = Crisis.objects.order_by('-datetime')[:5]
-    # output = ', '.join([l.Location for l in latest_crisis_list])
-    context = {'latest_crisis_list': latest_crisis_list}
-    try:
-        forCrisis = request.POST['crisis']
-        selectedCrisisMarker = Crisis.crisis_set.get(forCrisis)
-    except(KeyError, selectedCrisisMarker.DoesNotExist):
-    # Redisplay
-        return render(request, 'analyst/base_site.html', {
-            context,
-            {'error_message': "You didn't select a Crisis."}
-        })
-    else:
-        return HttpResponseRedirect(reverse('cmoapp:base_site', args=(analyst_id)))
-
-
-def editActionPlan(Request, Crisis_id):
-    latest_actionplan_list = ActionPlan.objects.order_by('-crisis')[:5]
-    # output = ', '.join([l.Location for l in latest_actionplan_list])
-    context = {'latest_actionplan_list': latest_actionplan_list}
-
-    try:
-        actionPlan = Request.POST['ActionPlan']
-        selectedActionPlan = ActionPlan.ActionPlan.get(ActionPlan)
-    except(KeyError, selectedActionPlan.DoesNotExist):
-    # Redisplay
-        return render(Request, 'analyst/base_site.html', {
-            context,
-            {'error_message': "You didn't select a Actionplan."}
-        })
-    else:
-        return HttpResponseRedirect(reverse('cmoapp:base_site', args=(Crisis_id,)))
-
-
-
-
 #Add the LoginRequiredMixin as the leftmost inheritance
 class ActionPlanList(ListView):
     context_object_name = "ActionPlanList"
@@ -203,3 +171,8 @@ class ActionPlanDetail(DetailView):
     context_object_name = "Action_Plan"
     template_name='analyst/actionplan_detail.html'
     model = ActionPlan
+
+class AnalystCrisisSerializer(ModelSerializer):
+    class Meta:
+        model = Crisis
+        fields = ('id', 'text', 'author', 'timeCreated', 'actionPlan')
