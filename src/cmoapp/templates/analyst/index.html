@@ -310,18 +310,25 @@
                                 <form class="form-horizontal" method="POST">
                                     {% csrf_token %}
                                     {{ form.non_field_errors }}
+                                    <div class="col-xs-12 col-sm-8">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                                                <button class="btn btn-block btn-info">Add Forces</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-4">
+                                            <div class="form-group">
                                             {% render_label ActionPlanForm.type class="control-label" content="Plan Type:" %}
                                             {% render_field ActionPlanForm.type class="form-control" %}
                                             {{ ActionPlanForm.type.errors }}
-                                        </div>
-                                        <div class="col-xs-12 col-sm-4">
+                                            </div>
+                                            <div class="form-group">
                                             {% render_label ActionPlanForm.projected_casualties class="control-label" %}
                                             {% render_field ActionPlanForm.projected_casualties class="form-control" value=0 %}
                                             {{ ActionPlanForm.projected_casualties.errors }}
-                                        </div>
-                                        <div class="col-xs-12 col-sm-4">
+                                            </div>
                                             <div class="form-group">
                                                 {% render_label ActionPlanForm.duration_type class="control-label" %}
                                                 {% render_field ActionPlanForm.duration_type class="form-control" %}
@@ -336,7 +343,6 @@
                                     </div>
                                     <div class="form-group">
                                         {% render_label ActionPlanForm.description class="control-label" %}
-                                        {% include 'analyst/ui_components/wysiwyg_toolbar.html' %}
                                         {% render_field ActionPlanForm.description class="form-control" rows=20 %}
                                         {{ ActionPlanForm.description.errors }}
                                     </div>
