@@ -97,7 +97,7 @@ def crisisreport_collection(request):
         serializer = CrisisReportSerializer(crisisreports, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
-        serializer = NineOneOneSerializerB(data=request.data)
+        serializer = NineOneOneSerializerA(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
