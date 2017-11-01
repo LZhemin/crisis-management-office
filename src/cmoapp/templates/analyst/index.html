@@ -221,13 +221,20 @@
             </div>
             <div class="x_content">
                 <div class="row">
-                    <div class="animated flipInY col-sm-4 col-xs-12">
-                        <div class="tile-stats">
-                            <div class="icon">
+                     <div class="animated flipInY col-sm-4 col-xs-12">
+                         {% if assigned_crisis.status == 'Clean-up' %}
+                        <div class="tile-stats alert-info">
+                            <div class="icon" style="color: white;">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </div>
+                        {%else%}
+                        <div class="tile-stats alert-danger">
+                            <div class="icon" style="color: white;">
                                 <i class="fa fa-fighter-jet" aria-hidden="true"></i>
                             </div>
+                            {%endif%}
                             <div class="count">{{ assigned_crisis.get_status_display }}</div>
-                            <h3>Crisis Status</h3>
+                            <h3 style="color: white;">Crisis Status</h3>
                         </div>
                     </div>
                     <div class="animated flipInY col-sm-4 col-xs-12">
@@ -298,7 +305,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <ul class="list-unstyled timeline widget">
+                    <ul id="911ReportList" class="list-unstyled timeline widget">
                         {% for report in assigned_crisis.crisisreport_set.all %}
                         <li>
                             <div id="{{ report.id }}" class="block">
@@ -331,7 +338,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <ul class="list-unstyled timeline widget">
+                    <ul id='EFUpdateList' class="list-unstyled timeline widget">
                         {% for report in assigned_crisis.efupdate_set.all %}
                         <li>
                             <div class="block">
@@ -473,7 +480,7 @@
                             </div>
                         </div>
                         <div class="x_content">
-                            <div class="mail_list_column">
+                            <div id="commentList" class="mail_list_column">
                                 {% for actionPlan in ActionPlanList %}
                                 {% if actionPlan.comment %}
                                 <div class="mail_list">
