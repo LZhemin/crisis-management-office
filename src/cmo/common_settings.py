@@ -85,6 +85,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -132,11 +133,14 @@ INSTALLED_APPS = (
     #Fucking Django making it so hard to customize form input css classes
     'widget_tweaks',
 	'rest_framework',
+    'corsheaders',
     # Uncomment the next line to enable the admin:
 
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
