@@ -33,13 +33,28 @@
         margin-bottom: 10px;
     }
 
+    .accordion .panel-heading
+    {
+        background: #F2F5F7;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 100%;
+        display: block
+    }
+
+    .accordion .panel:hover
+    {
+        border: 3px solid #F2F5F7;
+        background: #fff;
+    }
+
 </style>
 {% endblock page_stylesheets %}
 
 {% block page_javascripts %}
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDacnVEtNIWnbMCw_QI94kynm0_ytIalQ&callback=initMap"
-  type="text/javascript"></script>
-
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDacnVEtNIWnbMCw_QI94kynm0_ytIalQ&callback=initMap" type="text/javascript"></script>
 <script type="text/javascript">
     {% if assigned_crisis %}
         //JSON Fucking up.
@@ -48,25 +63,34 @@
         //JSON Fucking up.
         var crisis = {{ False|jsonify }}
     {% endif %}
+        var forces = {{ json_force|jsonify }}
+
     $(document).ready(function(){
-        /*
-            Help me bind the form submission and figure out a way to display the raw data for the WSIWYG
-            $('#mySubmission').val($('#editor').cleanHtml(true));
-            $('#submitForm').submit()
-            $('#id_description').wysiwyg()
-        */
         $("#btnAddForce").on('click',function(){
             var force_form_template = $("#force_form_template").html();
-            data = [{ "force_name":  $("#force-list option:selected").val() }];
+            var chosen_force = $("#force-list option:selected").val();
+            data = [{
+                "force_name":  $("#force-list option:selected").val(),
+                "force_name_display": $("#force-list option:selected").text()
+            }];
             var force_form = attachDataToTemplate(force_form_template, data);
-            $("#force-adder").append(force_form);
-            $(".dial").knob({
+            $("#force_panels").append(force_form);
+            $("#force-list option[value="+chosen_force+"]").hide();
+            $("#force-list :first-child").prop('selected',true);
+            $("#panel_" + chosen_force).slideDown();
+            $("#panel_" + chosen_force + " .dial").knob({
                 'min':0,
                 'max':50,
-                'angleArc':50
+                'angleArc':360
+            });
+            $("#force_close_" + chosen_force).on('click', function(e){
+                var force = e.target.dataset.delete;
+                $("#panel_"+force).remove();
+                $("#force-list option[value="+force+"]").show();
             });
         });
     });
+
     function initMap(){
         var map = new google.maps.Map(document.getElementById("map"),{
             zoom: 12,
@@ -139,18 +163,45 @@
         {% endif %}
     }
 
+    /*
+    function trigger_update()
+    {
+        console.log(forces);
+        for(var i = 0; i < forces.length; i++)
+        {
+
+        }
+    }
+    */
+
 </script>
 
 {% endblock page_javascripts %}
 
 {% block js_templates %}
 <script type="text/html" id="force_form_template">
-    <div class="row" id="force_<<force_name>>">
-        <div class="col-xs-6"><input type="text" class="dial" name="max_<<force_name>>" value=0></div>
-        <div class="col-xs-6"><input type="text" class="dial" name="recommended_<<force_name>>" value=0></div>
+    <div class="panel" id="panel_<<force_name>>" style="display:none">
+        <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#force_panel" href="#collapse_<<force_name>>" aria-expanded="true" aria-controls="collapse_<<force_name>>">
+            <div class="row">
+                <div class="col-xs-11"><p class="panel-title">Force Deployment : <<force_name_display>></p></div>
+                <div class="col-xs-1 text-center">
+                    <i class="fa fa-close" id="force_close_<<force_name>>" data-delete="<<force_name>>"></i>
+                </div>
+            </div>
+        </a>
+        <div id="collapse_<<force_name>>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading_<<force_name>>" aria-expanded="true">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-5 col-xs-offset-1 text-center"><input type="text" class="dial" data-width="80%" name="max_<<force_name>>" value=0></div>
+                    <div class="col-xs-5 text-center"><input type="text" class="dial" data-width="80%" name="recommended_<<force_name>>" value=0>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </script>
 {% endblock js_templates %}
+
 
 {% block content %}
 <div class="right_col">
@@ -170,7 +221,7 @@
             </div>
             <div class="x_content">
                 <div class="row">
-                     <div class="animated flipInY col-sm-4 col-xs-12">
+                    <div class="animated flipInY col-sm-4 col-xs-12">
                         <div class="tile-stats">
                             <div class="icon">
                                 <i class="fa fa-fighter-jet" aria-hidden="true"></i>
@@ -199,7 +250,7 @@
                     </div>
                 </div>
                 <div class="row">
-                   <div class="x_panel">
+                    <div class="x_panel">
                         <div class="x_title">
                             <h2>Current Statistics</h2>
                             <ul class="nav navbar-right panel_toolbox">
@@ -219,7 +270,7 @@
                                     {% for force in all_force%}
                                     <div class="animated flipInY col-sm-2 col-xs-12 padding">
                                         <div class="chart" data-percent="{{force.currentUtilisation}}">
-                                            <div class ="percent">{{force.currentUtilisation}}%</div>
+                                            <div class="percent">{{force.currentUtilisation}}%</div>
                                             <h2 class="center">{{force.name}}</h2>
                                         </div>
                                     </div>
@@ -260,7 +311,7 @@
                             </div>
                         </li>
                         {% empty %}
-                            <span>No Reports Yet</span>
+                        <span>No Reports Yet</span>
                         {% endfor %}
                     </ul>
                 </div>
@@ -293,7 +344,7 @@
                             </div>
                         </li>
                         {% empty %}
-                            <span>No Reports Yet</span>
+                        <span>No Reports Yet</span>
                         {% endfor %}
                     </ul>
                 </div>
@@ -336,75 +387,83 @@
                 <div class="x_content">
                     <div id="own" class="col-sm-9 col-xs-12 sideBorder" style="height:100%;">
                         <div role="tabpanel" data-example-id="togglable-tabs">
-                          <ul id="myTab" class="nav nav-tabs nav-justified" role="tablist">
-                            <li role="presentation" class="active"><a href="#current" id="current-tab" role="tab" data-toggle="tab" aria-expanded="true">Create Action Plan</a>
-                            </li>
-                            <li role="presentation" class=""><a href="#previous" role="tab" id="previous-tab" data-toggle="tab" aria-expanded="false">Submitted Action Plans</a>
-                            </li>
-                            <li>
-                                <a id="#comments" class="collapse-link-right">
-                                    Comments
-                                    <i class="fa fa-chevron-right right"></i>
-                                </a>
-                            </li>
-                          </ul>
-                          <div id="myTabContent" class="tab-content">
-                            <div role="tabpanel" class="tab-pane fade active in" id="current" aria-labelledby="current-tab">
-                                <form class="form-horizontal" method="POST">
-                                    {% csrf_token %}
-                                    {{ form.non_field_errors }}
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-8">
-                                            <div class="row" id="force-adder">
-                                                <div class="col-xs-6">
-                                                    <select class="form-control" id="force-list">
-                                                        <option>------</option>
-                                                        {% for force in all_force %}
-                                                        <option value="{{force.name|lower}}">{{force.name}}</option>
-                                                        {% endfor %}
-                                                    </select>
+                            <ul id="myTab" class="nav nav-tabs nav-justified" role="tablist">
+                                <li role="presentation" class="active"><a href="#current" id="current-tab" role="tab" data-toggle="tab" aria-expanded="true">Create Action Plan</a>
+                                </li>
+                                <li role="presentation" class=""><a href="#previous" role="tab" id="previous-tab" data-toggle="tab" aria-expanded="false">Submitted Action Plans</a>
+                                </li>
+                                <li>
+                                    <a id="#comments" class="collapse-link-right">
+                                        Comments
+                                        <i class="fa fa-chevron-right right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade active in" id="current"
+                                     aria-labelledby="current-tab">
+                                    <form class="form-horizontal" method="POST">
+                                        {% csrf_token %}
+                                        {{ form.non_field_errors }}
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-8">
+                                                <div class="row" id="force-adder">
+                                                    <div class="col-xs-6">
+                                                        <select class="form-control" id="force-list">
+                                                            <option>------</option>
+                                                            {% for force in all_force %}
+                                                            <option value="{{force.name|lower}}">{{force.name}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <button class="btn btn-info btn-block" type="button"
+                                                                id="btnAddForce">Add Force
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <div class="col-xs-6">
-                                                    <button class="btn btn-info btn-block" type="button" id="btnAddForce">Add Force</button>
+                                                <div class="accordion" id="force_panels" role="tablist" aria-multiselectable="true"></div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-4">
+                                                <div class="form-group">
+                                                    {% render_label ActionPlanForm.type class="control-label" content="Plan Type:" %}
+                                                    {% render_field ActionPlanForm.type class="form-control" %}
+                                                    {{ ActionPlanForm.type.errors }}
                                                 </div>
+                                                <div class="form-group">
+                                                    {% render_label ActionPlanForm.projected_casualties class="control-label" %}
+                                                    {% render_field ActionPlanForm.projected_casualties class="form-control" value=0 %}
+                                                    {{ ActionPlanForm.projected_casualties.errors }}
+                                                </div>
+                                                <div class="form-group">
+                                                    {% render_label ActionPlanForm.duration_type class="control-label" %}
+                                                    {% render_field ActionPlanForm.duration_type class="form-control" %}
+                                                </div>
+                                                <div class="form-group">
+                                                    {% render_label ActionPlanForm.duration_count class="control-label" %}
+                                                    {% render_field ActionPlanForm.duration_count class="form-control"value=0 %}
+                                                </div>
+                                                {{ ActionPlanForm.duration_type.errors }}
+                                                {{ ActionPlanForm.duration_count.errors }}
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-sm-4">
-                                            <div class="form-group">
-                                            {% render_label ActionPlanForm.type class="control-label" content="Plan Type:" %}
-                                            {% render_field ActionPlanForm.type class="form-control" %}
-                                            {{ ActionPlanForm.type.errors }}
-                                            </div>
-                                            <div class="form-group">
-                                            {% render_label ActionPlanForm.projected_casualties class="control-label" %}
-                                            {% render_field ActionPlanForm.projected_casualties class="form-control" value=0 %}
-                                            {{ ActionPlanForm.projected_casualties.errors }}
-                                            </div>
-                                            <div class="form-group">
-                                                {% render_label ActionPlanForm.duration_type class="control-label" %}
-                                                {% render_field ActionPlanForm.duration_type class="form-control" %}
-                                            </div>
-                                            <div class="form-group">
-                                                {% render_label ActionPlanForm.duration_count class="control-label" %}
-                                                {% render_field ActionPlanForm.duration_count class="form-control" value=0 %}
-                                            </div>
-                                            {{ ActionPlanForm.duration_type.errors }}
-                                            {{ ActionPlanForm.duration_count.errors }}
+                                        <div class="form-group">
+                                            {% render_label ActionPlanForm.description class="control-label" %}
+                                            {% render_field ActionPlanForm.description class="form-control" rows=20 %}
+                                            {{ ActionPlanForm.description.errors }}
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        {% render_label ActionPlanForm.description class="control-label" %}
-                                        {% render_field ActionPlanForm.description class="form-control" rows=20 %}
-                                        {{ ActionPlanForm.description.errors }}
-                                    </div>
-                                    <button type="submit" class="btn btn-save" name="submitType" value="Save">Save Action Plan</button>
-                                    <button type="submit" class="btn btn-success" name="submitType" value="Submit">Submit Action Plan</button>
-                                </form>
+                                        <button type="submit" class="btn btn-save" name="submitType" value="Save">Save
+                                            Action Plan
+                                        </button>
+                                        <button type="submit" class="btn btn-success" name="submitType" value="Submit">
+                                            Submit Action Plan
+                                        </button>
+                                    </form>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="previous" aria-labelledby="previous-tab">
+                                    {% include 'analyst/ui_components/action_plan_table.html' %}
+                                </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane fade" id="previous" aria-labelledby="previous-tab">
-                              {% include 'analyst/ui_components/action_plan_table.html' %}
-                            </div>
-                          </div>
                         </div>
                     </div>
                     <div id="comments" class="col-sm-3 col-xs-12">
@@ -416,17 +475,17 @@
                         <div class="x_content">
                             <div class="mail_list_column">
                                 {% for actionPlan in ActionPlanList %}
-                                    {% if actionPlan.comment %}
-                                    <div class="mail_list">
-                                        <div style="padding-left: 1em;">
-                                            <h3>{{actionPlan.comment.get_author_display}}</h3>
-                                            <div>
-                                                <p class="small"><span style="float:left">Plan Number: {{ actionPlan.plan_number }}</span>&nbsp<span style="float:right">{{actionPlan.comment.timeCreated}}</span></p>
-                                            </div>
-                                            <p>{{actionPlan.comment.text}}</p>
+                                {% if actionPlan.comment %}
+                                <div class="mail_list">
+                                    <div style="padding-left: 1em;">
+                                        <h3>{{actionPlan.comment.get_author_display}}</h3>
+                                        <div>
+                                            <p class="small"><span style="float:left">Plan Number: {{ actionPlan.plan_number }}</span>&nbsp<span style="float:right">{{actionPlan.comment.timeCreated}}</span></p>
                                         </div>
+                                        <p>{{actionPlan.comment.text}}</p>
                                     </div>
-                                    {% endif %}
+                                </div>
+                                {% endif %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -444,7 +503,7 @@
             <div class="col-md-5 col-sm-5 col-xs-10 "></div>
 
             <div class="col-md-2 col-sm-4 col-xs-6 ">
-                <h1><b> 404  <span class="red glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></b></h1>
+                <h1><b> 404 <span class="red glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></b></h1>
             </div>
 
         </div>
@@ -453,7 +512,7 @@
             <div class="col-md-4 col-sm-4 col-xs-8 "></div>
             <div class="col-md-4 col-sm-4 col-xs-6 ">
                 <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;There isn't a crisis here.
-                <span class="blue glyphicon glyphicon-search" aria-hidden="true"></span>
+                    <span class="blue glyphicon glyphicon-search" aria-hidden="true"></span>
                 </h4>
             </div>
         </div>
@@ -474,8 +533,6 @@
                 </h5>
             </div>
         </div>
-
-
 
 
     </div>
