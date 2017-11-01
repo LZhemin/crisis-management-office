@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions, status,generics
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
-from cmoapp.serializers import CrisisSerializer, CrisisReportSerializer, NineOneOneSerializerA, NineOneOneSerializerB, EFSerializer, ActionPlanSerializer, CommentSerializer, AuthSerializer, PMOSerializer
+from cmoapp.serializers import CrisisSerializer, CrisisReportSerializer, NineOneOneSerializer, EFSerializer, ActionPlanSerializer, CommentSerializer, AuthSerializer, PMOSerializer
 
 import json
 #Kindly help to remove unwanted modules
@@ -49,6 +49,8 @@ import json
 ##Crisis########################################
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.AllowAny,))
+#GET - returns a collection of unassigned crisis
+#POST - adds a single crisis
 def crisis_collection(request):
     if request.method == 'GET':
         #crisiss = Crisis.objects.all()
@@ -69,7 +71,7 @@ def crisis_collection(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'DELETE'])
+@api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def crisis_element(request, pk):
     crisis = get_object_or_404(Crisis, id=pk)
@@ -81,11 +83,7 @@ def crisis_element(request, pk):
     if request.method == 'GET':
         serializer = CrisisReportSerializer(crisis)
         return Response(serializer.data)
-
-    elif request.method == 'DELETE':
-        crisis.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
+    # WHY DELETE WTF
 
 ##CrisisReport########################################
 @api_view(['GET', 'POST'])
@@ -97,7 +95,7 @@ def crisisreport_collection(request):
         serializer = CrisisReportSerializer(crisisreports, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
-        serializer = NineOneOneSerializerA(data=request.data)
+        serializer = NineOneOneSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()

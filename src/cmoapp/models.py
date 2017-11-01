@@ -69,7 +69,7 @@ class CrisisReport(models.Model):
     crisisType = models.ForeignKey(CrisisType,null=True,blank=True,on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return 'ID: {} - {}'.format(self.pk,self.description)
+        return 'ID: {} - {} - Crisis {} - Type: {}'.format(self.pk,self.description,self.crisis,self.crisisType)
 
 #The response plan of the crsis.
 #The deployment id is the action plan id

@@ -16,37 +16,26 @@ class CrisisReportSerializer(serializers.ModelSerializer):
         model = CrisisReport
         fields = ('id', 'description', 'datetime', 'latitude', 'longitude', 'radius', 'crisis', 'crisisType')
 
-#This serializer is for creating
-class NineOneOneSerializerA(serializers.ModelSerializer):
+#This serializer is for serializing
+class NineOneOneSerializer(serializers.ModelSerializer):
     class Meta:
         model = CrisisReport
         fields = ('description', 'datetime', 'latitude', 'longitude', 'radius')
-
-
-class NineOneOneSerializerB(serializers.ModelSerializer):
-
-    class LocationSerializer(serializers.Serializer):
-        latitude = serializers.DecimalField(max_digits=12, decimal_places=8)
-        longitude = serializers.DecimalField(max_digits=12, decimal_places=8)
-
-    location = LocationSerializer(source='*')
-
-    class Meta:
-        model = CrisisReport
-        fields = ('description', 'datetime', 'location', 'radius')
 
 
 class ActionPlanSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ActionPlan
-        fields = ('id', 'description', 'status', 'resolutionTime', 'projectedCasualties', 'type', 'crisis')
+        fields = ('id', 'description', 'status', 'resolution_time', 'projected_casualties', 'type', 'crisis')
 
 class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
         fields = ('id', 'text', 'author', 'timeCreated', 'actionPlan')
+
+
 
 class AuthSerializer(serializers.Serializer):
 
@@ -132,7 +121,7 @@ class PMOSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = ActionPlan
-            fields = ('id', 'plan_number', 'description', 'status', 'resolutionTime', 'projectedCasualties', 'type')
+            fields = ('id', 'plan_number', 'description', 'status', 'resolution_time', 'projected_casualties', 'type')
 
     crisisreport_set = IReportSerializer(many=True, read_only=True)
     actionplan_set = serializers.SerializerMethodField('get_filtered_plans')
@@ -157,7 +146,7 @@ class EFSerializer(serializers.ModelSerializer):
 
          class Meta:
                 model = ForceUtilization
-                fields = ('id', 'name', 'utilization', 'update')
+                fields = ('name', 'utilization', 'update')
 
     force = ForceSerializer(many=True)
 
