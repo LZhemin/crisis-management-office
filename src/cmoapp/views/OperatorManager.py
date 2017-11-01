@@ -4,6 +4,7 @@ from django.urls import reverse
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate
 from django.forms.models import model_to_dict
 from django.core import serializers
+from cmoapp.serializers import CrisisReportSerializer
 
 import json
 #Kindly help to remove unwanted modules
@@ -184,4 +185,9 @@ def load_analyst(request):
     else:
       return JsonResponse(model_to_dict(0))
 
+def get_crisisreport_collection(request):
+    # crisisreports = CrisisReport.objects.all()
+    crisisreports = CrisisReport.objects.filter(crisis__isnull=True).order_by('datetime')
+    serializer = CrisisReportSerializer(crisisreports, many=True)
+    return HttpResponse(serializer.data)
 

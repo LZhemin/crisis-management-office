@@ -22,7 +22,7 @@ $(function() {
     // Load all posts on page load
     function load_crisisreports() {
         $.ajax({
-            url : "api/crisisreports/", // the endpoint
+            url : "/crisisreports/", // the endpoint
             type : "GET", // http method
             // handle a successful response
             success : function(json) {
@@ -60,79 +60,6 @@ $(function() {
                 console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
             }
         });
-    };
-
-     // AJAX for posting
-    function create_crisisreport() {
-        console.log("create crisisrepor is working! test") // sanity check
-        $.ajax({
-            url : "api/crisisreports/", // the endpoint
-            type : "POST", // http method
-            data : { getcrisisreport : $('#getcrisisreport').val(),
-                     getdescription : $('#getdescription').val(),
-                     getdatetime : $('#getdatetime').val(),
-                     getlatitude : $('#getlatitude').val(),
-                     getlongitude : $('#getlongitude').val(),
-                     getradius : $('#getradius').val(),
-                     getcrisis : $('#getcrisis').val(),
-                     getcrisisType : $('#getcrisisType').val()
-             }, // data sent with the post request
-            // handle a successful response
-            success : function(json) {
-                    $('#getcrisisreport').val(''); // remove the value from the input
-                    $('#getdescription').val(''); // remove the value from the input
-                    $('#getdatetime').val(''); // remove the value from the input
-                    $('#getlatitude').val(''); // remove the value from the input
-                    $('#getlongitude').val(''); // remove the value from the input
-                    $('#getradius').val(''); // remove the value from the input
-                    $('#getcrisis').val(''); // remove the value from the input
-                    $('#getcrisisType').val(''); // remove the value from the input
-                    //$('#getstatus').val(''); // remove the value from the input
-                console.log(json); // log the returned json to the console
-
-                $("#cmoapp").prepend("<li id='crisisreport-"+json[i].id+"'><strong>"
-                                                                +json[i].description+"</strong> - <em> "
-                                                                +json[i].datetime+"</em> - <em>"
-                                                                +json[i].latitude+"</em> - <em>"
-                                                                +json[i].longitude+"</em> - <em>"
-                                                                +json[i].radius+"</em> - <em>"
-                                                                +json[i].crisis+"</em> - <span>"
-                                                                +json[i].crisisType+"</span> - <a id='delete-post-"
-                                                                +json[i].id+"'>delete me</a></li>");
-
-                console.log("success"); // another sanity check
-            },
-            // handle a non-successful response
-            error : function(xhr,errmsg,err) {
-                $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-                    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-            }
-        });
-    };
-
-    function delete_crisisreport(crisisreport_primary_key){
-        if (confirm('are you sure you want to remove this post?')==true){
-            $.ajax({
-                url : "api/crisisreports/"+crisisreport_primary_key, // the endpoint
-                type : "DELETE", // http method
-                data : { id : crisisreport_primary_key }, // data sent with the delete request
-                success : function(json) {
-                    // hide the post
-                  $('#crisisreport-'+crisisreport_primary_key).hide(); // hide the post on success
-                  console.log("Crisis Report deletion successful");
-                },
-
-                error : function(xhr,errmsg,err) {
-                    // Show an error
-                    $('#results').html("<div class='alert-box alert radius' data-alert>"+
-                    "Oops! We have encountered an error. <a href='#' class='close'>&times;</a></div>"); // add error to the dom
-                    console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-                }
-            });
-        } else {
-            return false;
-        }
     };
 
 

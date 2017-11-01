@@ -46,55 +46,12 @@ import json
 
 ###Else the function based view###
 
-##Crisis########################################
-@api_view(['GET', 'POST'])
-@permission_classes((permissions.AllowAny,))
-#GET - returns a collection of unassigned crisis
-#POST - adds a single crisis
-def crisis_collection(request):
-    if request.method == 'GET':
-        #crisiss = Crisis.objects.all()
-        getcrisisacc = CrisisReport.objects.filter(crisis__isnull=False)
-        getUnassignedCrisis = Crisis.objects.all().exclude(pk__in=getcrisisacc)
-        serializer = CrisisSerializer(getUnassignedCrisis, many=True)
-        return Response(serializer.data)
-    elif request.method == 'POST':
-        #need to change the data.get according
-        data = {'id': request.data.get('getcrisis'),
-                'analyst': request.data.get('getanalyst'),
-                'status': request.data.get('getstatus')
-                }
-        serializer = CrisisSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['GET'])
-@permission_classes((permissions.AllowAny,))
-def crisis_element(request, pk):
-    crisis = get_object_or_404(Crisis, id=pk)
-    # try:
-    #     crisis = Crisis.objects.get(pk=pk)
-    # except Crisis.DoesNotExist:
-    #     return HttpResponse(status=404)
-
-    if request.method == 'GET':
-        serializer = CrisisReportSerializer(crisis)
-        return Response(serializer.data)
-    # WHY DELETE WTF
 
 ##CrisisReport########################################
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def crisisreport_collection(request):
-    if request.method == 'GET':
-        #crisisreports = CrisisReport.objects.all()
-        crisisreports = CrisisReport.objects.filter(crisis__isnull=True).order_by('datetime')
-        serializer = CrisisReportSerializer(crisisreports, many=True)
-        return Response(serializer.data)
-    elif request.method == 'POST':
+    if request.method == 'POST':
         serializer = NineOneOneSerializer(data=request.data)
 
         if serializer.is_valid():
@@ -106,71 +63,6 @@ def crisisreport_collection(request):
     response_data['Message'] = 'CrisisReport Not Captured!'
 
     return Response( serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['GET', 'DELETE'])
-@permission_classes((permissions.AllowAny,))
-def crisisreport_element(request, pk):
-    crisisreport = get_object_or_404(CrisisReport, id=pk)
-    # try:
-    #     crisisreport = CrisisReport.objects.get(pk=pk)
-    # except CrisisReport.DoesNotExist:
-    #     return HttpResponse(status=404)
-
-    if request.method == 'GET':
-        serializer = CrisisReportSerializer(crisisreport)
-        return Response(serializer.data)
-
-    elif request.method == 'DELETE':
-        crisisreport.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-##ActionPlan########################################
-
-@api_view(['GET', 'POST'])
-@permission_classes((permissions.AllowAny,))
-def actionplan_collection(request):
-    if request.method == 'GET':
-        actionplans = ActionPlan.objects.all()
-        serializer = ActionPlanSerializer(actionplans, many=True)
-        return Response(serializer.data)
-    elif request.method == 'POST':
-        #need to change the data.get according
-        data = {'id': request.data.get('getactionplan'),
-                'description': request.data.get('getdescription'),
-                'status': request.data.get('getstatus'),
-                'COComments': request.data.get('getCOComments'),
-                'PMOComments': request.data.get('getPMOComments'),
-                'resolutionTime': request.data.get('getresolutionTime'),
-                'projectedCasualties': request.data.get('getprojectedCasualties'),
-                'type': request.data.get('gettype'),
-                'crisis': request.data.get('getcrisis')
-                }
-
-        serializer = ActionPlanSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['GET', 'DELETE'])
-@permission_classes((permissions.AllowAny,))
-def actionplan_element(request, pk):
-    actionplan = get_object_or_404(ActionPlan, id=pk)
-    # try:
-    #     actionplan = ActionPlan.objects.get(pk=pk)
-    # except ActionPlan.DoesNotExist:
-    #     return HttpResponse(status=404)
-
-    if request.method == 'GET':
-        serializer = ActionPlanSerializer(actionplan)
-        return Response(serializer.data)
-
-    elif request.method == 'DELETE':
-        actionplan.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 ##Comment########################################

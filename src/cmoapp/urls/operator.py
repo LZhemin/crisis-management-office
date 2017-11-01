@@ -13,11 +13,7 @@ urlpatterns = [
 
     url(r'^load_analyst/$', OperatorManager.load_analyst, name="load_analyst"),
 
-    #Puting here for testing becus of the operator.js call diff url
-    url(r'^api/crisisreports/$', ApiManager.crisisreport_collection, name='Api_Crisisreport'),
-    url(r'^api/crisisreports/(?P<pk>\d+)', ApiManager.crisisreport_element, name='Api_Crisisreport_element'),
+    url(r'^/crisisreports/$', OperatorManager.get_crisisreport_collection, name='Operator_Crisisreport'),
 
-    url(r'^api/crisis/$', ApiManager.crisis_collection, name='Api_Crisis'),
-    url(r'^api/crisis/(?P<pk>\d+)', ApiManager.crisis_element, name='Api_Crisis_element')
 
 ]
