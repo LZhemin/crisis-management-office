@@ -254,7 +254,7 @@ def PMO_collection(request,status=None):
 @api_view(['POST','GET'])
 @permission_classes((permissions.AllowAny,))
 def EF_collection(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         efupdate_list = EFUpdate.objects.all()
         serializer = EFSerializer(efupdate_list, many=True)
 
