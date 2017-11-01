@@ -3,6 +3,7 @@
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MinValueValidator,ValidationError
+from datetime import timedelta
 
 #all models have automatically add an auto-increment id unless another field is explicitly specified as primary key
 #note, on_delete assigns a Function 'Callback'
@@ -174,7 +175,7 @@ class EFUpdate(models.Model):
     affectedRadius = models.DecimalField(max_digits=12,decimal_places=2, verbose_name="Affected Radius")
     totalInjured = models.IntegerField(verbose_name="Total Injured")
     totalDeaths = models.IntegerField(verbose_name="Total Deaths")
-    duration =  models.DurationField()
+    duration =  models.DurationField(null=True)
     actionPlan = models.ForeignKey(ActionPlan,null=True,on_delete = models.SET_NULL)
     #i leave this here in case the action plan can be deleted. we can thus still have a reference back to cris
     crisis = models.ForeignKey(Crisis, on_delete =  models.CASCADE)

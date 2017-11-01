@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
+from django.utils import timezone
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment
 from django.views.generic import ListView,DetailView
 from django.core import serializers
@@ -12,17 +13,54 @@ def index(Request):
     # UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
     try:
         crisis = Crisis.objects.all().exclude(status='Resolved')
-        forces = Force.objects.all();
-    except(KeyError, crisis.DoesNotExist):
+        forces = Force.objects.all()
+        efUpdatesCount = EFUpdate.objects.count()
+        forceWidth = int(12/Force.objects.count())
+        sideWidth =  int((12-forceWidth*Force.objects.count())/2)
+
+    except(KeyError, Crisis.DoesNotExist):
+
         context = {'all_crisis': False}
     else:
         context = {
             'all_crisis': crisis,
             'all_force':forces,
-            'json_crisis': serializers.serialize('json', crisis)
+            'efUpdateCount': efUpdatesCount,
+            'forceWidth':forceWidth,
+            'sideWidth':sideWidth
         }
         return render(Request, 'chief/index.html', context)
 
+# Changing the status from here need to add post resolved methods here
+def change_status(request):
+    try:
+        crisis_id = request.POST['id']
+        new_status = request.POST['status']
+        crisis = Crisis.objects.get(id=crisis_id)
+    except(KeyError, crisis.DoesNotExist):
+        return JsonResponse({'success': False, 'error': 'Error in retrieving efupdates!'})
+
+    crisis.status = new_status;
+    crisis.save();
+
+    return JsonResponse({'success': True, 'message': 'Crisis '+crisis_id+'Status Changed to '+new_status})
+
+
+
+
+def get_efupdates_count(request):
+    efCount = EFUpdate.objects.count()
+    return JsonResponse({'count':efCount}, safe=False)
+
+def get_efupdates(request):
+    try:
+        startNum = int(request.POST['startNum'])
+        efUpdates = EFUpdate.objects.all()[startNum:]
+    except(KeyError):
+        return JsonResponse({'success':False,'error':'Error in retrieving efupdates!'})
+
+    data = serializers.serialize('json',efUpdates)
+    return JsonResponse(data, safe=False)
 
 def sendDeployment(request, CrisisID):
     latest_actionplan_list = ActionPlan.objects.order_by('-crisis')[:5]
@@ -177,3 +215,37 @@ def ReloadCrisis(request):
             'all_crisis': crisis
         }
         return render(request, 'chief/ui_components/all_crisis.html', context)
+
+
+def getDeploymentPlan(request):
+    try:
+        ap_id = request.POST['id'];
+        actionPlan = ActionPlan.objects.get(id=ap_id)
+        crisis = actionPlan.crisis
+        crisis_reports = CrisisReport.objects.filter(crisis_id=crisis.id)
+        forces = actionPlan.forcedeployment_set.all();
+    except(KeyError):
+        return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
+    else:
+
+        order_data ="'CrisisID':"+crisis.id+",'ActionPlanID': "+actionPlan.id+",'datetime': "+timezone.now()+",'Action': crisis.status,'location': {"
+        for report in crisis_reports:
+            order_data+=report.id+":{'lat':"+report.latitute+",'long':"+report.longitute+",'Aoe':"+report.radius+"}"
+
+        order_data += "'Category': {"
+        for report in crisis_reports:
+            order_data += report.id+":"+report.crisisType.name+","
+
+        order_data+="}, 'ActionPlanID':"+actionPlan.id+",'Action Plan Description': "+actionPlan.abridged_description()+",'Crisis description':'"
+
+        for report in crisis_reports:
+            order_data+=report.description+'. '
+
+        order_data +="','Force': {"
+        for force in forces:
+            order_data += "'"+force.name_id+"': {'Recommended': '"+force.recommended+"', 'Maximum': '"+force.recommended+"'},"
+
+        order_data+="}}}"
+        data = [{'Order':order_data}]
+
+        return JsonResponse(data)

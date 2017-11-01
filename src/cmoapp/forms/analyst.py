@@ -44,7 +44,7 @@ class ActionPlanForm(ModelForm):
             ap.clean()
             ap.save()
         else:
-            raise ValueError("Crisis ID of Action Plan Object needs to be sets before saving")
+            raise ValueError("Crisis ID of Action Plan Object needs to be set before saving")
 
 class ForceForm(ModelForm):
 
@@ -55,4 +55,8 @@ class ForceForm(ModelForm):
         fields = ['name','recommended','max']
 
     def update_or_create(self,action_plan=None):
+        if(action_plan):
+            pass
+        else:
+            raise ValueError("Action Plan of Force Deployment Object needs to be set before saving")
         pass

@@ -259,20 +259,7 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <div class="col-sm-12 col-xs-12">
-                    <div class="tile-stats row padding">
-                        <h2 class="center">Current Force Utilisation</h2>
-                        <div class="col-sm-1"></div>
-                        {% for force in all_force%}
-                        <div class="animated flipInY col-sm-2 col-xs-12 padding">
-                            <div class="chart" data-percent="{{force.currentUtilisation}}">
-                                <div class ="percent">{{force.currentUtilisation}}%</div>
-                                <h2 class="center">{{force.name}}</h2>
-                            </div>
-                        </div>
-                        {%endfor%}
-                    </div>
-                </div>
+                {% include 'chief/ui_components/force_utilisation.html' %}
             </div>
         </div>
     </div>
@@ -394,7 +381,7 @@
                     <br>
                 </div>
                 <div class="x_content">
-                    <div id="own" class="col-sm-9 col-xs-12 sideBorder" style="height:100%;">
+                    <div id="own" class="col-sm-9 col-xs-12" style="height:100%;">
                         <div role="tabpanel" data-example-id="togglable-tabs">
                             <ul id="myTab" class="nav nav-tabs nav-justified" role="tablist">
                                 <li role="presentation" class="active"><a href="#allCrisis" id="current-tab" role="tab" data-toggle="tab" aria-expanded="true">All Unresolved Crisis</a>
@@ -402,8 +389,8 @@
                                 <li role="presentation" class=""><a href="#actionPlanTable" role="tab" id="previous-tab" data-toggle="tab" aria-expanded="false">Action Plans Awaiting Approval</a>
                                 </li>
                                 <li>
-                                    <a id="#chat" class="collapse-link-right">
-                                        Chat
+                                    <a id="#efUpdate" class="collapse-link-right">
+                                        EfUpdates
                                         <i class="fa fa-chevron-right right"></i>
                                     </a>
                                 </li>
@@ -418,6 +405,32 @@
                             </div>
                         </div>
                     </div>
+                    <div id="efUpdate" class="x-panel col-sm-3 col-xs-12 sideBorder">
+                        <div class="x-title">
+                            <h2>EF Updates</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x-content">
+                        <ul id="efUpdateList" class="list-unstyled timeline widget">
+                            {% for crisis in all_crisis %}
+                                {% for update in crisis.efupdate_set.all %}
+                                    <li>
+                                        <div id="efCrisis{{crisis.id}}" class="block">
+                                            <div class="block_content">
+                                                <h2 class="title">Crisis {{crisis.id}}</h2>
+                                                <div class="byline">Posted on {{update.datetime}}</div>
+                                                <p class="excerpt">{{update.description}}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="x_panel">
                     <div id="chat" class="col-sm-3 col-xs-12">
                         <div class="profile_title">
                             <div class="col-sm-12 col-xs-12 right-col">

@@ -33,9 +33,8 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
+        #planNumber = serializers.IntegerField(source=Comment.actionPlan.plan_number)
         fields = ('id', 'text', 'author', 'timeCreated', 'actionPlan')
-
-
 
 class AuthSerializer(serializers.Serializer):
 

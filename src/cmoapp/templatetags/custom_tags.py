@@ -8,7 +8,6 @@ from django.forms import BoundField
 import json
 from datetime import timedelta
 
-
 register = Library()
 
 def jsonify(object):
