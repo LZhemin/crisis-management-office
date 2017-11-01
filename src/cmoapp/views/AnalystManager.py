@@ -26,7 +26,8 @@ def index(Request):
             'assigned_crisis': assigned_crisis,
             'crisis_reports': crisis_reports,
             'ActionPlanList': actionPlanList,
-            'all_force': all_forces
+            'all_force': all_forces,
+            'json_force': AnalystForceSerializer(Force.objects.all(), many=True).data
         }
         if(Request.method == "GET"):
             #WHY DJANGO WHY DONT YOU HAVE AN INBUILT GET OBJECT_OR_NONE
@@ -172,7 +173,13 @@ class ActionPlanDetail(DetailView):
     template_name='analyst/actionplan_detail.html'
     model = ActionPlan
 
+#Internal use only
 class AnalystCrisisSerializer(ModelSerializer):
     class Meta:
         model = Crisis
         fields = ('id', 'text', 'author', 'timeCreated', 'actionPlan')
+
+class AnalystForceSerializer(ModelSerializer):
+    class Meta:
+        model = Force
+        fields = ['name','currenttUtilzation']
