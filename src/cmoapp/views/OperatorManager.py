@@ -47,13 +47,14 @@ def index(Request):
 def getallassignedCrisisReport(Request):
     if Request.method == 'GET':
 
-        getResolvedCrisis = Crisis.objects.exclude(status='Resolved').values_list('pk', flat=True)
+        getResolvedCrisis = Crisis.objects.exclude(status='Resolved')
         getAssignedCrisisReport = CrisisReport.objects.exclude(crisis__isnull=True).filter(crisis__in=getResolvedCrisis)
         #getCrisisReportList = CrisisReport.objects.all()
-
         #crisisType = serializers.SlugRelatedField(queryset=CrisisType.objects.all(), slug_field='name')
-        response = serializers.serialize("json", getAssignedCrisisReport)
-        return HttpResponse(response, content_type='application/json')
+        #response = serializers.serialize("json", getAssignedCrisisReport)
+        #return HttpResponse(response, content_type='application/json')
+        serializer = CrisisReportSerializer(getAssignedCrisisReport, many=True)
+        return JsonResponse(serializer.data, safe=False)
         #serializer = CrisisReportSerializer(getAssignedCrisisReport, many=True)
         #return Response(serializer.data)
     else:
@@ -189,5 +190,5 @@ def get_crisisreport_collection(request):
     # crisisreports = CrisisReport.objects.all()
     crisisreports = CrisisReport.objects.filter(crisis__isnull=True).order_by('datetime')
     serializer = CrisisReportSerializer(crisisreports, many=True)
-    return HttpResponse(serializer.data)
+    return JsonResponse(serializer.data,safe=False)
 

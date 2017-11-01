@@ -13,7 +13,7 @@ urlpatterns = [
 
     url(r'^load_analyst/$', OperatorManager.load_analyst, name="load_analyst"),
 
-    url(r'^/crisisreports/$', OperatorManager.get_crisisreport_collection, name='Operator_Crisisreport'),
+    url(r'^crisisreports/$', OperatorManager.get_crisisreport_collection, name='Operator_Crisisreport'),
 
 
 ]
