@@ -239,7 +239,10 @@ def auth_collection(request):
 def PMO_collection(request,status=None):
     print(status)
     if request.method == 'GET':
-        crisis_list = Crisis.objects.filter(status=status)
+        if(status):
+            crisis_list = Crisis.objects.filter(status=status)
+        else:
+            crisis_list = Crisis.objects.all()
         serializer = PMOSerializer(crisis_list, many=True)
         return Response(serializer.data)
 
@@ -248,10 +251,13 @@ def PMO_collection(request,status=None):
 
 ##EF########################################
 
-@api_view(['GET'])
+@api_view(['POST','GET'])
 @permission_classes((permissions.AllowAny,))
 def EF_collection(request):
     if request.method == 'GET':
         efupdate_list = EFUpdate.objects.all()
         serializer = EFSerializer(efupdate_list, many=True)
-        return Response(serializer.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)

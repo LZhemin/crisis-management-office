@@ -113,13 +113,6 @@ class AuthSerializer(serializers.Serializer):
     #     return instance
 
 
-class AccountSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Account
-        fields = ('id', 'login', 'password', 'type')
-
-
 class PMOSerializer(serializers.ModelSerializer):
 
     class IReportSerializer(serializers.ModelSerializer):
@@ -160,30 +153,22 @@ class PMOSerializer(serializers.ModelSerializer):
 
 class EFSerializer(serializers.ModelSerializer):
 
-    class UpdateSerializer(serializers.ModelSerializer):
+    class ForceSerializer(serializers.Serializer):
 
-        class StatSerializer(serializers.ModelSerializer):
+         class Meta:
+                model = ForceUtilization
+                fields = ('id', 'name', 'utilization', 'update')
 
-            class ForceSerializer(serializers.ModelSerializer):
-                class Meta:
-                    model = ForceUtilization
-                    fields = ('id', 'name', 'utilization', 'update')
+    force = ForceSerializer(many=True)
 
-            force = ForceSerializer(many=True, read_only=True)
-
-            class Meta:
-                model = EFUpdate
-                fields = ('id', 'affectedRadius', 'totalInjured', 'totalDeaths', 'duration', 'force')
-
-        stat = StatSerializer(many=True, read_only=True)
-
-        class Meta:
-            model = EFUpdate
-            fields = ('id', 'datetime', 'actionPlan', 'crisis', 'description', 'stat')
-
-
-    update_set = UpdateSerializer(many=True, read_only=True)
+    def create(self, validated_data):
+        force_utilizations = validated_data.pop('tracks')
+        ef_update = EFUpdate.objects.create(**validated_data)
+        for utilization_data in force_utilizations:
+            ForceUtilization.objects.create(ef_update, **utilization_data)
+        return ef_update
 
     class Meta:
         model = EFUpdate
-        fields = ( 'id','update_set') #'update_set',
+        fields = ('id', 'datetime', 'actionPlan', 'crisis', 'description', 'statistics')
+
