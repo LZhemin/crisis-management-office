@@ -182,4 +182,4 @@ class AnalystCrisisSerializer(ModelSerializer):
 class AnalystForceSerializer(ModelSerializer):
     class Meta:
         model = Force
-        fields = ['name','currenttUtilzation']
+        fields = ['name','currentUtilisation']

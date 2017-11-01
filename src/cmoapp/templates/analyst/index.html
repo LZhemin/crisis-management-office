@@ -81,7 +81,7 @@
             $("#panel_" + chosen_force + " .dial").knob({
                 'min':0,
                 'max':50,
-                'angleArc':50
+                'angleArc':360
             });
             $("#force_close_" + chosen_force).on('click', function(e){
                 var force = e.target.dataset.delete;
@@ -90,11 +90,7 @@
             });
         });
     });
-    $(".dial").knob({
-                'min':0,
-                'max':50,
-                'angleArc':50
-            });
+
     function initMap(){
         var map = new google.maps.Map(document.getElementById("map"),{
             zoom: 12,
