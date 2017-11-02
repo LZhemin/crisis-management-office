@@ -5,6 +5,7 @@ from django.utils import timezone
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment
 from django.views.generic import ListView,DetailView
 from django.core import serializers
+import requests
 
 
 #Kindly help to remove unwanted modules
@@ -58,45 +59,9 @@ def get_efupdates(request):
         efUpdates = EFUpdate.objects.all()[startNum:]
     except(KeyError):
         return JsonResponse({'success':False,'error':'Error in retrieving efupdates!'})
-
     data = serializers.serialize('json',efUpdates)
+
     return JsonResponse(data, safe=False)
-
-def sendDeployment(request, CrisisID):
-    latest_actionplan_list = ActionPlan.objects.order_by('-crisis')[:5]
-    # output = ', '.join([l.Location for l in latest_actionplan_list])
-    context = {'latest_actionplan_list': latest_actionplan_list}
-
-    try:
-        Name = request.POST['name']
-    except(KeyError, Name.DoesNotExist):
-    # Redisplay
-        return render(request, 'chief/base_site.html', {
-            context,
-            {'error_message': "You didn't select a name.",
-        }})
-
-    try:
-        Recommended = request.POST['recommended']
-    except(KeyError, Recommended.DoesNotExist):
-    # Redisplay
-        return render(request, 'chief/base_site.html', {
-            context,
-            {'error_message': "You didn't select a recommended."},
-        })
-
-    try:
-        Max = request.POST['max']
-    except(KeyError, max.DoesNotExist):
-    # Redisplay
-        return render(request, 'chief/base_site.html', {
-            context,
-            {'error_message': "You didn't select a max."}
-        })
-    else:
-        deployment = ForceDeployment(name=Name, recommanded=Recommended, max=Max)
-        deployment.add()  # save to database
-        return HttpResponseRedirect(reverse('cmoapp:base_site', args=(CrisisID)))
 
 def forwardActionPlan(request, CrisisID):
     latest_actionplan_list = ActionPlan.objects.order_by('-crisis')[:5]
@@ -217,35 +182,38 @@ def ReloadCrisis(request):
         return render(request, 'chief/ui_components/all_crisis.html', context)
 
 
-def getDeploymentPlan(request):
+def sendDeploymentPlan(request,id):
     try:
-        ap_id = request.POST['id'];
+        ap_id = id
         actionPlan = ActionPlan.objects.get(id=ap_id)
         crisis = actionPlan.crisis
         crisis_reports = CrisisReport.objects.filter(crisis_id=crisis.id)
-        forces = actionPlan.forcedeployment_set.all();
+        forces = actionPlan.forcedeployment_set.all()
     except(KeyError):
         return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
     else:
-
-        order_data ="'CrisisID':"+crisis.id+",'ActionPlanID': "+actionPlan.id+",'datetime': "+timezone.now()+",'Action': crisis.status,'location': {"
+        location =[]
+        category =[]
+        deployment =[]
+        description = ""
         for report in crisis_reports:
-            order_data+=report.id+":{'lat':"+report.latitute+",'long':"+report.longitute+",'Aoe':"+report.radius+"}"
+            location.append({"LocationId":report.id, "Lat" : report.latitude,"long": report.longitude,"AOE":report.radius, "category": report.crisisType.name})
+            description+=report.description
 
-        order_data += "'Category': {"
-        for report in crisis_reports:
-            order_data += report.id+":"+report.crisisType.name+","
-
-        order_data+="}, 'ActionPlanID':"+actionPlan.id+",'Action Plan Description': "+actionPlan.abridged_description()+",'Crisis description':'"
-
-        for report in crisis_reports:
-            order_data+=report.description+'. '
-
-        order_data +="','Force': {"
         for force in forces:
-            order_data += "'"+force.name_id+"': {'Recommended': '"+force.recommended+"', 'Maximum': '"+force.recommended+"'},"
+            deployment.append({"ForceType":force.name,"recommended":force.recommended,"maxUtilisation": force.max})
 
-        order_data+="}}}"
-        data = [{'Order':order_data}]
-
-        return JsonResponse(data)
+        order_data = {
+            "CrisisID":crisis.id,
+            "Datetime":timezone.now(),
+            "ActionPlanID": actionPlan.id,
+            "Location":location,
+            "Crisis Description":description,
+            "Action Plan Description":actionPlan.description,
+            "Deployment":deployment
+        }
+        #return HttpResponse(timezone.now().strftime("%b. %d, %Y, %I:%M"))
+        r = requests.post('url', params=order_data)
+        if r.status_code == 200:
+            print('Posted Successfully!')
+        print('Failure Code:'+r.status_code)

@@ -25,6 +25,15 @@ class ActionPlanSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
 
+
+    class InternalSerializer(serializers.ModelSerializer):
+
+        class Meta:
+            model = ActionPlan
+            fields = ('plan_number','id')
+
+    actionPlan = InternalSerializer(many=False)
+
     class Meta:
         model = Comment
         #planNumber = serializers.IntegerField(source=Comment.actionPlan.plan_number)

@@ -12,5 +12,5 @@ urlpatterns = [
     url(r'^get_efupdate_count/$', ChiefOfficerManager.get_efupdates_count, name="Get_EfUpdate_Count"),
     url(r'^get_efupdates/$', ChiefOfficerManager.get_efupdates, name="Get_EFUpdates"),
     url(r'^change_status/$', ChiefOfficerManager.change_status, name="Change_Status"),
-    url(r'^get_deployment_plan/$', ChiefOfficerManager.getDeploymentPlan, name="Get_Deployment_Plan")
+    url(r'^send_deployment_plan/(?P<id>\d+)/$', ChiefOfficerManager.sendDeploymentPlan, name="Send_Deployment_Plan"),
 ]

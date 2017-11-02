@@ -38,7 +38,7 @@ def index(Request):
             except ActionPlan.DoesNotExist:
                 context['ActionPlanForm'] = ActionPlanForm()
         else:
-            print(Request.POST);
+            print(Request.POST)
             form = ActionPlanForm(Request.POST)
             context['ActionPlanForm'] = form
             #ADD SOME STUFF ABOUT FORCEFORM
@@ -74,6 +74,7 @@ def get_efupdates(request):
         return JsonResponse({'success':False,'error':'Error in retrieving efupdates!'})
 
     data = EFUpdateSerializer(efUpdates, many=True).data
+
     return JsonResponse(data,safe=False)
 
 def get_comment_count(request):
@@ -241,3 +242,4 @@ class EFUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = EFUpdate
         fields = ['id','datetime','affectedRadius','totalInjured','totalDeaths','duration','description','actionPlan_id','crisis_id']
+        
