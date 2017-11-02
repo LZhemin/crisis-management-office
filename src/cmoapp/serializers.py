@@ -139,39 +139,51 @@ class PMOSerializer(serializers.ModelSerializer):
         # = ("crisisreport")
 
 
+
+    #actionPlan = serializers.PrimaryKeyRelatedField(queryset=ActionPlan.objects.all())
+    #crisis = serializers.PrimaryKeyRelatedField(queryset=Crisis.objects.all())
+
 class EFSerializer(serializers.ModelSerializer):
 
     class StatisticsSerializer(serializers.Serializer):
-
         class ForceSerializer(serializers.ModelSerializer):
-            utilization = serializers.DecimalField(source="Utilisation",required=False,max_digits=5, decimal_places=2)
+            # utilization = serializers.DecimalField(source="Utilisation",required=False,max_digits=5, decimal_places=2)
+            # name = serializers.PrimaryKeyRelatedField(read_only=True)
+            # utilization = serializers.DecimalField(max_digits=5, decimal_places=2)
+            # FUCKING DRF CAN'T DO NESTED SERIALIZATION ON MODELS
             class Meta:
+                fields = ('name', 'utilization')
                 model = ForceUtilization
-                fields = ('name','utilization')
 
-        force = ForceSerializer(source='*',many=True)
-        AffectedRadius = serializers.IntegerField
-        TotalInjured = serializers.IntegerField
-        TotalDeaths = serializers.IntegerField
-        TotalDuration = serializers.IntegerField(allow_null=True)
-
+        force = serializers.ListField(child=ForceSerializer(), required=False)
+        # WHAT THE FUCK DJANGO REST FRAMEWORK'S SOURCE PARAMETER CANNOT FIND ITS OWN SOURCE
+        TotalDuration = serializers.DurationField(source='duration', required=False)
+        AffectedRadius = serializers.IntegerField(source="affectedRadius", min_value=0)
+        TotalInjured = serializers.IntegerField(source='totalInjured', min_value=0)
+        TotalDeaths = serializers.IntegerField(source='totalDeaths', min_value=0)
 
     statistics = StatisticsSerializer(source='*')
-    actionPlan = serializers.PrimaryKeyRelatedField(queryset=ActionPlan.objects.all())
-    crisis = serializers.PrimaryKeyRelatedField(queryset=Crisis.objects.all())
 
     class Meta:
         model = EFUpdate
-        fields = ('crisis','actionPlan', 'datetime','type', 'crisis', 'description', 'statistics')
-
+        fields = ('crisis','actionPlan', 'datetime','type', 'description', 'statistics')
 
     def create(self, validated_data):
-        # force_utilizations = validated_data.pop('statistics')
-        # ef_update = EFUpdate.objects.create(**validated_data)
-        # for utilization_data in force_utilizations:
-        #     ForceUtilization.objects.create(ef_update, **utilization_data)
-        # return ef_update
-        print(validated_data)
+        forces = validated_data.pop('force')
+        efupdate = EFUpdate.objects.create(**validated_data)
+        print(forces)
+        for data in forces:
+           ForceUtilization.objects.create(update=efupdate,**data)
+        return efupdate
+
+
+        # def create(self, validated_data):
+    #     # force_utilizations = validated_data.pop('statistics')
+    #     # ef_update = EFUpdate.objects.create(**validated_data)
+    #     # for utilization_data in force_utilizations:
+    #     #     ForceUtilization.objects.create(ef_update, **utilization_data)
+    #     # return ef_update
+    #     print(validated_data)
 
 
     # #Attributes
