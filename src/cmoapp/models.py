@@ -36,6 +36,7 @@ class CrisisType(models.Model):
 #Crisis ID
 class Crisis(models.Model):
     #analyst is FK to crisis. This enables analyst to be deleted once the crisis is resolved
+    #name = models.TextField()
     analyst = models.OneToOneField(Account,blank=True,null=True,limit_choices_to={'type':'Analyst'}, on_delete=models.SET_NULL)
     STATUS = (
         ('Clean-up','Clean Up'),
@@ -69,7 +70,7 @@ class CrisisReport(models.Model):
     crisisType = models.ForeignKey(CrisisType,null=True,blank=True,on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return 'ID: {} - {}'.format(self.pk,self.description)
+        return 'ID: {} - {} - Crisis {} - Type: {}'.format(self.pk,self.description,self.crisis,self.crisisType)
 
 #The response plan of the crsis.
 #The deployment id is the action plan id
@@ -147,7 +148,7 @@ class Comment(models.Model):
         return self.description[:140] + "..."
 
     def __str__(self):
-        return 'ID: {} - Author: {} - Comment: {}'.format(self.id, self.author,self.text)
+        return 'ID: {} - Author: {} - Comment: {} for Action Plan: {}'.format(self.id, self.author,self.text, self.actionPlan.id)
 
 class Force(models.Model):
     name = models.CharField(primary_key=True, max_length=200)
@@ -182,7 +183,7 @@ class EFUpdate(models.Model):
     #We are removing types and adding a request
     TYPES = (
         ('Request','Request'),
-        ('Notifications','Notifications')
+        ('Notification','Notification')
     )
     type = models.CharField(choices=TYPES, max_length=40)
     def __str__(self):
