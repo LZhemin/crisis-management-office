@@ -43,7 +43,6 @@ function checkEfUpdate(){
         url: "get_efupdate_count/",
         dataType: 'json',
         success: function (data) {
-            console.log(data['count']);
             var newEfCount = data['count'];
             if(efCount==-1)
                 efCount = newEfCount;
@@ -127,13 +126,13 @@ function reloadComments(count){
         data:{'startNum':count},
         dataType: 'json',
         success: function (data) {
-            //Remove the  <span>No Reports Yet</span> first
+            array = data;
             for(num in array){
                 html += "<div class=\"mail_list\">\n" +
                             "<div style=\"padding-left: 1em;\">\n" +
                                 "<h3>"+array[num]['author']+"</h3>\n" +
                                 "<div>\n" +
-                                    "<p class=\"small\"><span style=\"float:left\">Plan Number: "+array[num]['actionPlan_id']+"</span>&nbsp<span style=\"float:right\">"+array[num]['timeCreated']+"</span></p>\n" +
+                                    "<p class=\"small\"><span style=\"float:left\">Plan Number: "+array[num]['actionPlan']['plan_number']+"</span>&nbsp<span style=\"float:right\">"+array[num]['timeCreated']+"</span></p>\n" +
                                 "</div>\n" +
                                 "<p>"+array[num]['text']+"</p>\n" +
                             "</div>\n" +
