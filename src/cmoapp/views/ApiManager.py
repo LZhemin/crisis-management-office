@@ -141,13 +141,13 @@ def PMO_collection(request,status=None):
 
 ##EF########################################
 
-@api_view(['POST','GET'])
+@api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def EF_collection(request):
-    if request.method == 'POST':
-        efupdate_list = EFUpdate.objects.all()
-        serializer = EFSerializer(efupdate_list, many=True)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    serializer = EFSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

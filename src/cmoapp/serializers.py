@@ -141,22 +141,51 @@ class PMOSerializer(serializers.ModelSerializer):
 
 class EFSerializer(serializers.ModelSerializer):
 
-    class ForceSerializer(serializers.Serializer):
+    class StatisticsSerializer(serializers.Serializer):
 
-         class Meta:
+        class ForceSerializer(serializers.ModelSerializer):
+            utilization = serializers.DecimalField(source="Utilisation",required=False,max_digits=5, decimal_places=2)
+            class Meta:
                 model = ForceUtilization
-                fields = ('name', 'utilization', 'update')
+                fields = ('name','utilization')
 
-    force = ForceSerializer(many=True)
+        force = ForceSerializer(source='*',many=True)
+        AffectedRadius = serializers.IntegerField
+        TotalInjured = serializers.IntegerField
+        TotalDeaths = serializers.IntegerField
+        TotalDuration = serializers.IntegerField(allow_null=True)
 
-    def create(self, validated_data):
-        force_utilizations = validated_data.pop('tracks')
-        ef_update = EFUpdate.objects.create(**validated_data)
-        for utilization_data in force_utilizations:
-            ForceUtilization.objects.create(ef_update, **utilization_data)
-        return ef_update
+
+    statistics = StatisticsSerializer(source='*')
+    actionPlan = serializers.PrimaryKeyRelatedField(queryset=ActionPlan.objects.all())
+    crisis = serializers.PrimaryKeyRelatedField(queryset=Crisis.objects.all())
 
     class Meta:
         model = EFUpdate
-        fields = ('id', 'datetime', 'actionPlan', 'crisis', 'description', 'statistics')
+        fields = ('crisis','actionPlan', 'datetime','type', 'crisis', 'description', 'statistics')
 
+
+    def create(self, validated_data):
+        # force_utilizations = validated_data.pop('statistics')
+        # ef_update = EFUpdate.objects.create(**validated_data)
+        # for utilization_data in force_utilizations:
+        #     ForceUtilization.objects.create(ef_update, **utilization_data)
+        # return ef_update
+        print(validated_data)
+
+
+    # #Attributes
+    # datetime = models.DateTimeField()
+    # affectedRadius = models.DecimalField(max_digits=12,decimal_places=2, verbose_name="Affected Radius")
+    # totalInjured = models.IntegerField(verbose_name="Total Injured")
+    # totalDeaths = models.IntegerField(verbose_name="Total Deaths")
+    # duration =  models.DurationField(null=True)
+    # actionPlan = models.ForeignKey(ActionPlan,null=True,on_delete = models.SET_NULL)
+    # #i leave this here in case the action plan can be deleted. we can thus still have a reference back to cris
+    # crisis = models.ForeignKey(Crisis, on_delete =  models.CASCADE)
+    # description = models.TextField()
+    # #We are removing types and adding a request
+    # TYPES = (
+    #     ('Request','Request'),
+    #     ('Notifications','Notifications')
+    # )

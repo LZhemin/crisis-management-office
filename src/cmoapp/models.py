@@ -183,7 +183,7 @@ class EFUpdate(models.Model):
     #We are removing types and adding a request
     TYPES = (
         ('Request','Request'),
-        ('Notifications','Notifications')
+        ('Notification','Notification')
     )
     type = models.CharField(choices=TYPES, max_length=40)
     def __str__(self):
