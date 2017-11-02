@@ -156,7 +156,8 @@ class EFSerializer(serializers.ModelSerializer):
                 model = ForceUtilization
 
         force = serializers.ListField(child=ForceSerializer(), required=False)
-        # WHAT THE FUCK DJANGO REST FRAMEWORK'S SOURCE PARAMETER CANNOT FIND ITS OWN SOURCE
+        # Wtf DATA IS PASSED AS TotalDuration but is referenced by the field name designated as source
+        #NOT THE OTHER WAY ROUND WTF ISN'T SOURCE AS IN SOURCE DATA?
         TotalDuration = serializers.DurationField(source='duration', required=False)
         AffectedRadius = serializers.IntegerField(source="affectedRadius", min_value=0)
         TotalInjured = serializers.IntegerField(source='totalInjured', min_value=0)
@@ -175,29 +176,3 @@ class EFSerializer(serializers.ModelSerializer):
         for data in forces:
            ForceUtilization.objects.create(update=efupdate,**data)
         return efupdate
-
-
-        # def create(self, validated_data):
-    #     # force_utilizations = validated_data.pop('statistics')
-    #     # ef_update = EFUpdate.objects.create(**validated_data)
-    #     # for utilization_data in force_utilizations:
-    #     #     ForceUtilization.objects.create(ef_update, **utilization_data)
-    #     # return ef_update
-    #     print(validated_data)
-
-
-    # #Attributes
-    # datetime = models.DateTimeField()
-    # affectedRadius = models.DecimalField(max_digits=12,decimal_places=2, verbose_name="Affected Radius")
-    # totalInjured = models.IntegerField(verbose_name="Total Injured")
-    # totalDeaths = models.IntegerField(verbose_name="Total Deaths")
-    # duration =  models.DurationField(null=True)
-    # actionPlan = models.ForeignKey(ActionPlan,null=True,on_delete = models.SET_NULL)
-    # #i leave this here in case the action plan can be deleted. we can thus still have a reference back to cris
-    # crisis = models.ForeignKey(Crisis, on_delete =  models.CASCADE)
-    # description = models.TextField()
-    # #We are removing types and adding a request
-    # TYPES = (
-    #     ('Request','Request'),
-    #     ('Notifications','Notifications')
-    # )
