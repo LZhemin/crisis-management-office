@@ -185,6 +185,7 @@ class EFUpdate(models.Model):
         ('Request','Request'),
         ('Notifications','Notifications')
     )
+    type = models.CharField(choices=TYPES, max_length=40)
     def __str__(self):
         return 'ID: {}'.format(self.pk)
 
