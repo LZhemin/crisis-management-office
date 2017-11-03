@@ -66,6 +66,48 @@
         var forces = {{ json_force|jsonify }}
 
     $(document).ready(function(){
+        //Auto Update After 30 Seconds
+        if(crisis)
+        {
+            setInterval(function()
+            {
+                checkEfUpdate();
+                checkCommentUpdate();
+                checkCRUpdate();
+            }, 10000);
+        }
+        else
+        {
+            setTimeout(function(){
+                location.reload();
+            }, 15000);
+        }
+
+         //Add event handler for comment pane
+        $('.collapse-link-right').on('click', function () {
+            var $BOX_PANEL = $(this).closest('.x_content'),
+                $TOGGLE_PANEL = $($(this).attr('id')),
+                $OWN_PANEL = $('#own'),
+                $ICON = $(this).find('i');
+
+            $ICON.toggleClass("fa-chevron-left fa-chevron-right");
+            if($TOGGLE_PANEL.is(":visible")){
+                $TOGGLE_PANEL.addClass('fadeOutRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+                    $OWN_PANEL.toggleClass('col-sm-9 col-sm-12');
+                    $TOGGLE_PANEL.removeClass('fadeOutRight animated');
+                    $TOGGLE_PANEL.hide();
+                });
+
+            }
+            else {
+                $OWN_PANEL.toggleClass('col-sm-9 col-sm-12');
+                $TOGGLE_PANEL.delay(500).show(0).addClass('fadeInRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+                    $TOGGLE_PANEL.removeClass('fadeInRight animated');
+                });
+            }
+        });
+
+        //Add event handler for force deployment form
         $("#btnAddForce").on('click',function(){
             var force_form_template = $("#force_form_template").html();
             var chosen_force = $("#force-list option:selected").val();
@@ -91,6 +133,7 @@
         });
     });
 
+    //initialize google maps
     function initMap(){
         var map = new google.maps.Map(document.getElementById("map"),{
             zoom: 12,
@@ -163,16 +206,6 @@
         {% endif %}
     }
 
-    /*
-    function trigger_update()
-    {
-        console.log(forces);
-        for(var i = 0; i < forces.length; i++)
-        {
-
-        }
-    }
-    */
 
 </script>
 
