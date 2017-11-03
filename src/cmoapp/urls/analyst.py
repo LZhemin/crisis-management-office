@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^get_comments/$', AnalystManager.get_comments, name="Get_Comments"),
     url(r'^get_crisis_report_count/$', AnalystManager.get_crisis_report_count, name="Get_Crisis_Report_Count"),
     url(r'^get_crisis_reports/$', AnalystManager.get_crisis_reports, name="Get_Crisis_Report"),
+    url(r'^reload_current_stat/$', AnalystManager.reload_current_stat, name="Reload_Current_Stat"),
 ]

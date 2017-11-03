@@ -109,6 +109,17 @@ def get_crisis_reports(request):
     data = CrisisReportSerializer(crisis_reports, many=True).data
     return JsonResponse(data, safe=False)
 
+def reload_current_stat(request):
+    try:
+        assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
+
+    except(KeyError):
+        return JsonResponse({'success':False,'error':'Error in retrieving crisis!'})
+
+    data = CrisisSerializer(assigned_crisis).data
+    return JsonResponse(data, safe=False)
+
+
 
 #Add the LoginRequiredMixin as the leftmost inheritance
 class ActionPlanList(ListView):

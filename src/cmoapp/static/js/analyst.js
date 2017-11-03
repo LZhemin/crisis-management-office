@@ -213,6 +213,24 @@ function reloadCr(count){
         }
     });
 }
+
+
+function reloadCurrentStat() {
+    $.ajax({
+        url :"reload_current_stat/",
+        type : "GET", // http method
+        // handle a successful response
+        //var html;
+        success : function(data) {
+            $('#CurrentStatList').load(location.href +  ' #CurrentStatList');
+        },
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+}
+
 //--------------------------------------------
 
 /* Basic Templating JS */
