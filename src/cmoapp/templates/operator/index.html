@@ -1236,7 +1236,8 @@
             <div class="modal-body">
                 <form method="POST" id="crisis-form">
                   {% csrf_token %}
-
+                    <h4 class="modal-title" id="Crisis_TitleName">Crisis Title: </h4>
+                        <input class="modal-title crisistitlename" type="text" name="crisistitlename" id = "crisistitlename">
                     <h4 class="modal-title" id="Crisis_Title">Crisis Type</h4>
                       <input class="modal-title hidingid" type="hidden" name="crisisreportid" id = "crisisreportid">
                     <select class="form-control" id="getcrisistype" name="getcrisistype">

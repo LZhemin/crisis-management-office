@@ -182,8 +182,10 @@
               </table>
             </div>
         </div>
-
-            <label>Select Crisis type to attend to this case:</label>
+        <label>Crisis Title:</label>
+            <input type="text" id="crisistitle" name="crisistitle"/>
+            <br/><br/>
+        <label>Select Crisis type to attend to this case:</label>
             <br/>
                  {% for crisistype in getallcrisistype %}
                      <input type="radio" name="crisistypeT" value="{{crisistype.id}}" checked="checked"> {{crisistype.name}}<br>

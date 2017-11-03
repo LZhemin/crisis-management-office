@@ -162,10 +162,11 @@ $(function() {
         $.ajax({
             url : "/operator/create_crisis/", // the endpoint
             type : "POST", // http method
-            data : { getanalyst : $('#getanalyst').val(), getcrisistype : $('#getcrisistype').val(), crisisreportid: $('#crisisreportid').val()
-             }, // data sent with the post request //, getstatus : $('#getstatus').val()
+            data : { getanalyst : $('#getanalyst').val(), getcrisistype : $('#getcrisistype').val(), crisisreportid: $('#crisisreportid').val(),
+            crisistitlename: $('#crisistitlename').val()}, // data sent with the post request //, getstatus : $('#getstatus').val()
             // handle a successful response
             success : function(json) {
+                $('#crisistitlename').val('');
                 $('#getanalyst').val(''); // remove the value from the input
                 $('#getcrisistype').val(''); // remove the value from the input
                 $('#crisisreportid').val('');

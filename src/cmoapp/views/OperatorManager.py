@@ -65,7 +65,8 @@ def assignnewCrisis(Request, pk):
     if Request.method == 'POST':
         #selected_analyst = Request.POST.get("analystselection")
         selected_crisistype = Request.POST.get("crisistypeT")
-        created_crisis = Crisis(analyst_id=pk, status='Ongoing')
+        entered_title = Request.POST.get("crisistitle")
+        created_crisis = Crisis(crisisTitle = entered_title,analyst_id=pk, status='Ongoing')
         created_crisis.save()
 
         selectedCrisis= Request.POST.getlist('crisisSelector')
@@ -94,8 +95,9 @@ def create_crisis(request):
         selected_crisis = request.POST.get('getcrisistype')
         selected_analyst = request.POST.get('getanalyst')
         selected_reportID = request.POST.get('crisisreportid')
+        entered_title = request.POST.get('crisistitlename')
 
-        created_crisis = Crisis(analyst_id=selected_analyst, status='Ongoing')
+        created_crisis = Crisis(crisisTitle = entered_title, analyst_id=selected_analyst, status='Ongoing')
         created_crisis.save()
         CrisisReport.objects.filter(pk=selected_reportID).update(crisis=created_crisis.pk, crisisType=selected_crisis)
 
