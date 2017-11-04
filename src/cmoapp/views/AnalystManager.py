@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -11,6 +12,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 sessionId = 2
 
+
+def check_analyst_user(user):
+    return user.username.endswith('@analyst')
+
+
+@login_required
+@user_passes_test(check_analyst_user)
 def index(Request):
     #UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
     try:

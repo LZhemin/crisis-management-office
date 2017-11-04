@@ -33,32 +33,36 @@ window.__cfRocketOptions = {byc:0,p:1508690442,petok:"c3cbec5687d3d4a8376dcf49e3
       <a class="hiddenanchor" id="signup"></a>
       <a class="hiddenanchor" id="signin"></a>
 
+      {% block content %}
+
+      {% if form.errors %}
+      <p>Your username and password didn't match. Please try again.</p>
+      {% endif %}
+
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form>
+            <form method="post" action="{% url 'login' %}">
+              {% csrf_token %}
               <h1>CMO Login Page</h1>
+              <table>
+                <tr>
+                    <td>{{ form.username.label_tag }}</td>
+                    <td>{{ form.username }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.password.label_tag }}</td>
+                    <td>{{ form.password }}</td>
+                </tr>
+              </table>
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
-              </div>
-              <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
-              </div>
-              <div>
-                <a class="btn btn-default submit" href="index.html">Log in</a>
-                <a class="reset_pass" href="#">Lost your password?</a>
+                <input class="btn btn-default submit" type="submit" value="Login" />
+                <input type="hidden" name="next" value="{{ next }}" />
               </div>
 
               <div class="clearfix"></div>
 
               <div class="separator">
-                <p class="change_link">New to site?
-                  <a href="#signup" class="to_register"> Create Account </a>
-                </p>
-
-                <div class="clearfix"></div>
-                <br />
-
                 <div>
                   <h1><i class="fa fa-paw"></i> CYBERDYNE</h1>
                 </div>
@@ -66,6 +70,7 @@ window.__cfRocketOptions = {byc:0,p:1508690442,petok:"c3cbec5687d3d4a8376dcf49e3
             </form>
           </section>
         </div>
+        {% endblock %}
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
