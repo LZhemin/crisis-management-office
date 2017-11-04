@@ -191,12 +191,13 @@ $(function() {
         $.ajax({
             url : "/operator/assignexisting/", // the endpoint
             type : "POST", // http method
-            data : { getExisting : $('#getExisting').val(),existingreportid: $('#existingreportid').val()
+            data : { getExisting : $('#getExisting').val(),existingreportid: $('#existingreportid').val(),  getcrisistype2:$('#getcrisistype2').val()
              }, // data sent with the post request //, getstatus : $('#getstatus').val()
             // handle a successful response
             success : function(json) {
-                alert('#crisisreport-'+json.existingreportid);
+                //alert('#crisisreport-'+json.existingreportid);
                 $('#crisisreport-'+json.existingreportid).remove();
+                $('#getcrisistype2').val('');
                 $('#getExisting').val(''); // remove the value from the input
                 $('#existingreportid').val(''); // remove the value from the input
                 console.log(json); // log the returned json to the console

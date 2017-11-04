@@ -119,11 +119,13 @@ def assignexisting(request):
 
         selected_crisis = request.POST.get('getExisting')
         selected_reportID = request.POST.get('existingreportid')
+        selected_crisistype = request.POST.get('getcrisistype2')
+
+
+        #selected_type = CrisisReport.objects.filter(crisis_id = selected_crisis).values_list('crisisType_id', flat=True)
+        #getassignexisting = CrisisReport.objects.filter(pk=selected_reportID).update(crisis=selected_crisis, crisisType=selected_type[0])
+        CrisisReport.objects.filter(pk=selected_reportID).update(crisis=selected_crisis, crisisType=selected_crisistype)
         response_data = {}
-
-        selected_type = CrisisReport.objects.filter(crisis_id = selected_crisis).values_list('crisisType_id', flat=True)
-        getassignexisting = CrisisReport.objects.filter(pk=selected_reportID).update(crisis=selected_crisis, crisisType=selected_type[0])
-
         response_data['result'] = 'Create post successful!'
         response_data['existingreportid'] = selected_reportID
         return JsonResponse(response_data)

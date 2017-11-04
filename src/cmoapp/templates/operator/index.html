@@ -613,15 +613,7 @@
             opacity: 1;
             text-shadow: none;
         }
-        .modal-body input {
-            border: 1px solid #d4d9e3;
-            font-size: 14px;
-            font-weight: 300;
-            margin: 5px 0;
-            padding: 14px 10px;
-            width: 60%;
-            color: #8492af;
-        }
+
         .modal-body textarea {
             border: 1px solid #d4d9e3;
             font-size: 14px;
@@ -1300,7 +1292,12 @@
                         <option value = {{acc.pk}}> {{acc.pk}} </option>
                       {%endfor%}
                     </select>
-
+                    <h4 class="modal-title" id="selecttype">Select Crisis Type: </h4>
+                     <select class="form-control" id="getcrisistype2" name="getcrisistype2">
+                      {% for getcri in getCrisisTypeList %}
+                        <option value = {{getcri.id}}>{{getcri.name}}</option>
+                      {%endfor%}
+                    </select>
                     <div id="result2"></div> <!-- errors go here -->
 
                     <br>
