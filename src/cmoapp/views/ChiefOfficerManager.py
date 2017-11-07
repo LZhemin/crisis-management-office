@@ -6,7 +6,7 @@ from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan,
 from django.views.generic import ListView,DetailView
 from django.core import serializers
 import requests
-
+import datetime
 
 #Kindly help to remove unwanted modules
 
@@ -197,22 +197,23 @@ def sendDeploymentPlan(request,id):
         deployment =[]
         description = ""
         for report in crisis_reports:
-            location.append({"LocationId":report.id, "Lat" : report.latitude,"long": report.longitude,"AOE":report.radius, "category": report.crisisType.name})
-            description+=report.description
+            location.append({"LocationId":report.id, "Lat" : float(report.latitude),"Long": float(report.longitude),"AOE":int(report.radius), "Category": report.crisisType.name})
+            description+=report.description+". "
 
         for force in forces:
-            deployment.append({"ForceType":force.name,"recommended":force.recommended,"maxUtilisation": force.max})
+            deployment.append({"ForceType":force.name_id,"Recommended":float(force.recommended),"Max": float(force.max)})
 
         order_data = {
             "CrisisID":crisis.id,
-            "Datetime":timezone.now(),
+            "Datetime":timezone.now().__str__(),
             "ActionPlanID": actionPlan.id,
             "Location":location,
             "Crisis Description":description,
             "Action Plan Description":actionPlan.description,
             "Deployment":deployment
         }
-        #return HttpResponse(timezone.now().strftime("%b. %d, %Y, %I:%M"))
+
+        return HttpResponse(str(order_data))
         r = requests.post('url', params=order_data)
         if r.status_code == 200:
             print('Posted Successfully!')
