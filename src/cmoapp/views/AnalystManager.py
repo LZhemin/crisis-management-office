@@ -39,15 +39,19 @@ def index(Request):
                 context['ActionPlanForm'] = ActionPlanForm()
         else:
             print(Request.POST)
-            form = ActionPlanForm(Request.POST)
-            context['ActionPlanForm'] = form
-            #ADD SOME STUFF ABOUT FORCEFORM
-            if form.is_valid():
+            #Validate Action Plan
+            submitted_action_plan_form = ActionPlanForm(Request.POST)
+            context['ActionPlanForm'] = submitted_action_plan_form
+            #SAVE ME https://collingrady.wordpress.com/2008/02/18/editing-multiple-objects-in-django-with-newforms/
+
+
+
+            if submitted_action_plan_form.is_valid():
                 if(Request.POST['submitType'] == "Save"):
-                    form.update_or_create(assigned_crisis,"Planning")
+                    submitted_action_plan_form.update_or_create(assigned_crisis,"Planning")
                 else:
                     #Create
-                    form.update_or_create(assigned_crisis,"Awaiting CO Approval")
+                    submitted_action_plan_form.update_or_create(assigned_crisis,"Awaiting CO Approval")
                     context['ActionPlanForm'] = ActionPlanForm()
     return render(Request, 'analyst/index.html',context)
 

@@ -48,15 +48,17 @@ class ActionPlanForm(ModelForm):
 
 class ForceForm(ModelForm):
 
-    #name =
-
     class Meta:
         model = ForceDeployment
         fields = ['name','recommended','max']
 
-    def update_or_create(self,action_plan=None):
-        if(action_plan):
-            pass
-        else:
-            raise ValueError("Action Plan of Force Deployment Object needs to be set before saving")
-        pass
+    # def update_or_create(self,action_plan=None):
+    #     if(action_plan):
+    #         try:
+    #
+    #         except ForceDeployment.DoesNotExist
+    #
+    #
+    #     else:
+    #         raise ValueError("Action Plan of Force Deployment Object needs to be set before saving")
+    #     pass

@@ -37,7 +37,6 @@ function queryStatus()
 //Polling for Updates Sections
 //Checking for New EFUpdates
 function checkEfUpdate(){
-    console.log("Checking ef Update");
     $.ajax({
         type:"GET",
         url: "get_efupdate_count/",
@@ -161,7 +160,6 @@ function checkCRUpdate(){
         dataType: 'json',
         success: function (data) {
             var newCRCount = data['count'];
-            console.log(newCRCount)
             if(crCount==-1)
                 crCount = newCRCount;
             else if(crCount<newCRCount) {
