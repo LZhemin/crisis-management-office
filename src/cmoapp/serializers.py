@@ -57,7 +57,6 @@ class AuthSerializer(serializers.Serializer):
         text = data.get('text',None)
         # ap = ActionPlan.objects.get(id=id)
         # if ap.status == 'Rejected' and text :
-        print("FUCK")
         if ActionPlan.objects.get(pk=id) == True:
             print("VALIDATED1")
             raise serializers.ValidationError('ID already exists')

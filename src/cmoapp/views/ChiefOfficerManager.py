@@ -183,6 +183,7 @@ def ReloadCrisis(request):
 
 
 def sendDeploymentPlan(id):
+
     try:
         ap_id = id
         actionPlan = ActionPlan.objects.get(id=ap_id)
@@ -197,24 +198,26 @@ def sendDeploymentPlan(id):
         deployment =[]
         description = ""
         for report in crisis_reports:
-            location.append({"LocationId":report.id, "Lat" : float(report.latitude),"Long": float(report.longitude),"AOE":int(report.radius), "Category": report.crisisType.name})
+            location.append({"LocationID":report.id, "Lat" : float(report.latitude),"Long": float(report.longitude),"AOE":int(report.radius), "Category": report.crisisType.name})
             description+=report.description+". "
 
         for force in forces:
             deployment.append({"ForceType":force.name_id,"Recommended":float(force.recommended),"Max": float(force.max)})
 
+
         order_data = {
-            "CrisisID":crisis.id,
-            "Datetime":timezone.now().__str__(),
             "ActionPlanID": actionPlan.id,
-            "Location":location,
-            "Crisis Description":description,
-            "Action Plan Description":actionPlan.description,
-            "Deployment":deployment
+            "CrisisID": crisis.id,
+            "Date_time": timezone.now().__str__(),
+            "Location": location,
+            "CrisisDescription": description,
+            "ActionPlanDescription": actionPlan.description,
+            "Deployment": deployment
         }
 
-        return HttpResponse(str(order_data))
-        r = requests.post('url', params=order_data)
-        if r.status_code == 200:
+        #return HttpResponse(str(order_data))
+        r = requests.post('http://192.168.137.5:8000/api/order/', json=order_data)
+        print(r.text)
+        if r.status_code == 201 or r.status_code == 200:
             print('Posted Successfully!')
-        print('Failure Code:'+r.status_code)
+        print('Failure Code:'+str(r.status_code))
