@@ -51,21 +51,23 @@ class AuthSerializer(serializers.Serializer):
     text = serializers.CharField(required=False, allow_null=True, allow_blank=True, max_length=100)
     approval = serializers.BooleanField(required=True)
 
-    def validate(self, attrs):
+    def validate(self, data):
         #validate id exists
-        id = attrs.get('id')
-        text = attrs.get('text')
+        id = data.get('id')
+        text = data.get('text',None)
         # ap = ActionPlan.objects.get(id=id)
         # if ap.status == 'Rejected' and text :
-
+        print("FUCK")
         if ActionPlan.objects.get(pk=id) == True:
+            print("VALIDATED1")
             raise serializers.ValidationError('ID already exists')
-        elif not text or text == '':
-            raise serializers.ValidationError('Comment not exists')
+        # elif not text or text == '':
+        #     raise serializers.ValidationError('Comment not exists')
         elif ActionPlan.objects.get(pk=id) == False:
-            return attrs;
+            print("VALIDATED2")
+            return data;
 
-        return attrs;
+        return data;
 
     def save(self):
         #ap = ActionPlan.objects.get(pk = self.validated_data['id'])
@@ -77,14 +79,13 @@ class AuthSerializer(serializers.Serializer):
             ap.status = 'Approved'
         else:
             ap.status = 'Rejected'
+
         ap.save()
-        if self.validated_data['text'] and self.validated_data['approval'] == False:
-            #c =  Comment.objects.
-            #c.text
-            text = self.validated_data['text']
+
+        if self.validated_data['approval'] == False:
             author = 'PMO'
+            text = self.validated_data['text']
             timeCreated = timezone.now()
-            actionPlan = aid
             Comment.objects.create(text=text,author=author,timeCreated=timeCreated,actionPlan=ap)
 
     # id = serializers.IntegerField(read_only=True)

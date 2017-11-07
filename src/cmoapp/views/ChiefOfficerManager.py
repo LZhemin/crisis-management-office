@@ -182,7 +182,7 @@ def ReloadCrisis(request):
         return render(request, 'chief/ui_components/all_crisis.html', context)
 
 
-def sendDeploymentPlan(request,id):
+def sendDeploymentPlan(id):
     try:
         ap_id = id
         actionPlan = ActionPlan.objects.get(id=ap_id)

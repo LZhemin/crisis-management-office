@@ -9,6 +9,7 @@ from rest_framework import permissions, status,generics
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from cmoapp.serializers import CrisisSerializer, CrisisReportSerializer, NineOneOneSerializer, EFSerializer, ActionPlanSerializer, CommentSerializer, AuthSerializer, PMOSerializer
+from cmoapp.views import ChiefOfficerManager
 
 import json
 #Kindly help to remove unwanted modules
@@ -109,12 +110,12 @@ def auth_collection(request):
             #serializer.validated_data
             #datatest = JSONRenderer().render(serializer.validated_data)
             #datatryout = json.loads(datatest)
-
             serializer.save()
-         #   serializer2.save()
+            if(serializer.data['approval'] == True):
+                ChiefOfficerManager.sendDeploymentPlan(serializer.data['id'])
             response_data['Status'] = 'Success!'
             response_data['Message'] = 'Approval Captured!'
-            return Response(response_data, status=status.HTTP_201_CREATED)
+            return Response(response_data, status=status.HTTP_200_OK)
 
         response_data['Status'] = 'Failed!'
         response_data['Message'] = 'Approval Not Captured!'
