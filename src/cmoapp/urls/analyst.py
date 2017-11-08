@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^action_plans/(?P<pk>\d+)/$', AnalystManager.ActionPlanDetail.as_view(), name='Analyst_Action_Plan_Detail'),
     url(r'^get_efupdate_count/$', AnalystManager.get_efupdates_count, name="Get_EfUpdate_Count"),
     url(r'^get_efupdates/$', AnalystManager.get_efupdates, name="Get_EFUpdates"),
+    url(r'^reload_notification/$', AnalystManager.reload_notification, name="Reload_Notification"),
     url(r'^get_comment_count/$', AnalystManager.get_comment_count, name="Get_Comment_Count"),
     url(r'^get_comments/$', AnalystManager.get_comments, name="Get_Comments"),
     url(r'^get_crisis_report_count/$', AnalystManager.get_crisis_report_count, name="Get_Crisis_Report_Count"),

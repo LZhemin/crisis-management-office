@@ -39,7 +39,7 @@ urlpatterns = [ # pylint: disable=invalid-name
     url(r'^ActionPlan/', include('cmoapp.urls.actionplan')),
     url(r'^login/', include('cmoapp.urls.login')),
     url(r'^chief', include('cmoapp.urls.chief')),
-	#url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
     # url(r'^$', login, name='login'),
     url(r'^api/', include('cmoapp.urls.api'))
 ]
