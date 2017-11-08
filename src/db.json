@@ -550,6 +550,39 @@
     }
 },
 {
+    "model": "cmoapp.notifications",
+    "pk": 1,
+    "fields": {
+        "title": "Action Plan Approved",
+        "text": "Action Plan is fucking approved",
+        "new": 1,
+        "_for": 1,
+        "time_added": "2017-11-08 16:55:20.402628"
+    }
+},
+{
+    "model": "cmoapp.notifications",
+    "pk": 2,
+    "fields": {
+        "title": "Action Plan Rejected",
+        "text": "Action Plan is fucking Rejected",
+        "new": 1,
+        "_for": 1,
+        "time_added": "2017-11-08 16:52:20.402628"
+    }
+},
+{
+    "model": "cmoapp.notifications",
+    "pk": 3,
+    "fields": {
+        "title": "Booyah",
+        "text": "Action Plan is fucking Rejected THANKS",
+        "new": 1,
+        "_for": 1,
+        "time_added": "2017-11-08 16:51:20.402628"
+    }
+},
+{
     "model": "admin.logentry",
     "pk": 1,
     "fields": {
