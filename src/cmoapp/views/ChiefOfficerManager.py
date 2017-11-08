@@ -27,12 +27,12 @@ def index(Request):
     else:
         context = {
             'all_crisis': crisis,
-            'all_force':forces,
+            'all_force': forces,
             'efUpdateCount': efUpdatesCount,
-            'forceWidth':forceWidth,
-            'sideWidth':sideWidth,
-            'notification_count':notification_count
-
+            'forceWidth': forceWidth,
+            'sideWidth': sideWidth,
+            'notifications': notifications,
+            'notification_count': notification_count
         }
         return render(Request, 'chief/index.html', context)
 
