@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
-from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment
+from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment, Notifications
 from cmoapp.forms.analyst import ActionPlanForm, ForceForm
 from django.views.generic import ListView,DetailView
 from rest_framework import serializers
@@ -20,6 +20,8 @@ def index(Request):
         crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
         actionPlanList = ActionPlan.objects.filter(crisis_id=assigned_crisis.id).exclude(status='Planning')
         all_forces = Force.objects.all()
+        notifications = Notifications.objects.all().exclude(new=0)
+        notification_count = notifications.count()
     except(KeyError, Crisis.DoesNotExist):
         context = {'assigned_crisis': False}
     else:
@@ -28,7 +30,8 @@ def index(Request):
             'crisis_reports': crisis_reports,
             'ActionPlanList': actionPlanList,
             'all_force': all_forces,
-            'json_force': AnalystForceSerializer(Force.objects.all(), many=True).data
+            'json_force': AnalystForceSerializer(Force.objects.all(), many=True).data,
+            'notification_count': notification_count
         }
         if(Request.method == "GET"):
             #WHY DJANGO WHY DONT YOU HAVE AN INBUILT GET OBJECT_OR_NONE
@@ -124,7 +127,6 @@ def reload_current_stat(request):
     return JsonResponse(data, safe=False)
 
 
-
 #Add the LoginRequiredMixin as the leftmost inheritance
 class ActionPlanList(ListView):
     context_object_name = "ActionPlanList"
@@ -132,6 +134,21 @@ class ActionPlanList(ListView):
     #need to get session
     def get_queryset(self):
         return ActionPlan.objects.filter(crisis__analyst = sessionId).prefetch_related('forcedeployment_set')
+
+
+def reload_notification(request):
+    try:
+        notifications = Notifications.objects.all().exclude(new=0)
+        notification_count = notifications.count()
+    except KeyError:
+        return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
+    else:
+        context = {
+            'all_notifications': notifications,
+            'notification_count': notification_count
+        }
+        return render(request, 'chief/ui_components/top_navigation.html', context)
+
 
 class ActionPlanDetail(DetailView):
     context_object_name = "Action_Plan"

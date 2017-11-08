@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse, QueryDict, JsonResponse
 from django.urls import reverse
-from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate
+from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Notifications
 from django.forms.models import model_to_dict
 from django.core import serializers
 from cmoapp.serializers import CrisisReportSerializer
@@ -24,6 +24,9 @@ def sharedindex():
     getanalystacc = Crisis.objects.exclude(analyst__isnull = True).values_list('analyst_id', flat=True)
     getAccountList = Account.objects.filter(type="Analyst").exclude(pk__in=getanalystacc)
 
+    notifications = Notifications.objects.all().exclude(new=0)
+    notification_count = notifications.count()
+
     context = {'getCrisisList': getCrisisList,
                'getCrisisTypeList': getCrisisTypeList,
                'getCrisisReportList': getCrisisReportList,
@@ -33,6 +36,7 @@ def sharedindex():
                'getAssignedCrisisReport':getAssignedCrisisReport,
                'all_crisis': Crisis.objects.reverse(),
                'all_crisisreport': CrisisReport.objects.reverse(),
+               'notification_count': notification_count
                }
     return context
 
@@ -145,6 +149,20 @@ def assignexisting(request):
           #  content_type="application/json"
         #)
         return JsonResponse(model_to_dict(0))
+
+
+def reload_notification(request):
+    try:
+        notifications = Notifications.objects.all().exclude(new=0)
+        notification_count = notifications.count()
+    except KeyError:
+        return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
+    else:
+        context = {
+            'all_notifications': notifications,
+            'notification_count': notification_count
+        }
+        return render(request, 'chief/ui_components/top_navigation.html', context)
 
 
 def delete_crisis(request):

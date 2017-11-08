@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
 from django.utils import timezone
-from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment
+from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment, Notifications
 from django.views.generic import ListView,DetailView
 from django.core import serializers
 import requests
@@ -17,7 +17,9 @@ def index(Request):
         forces = Force.objects.all()
         efUpdatesCount = EFUpdate.objects.count()
         forceWidth = int(12/Force.objects.count())
-        sideWidth =  int((12-forceWidth*Force.objects.count())/2)
+        sideWidth = int((12-forceWidth*Force.objects.count())/2)
+        notifications = Notifications.objects.all().exclude(new=0)
+        notification_count = notifications.count()
 
     except(KeyError, Crisis.DoesNotExist):
 
@@ -28,7 +30,9 @@ def index(Request):
             'all_force':forces,
             'efUpdateCount': efUpdatesCount,
             'forceWidth':forceWidth,
-            'sideWidth':sideWidth
+            'sideWidth':sideWidth,
+            'notification_count':notification_count
+
         }
         return render(Request, 'chief/index.html', context)
 
@@ -47,11 +51,10 @@ def change_status(request):
     return JsonResponse({'success': True, 'message': 'Crisis '+crisis_id+'Status Changed to '+new_status})
 
 
-
-
 def get_efupdates_count(request):
     efCount = EFUpdate.objects.count()
     return JsonResponse({'count':efCount}, safe=False)
+
 
 def get_efupdates(request):
     try:
@@ -145,7 +148,6 @@ class ActionPlanDetail(DetailView):
     model = ActionPlan
 
 
-
 def select_crisischat(request):
     #select_id = CrisisID;
     CrisisID= 0;
@@ -156,7 +158,6 @@ def select_crisischat(request):
     }
 
     return JsonResponse(serializers.serialize('json', selectCrisis), safe=False)
-
 
 
 def ReloadTable(request):
@@ -170,6 +171,7 @@ def ReloadTable(request):
         }
         return render(request, 'chief/ui_components/action_plan_table.html', context)
 
+
 def ReloadCrisis(request):
     try:
         crisis = Crisis.objects.all().exclude(status='Resolved')
@@ -182,8 +184,21 @@ def ReloadCrisis(request):
         return render(request, 'chief/ui_components/all_crisis.html', context)
 
 
-def sendDeploymentPlan(id):
+def reload_notification(request):
+    try:
+        notifications = Notifications.objects.all().exclude(new=0)
+        notification_count = notifications.count()
+    except KeyError:
+        return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
+    else:
+        context = {
+            'all_notifications': notifications,
+            'notification_count': notification_count
+        }
+        return render(request, 'chief/ui_components/top_navigation.html', context)
 
+
+def sendDeploymentPlan(id):
     try:
         ap_id = id
         actionPlan = ActionPlan.objects.get(id=ap_id)
@@ -203,7 +218,6 @@ def sendDeploymentPlan(id):
 
         for force in forces:
             deployment.append({"ForceType":force.name_id,"Recommended":float(force.recommended),"Max": float(force.max)})
-
 
         order_data = {
             "ActionPlanID": actionPlan.id,
