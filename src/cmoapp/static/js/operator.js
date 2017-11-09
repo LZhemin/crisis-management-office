@@ -172,7 +172,7 @@ $(function() {
                 //$('#getstatus').val(''); // remove the value from the input
                 console.log(json); // log the returned json to the console
 
-                $('#analysts-'+json.id).remove();
+                $('#analysts-'+json.analyst).remove();
                 $('#crisisreport-'+json.crisisreportid).remove();
 
                 console.log("success"); // another sanity check

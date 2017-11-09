@@ -37,7 +37,7 @@ class CrisisType(models.Model):
 class Crisis(models.Model):
     #analyst is FK to crisis. This enables analyst to be deleted once the crisis is resolved
     #name = models.TextField()
-    crisisTitle = models.CharField(max_length=50,null=True)
+    crisis_title = models.CharField(max_length=50,null=True)
     analyst = models.OneToOneField(Account,blank=True,null=True,limit_choices_to={'type':'Analyst'}, on_delete=models.SET_NULL)
     STATUS = (
         ('Clean-up','Clean Up'),
