@@ -554,7 +554,7 @@
     "pk": 1,
     "fields": {
         "title": "Action Plan Approved",
-        "text": "Action Plan is fucking approved",
+        "text": "Action Plan is fucking approved for ANALYST1",
         "new": 1,
         "_for": 1,
         "time_added": "2017-11-08 16:55:20.402628"
@@ -565,7 +565,7 @@
     "pk": 2,
     "fields": {
         "title": "Action Plan Rejected",
-        "text": "Action Plan is fucking Rejected",
+        "text": "Action Plan is fucking Rejected for ANALYST1",
         "new": 1,
         "_for": 1,
         "time_added": "2017-11-08 16:52:20.402628"
@@ -576,9 +576,86 @@
     "pk": 3,
     "fields": {
         "title": "Booyah",
-        "text": "Action Plan is fucking Rejected THANKS",
+        "text": "Action Plan is fucking Rejected THANKS for ANALYST1",
         "new": 1,
         "_for": 1,
+        "time_added": "2017-11-08 16:51:20.402628"
+    }
+},
+    {
+    "model": "cmoapp.notifications",
+    "pk": 4,
+    "fields": {
+        "title": "Action Plan Approved",
+        "text": "Action Plan is fucking approved for OPERATOR",
+        "new": 1,
+        "_for": 3,
+        "time_added": "2017-11-08 16:55:20.402628"
+    }
+},
+{
+    "model": "cmoapp.notifications",
+    "pk": 5,
+    "fields": {
+        "title": "Action Plan Rejected",
+        "text": "Action Plan is fucking Rejected for OPERATOR",
+        "new": 1,
+        "_for": 3,
+        "time_added": "2017-11-08 16:52:20.402628"
+    }
+},
+{
+    "model": "cmoapp.notifications",
+    "pk": 6,
+    "fields": {
+        "title": "Booyah",
+        "text": "Action Plan is fucking Rejected THANKS for OPERATOR",
+        "new": 1,
+        "_for": 3,
+        "time_added": "2017-11-08 16:51:20.402628"
+    }
+},
+    {
+    "model": "cmoapp.notifications",
+    "pk": 7,
+    "fields": {
+        "title": "Action Plan Approved",
+        "text": "Action Plan is fucking approved for CHIEF",
+        "new": 1,
+        "_for": 4,
+        "time_added": "2017-11-08 16:55:20.402628"
+    }
+},
+{
+    "model": "cmoapp.notifications",
+    "pk": 8,
+    "fields": {
+        "title": "Action Plan Rejected",
+        "text": "Action Plan is fucking Rejected for CHIEF",
+        "new": 1,
+        "_for": 4,
+        "time_added": "2017-11-08 16:52:20.402628"
+    }
+},
+{
+    "model": "cmoapp.notifications",
+    "pk": 9,
+    "fields": {
+        "title": "Booyah",
+        "text": "Action Plan is fucking Rejected THANKS for CHIEF",
+        "new": 1,
+        "_for": 4,
+        "time_added": "2017-11-08 16:51:20.402628"
+    }
+},
+    {
+    "model": "cmoapp.notifications",
+    "pk": 10,
+    "fields": {
+        "title": "Booyah",
+        "text": "Action Plan is fucking Rejected THANKS for CHIEF _ OLD",
+        "new": 0,
+        "_for": 4,
         "time_added": "2017-11-08 16:51:20.402628"
     }
 },
