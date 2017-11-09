@@ -52,26 +52,21 @@ class AuthSerializer(serializers.Serializer):
     approval = serializers.BooleanField(required=True)
 
     def validate(self, data):
-        #validate id exists
         id = data.get('id')
         text = data.get('text',None)
-        # ap = ActionPlan.objects.get(id=id)
-        # if ap.status == 'Rejected' and text :
-        if ActionPlan.objects.get(pk=id) == True:
-            print("VALIDATED1")
-            raise serializers.ValidationError('ID already exists')
-        # elif not text or text == '':
-        #     raise serializers.ValidationError('Comment not exists')
-        elif ActionPlan.objects.get(pk=id) == False:
-            print("VALIDATED2")
+        approval = data.get('approval')
+        ap = ActionPlan.objects.get(id=id)
+
+        if ap.status != 'PMORequest':
+            raise serializers.ValidationError('ActionPlan already validated')
+        elif approval == False and text == None:
+            raise serializers.ValidationError('Comment should exists')
+        elif ap.status == 'PMORequest':
             return data;
 
         return data;
 
     def save(self):
-        #ap = ActionPlan.objects.get(pk = self.validated_data['id'])
-        #ap = ActionPlan.objects.get(self.data['id'])
-        #ap.id = self.validated_data['id']
         aid = self.validated_data['id']
         ap = ActionPlan.objects.get(id = aid)
         if self.validated_data['approval'] == True:
