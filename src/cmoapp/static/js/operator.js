@@ -72,10 +72,6 @@ $(function() {
             // handle a successful response
             //var html;
             success : function(json) {
-            //alert(json[0].pk + " " + json[0].fields.crisisType);
-            //alert(JSON.stringify(json[0]))
-           // alert("" + obj);
-            //$("#Unacrisrptlist2").load(location.href + " #Unacrisrptlist2");
                 //console.log(json);
                 for (var i = 0; i < json.length; i++) {
                     $('#crisis-'+json[i].id).remove();
@@ -111,8 +107,6 @@ $(function() {
             url : "/operator/load_analyst/", // the endpoint
             type : "GET", // http method
             // handle a successful response
-            //var html;
-            //alert("test");
             success : function(json) {
                 for (var i = 0; i < json.length; i++) {
                     console.log(json[i])
@@ -130,9 +124,9 @@ $(function() {
                          //}
                         // alert(json[i].id);
 
-                }
+                        }
                // console.log("load success"); // another sanity check
-            }
+                 }
             },
             // handle a non-successful response
             error : function(xhr,errmsg,err) {
@@ -168,10 +162,11 @@ $(function() {
         $.ajax({
             url : "/operator/create_crisis/", // the endpoint
             type : "POST", // http method
-            data : { getanalyst : $('#getanalyst').val(), getcrisistype : $('#getcrisistype').val(), crisisreportid: $('#crisisreportid').val()
-             }, // data sent with the post request //, getstatus : $('#getstatus').val()
+            data : { getanalyst : $('#getanalyst').val(), getcrisistype : $('#getcrisistype').val(), crisisreportid: $('#crisisreportid').val(),
+            crisistitlename: $('#crisistitlename').val()}, // data sent with the post request //, getstatus : $('#getstatus').val()
             // handle a successful response
             success : function(json) {
+                $('#crisistitlename').val('');
                 $('#getanalyst').val(''); // remove the value from the input
                 $('#getcrisistype').val(''); // remove the value from the input
                 $('#crisisreportid').val('');
@@ -179,17 +174,7 @@ $(function() {
                 console.log(json); // log the returned json to the console
 
                 $('#analysts-'+json.id).remove();
-                //$('#crisisreport-'+json.id).remove();
-                //alert(json.id+json.crisispk);
-                /*
-                html = '<tr id ='+'crisis-'+json.crisispk+'>';
-                html += '<td></td>';
-                html += '<td><span class="label label-default">'+json.crisispk+'</span></td>';
-                html += '<td><span class="label label-warning">'+json.analyst+'</span></td>';
-                html += '<td><span class="label label-success">'+json.status+'</span></td>';
-                html += '</tr>';
-                $("#Unacrisislist").append(html);
-                */
+                $('#crisisreport-'+json.crisisreportid).remove();
 
                 console.log("success"); // another sanity check
             },
@@ -206,16 +191,17 @@ $(function() {
         $.ajax({
             url : "/operator/assignexisting/", // the endpoint
             type : "POST", // http method
-            data : { getExisting : $('#getExisting').val(),existingreportid: $('#existingreportid').val()
+            data : { getExisting : $('#getExisting').val(),existingreportid: $('#existingreportid').val(),  getcrisistype2:$('#getcrisistype2').val()
              }, // data sent with the post request //, getstatus : $('#getstatus').val()
             // handle a successful response
             success : function(json) {
-                //$('#crisisreport-'+existingreportid).remove();
+                //alert('#crisisreport-'+json.existingreportid);
+                $('#crisisreport-'+json.existingreportid).remove();
+                $('#getcrisistype2').val('');
                 $('#getExisting').val(''); // remove the value from the input
                 $('#existingreportid').val(''); // remove the value from the input
                 console.log(json); // log the returned json to the console
                 console.log("success"); // another sanity check
-
 
             },
             // handle a non-successful response

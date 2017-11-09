@@ -5,6 +5,7 @@ from django.utils import timezone
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment
 from django.views.generic import ListView,DetailView
 from django.core import serializers
+
 import requests
 import datetime
 
