@@ -9,22 +9,20 @@ from cmoapp.serializers import CrisisReportSerializer
 import json
 #Kindly help to remove unwanted modules
 
+sessionId = 3
+
 
 def sharedindex():
     getCrisisList = Crisis.objects.all
     getCrisisTypeList = CrisisType.objects.all
     getCrisisReportList = CrisisReport.objects.all
     getUnassignedCrisisReport = CrisisReport.objects.filter(crisis__isnull=True).order_by('datetime')
-
     getResolvedCrisis = Crisis.objects.exclude(status='Resolved').values_list('pk', flat=True)
     getAssignedCrisisReport = CrisisReport.objects.exclude(crisis__isnull=True).filter(crisis__in = getResolvedCrisis)
-
     getNotResolvedCrisisList = Crisis.objects.filter(analyst__isnull=False).exclude(status='Resolved')
-
     getanalystacc = Crisis.objects.exclude(analyst__isnull = True).values_list('analyst_id', flat=True)
     getAccountList = Account.objects.filter(type="Analyst").exclude(pk__in=getanalystacc)
-
-    notifications = Notifications.objects.all().exclude(new=0)
+    notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
     notification_count = notifications.count()
 
     context = {'getCrisisList': getCrisisList,
@@ -153,7 +151,7 @@ def assignexisting(request):
 
 def reload_notification(request):
     try:
-        notifications = Notifications.objects.all().exclude(new=0)
+        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
         notification_count = notifications.count()
     except KeyError:
         return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})

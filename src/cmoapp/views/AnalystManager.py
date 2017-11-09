@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 #Kindly help to remove unwanted modules
 
-sessionId = 2
+sessionId = 1
 
 def index(Request):
     #UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
@@ -20,8 +20,9 @@ def index(Request):
         crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
         actionPlanList = ActionPlan.objects.filter(crisis_id=assigned_crisis.id).exclude(status='Planning')
         all_forces = Force.objects.all()
-        notifications = Notifications.objects.all().exclude(new=0)
+        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
         notification_count = notifications.count()
+
     except(KeyError, Crisis.DoesNotExist):
         context = {'assigned_crisis': False}
     else:
@@ -56,11 +57,12 @@ def index(Request):
                     #Create
                     submitted_action_plan_form.update_or_create(assigned_crisis,"Awaiting CO Approval")
                     context['ActionPlanForm'] = ActionPlanForm()
-    return render(Request, 'analyst/index.html',context)
+    return render(Request, 'analyst/index.html', context)
+
 
 def crisis_statistics(Request):
-
     pass
+
 
 def historicalData(Request):
     return HttpResponse("HISTORICAL DATA")
@@ -112,7 +114,6 @@ def get_crisis_reports(request):
         crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id)[startNum:]
     except(KeyError):
         return JsonResponse({'success':False,'error':'Error in retrieving crisis reports!'})
-
     data = CrisisReportSerializer(crisis_reports, many=True).data
     return JsonResponse(data, safe=False)
 
@@ -138,7 +139,7 @@ class ActionPlanList(ListView):
 
 def reload_notification(request):
     try:
-        notifications = Notifications.objects.all().exclude(new=0)
+        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
         notification_count = notifications.count()
     except KeyError:
         return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
@@ -171,4 +172,3 @@ class EFUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = EFUpdate
         fields = ['id','datetime','affectedRadius','totalInjured','totalDeaths','duration','description','actionPlan_id','crisis_id']
-        
