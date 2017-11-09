@@ -6,6 +6,7 @@ from cmoapp.forms.analyst import ActionPlanForm, ForceForm
 from django.views.generic import ListView,DetailView
 from rest_framework import serializers
 from cmoapp.serializers import CrisisSerializer, CrisisReportSerializer, ActionPlanSerializer, CommentSerializer
+import datetime
 #Future use in session-based views
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -150,4 +151,188 @@ class EFUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = EFUpdate
         fields = ['id','datetime','affectedRadius','totalInjured','totalDeaths','duration','description','actionPlan_id','crisis_id']
-        
+
+
+class ActionPlanGenerator:
+    def generateCombatPlan(crisis_id):
+
+        dt = datetime.timedelta(days=0, hours=0)
+        option = 0
+        findCrisisReport = CrisisReport.objects.filter(crisis=crisis_id)
+
+        rule1 = False
+        rule2 = True
+        rule3 = True
+        rule4 = True
+        rule5 = True
+        rule6 = True
+        rule7 = True
+        rule8 = True
+        rule9 = True
+        rule10 = True
+        rule11 = True
+        fire = False
+        largescalecrisis = False
+        terroristattack = False
+        riotormasslooting = False
+        actionplanDescription = ""
+        for report in findCrisisReport.all():
+            if (report.crisisType.name == 'Bombing') or (report.crisisType.name == 'Hijacking & Skyjacking') or (report.crisisType.name == 'Cyber Terrorism') or (report.crisisType.name == 'Nuclear/Radiological') or (report.crisisType.name == 'Biological-Chemical') or (report.crisisType.name == 'Kidnapping') or (report.crisisType.name == 'Arson') or (report.crisisType.name == 'Massacre'):
+                terroristattack = True
+            if (report.radius > 199):
+                rule7 = False
+                rule8 = False
+                rule9 = False
+                rule10 = False
+                rule11 = False
+                largescalecrisis = True
+            if (terroristattack):
+                rule3 = False
+                rule4 = False
+                rule5 = False
+                rule6 = False
+                rule8 = False
+                rule9 = False
+                rule10 = False
+                rule11 = False
+            if (report.crisisType.name == 'Large Fire') or (report.crisisType.name == 'Fire'):
+                rule4 = False
+                rule5 = False
+                rule6 = False
+                rule9 = False
+                rule10 = False
+                rule11 = False
+                fire = True
+            if (report.crisisType.name == 'Natural Disaster'):
+                rule6 = False
+            if (report.crisisType.name == 'Pandemic'):
+                rule5 = False
+                rule10 = False
+                rule11 = False
+            if (report.crisisType.name == 'Riot') or (report.crisisType.name == 'Mass Looting'):
+                rule2 = False
+                rule3 = False
+                rule4 = False
+                rule5 = False
+                rule6 = False
+                rule11 = False
+                riotormasslooting = True
+            if (largescalecrisis) and (riotormasslooting):
+                rule1 = True
+
+        if (rule5 or rule10 or rule11) == False:
+            actionplanDescription = actionplanDescription + "Cordon off affected area.\n"
+        if rule1:
+            actionplanDescription = actionplanDescription + "Curfew will be set and implemented.\n"
+        actionplanDescription = actionplanDescription + "Public Advisory will be carried out on all medias.\n"
+        if (fire) == True:
+            actionplanDescription = actionplanDescription + "Deploy SCDF to extinguish any fire on scene\n"
+        actionplanDescription = actionplanDescription + "Deploy SCDF to decontaminate affected area and carry out search & rescue.\n"
+        if (rule7 or rule8 or rule9 or rule10 or rule11) == False:
+            if riotormasslooting == True:
+                actionplanDescription = actionplanDescription + "Deploy SAF to contain the riot and crowd control. Traffic redirection to ensure no one enters the affected area.\n"
+            else:
+                if terroristattack == True:
+                    actionplanDescription = actionplanDescription + "Deploy SAF to carry out lethal response to terrorist causing damage. Explosives expert to be sent if there's a bomb.\n"
+                else:
+                    actionplanDescription = actionplanDescription + "Deploy SAF to redirect the traffic to ensure no one enters the affected area. \n"
+        if (rule11) == False:
+            actionplanDescription = actionplanDescription + "SPF Deployment to help out focusing on the safety of the citizens. \n"
+        ap = ActionPlan(description=actionplanDescription,
+                        status="Planning",
+                        type="Combat",
+                        resolution_time=dt,
+                        projected_casualties=0.0,
+                        crisis_id=crisis_id)
+        return ap
+
+    def generateCleanup(crisis_id):
+        dt = datetime.timedelta(days=0, hours=0)
+        option = 0
+        findCrisisReport = CrisisReport.objects.filter(crisis=crisis_id)
+
+        rule1 = False
+        rule2 = True
+        rule3 = True
+        rule4 = True
+        rule5 = True
+        rule6 = True
+        rule7 = True
+        rule8 = True
+        rule9 = True
+        rule10 = True
+        rule11 = True
+        fire = False
+        largescalecrisis = False
+        terroristattack = False
+        riotormasslooting = False
+        actionplanDescription = ""
+        for report in findCrisisReport.all():
+            if (report.crisisType.name == 'Bombing') or (report.crisisType.name == 'Hijacking & Skyjacking') or (report.crisisType.name == 'Cyber Terrorism') or (report.crisisType.name == 'Nuclear/Radiological') or (report.crisisType.name == 'Biological-Chemical') or (report.crisisType.name == 'Kidnapping') or (report.crisisType.name == 'Arson') or (report.crisisType.name == 'Massacre'):
+                terroristattack = True
+            if (report.radius > 199):
+                rule7 = False
+                rule8 = False
+                rule9 = False
+                rule10 = False
+                rule11 = False
+                largescalecrisis = True
+            if (terroristattack):
+                rule3 = False
+                rule4 = False
+                rule5 = False
+                rule6 = False
+                rule8 = False
+                rule9 = False
+                rule10 = False
+                rule11 = False
+            if (report.crisisType.name == 'Large Fire') or (report.crisisType.name == 'Fire'):
+                rule4 = False
+                rule5 = False
+                rule6 = False
+                rule9 = False
+                rule10 = False
+                rule11 = False
+                fire = True
+            if (report.crisisType.name == 'Natural Disaster'):
+                rule6 = False
+            if (report.crisisType.name == 'Pandemic'):
+                rule5 = False
+                rule10 = False
+                rule11 = False
+            if (report.crisisType.name == 'Riot') or (report.crisisType.name == 'Mass Looting'):
+                rule2 = False
+                rule3 = False
+                rule4 = False
+                rule5 = False
+                rule6 = False
+                rule11 = False
+                riotormasslooting = True
+            if (largescalecrisis) and (riotormasslooting):
+                rule1 = True
+
+        if (rule5 or rule10 or rule11) == False:
+            actionplanDescription = actionplanDescription + "Cordon off affected area.\n"
+        if rule1:
+            actionplanDescription = actionplanDescription + "Curfew will be set and implemented.\n"
+        actionplanDescription = actionplanDescription + "Public Advisory will be carried out on all medias.\n"
+        if (fire) == True:
+            actionplanDescription = actionplanDescription + "Deploy SCDF to extinguish any fire on scene\n"
+        actionplanDescription = actionplanDescription + "Deploy SCDF to decontaminate affected area and carry out search & rescue.\n"
+        if (rule7 or rule8 or rule9 or rule10 or rule11) == False:
+            if riotormasslooting == True:
+                actionplanDescription = actionplanDescription + "Deploy SAF to contain the riot and crowd control. Traffic redirection to ensure no one enters the affected area.\n"
+            else:
+                if terroristattack == True:
+                    actionplanDescription = actionplanDescription + "Deploy SAF to carry out lethal response to terrorist causing damage. Explosives expert to be sent if there's a bomb.\n"
+                else:
+                    actionplanDescription = actionplanDescription + "Deploy SAF to redirect the traffic to ensure no one enters the affected area. \n"
+        if (rule11) == False:
+            actionplanDescription = actionplanDescription + "SPF Deployment to help out focusing on the safety of the citizens. \n"
+        ap = ActionPlan(description=actionplanDescription,
+                        status="Planning",
+                        type="Clean Up",
+                        resolution_time=dt,
+                        projected_casualties=0.0,
+                        crisis_id=crisis_id)
+        return ap
