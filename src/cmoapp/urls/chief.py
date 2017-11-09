@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^approve_action_plan/$', ChiefOfficerManager.ApproveActionPlan, name="Approve_Action_Plan"),
     url(r'^reject_action_plan/$', ChiefOfficerManager.RejectActionPlan, name="Reject_Action_Plan"),
     url(r'^reload_table/$', ChiefOfficerManager.ReloadTable, name="Reload_Table"),
+    url(r'^reload_notification/$', ChiefOfficerManager.reload_notification, name="Reload_Notification"),
     url(r'^reload_crisis/$', ChiefOfficerManager.ReloadCrisis, name="Reload_Crisis"),
     url(r'^select_crisischat/$', ChiefOfficerManager.select_crisischat, name="Select_Crisischat"),
     url(r'^get_efupdate_count/$', ChiefOfficerManager.get_efupdates_count, name="Get_EfUpdate_Count"),

@@ -198,3 +198,14 @@ class ForceUtilization(models.Model):
 
     def __str__(self):
         return '{}'.format(self.name);
+
+
+class Notifications(models.Model):
+    title = models.TextField()
+    text = models.TextField()
+    _for = models.ForeignKey(Account, on_delete=models.CASCADE)
+    new = models.BooleanField(default=True)
+    time_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '{}'.format(self.title)

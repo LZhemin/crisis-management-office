@@ -131,3 +131,15 @@ def get_crisisreport_collection(request):
     serializer = CrisisReportSerializer(crisisreports, many=True)
     return JsonResponse(serializer.data,safe=False)
 
+def reload_notification(request):
+    try:
+        notifications = Notifications.objects.all().exclude(new=0)
+        notification_count = notifications.count()
+    except KeyError:
+        return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
+    else:
+        context = {
+            'all_notifications': notifications,
+            'notification_count': notification_count
+        }
+        return render(request, 'chief/ui_components/top_navigation.html', context)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Comment, Force, ForceDeployment, EFUpdate, ForceUtilization
+from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Comment, Force, ForceDeployment, EFUpdate, ForceUtilization, Notifications
 from django.utils import timezone
 
 class CrisisSerializer(serializers.ModelSerializer):
@@ -44,6 +44,13 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         #planNumber = serializers.IntegerField(source=Comment.actionPlan.plan_number)
         fields = ('id', 'text', 'author', 'timeCreated', 'actionPlan')
+
+
+class NotificationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Notifications
+        fields = ('title', 'text', '_for', 'new', 'time_added')
 
 class AuthSerializer(serializers.Serializer):
 
