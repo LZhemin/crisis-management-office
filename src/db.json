@@ -127,6 +127,7 @@
     "model": "cmoapp.crisis",
     "pk": 1,
     "fields": {
+        "crisisTitle": "Fire Fire",
         "analyst": 2,
         "status": "Clean-up"
     }
@@ -135,6 +136,7 @@
     "model": "cmoapp.crisis",
     "pk": 2,
     "fields": {
+        "crisisTitle": "RACE WAR",
         "analyst": 1,
         "status": "Combat"
     }
@@ -143,6 +145,7 @@
     "model": "cmoapp.crisis",
     "pk": 3,
     "fields": {
+        "crisisTitle": "DUNNO WHY",
         "analyst": 5,
         "status": "Combat"
     }
@@ -151,6 +154,7 @@
     "model": "cmoapp.crisis",
     "pk": 4,
     "fields": {
+        "crisisTitle": "MAYBE WE NEED SEE WHAT HAPPEN",
         "analyst": null,
         "status": "Combat"
     }
@@ -159,6 +163,7 @@
     "model": "cmoapp.crisis",
     "pk": 5,
     "fields": {
+        "crisisTitle": "TIME TO MOVE TO MALAYSIA",
         "analyst": 7,
         "status": "Resolved"
     }
@@ -546,7 +551,8 @@
         "duration": "00:00:00.000001",
         "actionPlan": null,
         "crisis": 1,
-        "description": "Actually bomb small"
+        "description": "Actually bomb small",
+        "type": ""
     }
 },
 {

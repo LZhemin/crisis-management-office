@@ -80,7 +80,6 @@ $(function() {
                         html += '<td></td>';
                         html += '<td><span class="label label-default">'+json[i].id+'</span></td>';
                         html += '<td><span class="label label-danger">'+json[i].crisis+'</span></td>';
-                        html += '<td><span class="label label-warning">'+json[i].crisisType+'</span></td>';
                         html += '<td>'+json[i].description+'</td>';
                         dateString = convert_to_readable_date(json[i].datetime);
                         html += '<td>'+dateString+'</td>';

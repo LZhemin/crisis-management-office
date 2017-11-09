@@ -840,10 +840,6 @@
             </div>
 
             <div class="col-md-6">
-              <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                <span>September 19, 2017 - October 18, 2017</span> <b class="caret"></b>
-              </div>
             </div>
 
             <div class="col-md-12 x_title">
@@ -857,7 +853,7 @@
             <!-- Start of Header 2 -->
             <div class="col-md-12 row">
                 <div class="col-md-10 col-sm-10 col-xs-24">
-                  <h3>Crisis <small>DashBoard</small></h3>
+
                 </div>
 
 
@@ -950,7 +946,7 @@
                     <div class="col-md-7">
                         <div class="x_panel">
                             <div class="sales report x_title">
-                                <h2><i class="fa fa-pencil-square"></i> Assigned Crisis</h2>
+                                <h2><i class="fa fa-pencil-square"></i> Assigned Unresolved Reports</h2>
 
                                 <ul class="nav navbar-right panel_toolbox col-sm-1">
                                   <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -968,9 +964,8 @@
                                     <thead>
                                       <tr class="headings">
                                           <th></th>
-                                        <th class="column-title">ID </th>
-                                        <th class="column-title">Crisis </th>
-                                        <th class="column-title">Crisis Types </th>
+                                        <th class="column-title">Report ID </th>
+                                        <th class="column-title">Crisis ID </th>
                                         <th class="column-title">Description </th>
                                         <th class="column-title">DateTime </th>
                                       </tr>
@@ -982,7 +977,6 @@
                                               <td></td>
                                             <td class=" "><span class="label label-default">{{unacrisis.pk}}</span></td>
                                               <td class=" "><span class="label label-danger">{{unacrisis.crisis_id}}</span></td>
-                                              <td class=" "><span class="label label-warning">{{unacrisis.crisisType}}</span></td>
                                               <td class=" ">{{unacrisis.description}} </td>
                                               <td class="a-right a-right ">{{unacrisis.datetime}}</td>
                                           </tr>
@@ -1229,7 +1223,7 @@
                 <form method="POST" id="crisis-form">
                   {% csrf_token %}
                     <h4 class="modal-title" id="Crisis_TitleName">Crisis Title: </h4>
-                        <input class="modal-title crisistitlename" type="text" name="crisistitlename" id = "crisistitlename">
+                        <input class="form-control col-sm-12" type="text" name="crisistitlename" id = "crisistitlename">
                     <h4 class="modal-title" id="Crisis_Title">Crisis Type</h4>
                       <input class="modal-title hidingid" type="hidden" name="crisisreportid" id = "crisisreportid">
                     <select class="form-control" id="getcrisistype" name="getcrisistype">
@@ -1289,7 +1283,7 @@
                     <input class="modal-title hidingexisting" type="hidden" name="existingreportid" id = "existingreportid" value = "">
                     <select class="form-control" id="getExisting" name="getExisting">
                       {% for acc in getNotResolvedCrisisList %}
-                        <option value = {{acc.pk}}> {{acc.pk}} </option>
+                        <option value = {{acc.pk}}> {{acc.pk}} - {{acc.crisisTitle}} </option>
                       {%endfor%}
                     </select>
                     <h4 class="modal-title" id="selecttype">Select Crisis Type: </h4>
