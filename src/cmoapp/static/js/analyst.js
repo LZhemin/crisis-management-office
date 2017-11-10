@@ -34,6 +34,13 @@ function queryStatus()
 }
 */
 
+//Auto Update Notification After 3 Seconds
+setInterval(function()
+{
+    reload_notifications()
+}, 3000);
+
+
 //Polling for Updates Sections
 //Checking for New EFUpdates
 function checkEfUpdate(){
@@ -254,3 +261,52 @@ function attachDataToTemplate(template, data)
 
     return fragment;
 }
+
+
+//reloads the all_crisis template
+function reload_notifications() {
+    $.ajax({
+        url :"/analyst/reload_notification/",
+        type : "GET", // http method
+        success : function(data) {
+            if(!$('#presentation1').hasClass('open')) {
+                $('#analyst_notifications').text(data.length);
+                $('#menu1').empty();
+                var i;
+                for (i = 0; i < data.length; ++i) {
+                    $('#menu1').append("<li><span><strong>" + data[i].title + "</strong></span>" +
+                        "</span><br/><span class='message'>" + data[i].text + "</span>" +
+                        "<span class='time text-right'>" + data[i].time_added + "</span></li>");
+                }
+            }
+        },
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+}
+
+
+$('#presentation1').on('click', function () {
+    if($('#analyst_notifications').text()=="0"){
+        //NOT WORKING WHEN NOTIFICATION = 0 AND OPEN CLASS
+        $('#presentation1').removeClass('open');
+        return 'OK';
+    }
+    if(!$('#presentation1').hasClass('open')) {
+        $.ajax({
+        url :"/analyst/delete_notification/",
+        type : "GET", // http method
+        success : function(data) {
+            console.log('Delete Notification Success')
+        },
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+    }else{
+        reload_notifications();
+    }
+});
