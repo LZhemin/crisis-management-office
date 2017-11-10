@@ -112,25 +112,28 @@
         $("#btnAddForce").on('click',function(){
             var force_form_template = $("#force_form_template").html();
             var chosen_force = $("#force-list option:selected").val();
-            data = [{
-                "force_name":  $("#force-list option:selected").val(),
-                "force_name_display": $("#force-list option:selected").text()
-            }];
-            var force_form = attachDataToTemplate(force_form_template, data);
-            $("#force_panels").append(force_form);
-            $("#force-list option[value="+chosen_force+"]").hide();
-            $("#force-list :first-child").prop('selected',true);
-            $("#panel_" + chosen_force).slideDown();
-            $("#panel_" + chosen_force + " .dial").knob({
-                'min':0,
-                'max':50,
-                'angleArc':360
-            });
-            $("#force_close_" + chosen_force).on('click', function(e){
-                var force = e.target.dataset.delete;
-                $("#panel_"+force).remove();
-                $("#force-list option[value="+force+"]").show();
-            });
+            if(chosen_force)
+            {
+                data = [{
+                    "force_name":  $("#force-list option:selected").val(),
+                    "force_name_display": $("#force-list option:selected").text()
+                }];
+                var force_form = attachDataToTemplate(force_form_template, data);
+                $("#force_panels").append(force_form);
+                $("#force-list option[value="+chosen_force+"]").hide();
+                $("#force-list :first-child").prop('selected',true);
+                $("#panel_" + chosen_force).slideDown();
+                $("#panel_" + chosen_force + " .dial").knob({
+                    'min':0,
+                    'max':50,
+                    'angleArc':360
+                });
+                $("#force_close_" + chosen_force).on('click', function(e){
+                    var force = e.target.dataset.delete;
+                    $("#panel_"+force).remove();
+                    $("#force-list option[value="+force+"]").show();
+                });
+            }
         });
     });
 
@@ -452,7 +455,7 @@
                                                 <div class="row" id="force-adder">
                                                     <div class="col-xs-6">
                                                         <select class="form-control" id="force-list">
-                                                            <option>------</option>
+                                                            <option selected disabled hidden value>------</option>
                                                             {% for force in all_force %}
                                                             <option value="{{force.name|lower}}">{{force.name}}</option>
                                                             {% endfor %}
