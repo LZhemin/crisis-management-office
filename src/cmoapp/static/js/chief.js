@@ -258,12 +258,10 @@ setInterval(function()
 
 }, 30000);
 
-//Auto Update After 3 Seconds
+//Auto Update Notification After 3 Seconds
 setInterval(function()
 {
     reload_notifications()
-
-
 }, 3000);
 
 
@@ -357,8 +355,6 @@ function reload_notifications() {
     $.ajax({
         url :"/chief/reload_notification/",
         type : "GET", // http method
-        // handle a successful response
-        //var html;
         success : function(data) {
             if(!$('#presentation1').hasClass('open')) {
                 $('#chief_notifications').text(data.length);
@@ -380,6 +376,11 @@ function reload_notifications() {
 
 
 $('#presentation1').on('click', function () {
+       if($('#chief_notifications').text()=="0"){
+        //NOT WORKING WHEN NOTIFICATION = 0 AND OPEN CLASS
+        $('#presentation1').removeClass('open');
+        return 'OK';
+    }
     if(!$('#presentation1').hasClass('open')) {
         $.ajax({
         url :"/chief/delete_notification/",
