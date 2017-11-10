@@ -147,7 +147,7 @@ class PMOSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = ActionPlan
-            fields = ('id', 'plan_number', 'description', 'status', 'resolution_time', 'projected_casualties', 'type', 'forcedeployment_set')
+            fields = ('id', 'plan_number', 'description', 'status', 'resolution_time', 'projected_casualties','outgoing_time', 'type', 'forcedeployment_set')
 
 
     crisisreport_set = IReportSerializer(many=True, read_only=True)
