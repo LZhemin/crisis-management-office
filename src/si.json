@@ -164,6 +164,7 @@
     "fields": {
         "plan_number": 1,
         "description": "Wing It",
+        "outgoing_time": 00:00:20,
         "status": "PMORequest",
         "resolution_time": "00:00:00",
         "projected_casualties": 25,
@@ -177,6 +178,7 @@
     "fields": {
         "plan_number": 1,
         "description": "CMI Time to Die",
+        "outgoing_time": null,
         "status": "PMORequest",
         "resolution_time": "00:00:20",
         "projected_casualties": 1,
@@ -190,6 +192,7 @@
     "fields": {
         "plan_number": 1,
         "description": "Die again",
+        "outgoing_time": 00:00:10,
         "status": "PMOApproved",
         "resolution_time": "00:00:01",
         "projected_casualties": 1,
@@ -203,6 +206,7 @@
     "fields": {
         "plan_number": 2,
         "description": "BOMB agn",
+        "outgoing_time": null,
         "status": "PMOApproved",
         "resolution_time": "00:00:02",
         "projected_casualties": 3,
