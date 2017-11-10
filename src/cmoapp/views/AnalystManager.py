@@ -47,8 +47,6 @@ def index(Request):
             context['ActionPlanForm'] = submitted_action_plan_form
             #SAVE ME https://collingrady.wordpress.com/2008/02/18/editing-multiple-objects-in-django-with-newforms/
 
-
-
             if submitted_action_plan_form.is_valid():
                 if(Request.POST['submitType'] == "Save"):
                     submitted_action_plan_form.update_or_create(assigned_crisis,"Planning")
@@ -80,7 +78,7 @@ def get_efupdates(request):
     except(KeyError):
         return JsonResponse({'success':False,'error':'Error in retrieving efupdates!'})
 
-    data = EFUpdateSerializer(efUpdates, many=True).data
+    data = AnalystEFUpdateSerializer(efUpdates, many=True).data
 
     return JsonResponse(data,safe=False)
 
@@ -166,8 +164,7 @@ class AnalystForceSerializer(serializers.ModelSerializer):
         model = Force
         fields = ['name','currentUtilisation']
 
-
-class EFUpdateSerializer(serializers.ModelSerializer):
+class AnalystEFUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = EFUpdate
         fields = ['id','datetime','affectedRadius','totalInjured','totalDeaths','duration','description','actionPlan_id','crisis_id']

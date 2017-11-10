@@ -113,8 +113,8 @@ class ActionPlan(models.Model):
             self.type,
             self.get_status_display(),
             self.crisis.id,
-        self.abridged_description(),
-        );
+            self.abridged_description()
+        )
 
     #Custom Model
     def clean(self, *args, **kwargs):
@@ -200,7 +200,7 @@ class ForceUtilization(models.Model):
     update = models.ForeignKey(EFUpdate, on_delete=models.CASCADE)
 
     def __str__(self):
-        return '{}'.format(self.name);
+        return 'ID: {} | Reported Utilization: {}%'.format(self.name, self.utilization);
 
 
 class Notifications(models.Model):

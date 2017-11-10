@@ -198,10 +198,13 @@ class EFSerializer(serializers.ModelSerializer):
         fields = ('crisis','actionPlan', 'datetime','type', 'description', 'statistics')
 
     def create(self, validated_data):
-        forces = validated_data.pop('force')
+        force_data = validated_data.pop('force')
         efupdate = EFUpdate.objects.create(**validated_data)
-
-        for data in forces:
+        for data in force_data:
+            #Create Force Utilization
             FU = ForceUtilization.objects.create(update=efupdate,**data)
-
+            #Update each force's utilization
+            force = FU.name
+            force.currentUtilisation = FU.utilization
+            force.save()
         return efupdate
