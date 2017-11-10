@@ -123,15 +123,32 @@ class PMOSerializer(serializers.ModelSerializer):
 
     class IEFUpdateSerializer(serializers.ModelSerializer):
 
+        class IForceUtilizationSerializer(serializers.ModelSerializer):
+
+            class Meta:
+                model = ForceUtilization
+                fields = ('name','utilization')
+
+        forceutilization_set = IForceUtilizationSerializer(read_only=True,many=True)
+
         class Meta:
             model = EFUpdate
-            fields = ('datetime', 'affectedRadius', 'totalInjured', 'totalDeaths', 'duration', 'description')
+            fields = ('datetime', 'affectedRadius', 'totalInjured', 'totalDeaths', 'duration', 'description','forceutilization_set')
 
     class IActionPlanSerializer(serializers.ModelSerializer):
 
+        class IForceDeploymentSerializer(serializers.ModelSerializer):
+
+            class Meta:
+                model = ForceDeployment
+                fields = ('name','recommended','max')
+
+        forcedeployment_set = IForceDeploymentSerializer(many=True, read_only=True)
+
         class Meta:
             model = ActionPlan
-            fields = ('id', 'plan_number', 'description', 'status', 'resolution_time', 'projected_casualties', 'type')
+            fields = ('id', 'plan_number', 'description', 'status', 'resolution_time', 'projected_casualties', 'type', 'forcedeployment_set')
+
 
     crisisreport_set = IReportSerializer(many=True, read_only=True)
     actionplan_set = serializers.SerializerMethodField('get_filtered_plans')
@@ -146,7 +163,7 @@ class PMOSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Crisis
-        fields = ('id', 'status','crisisreport_set','actionplan_set','efupdate_set')
+        fields = ('id', 'status','crisis_title','crisisreport_set','actionplan_set','efupdate_set')
         # = ("crisisreport")
 
 

@@ -107,11 +107,13 @@ class ActionPlan(models.Model):
             return self.description[:140] + "..."
 
     def __str__(self):
-        return 'ID: {} | Type: {} | Status: {} | Abridged Description: {}'.format(
+        return 'ID: {} | Internal Plan Number: {} | Type: {} | Status: {} | Crisis ID: {} | Abridged Description: {} '.format(
             self.pk,
+            self.plan_number,
             self.type,
             self.get_status_display(),
-            self.abridged_description()
+            self.crisis.id,
+        self.abridged_description(),
         );
 
     #Custom Model
@@ -119,9 +121,9 @@ class ActionPlan(models.Model):
         # add custom validation here
         try:
             if self.status == "Planning" and ActionPlan.objects.filter(crisis=self.crisis,status="Planning").count() > 1:
-                raise ValidationError("Therre can only be 1 Action Plan in the planning phase")
+                raise ValidationError("There can only be 1 Action Plan in the planning phase")
         except Crisis.DoesNotExist:
-            pass
+            pass    #Do nothing if there are no crisis found
         super(ActionPlan, self).clean(*args, **kwargs)
 
     #Method intended to be private
@@ -129,7 +131,8 @@ class ActionPlan(models.Model):
         return self.crisis.actionplan_set.all().count() + 1
 
     def save(self, *args, **kwargs):
-        self.plan_number = self._nextPlanNumber()
+        if not self.plan_number: #only set the plan number if not set
+            self.plan_number = self._nextPlanNumber()
         super().save(*args, **kwargs)  # Call the "real" save() method.
 
 class Comment(models.Model):
@@ -168,7 +171,7 @@ class ForceDeployment(models.Model):
     max = models.DecimalField(max_digits=5, decimal_places=2)
     actionPlan =  models.ForeignKey(ActionPlan, on_delete= models.CASCADE)
     def __str__(self):
-        return 'ID: {} | Name: {} Action Plan: {}'.format(self.pk,self.name, self.actionPlan)
+        return 'ID: {} | Name: {} | Action Plan: {}'.format(self.pk,self.name, self.actionPlan)
 
 class EFUpdate(models.Model):
     #Attributes
