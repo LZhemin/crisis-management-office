@@ -214,7 +214,7 @@ def sendDeploymentPlan(id):
         deployment =[]
         description = ""
         for report in crisis_reports:
-            location.append({"LocationID":report.id, "Lat" : float(report.latitude),"Long": float(report.longitude),"AOE":int(report.radius), "Category": report.crisisType.name})
+            location.append({"Lat" : float(report.latitude),"Long": float(report.longitude),"AOE":int(report.radius), "Category": report.crisisType.name})
             description+=report.description+". "
 
         for force in forces:
