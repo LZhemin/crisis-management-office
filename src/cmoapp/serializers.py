@@ -77,7 +77,7 @@ class AuthSerializer(serializers.Serializer):
         aid = self.validated_data['id']
         ap = ActionPlan.objects.get(id = aid)
         if self.validated_data['approval'] == True:
-            ap.status = 'Approved'
+            ap.status = 'PMOApproved'
         else:
             ap.status = 'Rejected'
 
