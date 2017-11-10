@@ -6,7 +6,7 @@ from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan,
 from django.views.generic import ListView,DetailView
 from django.core import serializers
 
-#import requests
+import requests
 import datetime
 
 #Kindly help to remove unwanted modules
@@ -95,8 +95,21 @@ def ApproveActionPlan(request):
         return JsonResponse('Error Found in keys!')
     actionPlan = ActionPlan.objects.get(id=actionPlanId)
     actionPlan.status = 'PMORequest'
+    actionPlan.outgoing_time = datetime.datetime.now()
     actionPlan.save()
-    return JsonResponse({"success": True, "message": "Action Plan"+actionPlanId+" Approved Successfully!"})
+
+    data = {
+        "id": actionPlanId
+    }
+
+    r = requests.post('http://192.168.137.5:8000/api/order/', json=data)
+    print(r.text)
+    if r.status_code == 201 or r.status_code == 200:
+        print('Posted Successfully!')
+        return JsonResponse({"success": True, "message": "Action Plan"+actionPlanId+" Approved Successfully!"})
+    print('Failure Code:' + str(r.status_code))
+
+    return JsonResponse({"success": False, "message": "Action Plan"+actionPlanId+" was unable to be forwarded to Prime Minister's Office!"})
 
 
 def RejectActionPlan(request):

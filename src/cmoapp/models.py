@@ -89,6 +89,7 @@ class ActionPlan(models.Model):
         ('Rejected','Rejected'),
         ('PMOApproved','Approved')
     )
+    outgoing_time = models.DateTimeField(editable=False, null=True)
     status = models.CharField(max_length=20, choices=STATUS)
     resolution_time = models.DurationField()
     projected_casualties = models.IntegerField(validators=[MinValueValidator(0)])
@@ -170,8 +171,16 @@ class ForceDeployment(models.Model):
     recommended = models.DecimalField(max_digits=5, decimal_places=2)
     max = models.DecimalField(max_digits=5, decimal_places=2)
     actionPlan =  models.ForeignKey(ActionPlan, on_delete= models.CASCADE)
+
     def __str__(self):
         return 'ID: {} | Name: {} | Action Plan: {}'.format(self.pk,self.name, self.actionPlan)
+
+    def clean(self, *args, **kwargs):
+        # add custom validation here
+
+        if self.recommended > self.max:
+            raise ValidationError("Recommended amount cannot be greater than Max amount")
+        super(ActionPlan, self).clean(*args, **kwargs)
 
 class EFUpdate(models.Model):
     #Attributes
