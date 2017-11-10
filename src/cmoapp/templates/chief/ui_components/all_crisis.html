@@ -3,12 +3,12 @@
     <div class="panel" id="crisis{{crisis.pk}}">
         {% if crisis.status == 'Ongoing'%}
         <a class="panel-heading collapsed alert-danger padding" role="tab" id="heading{{crisis.id}}" onclick="filterMapCrisis({{crisis.id}})" data-toggle="collapse" data-parent="#accordion" href="#collapse{{crisis.id}}" aria-expanded="false" aria-controls="collapse{{crisis.id}}">
-            <span style="float:left;width:50%"><h3 class="panel-title">{{crisis.crisisTitle}}</h3></span>
+            <span style="float:left;width:50%"><h3 class="panel-title">{{crisis.crisis_title}}</h3></span>
             <span style="text-align:right;width:50%"><h3 class="panel-title">Status:&nbsp&nbsp&nbsp<i class="fa fa-fighter-jet" aria-hidden="true"></i>&nbsp&nbsp{{crisis.status}}</h3></span>
         </a>
         {% else%}
         <a class="panel-heading collapsed alert-info" role="tab" id="heading{{crisis.id}}" onclick="filterMapCrisis({{crisis.id}})" data-toggle="collapse" data-parent="#accordion" href="#collapse{{crisis.id}}" aria-expanded="false" aria-controls="collapse{{crisis.id}}">
-            <span style="float:left;width:50%"><h3 class="panel-title">{{crisis.crisisTitle}}</h3></span>
+            <span style="float:left;width:50%"><h3 class="panel-title">{{crisis.crisis_title}}</h3></span>
             <span style="text-align:right;width:50%"><h3 class="panel-title">Status:&nbsp&nbsp&nbsp<i class="fa fa-trash" aria-hidden="true"></i>&nbsp&nbsp{{crisis.status}}
             </h3></span>
         </a>
