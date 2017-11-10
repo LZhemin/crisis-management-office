@@ -3,7 +3,7 @@
     "model": "auth.user",
     "fields": {
         "password": "pbkdf2_sha256$36000$lizAk05apE8h$9ARVV0bpGaHLWLorDHeXZakgY1WNflYRrlPZ6itGGks=",
-        "last_login": "2017-11-10T15:34:30.001Z",
+        "last_login": "2017-11-10T17:50:06.398Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -22,6 +22,14 @@
     "fields": {
         "session_data": "ODZmNTI0MTRiZTY0ZDQwNjNjZGZkNDNkMTVmY2YxMGY4MGVmYWY3Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjEiLCJfYXV0aF91c2VyX2hhc2giOiIyODIyNjY0ZmUyM2QzZmNmZjU0MTcxYWMzOWIyMjllMzkxYzUxMjZmIn0=",
         "expire_date": "2017-11-24T15:34:30.018Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "pacot51l0s03cjml78us0wpqains8lv3",
+    "fields": {
+        "session_data": "MzFiZjczODk1NTVkZTRmMTUwODRjMzFlNGE5MjExNDc4MDczYTc1Mjp7Il9hdXRoX3VzZXJfaGFzaCI6IjI4MjI2NjRmZTIzZDNmY2ZmNTQxNzFhYzM5YjIyOWUzOTFjNTEyNmYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiI0In0=",
+        "expire_date": "2017-11-24T17:50:06.572Z"
     }
 },
 {
@@ -164,7 +172,7 @@
     "fields": {
         "plan_number": 1,
         "description": "Wing It",
-        "outgoing_time": 00:00:20,
+        "outgoing_time": "2017-11-10T18:01:06.492Z",
         "status": "PMORequest",
         "resolution_time": "00:00:00",
         "projected_casualties": 25,
@@ -178,7 +186,7 @@
     "fields": {
         "plan_number": 1,
         "description": "CMI Time to Die",
-        "outgoing_time": null,
+        "outgoing_time": "2017-11-10T18:03:32.429Z",
         "status": "PMORequest",
         "resolution_time": "00:00:20",
         "projected_casualties": 1,
@@ -192,7 +200,7 @@
     "fields": {
         "plan_number": 1,
         "description": "Die again",
-        "outgoing_time": 00:00:10,
+        "outgoing_time": "2017-11-10T18:04:51.796Z",
         "status": "PMOApproved",
         "resolution_time": "00:00:01",
         "projected_casualties": 1,
@@ -206,7 +214,7 @@
     "fields": {
         "plan_number": 2,
         "description": "BOMB agn",
-        "outgoing_time": null,
+        "outgoing_time": "2017-11-10T18:06:40.923Z",
         "status": "PMOApproved",
         "resolution_time": "00:00:02",
         "projected_casualties": 3,
@@ -825,7 +833,7 @@
     "model": "admin.logentry",
     "pk": 26,
     "fields": {
-        "action_time": "2017-11-10T15:52:52.000Z",
+        "action_time": "2017-11-10T15:52:52Z",
         "user": [
             "admin"
         ],
