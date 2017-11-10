@@ -5,7 +5,7 @@ from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan,
 from cmoapp.forms.analyst import ActionPlanForm, ForceForm
 from django.views.generic import ListView,DetailView
 from rest_framework import serializers
-from cmoapp.serializers import CrisisSerializer, CrisisReportSerializer, ActionPlanSerializer, CommentSerializer
+from cmoapp.serializers import CrisisSerializer, CrisisReportSerializer, ActionPlanSerializer, CommentSerializer, NotificationSerializer
 #Future use in session-based views
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -32,6 +32,7 @@ def index(Request):
             'ActionPlanList': actionPlanList,
             'all_force': all_forces,
             'json_force': AnalystForceSerializer(Force.objects.all(), many=True).data,
+            'notifications': notifications,
             'notification_count': notification_count
         }
         if(Request.method == "GET"):
@@ -140,15 +141,21 @@ class ActionPlanList(ListView):
 def reload_notification(request):
     try:
         notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
-        notification_count = notifications.count()
+        data = NotificationSerializer(notifications, many=True).data
     except KeyError:
         return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
-    else:
-        context = {
-            'all_notifications': notifications,
-            'notification_count': notification_count
-        }
-        return render(request, 'chief/ui_components/top_navigation.html', context)
+    return JsonResponse(data, safe=False)
+
+
+def delete_notification(request):
+    try:
+        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
+    except KeyError:
+        return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
+    for notification in notifications:
+        notification.new = 0
+        notification.save()
+    return JsonResponse('OK', safe=False)
 
 
 class ActionPlanDetail(DetailView):
