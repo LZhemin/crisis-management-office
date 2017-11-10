@@ -23,60 +23,23 @@
         </ul>
       </li>
 
-      <li role="presentation" class="dropdown">
+      <li id='presentation1' role="presentation" class="dropdown">
         <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
           <i class="fa fa-envelope-o"></i>
           <span id="operator_notifications" class="badge bg-green">{{notification_count}}</span>
         </a>
         <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+             {% for notification in notifications %}
           <li>
-            <a>
-              <span class="image"><img src="/static/images/img.jpg" alt="Profile Image" /></span>
-              <span>
-                <span>Crisis Operator</span>
-                <span class="time">3 mins ago</span>
+            <span><strong>{{notification.title}}</strong></span>
               </span>
+            <br/>
               <span class="message">
-                Please think like an architect...
+                {{notification.text}}
               </span>
-            </a>
+            <span class="time text-right">{{notification.time_added}}</span>
           </li>
-          <li>
-            <a>
-              <span class="image"><img src="/static/images/img.jpg" alt="Profile Image" /></span>
-              <span>
-                <span>Crisis Operator</span>
-                <span class="time">3 mins ago</span>
-              </span>
-              <span class="message">
-                Please think like an architect...
-              </span>
-            </a>
-          </li>
-          <li>
-            <a>
-              <span class="image"><img src="/static/images/img.jpg" alt="Profile Image" /></span>
-              <span>
-                <span>Crisis Operator</span>
-                <span class="time">3 mins ago</span>
-              </span>
-              <span class="message">
-                Please think like an architect...
-              </span>
-            </a>
-          </li>
-          <li>
-            <a>
-              <span class="image"><img src="/static/images/img.jpg" alt="Profile Image" /></span>
-              <span>
-                <span>Crisis Operator</span>
-                <span class="time">3 mins ago</span>
-              </span>
-              <span class="message">
-                Please think like an architect...
-              </span>
-            </a>
-          </li>
+          {% endfor %}
           <li>
             <div class="text-center">
               <a>

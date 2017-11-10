@@ -4,7 +4,7 @@ from django.urls import reverse
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Notifications
 from django.forms.models import model_to_dict
 from django.core import serializers
-from cmoapp.serializers import CrisisReportSerializer
+from cmoapp.serializers import CrisisReportSerializer, NotificationSerializer
 
 import json
 #Kindly help to remove unwanted modules
@@ -34,6 +34,7 @@ def sharedindex():
                'getAssignedCrisisReport':getAssignedCrisisReport,
                'all_crisis': Crisis.objects.reverse(),
                'all_crisisreport': CrisisReport.objects.reverse(),
+               'notifications': notifications,
                'notification_count': notification_count
                }
     return context
@@ -149,20 +150,6 @@ def assignexisting(request):
         return JsonResponse(model_to_dict(0))
 
 
-def reload_notification(request):
-    try:
-        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
-        notification_count = notifications.count()
-    except KeyError:
-        return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
-    else:
-        context = {
-            'all_notifications': notifications,
-            'notification_count': notification_count
-        }
-        return render(request, 'chief/ui_components/top_navigation.html', context)
-
-
 def delete_crisis(request):
 
     if request.method == 'DELETE':
@@ -208,3 +195,22 @@ def get_crisisreport_collection(request):
     serializer = CrisisReportSerializer(crisisreports, many=True)
     return JsonResponse(serializer.data,safe=False)
 
+
+def reload_notification(request):
+    try:
+        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
+        data = NotificationSerializer(notifications, many=True).data
+    except KeyError:
+        return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
+    return JsonResponse(data, safe=False)
+
+
+def delete_notification(request):
+    try:
+        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
+    except KeyError:
+        return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
+    for notification in notifications:
+        notification.new = 0
+        notification.save()
+    return JsonResponse('OK', safe=False)
