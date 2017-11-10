@@ -3,7 +3,7 @@
     "model": "auth.user",
     "fields": {
         "password": "pbkdf2_sha256$36000$O3pDBWZit6iy$hl6J4teEBMsxuqVUcInPkQLzKJWZ8a+TJFMz7rWeE1w=",
-        "last_login": "2017-10-23T17:18:19.489Z",
+        "last_login": "2017-11-09T18:19:06.497Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -22,6 +22,14 @@
     "fields": {
         "session_data": "YTcxNTQxMTI4ODUzYzEyOTMwNDc1MjcyZDA1MmI2YWU1YzA5YWMwMjp7Il9hdXRoX3VzZXJfaGFzaCI6IjgyM2M2ZjU5ZDZmMDcyYTZjOGYwMWZlZTdlYWQ0OGFkN2M4ZWQ5NmMiLCJfYXV0aF91c2VyX2lkIjoiMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=",
         "expire_date": "2017-11-03T18:19:13.440Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "t658h5a3eyjp1bli1q0feugh9muue52j",
+    "fields": {
+        "session_data": "YjA2MGE3ZTlkMWI5YzJiZTJmYjQyMWI0NGI3MmI1MzZhOGQyYWQ2NTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9oYXNoIjoiODIzYzZmNTlkNmYwNzJhNmM4ZjAxZmVlN2VhZDQ4YWQ3YzhlZDk2YyIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=",
+        "expire_date": "2017-11-23T18:19:06.643Z"
     }
 },
 {
@@ -304,7 +312,7 @@
     "fields": {
         "plan_number": 2,
         "description": "CMI Time to Die",
-        "status": "Rejected",
+        "status": "CORequest",
         "resolution_time": "00:00:20",
         "projected_casualties": 1,
         "type": "Combat",
@@ -315,9 +323,9 @@
     "model": "cmoapp.actionplan",
     "pk": 3,
     "fields": {
-        "plan_number": 7,
+        "plan_number": 3,
         "description": "OMG DIE AGAIN",
-        "status": "PMORequest",
+        "status": "CORequest",
         "resolution_time": "00:00:01",
         "projected_casualties": 1,
         "type": "Combat",
@@ -328,9 +336,9 @@
     "model": "cmoapp.actionplan",
     "pk": 4,
     "fields": {
-        "plan_number": 7,
+        "plan_number": 4,
         "description": "NABEI FAIL",
-        "status": "PMORequest",
+        "status": "CORequest",
         "resolution_time": "00:00:01",
         "projected_casualties": 1,
         "type": "Combat",
@@ -354,9 +362,9 @@
     "model": "cmoapp.actionplan",
     "pk": 6,
     "fields": {
-        "plan_number": 7,
+        "plan_number": 6,
         "description": "PACK UP GO INDONESIA",
-        "status": "Rejected",
+        "status": "CORequest",
         "resolution_time": "00:00:01",
         "projected_casualties": 1,
         "type": "Clean-up",
@@ -413,6 +421,32 @@
         "projected_casualties": 1,
         "type": "Clean-up",
         "crisis": 4
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 11,
+    "fields": {
+        "plan_number": 2,
+        "description": "TEST SOMETHING",
+        "status": "CORequest",
+        "resolution_time": "20:00:00",
+        "projected_casualties": 2,
+        "type": "Combat",
+        "crisis": 2
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 12,
+    "fields": {
+        "plan_number": 7,
+        "description": "Test",
+        "status": "Planning",
+        "resolution_time": "23:00:00",
+        "projected_casualties": 25,
+        "type": "Combat",
+        "crisis": 1
     }
 },
 {
@@ -491,6 +525,27 @@
     }
 },
 {
+    "model": "cmoapp.force",
+    "pk": "SAF",
+    "fields": {
+        "currentUtilisation": null
+    }
+},
+{
+    "model": "cmoapp.force",
+    "pk": "SCDF",
+    "fields": {
+        "currentUtilisation": null
+    }
+},
+{
+    "model": "cmoapp.force",
+    "pk": "SPF",
+    "fields": {
+        "currentUtilisation": null
+    }
+},
+{
     "model": "cmoapp.forcedeployment",
     "pk": 1,
     "fields": {
@@ -556,14 +611,41 @@
     }
 },
 {
+    "model": "cmoapp.forceutilization",
+    "pk": 1,
+    "fields": {
+        "name": "Chinese",
+        "utilization": "12.30",
+        "update": 1
+    }
+},
+{
+    "model": "cmoapp.forceutilization",
+    "pk": 2,
+    "fields": {
+        "name": "Eurasian",
+        "utilization": "12.60",
+        "update": 1
+    }
+},
+{
+    "model": "cmoapp.forceutilization",
+    "pk": 3,
+    "fields": {
+        "name": "Malay",
+        "utilization": "100.00",
+        "update": 1
+    }
+},
+{
     "model": "cmoapp.notifications",
     "pk": 1,
     "fields": {
         "title": "Action Plan Approved",
         "text": "Action Plan is fucking approved",
-        "new": 1,
         "_for": 1,
-        "time_added": "2017-11-08 16:55:20.402628"
+        "new": true,
+        "time_added": "2017-11-08T08:55:20.402Z"
     }
 },
 {
@@ -572,9 +654,9 @@
     "fields": {
         "title": "Action Plan Rejected",
         "text": "Action Plan is fucking Rejected",
-        "new": 1,
         "_for": 1,
-        "time_added": "2017-11-08 16:52:20.402628"
+        "new": true,
+        "time_added": "2017-11-08T08:52:20.402Z"
     }
 },
 {
@@ -583,9 +665,9 @@
     "fields": {
         "title": "Booyah",
         "text": "Action Plan is fucking Rejected THANKS",
-        "new": 1,
         "_for": 1,
-        "time_added": "2017-11-08 16:51:20.402628"
+        "new": true,
+        "time_added": "2017-11-08T08:51:20.402Z"
     }
 },
 {
@@ -1198,6 +1280,294 @@
         "object_repr": "ID: 7 - Author: PMO - Comment: LEAVE BITCH",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 35,
+    "fields": {
+        "action_time": "2017-11-09T18:26:17.550Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "3",
+        "object_repr": "ID: 3 | Internal Plan Number: 7 | Type: Combat | Status: Awaiting CO Approval | Abridged Description: OMG DIE AGAIN ",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 36,
+    "fields": {
+        "action_time": "2017-11-09T18:26:58.011Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "11",
+        "object_repr": "ID: 11 | Internal Plan Number: 2 | Type: Combat | Status: Awaiting CO Approval | Abridged Description: TEST SOMETHING ",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 37,
+    "fields": {
+        "action_time": "2017-11-09T18:36:02.674Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "4",
+        "object_repr": "ID: 4 | Internal Plan Number: 7 | Type: Combat | Status: Awaiting CO Approval | Abridged Description: NABEI FAIL ",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 38,
+    "fields": {
+        "action_time": "2017-11-09T19:19:22.535Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "3",
+        "object_repr": "ID: 3 | Internal Plan Number: 7 | Type: Combat | Status: Awaiting CO Approval | Crisis ID: 1 | Abridged Description: OMG DIE AGAIN ",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 39,
+    "fields": {
+        "action_time": "2017-11-10T05:42:42.252Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2 | Internal Plan Number: 7 | Type: Combat | Status: Awaiting CO Approval | Crisis ID: 1 | Abridged Description: CMI Time to Die ",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 40,
+    "fields": {
+        "action_time": "2017-11-10T05:44:32.450Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "6",
+        "object_repr": "ID: 6 | Internal Plan Number: 7 | Type: Clean-up | Status: Awaiting CO Approval | Crisis ID: 1 | Abridged Description: PACK UP GO INDONESIA ",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 41,
+    "fields": {
+        "action_time": "2017-11-10T05:45:38.574Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "12",
+        "object_repr": "ID: 12 | Internal Plan Number: 7 | Type: Combat | Status: Awaiting PMO Approval | Crisis ID: 1 | Abridged Description: Test ",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 42,
+    "fields": {
+        "action_time": "2017-11-10T05:45:53.994Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "12",
+        "object_repr": "ID: 12 | Internal Plan Number: 8 | Type: Combat | Status: Planning | Crisis ID: 1 | Abridged Description: Test ",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 43,
+    "fields": {
+        "action_time": "2017-11-10T05:51:03.522Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "12",
+        "object_repr": "ID: 12 | Internal Plan Number: 7 | Type: Combat | Status: Planning | Crisis ID: 1 | Abridged Description: Test ",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 44,
+    "fields": {
+        "action_time": "2017-11-10T06:37:32.760Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forceutilization"
+        ],
+        "object_id": "1",
+        "object_repr": "Chinese",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 45,
+    "fields": {
+        "action_time": "2017-11-10T06:37:41.437Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forceutilization"
+        ],
+        "object_id": "2",
+        "object_repr": "Eurasian",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 46,
+    "fields": {
+        "action_time": "2017-11-10T06:37:52.244Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forceutilization"
+        ],
+        "object_id": "3",
+        "object_repr": "Malay",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 47,
+    "fields": {
+        "action_time": "2017-11-10T07:00:56.092Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "force"
+        ],
+        "object_id": "SCDF",
+        "object_repr": "SCDF",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 48,
+    "fields": {
+        "action_time": "2017-11-10T07:00:59.841Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "force"
+        ],
+        "object_id": "SAF",
+        "object_repr": "SAF",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 49,
+    "fields": {
+        "action_time": "2017-11-10T07:01:06.474Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "force"
+        ],
+        "object_id": "SPF",
+        "object_repr": "SPF",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 50,
+    "fields": {
+        "action_time": "2017-11-10T07:13:20.853Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forceutilization"
+        ],
+        "object_id": "3",
+        "object_repr": "Malay",
+        "action_flag": 2,
+        "change_message": "[]"
     }
 }
 ]

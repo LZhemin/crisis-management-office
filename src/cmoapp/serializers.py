@@ -200,7 +200,8 @@ class EFSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         forces = validated_data.pop('force')
         efupdate = EFUpdate.objects.create(**validated_data)
-        print(forces)
+
         for data in forces:
-           ForceUtilization.objects.create(update=efupdate,**data)
+            FU = ForceUtilization.objects.create(update=efupdate,**data)
+
         return efupdate
