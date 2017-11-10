@@ -293,10 +293,14 @@ function reload_notifications() {
                 $('#operator_notifications').text(data.length);
                 $('#menu1').empty();
                 var i;
-                for (i = 0; i < data.length; ++i) {
-                    $('#menu1').append("<li><span><strong>" + data[i].title + "</strong></span>" +
-                        "</span><br/><span class='message'>" + data[i].text + "</span>" +
-                        "<span class='time text-right'>" + data[i].time_added + "</span></li>");
+                if (data.length != 0) {
+                    for (i = 0; i < data.length; ++i) {
+                        $('#menu1').append("<li><span><strong>" + data[i].title + "</strong></span>" +
+                            "</span><br/><span class='message'>" + data[i].text + "</span>" +
+                            "<span class='time text-right'>" + data[i].time_added + "</span></li>");
+                    }
+                }else{
+                    $('#menu1').append("<li><span><strong>'You have no notifications'</strong></span></li>");
                 }
             }
         },
@@ -309,11 +313,6 @@ function reload_notifications() {
 
 
 $('#presentation1').on('click', function () {
-    if($('#operator_notifications').text()=="0"){
-        //NOT WORKING WHEN NOTIFICATION = 0 AND OPEN CLASS
-        $('#presentation1').removeClass('open');
-        return 'OK';
-    }
     if(!$('#presentation1').hasClass('open')) {
         $.ajax({
         url :"/operator/delete_notification/",
