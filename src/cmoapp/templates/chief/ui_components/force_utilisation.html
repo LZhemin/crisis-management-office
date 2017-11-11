@@ -4,7 +4,7 @@
         <h2 class="center">Current Force Utilisation</h2>
          <div class="col-sm-{{sideWidth}}"></div>
         {% for force in all_force%}
-        <div class="animated flipInY col-sm-{{forceWidth}} col-xs-12">
+        <div class="animated flipInY center col-sm-{{forceWidth}} col-xs-12">
             <div class="chart" data-percent="{{force.currentUtilisation}}">
                 <div class ="percent">{{force.currentUtilisation}}%</div>
                 <h2 class="center">{{force.name}}</h2>

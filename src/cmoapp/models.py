@@ -3,6 +3,7 @@
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MinValueValidator,ValidationError
+import datetime
 from datetime import timedelta
 
 #all models have automatically add an auto-increment id unless another field is explicitly specified as primary key
@@ -72,6 +73,19 @@ class CrisisReport(models.Model):
 
     def __str__(self):
         return 'ID: {} - {} - Crisis {} - Type: {}'.format(self.pk,self.description,self.crisis,self.crisisType)
+
+    def timefrom(self):
+        now = datetime.datetime.utcnow().replace(tzinfo=timezone.utc)
+        difference = (now - self.datetime).total_seconds()
+        #return hours
+        if int(difference/3600) >= 23:
+            return 'Posted on {}'.format(self.datetime)
+        elif int(difference/3600) >= 1:
+            return '{} hours ago...'.format(int(difference / 3600))
+        elif int(difference/60) >= 1:
+            return '{} minutes ago...'.format(int(difference / 3600))
+        else:
+            return '{} seconds ago...'.format(int (difference))
 
 #The response plan of the crsis.
 #The deployment id is the action plan id
