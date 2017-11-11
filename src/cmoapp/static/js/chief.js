@@ -89,6 +89,7 @@ function changeStatus(id,status){
                 styling: 'bootstrap3'
             });
             $('#collapse'+id).addClass('collapse');
+            console.log('Here!');
             window.setTimeout(function(){
                 reload_table();
                 reload_crisis();
@@ -98,6 +99,7 @@ function changeStatus(id,status){
             console.log(data);
         }
     });
+    filterMapCrisis(id);
 }
 
 //Rejecting a ActionPlan function called
@@ -140,7 +142,7 @@ function rejectActionPlan(idval,commentId){
 function acceptActionPlan(id){
     $.ajax({
         type:"POST",
-        url: 'chief/approve_action_plan/',
+        url: 'approve_action_plan/',
         data:{ id: id},
         dataType: 'json',
         success: function (data) {
@@ -262,7 +264,7 @@ setInterval(function()
 function checkEfUpdate(){
     $.ajax({
         type:"GET",
-        url: "chief/get_efupdate_count/",
+        url: "get_efupdate_count/",
         dataType: 'json',
         success: function (data) {
             var newEfCount = data['count'];
@@ -284,18 +286,18 @@ function reloadEfUpdate(count){
     var html = "";
     $.ajax({
         type:"POST",
-        url: "chief/get_efupdates/",
+        url: "get_efupdates/",
         data:{'startNum':count},
         dataType: 'json',
         success: function (data) {
             array = JSON.parse(data);
             console.log(array[0]['fields']);
             for(update in array){
-                html += "<li><div id='efCrisis"+array[update]['fields']['crisis']+"' class='block'>" +
+                html += "<li><div id='efCrisis"+array[update]['crisis']+"' class='block'>" +
                             "<div class='block_content'> " +
-                                "<h2 class='title'>Crisis "+array[update]['fields']['crisis']+"</h2> " +
-                                "<div class='byline'>Posted on "+array[update]['fields']['datetime']+"</div> " +
-                                    "<p class='excerpt'>"+array[update]['fields']['description']+"</p> " +
+                                "<h2 class='title'>Crisis "+array[update]['crisisTitle']+"</h2> " +
+                                "<div class='byline'>"+array[update]['datetime']+"</div> " +
+                                    "<p class='excerpt'>"+array[update]['description']+"</p> " +
                                 "</div> " +
                             "</div> " +
                         "</li>";
@@ -312,7 +314,7 @@ function reloadEfUpdate(count){
 //reloads the action_plan_table template
 function reload_table() {
     $.ajax({
-        url :"chief/reload_table/",
+        url :"reload_table/",
         type : "GET", // http method
         // handle a successful response
         //var html;
@@ -328,7 +330,7 @@ function reload_table() {
 //reloads the all_crisis template
 function reload_crisis() {
     $.ajax({
-        url :"chief/reload_crisis/",
+        url :"reload_crisis/",
         type : "GET", // http method
         // handle a successful response
         //var html;
@@ -345,7 +347,7 @@ function reload_crisis() {
 
 function select_crisischat(id) {
     $.ajax({
-        url : "chief/select_crisischat/", // the endpoint
+        url : "select_crisischat/", // the endpoint
         type : "GET", // http method
         // handle a successful response
         success : function(json) {

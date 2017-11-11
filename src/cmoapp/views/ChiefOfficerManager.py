@@ -46,10 +46,30 @@ def change_status(request):
     except(KeyError, crisis.DoesNotExist):
         return JsonResponse({'success': False, 'error': 'Error in retrieving efupdates!'})
 
-    crisis.status = new_status;
-    crisis.save();
+    if new_status=='Resolved':
+        crisis.analyst = None
+        actionPlan = ActionPlan(description='Requesting to Resolve the Crisis',status='PMORequest',crisis_id=crisis.id,type='Resolved', resolution_time=datetime.timedelta(minutes=0),projected_casualties=0)
+        actionPlan.save()
+        data = {
+            "id": actionPlan.id
+        }
+        # Test for shit later
+        # return JsonResponse(
+        #     {'success': True,
+        #      'message': "Request to resolve Crisis " + crisis_id + " successfully sent to Prime Minister's Office!"})
 
-    return JsonResponse({'success': True, 'message': 'Crisis '+crisis_id+'Status Changed to '+new_status})
+        r = requests.post('http://192.168.137.5:8000/api/order/', json=data)
+        print(r.text)
+        if r.status_code == 201 or r.status_code == 200:
+            print('Posted Successfully!')
+            return JsonResponse(
+                {'success': True, 'message': "Request to resolve Crisis "+ crisis_id +" successfully sent to Prime Minister's Office!"})
+        print('Failure Code:' + str(r.status_code))
+        return JsonResponse({'success': False, 'message': 'Unable to send request to resolve Crisis '+crisis_id+'!'})
+    else:
+        crisis.status = new_status;
+        crisis.save()
+        return JsonResponse({'success': True, 'message': 'Crisis '+crisis_id+' Status Changed to '+new_status})
 
 
 def get_efupdates_count(request):
@@ -63,7 +83,15 @@ def get_efupdates(request):
         efUpdates = EFUpdate.objects.all()[startNum:]
     except(KeyError):
         return JsonResponse({'success':False,'error':'Error in retrieving efupdates!'})
-    data = serializers.serialize('json',efUpdates)
+
+    data = []
+    for update in efUpdates:
+        data.append({
+            "crisis": update.crisis.id,
+            "crisisTitle": update.crisis.crisis_title,
+            'description':update.description,
+            'datetime':update.timefrom()
+        })
 
     return JsonResponse(data, safe=False)
 
@@ -235,6 +263,7 @@ def sendDeploymentPlan(id):
 
         order_data = {
             "ActionPlanID": actionPlan.id,
+            "Status":actionPlan.type,
             "CrisisID": crisis.id,
             "Date_time": timezone.now().__str__(),
             "Location": location,

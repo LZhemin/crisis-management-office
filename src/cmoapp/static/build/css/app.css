@@ -16,6 +16,13 @@
     border-bottom-color: rgb(219, 219, 219);
 }
 
+.allBorder{
+    border: 1px solid #DBDBDB;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(219, 219, 219);
+}
+
 
 .padding{
     padding:1em;

@@ -39,7 +39,6 @@ urlpatterns = [ # pylint: disable=invalid-name
     url(r'^chief/', include('cmoapp.urls.chief')),
     url(r'^ActionPlan/', include('cmoapp.urls.actionplan')),
     url(r'^login/', include('cmoapp.urls.login')),
-    url(r'^chief', include('cmoapp.urls.chief')),
     url(r'^publicmap', include('cmoapp.urls.map')),
     url(r'^api/', include('cmoapp.urls.api'))
 ]

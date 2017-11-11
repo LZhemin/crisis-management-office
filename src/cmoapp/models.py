@@ -59,6 +59,9 @@ class Crisis(models.Model):
     def __str__(self):
         return 'ID: {} - assigned to: {}'.format(self.pk, self.analyst)
 
+    def latestPlan(self):
+        return self.actionplan_set.latest('id')
+
 class CrisisReport(models.Model):
     #attributes
     description = models.TextField()
@@ -74,18 +77,6 @@ class CrisisReport(models.Model):
     def __str__(self):
         return 'ID: {} - {} - Crisis {} - Type: {}'.format(self.pk,self.description,self.crisis,self.crisisType)
 
-    def timefrom(self):
-        now = datetime.datetime.utcnow().replace(tzinfo=timezone.utc)
-        difference = (now - self.datetime).total_seconds()
-        #return hours
-        if int(difference/3600) >= 23:
-            return 'Posted on {}'.format(self.datetime)
-        elif int(difference/3600) >= 1:
-            return '{} hours ago...'.format(int(difference / 3600))
-        elif int(difference/60) >= 1:
-            return '{} minutes ago...'.format(int(difference / 3600))
-        else:
-            return '{} seconds ago...'.format(int (difference))
 
 #The response plan of the crsis.
 #The deployment id is the action plan id
@@ -169,6 +160,19 @@ class Comment(models.Model):
     def __str__(self):
         return 'ID: {} - Author: {} - Comment: {} for Action Plan: {}'.format(self.id, self.author,self.text, self.actionPlan.id)
 
+    def timefrom(self):
+        now = datetime.datetime.utcnow().replace(tzinfo=timezone.utc)
+        difference = (now - self.timeCreated).total_seconds()
+        #return hours
+        if int(difference/3600) >= 23:
+            return self.timeCreated.strftime('Posted on %d %b %Y, at %I:%M %p')
+        elif int(difference/3600) >= 1:
+            return '{} hours ago...'.format(int(difference / 3600))
+        elif int(difference/60) >= 1:
+            return '{} minutes ago...'.format(int(difference / 3600))
+        else:
+            return '{} seconds ago...'.format(int (difference))
+
 class Force(models.Model):
     name = models.CharField(primary_key=True, max_length=200)
     #Current Utilisation can be NULL, in the event that EF cannot provide, then the field is set to NULL and Blank
@@ -215,6 +219,19 @@ class EFUpdate(models.Model):
     type = models.CharField(choices=TYPES, max_length=40)
     def __str__(self):
         return 'ID: {}'.format(self.pk)
+
+    def timefrom(self):
+        now = datetime.datetime.utcnow().replace(tzinfo=timezone.utc)
+        difference = (now - self.datetime).total_seconds()
+        #return hours
+        if int(difference/3600) >= 23:
+            return self.datetime.strftime('Posted on %d %b %Y, at %I:%M %p')
+        elif int(difference/3600) >= 1:
+            return '{} hours ago...'.format(int(difference / 3600))
+        elif int(difference/60) >= 1:
+            return '{} minutes ago...'.format(int(difference / 3600))
+        else:
+            return '{} seconds ago...'.format(int (difference))
 
 #Force Utilization tracks how much each force is being used for the current action plan
 class ForceUtilization(models.Model):

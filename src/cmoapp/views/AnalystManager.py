@@ -96,7 +96,14 @@ def get_comments(request):
     except(KeyError):
         return JsonResponse({'success':False,'error':'Error in retrieving Comments!'})
 
-    data = CommentSerializer(comments, many=True).data
+    data = []
+    for comment in comments:
+        data.append({
+            'author': comment.author,
+            'text': comment.text,
+            'plan_number': comment.actionPlan.plan_number,
+            'timeCreated': comment.timefrom()
+        })
     return JsonResponse(data, safe=False)
 
 def get_crisis_report_count(request):

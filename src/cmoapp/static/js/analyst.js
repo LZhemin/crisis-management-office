@@ -131,7 +131,7 @@ function reloadComments(count){
                             "<div style=\"padding-left: 1em;\">\n" +
                                 "<h3>"+array[num]['author']+"</h3>\n" +
                                 "<div>\n" +
-                                    "<p class=\"small\"><span style=\"float:left\">Plan Number: "+array[num]['actionPlan']['plan_number']+"</span>&nbsp<span style=\"float:right\">"+array[num]['timeCreated']+"</span></p>\n" +
+                                    "<p class=\"small\"><span style=\"float:left\">Plan Number: "+array[num]['actionPlan']['plan_number']+"</span style=\"font-style:italic; color:darkgrey;\"><br><span>"+array[num]['timeCreated']+"</span></p>\n" +
                                 "</div>\n" +
                                 "<p>"+array[num]['text']+"</p>\n" +
                             "</div>\n" +
