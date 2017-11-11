@@ -1283,7 +1283,7 @@
                     <input class="modal-title hidingexisting" type="hidden" name="existingreportid" id = "existingreportid" value = "">
                     <select class="form-control" id="getExisting" name="getExisting">
                       {% for acc in getNotResolvedCrisisList %}
-                        <option value = {{acc.pk}}> {{acc.pk}} - {{acc.crisisTitle}} </option>
+                        <option value = {{acc.pk}}> {{acc.pk}} - {{acc.crisis_title}} </option>
                       {%endfor%}
                     </select>
                     <h4 class="modal-title" id="selecttype">Select Crisis Type: </h4>
