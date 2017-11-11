@@ -168,6 +168,15 @@ function acceptActionPlan(id){
 $("#msgBox").on('keyup', function (e) {
     if (e.keyCode == 13) {
         $("#msgSendBtn").trigger('click');
+        $(this).val("");
+    }
+});
+
+//Allow the user to send chat message by pressing the Enter Key
+$("#efMsgBox").on('keyup', function (e) {
+    if (e.keyCode == 13) {
+        $("#efMsgSendBtn").trigger('click');
+        $(this).val("");
     }
 });
 
@@ -204,6 +213,8 @@ function filterMapCrisis(id){
             $(this).show();
         });
         text = "Site no longer being filtered by Crisis ID!";
+        changeChat('GeneralChat');
+        changeEFChat('GeneralChat');
     }
     //Filter if Crisis is selected
     else{
@@ -226,6 +237,8 @@ function filterMapCrisis(id){
                 $(this).hide();
         });
         text = "Showing Stats of Crisis ID: "+id+"!";
+        changeChat(id);
+        changeEFChat(id);
     }
 
     new PNotify({
@@ -346,41 +359,5 @@ function reload_crisis() {
 
 
 function select_crisischat(id) {
-    $.ajax({
-        url : "select_crisischat/", // the endpoint
-        type : "GET", // http method
-        // handle a successful response
-        success : function(json) {
 
-            for (var i = 0; i < json.length; i++) {
-                //console.log(json[i])
-                //if(json[i].id == id)
-            }
-            //$('#updatechat').html(data);
-            $('#updatechat').load(location.href +  ' #updatechat');
-            /*
-             var res1;
-
-            for(var i = 0; i < data.length; i++)
-            {
-                // Parse through the JSON array which was returned.
-                // A proper error handling should be added here (check if
-                // everything went successful or not)
-
-                res1 = data[i].res1;
-
-                // Do something with the returned data
-                $('#updatechat').html(res1);
-            }
-            */
-
-            console.log("success"); // another sanity check
-        },
-        // handle a non-successful response
-        error : function(xhr,errmsg,err) {
-            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-        }
-    });
 }
