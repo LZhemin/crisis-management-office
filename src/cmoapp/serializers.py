@@ -164,9 +164,12 @@ class PMOSerializer(serializers.ModelSerializer):
         serializer = self.IActionPlanSerializer(qs,many=True,read_only=True)
         return serializer.data
 
+    totalInjured = serializers.IntegerField(source="injuries")
+    totalDeaths = serializers.IntegerField(source="deaths")
+
     class Meta:
         model = Crisis
-        fields = ('id', 'status','crisis_title','crisisreport_set','actionplan_set','efupdate_set')
+        fields = ('id', 'status','crisis_title','totalInjured', 'totalDeaths', 'crisisreport_set','actionplan_set','efupdate_set')
         # = ("crisisreport")
 
 
