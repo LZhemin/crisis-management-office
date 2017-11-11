@@ -1,0 +1,46 @@
+<div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+    {% for crisis in all_crisis %}
+        <div class="panel" id="{{crisis.pk}}">
+            {% if crisis.status == 'Combat'%}
+                <a class="panel-heading collapsed alert-danger padding" role="tab" id="heading{{crisis.id}}" onclick="filterMapCrisis({{crisis.id}})" data-toggle="collapse" data-parent="#accordion" href="#collapse{{crisis.id}}" aria-expanded="false" aria-controls="collapse{{crisis.id}}">
+                    <span style="float:left;width:50%"><h3 class="panel-title">Crisis #{{crisis.id}}</h3></span>
+                    <span style="text-align:right;width:50%"><h3 class="panel-title">Status:&nbsp&nbsp&nbsp<i class="fa fa-fighter-jet" aria-hidden="true"></i>&nbsp&nbsp{{crisis.status}}</h3></span>
+                </a>
+            {% else%}
+                <a class="panel-heading collapsed alert-info" role="tab" id="heading{{crisis.id}}" onclick="filterMapCrisis({{crisis.id}})" data-toggle="collapse" data-parent="#accordion" href="#collapse{{crisis.id}}" aria-expanded="false" aria-controls="collapse{{crisis.id}}">
+                    <span style="float:left;width:50%"><h3 class="panel-title">Crisis #{{crisis.id}}</h3></span>
+                    <span style="text-align:right;width:50%"><h3 class="panel-title">Status:&nbsp&nbsp&nbsp<i class="fa fa-trash" aria-hidden="true"></i>&nbsp&nbsp{{crisis.status}}
+                    </h3></span>
+                </a>
+            {%endif%}
+            <div id="collapse{{crisis.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panelHeading{{crisis.id}}" aria-expanded="false" style="height: 0px;">
+                <div class="panel-body" id="body{{crisis.id}}">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th class="center" style="width:1%">Crisis</th>
+                            <th class="center" style="width:7%">Date/Time</th>
+                            <th class="center" style="width:7%">Type</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for crisisid in crisis.crisisreport_set.all %}
+                        <tr>
+                            <th class="center">
+                                {{crisisid.description}}
+                            </th>
+                            <th class="center">
+                                {{crisisid.datetime}}
+                            </th>
+                            <th class="center">
+                                {{crisisid.crisisType.name}}
+                            </th>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {%endfor%}
+</div>

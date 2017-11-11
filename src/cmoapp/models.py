@@ -52,13 +52,13 @@ class Crisis(models.Model):
 
     def injuries(self):
         try:
-            return self.efupdate_set.latest('datetime').totalDeaths
+            return self.efupdate_set.latest('datetime').totalInjured
         except(EFUpdate.DoesNotExist):
             return None
 
     def deaths(self):
         try:
-            return self.efupdate_set.latest('datetime').totalInjured
+            return self.efupdate_set.latest('datetime').totalDeaths
         except(EFUpdate.DoesNotExist):
             return None
 

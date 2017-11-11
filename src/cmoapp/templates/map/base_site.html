@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
       {% endblock meta %}
 
-      <title>Crisis Operator{% block title %}{% endblock %}</title>
+      <title>Public Map{% block title %}{% endblock %}</title>
       {% block vendor_stylesheets %}
         <!-- Bootstrap -->
         <link href="/static/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
@@ -41,8 +41,28 @@
 
   <body class="{% block body_class %}nav-md {% endblock body_class %}">
     {% block body %}
+      <div class="container body">
+        <div class="main_container">
 
-      {% block vendor_javascripts %}
+              {% block sidebar %}
+                <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
+                  {% include "map/ui_components/sidebar.html" %}
+                </div>
+              {% endblock sidebar %}
+               {% block top_navigation %}
+                <div class="top_nav">
+                  {% include "map/ui_components/top_navigation.html" %}
+                </div>
+              {% endblock top_navigation %}
+
+              {% block content %}
+                <!-- {{ content }} -->
+              {% endblock content %}
+        </div>
+      </div>
+    {% endblock body %}
+  </body>
+  {% block vendor_javascripts %}
         <!-- jQuery -->
         <script src="/static/vendors/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap -->
@@ -87,15 +107,14 @@
         -->
         <!-- Custom Theme Scripts -->
         <script src="/static/build/js/custom.js"></script>
-      {% endblock %}
+        <script src="/static/js/chief.js"></script>
+  {% endblock %}
 
-      {% block page_scripts %}
-      {% endblock page_scripts %}
+  {% block page_scripts %}
+  {% endblock page_scripts %}
 
 
-      {% block page_javascripts %}
-      {% endblock page_javascripts %}
+  {% block page_javascripts %}
+  {% endblock page_javascripts %}
 
-    {% endblock body %}
-  </body>
 </html>
