@@ -136,7 +136,7 @@ class PMOSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = EFUpdate
-            fields = ('datetime', 'affectedRadius', 'totalInjured', 'totalDeaths', 'duration', 'description','forceutilization_set')
+            fields = ('id','datetime', 'affectedRadius', 'totalInjured', 'totalDeaths', 'duration', 'description','forceutilization_set')
 
     class IActionPlanSerializer(serializers.ModelSerializer):
 

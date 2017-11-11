@@ -51,10 +51,16 @@ class Crisis(models.Model):
      #   ordering = ['analyst']
 
     def injuries(self):
-        return self.efupdate_set.latest('datetime').totalDeaths
+        try:
+            return self.efupdate_set.latest('datetime').totalDeaths
+        except(EFUpdate.DoesNotExist):
+            return None
 
     def deaths(self):
-        return self.efupdate_set.latest('datetime').totalInjured
+        try:
+            return self.efupdate_set.latest('datetime').totalInjured
+        except(EFUpdate.DoesNotExist):
+            return None
 
     def __str__(self):
         return 'ID: {} - assigned to: {}'.format(self.pk, self.analyst)
