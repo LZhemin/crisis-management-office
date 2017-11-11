@@ -21,6 +21,8 @@ def index(Request):
         crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
         actionPlanList = ActionPlan.objects.filter(crisis_id=assigned_crisis.id).exclude(status='Planning')
         all_forces = Force.objects.all()
+        forceWidth = int(12 / Force.objects.count())
+        sideWidth = int(12 - (forceWidth * Force.objects.count()))/2
         notifications = Notifications.objects.all().exclude(new=0)
         notification_count = notifications.count()
     except(KeyError, Crisis.DoesNotExist):
@@ -31,6 +33,8 @@ def index(Request):
             'crisis_reports': crisis_reports,
             'ActionPlanList': actionPlanList,
             'all_force': all_forces,
+            'forceWidth':forceWidth,
+            'sideWidth':sideWidth,
             'json_force': AnalystForceSerializer(Force.objects.all(), many=True).data,
             'notification_count': notification_count
         }

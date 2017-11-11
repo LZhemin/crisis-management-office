@@ -18,7 +18,7 @@ def index(Request):
         forces = Force.objects.all()
         efUpdatesCount = EFUpdate.objects.count()
         forceWidth = int(12/Force.objects.count())
-        sideWidth = int((12-forceWidth*Force.objects.count())/2)
+        sideWidth = int(12 - (forceWidth * Force.objects.count())) / 2
         notifications = Notifications.objects.all().exclude(new=0)
         notification_count = notifications.count()
 

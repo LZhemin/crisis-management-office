@@ -2,7 +2,7 @@
 <div class="col-sm-12 col-xs-12">
     <div class="tile-stats row padding">
         <h2 class="center">Current Force Utilisation</h2>
-         <div class="col-sm-{{sideWidth}}"></div>
+         <div class="col-sm-{{forceWidth}}"></div>
         {% for force in all_force%}
         <div class="animated flipInY center col-sm-{{forceWidth}} col-xs-12">
             <div class="chart" data-percent="{{force.currentUtilisation}}">
