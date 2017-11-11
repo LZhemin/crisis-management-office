@@ -4,9 +4,12 @@ from django.utils import timezone
 
 class CrisisSerializer(serializers.ModelSerializer):
 
+    totalInjured = serializers.IntegerField(source="injuries")
+    totalDeaths = serializers.IntegerField(source="deaths")
+
     class Meta:
         model = Crisis
-        fields = ('id', 'analyst', 'status')
+        fields = ('id', 'analyst', 'status', 'totalInjured', 'totalDeaths')
 
 #This serializer is for retrieval
 class CrisisReportSerializer(serializers.ModelSerializer):
