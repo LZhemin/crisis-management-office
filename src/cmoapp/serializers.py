@@ -152,7 +152,6 @@ class PMOSerializer(serializers.ModelSerializer):
             model = ActionPlan
             fields = ('id', 'plan_number', 'description', 'status', 'resolution_time', 'projected_casualties','outgoing_time', 'type', 'forcedeployment_set')
 
-
     crisisreport_set = IReportSerializer(many=True, read_only=True)
     actionplan_set = serializers.SerializerMethodField('get_filtered_plans')
     efupdate_set = IEFUpdateSerializer(many=True, read_only=True)
@@ -160,7 +159,7 @@ class PMOSerializer(serializers.ModelSerializer):
     #Filter out "Planning', or in 'CORequest'
     #Show 'Approved','Rejected' and 'PMORequest'
     def get_filtered_plans(self, obj):
-        qs = ActionPlan.objects.filter(crisis=obj, status="PMOApproved");
+        qs =  ActionPlan.objects.exclude(status='Planning',).exclude(status='CORequest')
         serializer = self.IActionPlanSerializer(qs,many=True,read_only=True)
         return serializer.data
 
