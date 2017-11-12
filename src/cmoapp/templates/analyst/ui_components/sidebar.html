@@ -28,7 +28,7 @@
         </li>
         <li><a href="{% url 'Analyst_Action_Plan_List' %}"><i class="fa fa-map"></i>Action Plans<span class="fa"></span></a>
         </li>
-        <li><a><i class="fa fa-history"></i>Historical Archives<span class="fa"></span></a>
+        <li><a href="{% url 'display_historical_data_analyst' %}"><i class="fa fa-clock-o"></i> Historical Data <span class="fa "></span></a>
         </li>
       </ul>
     </div>
@@ -49,6 +49,7 @@
     <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
       <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
     </a>
+
   </div>
   <!-- /menu footer buttons -->
 </div>

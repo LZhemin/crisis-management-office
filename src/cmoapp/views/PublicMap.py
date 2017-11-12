@@ -7,7 +7,7 @@ from django.views.generic import ListView,DetailView
 from django.core import serializers
 from rest_framework import serializers
 from cmoapp.serializers import CrisisSerializer, CrisisReportSerializer, ActionPlanSerializer, CommentSerializer
-import requests
+#import requests
 
 def index(Request):
     try:

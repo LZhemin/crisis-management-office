@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
-from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment, Notifications
+from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment, Notifications,ForceUtilization
 from cmoapp.forms.analyst import ActionPlanForm, ForceForm
 from django.views.generic import ListView,DetailView
 from rest_framework import serializers
@@ -13,6 +13,26 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 #Kindly help to remove unwanted modules
 
 sessionId = 2
+
+
+def getHistorical_data(request):
+    try:
+        getallcrisis = Crisis.objects.filter(status='Resolved')
+        getallcrisisreport = CrisisReport.objects.all()
+        getallForceDeployment = ForceDeployment.objects.all()
+        getallForceUtilization = ForceUtilization.objects.all()
+        getallActionPlan = ActionPlan.objects.all()
+        getallEFUpdate = EFUpdate.objects.all()
+
+    except(KeyError, getallcrisis.DoesNotExist):
+        context = {'getallcrisis': False}
+    else:
+        context = {'getallcrisis': getallcrisis, 'getallcrisisreport': getallcrisisreport,
+                   'getallForceDeployment': getallForceDeployment, 'getallForceUtilization': getallForceUtilization,
+                   'getallActionPlan': getallActionPlan,
+                   'getallEFUpdate': getallEFUpdate}
+
+        return render(request, 'analyst/historical.html', context)
 
 def index(Request):
     #UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
@@ -365,3 +385,4 @@ class ActionPlanGenerator:
                         projected_casualties=0.0,
                         crisis_id=crisis_id)
         return ap
+

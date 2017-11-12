@@ -2,11 +2,11 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
 from django.utils import timezone
-from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment, Notifications
+from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment, Notifications,ForceUtilization
 from django.views.generic import ListView,DetailView
 from django.core import serializers
 
-import requests
+#import requests
 import datetime
 
 #Kindly help to remove unwanted modules
@@ -225,6 +225,22 @@ def ReloadCrisis(request):
         }
         return render(request, 'chief/ui_components/all_crisis.html', context)
 
+def getHistorical_data(request):
+    try:
+        getallcrisis = Crisis.objects.filter(status = 'Resolved')
+        getallcrisisreport = CrisisReport.objects.all()
+        getallForceDeployment = ForceDeployment.objects.all()
+        getallForceUtilization =ForceUtilization.objects.all()
+        getallActionPlan = ActionPlan.objects.all()
+        getallEFUpdate = EFUpdate.objects.all()
+
+    except(KeyError,getallcrisis.DoesNotExist):
+        context = {'getallcrisis':False}
+    else:
+        context = {'getallcrisis':getallcrisis,'getallcrisisreport':getallcrisisreport, 'getallForceDeployment':getallForceDeployment, 'getallForceUtilization':getallForceUtilization, 'getallActionPlan':getallActionPlan,
+                   'getallEFUpdate':getallEFUpdate}
+
+        return render(request, 'chief/historical.html', context)
 
 def reload_notification(request):
     try:
