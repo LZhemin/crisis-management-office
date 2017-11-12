@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Comment, Force, ForceDeployment, EFUpdate, ForceUtilization, Notifications
 from django.utils import timezone
+from django.db.models import Q
 
 class CrisisSerializer(serializers.ModelSerializer):
 
@@ -169,7 +170,7 @@ class PMOSerializer(serializers.ModelSerializer):
     #Filter out "Planning', or in 'CORequest'
     #Show 'Approved','Rejected' and 'PMORequest'
     def get_filtered_plans(self, obj):
-        qs = ActionPlan.objects.filter(crisis=obj).exclude(status='Planning').exclude(status='CORequest').filter(comment__author = 'PMO')
+        qs = ActionPlan.objects.filter(crisis=obj).exclude(Q(status='Planning') |  Q(status='CORequest')).exclude(Q(comment__author='CO'), Q(status='Rejected'))
         serializer = self.IActionPlanSerializer(qs,many=True,read_only=True)
         return serializer.data
 
