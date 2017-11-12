@@ -58,9 +58,9 @@ class NotificationSerializer(serializers.ModelSerializer):
 
 class AuthSerializer(serializers.Serializer):
 
-    id = serializers.IntegerField()
-    text = serializers.CharField(required=False, allow_null=True, allow_blank=True, max_length=100)
-    approval = serializers.BooleanField(required=True)
+    PlanID = serializers.IntegerField()
+    Comments = serializers.CharField(required=False, allow_null=True, allow_blank=True, max_length=100)
+    PlanStatus = serializers.BooleanField(required=True)
 
     def validate(self, data):
         id = data.get('PlanID')
@@ -78,18 +78,18 @@ class AuthSerializer(serializers.Serializer):
         return data;
 
     def save(self):
-        aid = self.validated_data['id']
+        aid = self.validated_data['PlanID']
         ap = ActionPlan.objects.get(id = aid)
-        if self.validated_data['approval'] == True:
+        if self.validated_data['PlanStatus'] == True:
             ap.status = 'PMOApproved'
         else:
             ap.status = 'Rejected'
 
         ap.save()
 
-        if self.validated_data['approval'] == False:
+        if self.validated_data['PlanStatus'] == False:
             author = 'PMO'
-            text = self.validated_data['text']
+            text = self.validated_data['Comments']
             timeCreated = timezone.now()
             Comment.objects.create(text=text,author=author,timeCreated=timeCreated,actionPlan=ap)
 
