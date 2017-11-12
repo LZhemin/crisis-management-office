@@ -169,7 +169,7 @@ class PMOSerializer(serializers.ModelSerializer):
     #Filter out "Planning', or in 'CORequest'
     #Show 'Approved','Rejected' and 'PMORequest'
     def get_filtered_plans(self, obj):
-        qs =  ActionPlan.objects.exclude(status='Planning',).exclude(status='CORequest')
+        qs = ActionPlan.objects.filter(crisis=obj).exclude(status='Planning').exclude(status='CORequest').filter(comment__author = 'PMO')
         serializer = self.IActionPlanSerializer(qs,many=True,read_only=True)
         return serializer.data
 
