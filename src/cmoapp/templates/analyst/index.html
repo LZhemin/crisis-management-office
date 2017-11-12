@@ -247,7 +247,7 @@
     <div class="row">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Current Statistics</h2>
+                <h1>{{assigned_crisis.crisis_title}}</h1>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <a class="collapse-link">
@@ -504,6 +504,7 @@
                                         <button type="submit" class="btn btn-success" name="submitType" value="Submit">
                                             Submit Action Plan
                                         </button>
+                                        <button class="btn btn-info" style="float:right" onclick="generateAP({{assigned_crisis.id}});return false;"> Generate Action Plan</button>
                                     </form>
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade" id="previous" aria-labelledby="previous-tab">
