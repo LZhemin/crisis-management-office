@@ -146,11 +146,21 @@ class PMOSerializer(serializers.ModelSerializer):
                 model = ForceDeployment
                 fields = ('name','recommended','max')
 
+
+        class ICommentSerializer(serializers.ModelSerializer):
+
+            class Meta:
+                model = Comment
+                fields = ('id','text','author','timeCreated')
+
+
         forcedeployment_set = IForceDeploymentSerializer(many=True, read_only=True)
+
+        comment = ICommentSerializer(read_only=True)
 
         class Meta:
             model = ActionPlan
-            fields = ('id', 'plan_number', 'description', 'status', 'resolution_time', 'projected_casualties','outgoing_time', 'type', 'forcedeployment_set')
+            fields = ('id', 'plan_number', 'description', 'status', 'resolution_time', 'projected_casualties','outgoing_time', 'type', 'forcedeployment_set', 'comment')
 
     crisisreport_set = IReportSerializer(many=True, read_only=True)
     actionplan_set = serializers.SerializerMethodField('get_filtered_plans')
