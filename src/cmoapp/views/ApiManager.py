@@ -15,9 +15,12 @@ import json
 #Kindly help to remove unwanted modules
 
 ##CrisisReport########################################
-@api_view(['POST'])
+@api_view(['POST','GET'])
 @permission_classes((permissions.AllowAny,))
 def crisisreport_collection(request):
+    if request.method == 'GET':
+        serializer = CrisisReportSerializer(CrisisReport.objects.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     if request.method == 'POST':
         serializer = NineOneOneSerializer(data=request.data)
 
