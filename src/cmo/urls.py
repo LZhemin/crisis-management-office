@@ -32,14 +32,13 @@ from rest_framework import routers, serializers, viewsets
 
 
 urlpatterns = [ # pylint: disable=invalid-name
+    url(r'^$', include('cmoapp.urls.login')),
     url(r'^admin/', admin.site.urls),
     url(r'^analyst/', include('cmoapp.urls.analyst')),
     url(r'^operator/', include('cmoapp.urls.operator')),
     url(r'^chief/', include('cmoapp.urls.chief')),
     url(r'^ActionPlan/', include('cmoapp.urls.actionplan')),
     url(r'^login/', include('cmoapp.urls.login')),
-    url(r'^chief', include('cmoapp.urls.chief')),
-    #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-    # url(r'^$', login, name='login'),
+    url(r'^publicmap', include('cmoapp.urls.map')),
     url(r'^api/', include('cmoapp.urls.api'))
 ]

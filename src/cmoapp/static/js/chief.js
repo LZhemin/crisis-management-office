@@ -90,6 +90,7 @@ function changeStatus(id,status){
                 styling: 'bootstrap3'
             });
             $('#collapse'+id).addClass('collapse');
+            console.log('Here!');
             window.setTimeout(function(){
                 reload_table();
                 reload_crisis();
@@ -99,6 +100,7 @@ function changeStatus(id,status){
             console.log(data);
         }
     });
+    filterMapCrisis(id);
 }
 
 //Rejecting a ActionPlan function called
@@ -167,6 +169,15 @@ function acceptActionPlan(id){
 $("#msgBox").on('keyup', function (e) {
     if (e.keyCode == 13) {
         $("#msgSendBtn").trigger('click');
+        $(this).val("");
+    }
+});
+
+//Allow the user to send chat message by pressing the Enter Key
+$("#efMsgBox").on('keyup', function (e) {
+    if (e.keyCode == 13) {
+        $("#efMsgSendBtn").trigger('click');
+        $(this).val("");
     }
 });
 
@@ -203,6 +214,8 @@ function filterMapCrisis(id){
             $(this).show();
         });
         text = "Site no longer being filtered by Crisis ID!";
+        changeChat('GeneralChat');
+        changeEFChat('GeneralChat');
     }
     //Filter if Crisis is selected
     else{
@@ -225,6 +238,8 @@ function filterMapCrisis(id){
                 $(this).hide();
         });
         text = "Showing Stats of Crisis ID: "+id+"!";
+        changeChat(id);
+        changeEFChat(id);
     }
 
     new PNotify({
@@ -299,11 +314,11 @@ function reloadEfUpdate(count){
             array = JSON.parse(data);
             console.log(array[0]['fields']);
             for(update in array){
-                html += "<li><div id='efCrisis"+array[update]['fields']['crisis']+"' class='block'>" +
+                html += "<li><div id='efCrisis"+array[update]['crisis']+"' class='block'>" +
                             "<div class='block_content'> " +
-                                "<h2 class='title'>Crisis "+array[update]['fields']['crisis']+"</h2> " +
-                                "<div class='byline'>Posted on "+array[update]['fields']['datetime']+"</div> " +
-                                    "<p class='excerpt'>"+array[update]['fields']['description']+"</p> " +
+                                "<h2 class='title'>Crisis "+array[update]['crisisTitle']+"</h2> " +
+                                "<div class='byline'>"+array[update]['datetime']+"</div> " +
+                                    "<p class='excerpt'>"+array[update]['description']+"</p> " +
                                 "</div> " +
                             "</div> " +
                         "</li>";
@@ -320,7 +335,7 @@ function reloadEfUpdate(count){
 //reloads the action_plan_table template
 function reload_table() {
     $.ajax({
-        url :"/chief/reload_table/",
+        url :"reload_table/",
         type : "GET", // http method
         // handle a successful response
         //var html;
@@ -336,7 +351,7 @@ function reload_table() {
 //reloads the all_crisis template
 function reload_crisis() {
     $.ajax({
-        url :"/chief/reload_crisis/",
+        url :"reload_crisis/",
         type : "GET", // http method
         // handle a successful response
         //var html;
@@ -403,41 +418,5 @@ $('#presentation1').on('click', function () {
 
 
 function select_crisischat(id) {
-    $.ajax({
-        url : "/chief/select_crisischat/", // the endpoint
-        type : "GET", // http method
-        // handle a successful response
-        success : function(json) {
 
-            for (var i = 0; i < json.length; i++) {
-                //console.log(json[i])
-                //if(json[i].id == id)
-            }
-            //$('#updatechat').html(data);
-            $('#updatechat').load(location.href +  ' #updatechat');
-            /*
-             var res1;
-
-            for(var i = 0; i < data.length; i++)
-            {
-                // Parse through the JSON array which was returned.
-                // A proper error handling should be added here (check if
-                // everything went successful or not)
-
-                res1 = data[i].res1;
-
-                // Do something with the returned data
-                $('#updatechat').html(res1);
-            }
-            */
-
-            console.log("success"); // another sanity check
-        },
-        // handle a non-successful response
-        error : function(xhr,errmsg,err) {
-            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-        }
-    });
 }

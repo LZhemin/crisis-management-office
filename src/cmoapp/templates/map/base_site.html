@@ -10,9 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
       {% endblock meta %}
 
-      <title>Crisis Analyst - {% block title %}{% endblock %}</title>
-      <link rel="shortcut icon" href="/static/images/analyst.jpg" />
-
+      <title>Public Map{% block title %}{% endblock %}</title>
       {% block vendor_stylesheets %}
         <!-- Bootstrap -->
         <link href="/static/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
@@ -28,51 +26,43 @@
         <link href="/static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
         <!-- JQVMap -->
         <link href="/static/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
-        <!-- Pnotify -->
+         <!-- Pnotify -->
         <link href="/static/vendors/pnotify/dist/pnotify.css" rel="stylesheet"/>
         <link href="/static/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
         <link href="/static/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
-
-        <!-- Animate -->
-        <link href="/static/vendors/animate.css/animate.min.css" rel="stylesheet"/>
       {% endblock vendor_stylesheets %}
       <!-- Custom Theme Style -->
       <link href="/static/build/css/custom.css" rel="stylesheet">
-      <link href="/static/build/css/app.css" rel="stylesheet">
-      {% block page_stylesheets %} {% endblock page_stylesheets %}
-      {% block js_templates %} {% endblock js_templates %}
+      {% block page_stylesheets %}
+      {% endblock page_stylesheets %}
+
     {% endblock head %}
   </head>
+
   <body class="{% block body_class %}nav-md {% endblock body_class %}">
-  <div id="neutraloverlay" style="background-color:black;width:100%;height:100%;display:inline;position: fixed; top:0px; left:0px; z-index: 100; display:none">
-  </div>
-  <video id="neuroNetwork" style="width:100%;height:100%;display:inline;position: fixed; top:0px; left:0px; z-index: 1000;display:none">
-     <source src="/static/video/movie.mp4" type="video/mp4">
-  </video>
     {% block body %}
       <div class="container body">
         <div class="main_container">
 
-          {% block sidebar %}
-            <div class="col-md-3 left_col">
-              {% include "analyst/ui_components/sidebar.html" %}
-            </div>
-          {% endblock sidebar %}
+              {% block sidebar %}
+                <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
+                  {% include "map/ui_components/sidebar.html" %}
+                </div>
+              {% endblock sidebar %}
+               {% block top_navigation %}
+                <div class="top_nav">
+                  {% include "map/ui_components/top_navigation.html" %}
+                </div>
+              {% endblock top_navigation %}
 
-          {% block top_navigation %}
-            <div class="top_nav">
-              {% include "analyst/ui_components/top_navigation.html" %}
-            </div>
-          {% endblock top_navigation %}
-
-          {% block content %}
-          {% endblock content %}
-
+              {% block content %}
+                <!-- {{ content }} -->
+              {% endblock content %}
         </div>
       </div>
     {% endblock body %}
   </body>
-      {% block vendor_javascripts %}
+  {% block vendor_javascripts %}
         <!-- jQuery -->
         <script src="/static/vendors/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap -->
@@ -110,21 +100,21 @@
         <script src="/static/vendors/pnotify/dist/pnotify.js" type="text/javascript" optimized="true"></script>
         <script src="/static/vendors/pnotify/dist/pnotify.buttons.js" type="text/javascript" optimized="true"></script>
         <script src="/static/vendors/pnotify/dist/pnotify.nonblock.js" type="text/javascript" optimized="true"></script>
-        <!-- echarts -->
-        <script src="/static/vendors/echarts/dist/echarts.js" type="text/javascript" optimized="true"></script>
-        <script src="/static/vendors/echarts/map/js/world.js" type="text/javascript" optimized="true"></script>
-        <script src="/static/vendors/echarts/dist/echarts.simple.js" type="text/javascript" optimized="true"></script>
-        <!-- Charts.js -->
-        <script src="/static/vendors/Chart.js/dist/Chart.js" type="text/javascript" optimized="true"></script>
-        <script src="/static/vendors/Chart.js/dist/Chart.bundle.js" type="text/javascript" optimized="true"></script>
-        <!-- jquery.easy-pie-chart.js -->
-        <script src="/static/vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.js" type="text/javascript" optimized="true"></script>
-        <script src="/static/vendors/jquery.easy-pie-chart/dist/easypiechart.js" type="text/javascript" optimized="true"></script>
-        <script src="/static/vendors/jquery-knob/dist/jquery.knob.min.js" type="text/javascript" optimized="true"></script>
+        <!-- Moment -->
+        <!--
+        <script src="/static/vendors/moment/moment.js" type="text/javascript"></script>
+        <script src="/static/vendors/moment/min/moment.min.js" type="text/javascript"></script>
+        -->
         <!-- Custom Theme Scripts -->
         <script src="/static/build/js/custom.js"></script>
-        <script src="/static/js/analyst.js"></script>
-      {% endblock %}
-      {% block page_javascripts %}
-      {% endblock page_javascripts %}
+        <script src="/static/js/chief.js"></script>
+  {% endblock %}
+
+  {% block page_scripts %}
+  {% endblock page_scripts %}
+
+
+  {% block page_javascripts %}
+  {% endblock page_javascripts %}
+
 </html>

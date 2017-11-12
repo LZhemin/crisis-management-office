@@ -1,0 +1,3930 @@
+[
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$36000$lizAk05apE8h$9ARVV0bpGaHLWLorDHeXZakgY1WNflYRrlPZ6itGGks=",
+        "last_login": "2017-11-12T11:58:25.119Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@hotmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2017-11-10T15:34:23.030Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "70ixx4ukc4dqmm0j170p8qipzazodknu",
+    "fields": {
+        "session_data": "ODZmNTI0MTRiZTY0ZDQwNjNjZGZkNDNkMTVmY2YxMGY4MGVmYWY3Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjEiLCJfYXV0aF91c2VyX2hhc2giOiIyODIyNjY0ZmUyM2QzZmNmZjU0MTcxYWMzOWIyMjllMzkxYzUxMjZmIn0=",
+        "expire_date": "2017-11-24T15:34:30.018Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "p5n5evivp3vwhwjxttvejjn2kvanswm7",
+    "fields": {
+        "session_data": "MTZlMjI1NGVhMzhkNThkYjI2MzA2NjVhZWU3NDQ4NTdlMjA2MzA1Yjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjYiLCJfYXV0aF91c2VyX2hhc2giOiIyODIyNjY0ZmUyM2QzZmNmZjU0MTcxYWMzOWIyMjllMzkxYzUxMjZmIn0=",
+        "expire_date": "2017-11-26T11:58:25.124Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "pacot51l0s03cjml78us0wpqains8lv3",
+    "fields": {
+        "session_data": "MzFiZjczODk1NTVkZTRmMTUwODRjMzFlNGE5MjExNDc4MDczYTc1Mjp7Il9hdXRoX3VzZXJfaGFzaCI6IjI4MjI2NjRmZTIzZDNmY2ZmNTQxNzFhYzM5YjIyOWUzOTFjNTEyNmYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiI0In0=",
+        "expire_date": "2017-11-24T17:50:06.572Z"
+    }
+},
+{
+    "model": "sites.site",
+    "fields": {
+        "domain": "example.com",
+        "name": "example.com"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 1,
+    "fields": {
+        "login": "George",
+        "password": "George",
+        "type": "Analyst"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 2,
+    "fields": {
+        "login": "Jacob",
+        "password": "Jacob",
+        "type": "Analyst"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 3,
+    "fields": {
+        "login": "Peter",
+        "password": "Peter",
+        "type": "Analyst"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 9,
+    "fields": {
+        "login": "Wilson",
+        "password": "Wilson",
+        "type": "Analyst"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 10,
+    "fields": {
+        "login": "Zack",
+        "password": "Zack",
+        "type": "Analyst"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 11,
+    "fields": {
+        "login": "Zavier",
+        "password": "Zavier",
+        "type": "Analyst"
+    }
+},
+{
+    "model": "cmoapp.account",
+    "pk": 12,
+    "fields": {
+        "login": "Milly",
+        "password": "test",
+        "type": "Analyst"
+    }
+},
+{
+    "model": "cmoapp.crisistype",
+    "pk": 1,
+    "fields": {
+        "name": "Fire"
+    }
+},
+{
+    "model": "cmoapp.crisistype",
+    "pk": 2,
+    "fields": {
+        "name": "Riot/Mass Looting"
+    }
+},
+{
+    "model": "cmoapp.crisistype",
+    "pk": 3,
+    "fields": {
+        "name": "Bombing"
+    }
+},
+{
+    "model": "cmoapp.crisistype",
+    "pk": 9,
+    "fields": {
+        "name": "Pandemics"
+    }
+},
+{
+    "model": "cmoapp.crisistype",
+    "pk": 10,
+    "fields": {
+        "name": "Nuclear/Radiological/Biological-Chemical"
+    }
+},
+{
+    "model": "cmoapp.crisistype",
+    "pk": 11,
+    "fields": {
+        "name": "Natural Disasters"
+    }
+},
+{
+    "model": "cmoapp.crisistype",
+    "pk": 12,
+    "fields": {
+        "name": "Hijacking"
+    }
+},
+{
+    "model": "cmoapp.crisistype",
+    "pk": 13,
+    "fields": {
+        "name": "Kidnapping"
+    }
+},
+{
+    "model": "cmoapp.crisis",
+    "pk": 6,
+    "fields": {
+        "crisis_title": "Fire at Esplanade",
+        "analyst": 1,
+        "status": "Ongoing"
+    }
+},
+{
+    "model": "cmoapp.crisis",
+    "pk": 7,
+    "fields": {
+        "crisis_title": "Bombing at Clarke Quay MRT Station",
+        "analyst": 2,
+        "status": "Ongoing"
+    }
+},
+{
+    "model": "cmoapp.crisis",
+    "pk": 8,
+    "fields": {
+        "crisis_title": "Riot near Ang Mo Kio Hub",
+        "analyst": 3,
+        "status": "Clean-up"
+    }
+},
+{
+    "model": "cmoapp.crisis",
+    "pk": 9,
+    "fields": {
+        "crisis_title": "Child kidnapped in Woodlands Post Office",
+        "analyst": 9,
+        "status": "Resolved"
+    }
+},
+{
+    "model": "cmoapp.crisis",
+    "pk": 10,
+    "fields": {
+        "crisis_title": "Riot in CBD Area",
+        "analyst": 10,
+        "status": "Resolved"
+    }
+},
+{
+    "model": "cmoapp.crisis",
+    "pk": 11,
+    "fields": {
+        "crisis_title": "This crisis is without action plans",
+        "analyst": 12,
+        "status": "Ongoing"
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 11,
+    "fields": {
+        "description": "Fire is seen around Esplanade Area.",
+        "datetime": "2017-11-12T07:46:11Z",
+        "latitude": "1.46326700",
+        "longitude": "102.54312400",
+        "radius": 150,
+        "crisis": 6,
+        "crisisType": 1
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 12,
+    "fields": {
+        "description": "Full chaos near Esplanade MRT",
+        "datetime": "2017-11-12T07:47:15Z",
+        "latitude": "1.52423100",
+        "longitude": "100.12312400",
+        "radius": 175,
+        "crisis": 6,
+        "crisisType": 2
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 13,
+    "fields": {
+        "description": "One terrorist has kidnapped a child during this chaos at esplanade area.",
+        "datetime": "2017-11-12T07:48:30Z",
+        "latitude": "1.34582600",
+        "longitude": "104.35632600",
+        "radius": 180,
+        "crisis": 6,
+        "crisisType": 13
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 14,
+    "fields": {
+        "description": "Sudden explosion of bomb is audible at the esplanade building engulfed in flames.",
+        "datetime": "2017-11-12T07:51:15Z",
+        "latitude": "1.54276500",
+        "longitude": "106.37516700",
+        "radius": 225,
+        "crisis": 6,
+        "crisisType": 3
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 15,
+    "fields": {
+        "description": "I just heard a bomb exploding from Clarke Quay Central.",
+        "datetime": "2017-11-12T09:26:02Z",
+        "latitude": "1.45624600",
+        "longitude": "103.24536700",
+        "radius": 300,
+        "crisis": 7,
+        "crisisType": 3
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 16,
+    "fields": {
+        "description": "The bomb has caused a fire around clarke quay area.",
+        "datetime": "2017-11-12T09:27:30Z",
+        "latitude": "1.34672500",
+        "longitude": "102.45674300",
+        "radius": 275,
+        "crisis": 7,
+        "crisisType": 1
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 17,
+    "fields": {
+        "description": "People are running around and full chaos here after the first bomb exploded and the fear of second one going to explode soon.",
+        "datetime": "2017-11-12T09:30:13Z",
+        "latitude": "1.54632100",
+        "longitude": "102.34565400",
+        "radius": 200,
+        "crisis": 7,
+        "crisisType": 2
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 18,
+    "fields": {
+        "description": "There is a bomb detected at clarke quay mrt station that is going to explode in 2 hours.",
+        "datetime": "2017-11-12T09:36:31Z",
+        "latitude": "1.74532500",
+        "longitude": "110.23564500",
+        "radius": 275,
+        "crisis": 7,
+        "crisisType": 3
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 19,
+    "fields": {
+        "description": "There is an ongoing bomb situation.",
+        "datetime": "2017-11-12T11:59:06Z",
+        "latitude": "1.34532500",
+        "longitude": "110.23564500",
+        "radius": 12,
+        "crisis": 10,
+        "crisisType": 3
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 20,
+    "fields": {
+        "description": "Help la FML",
+        "datetime": "2017-11-12T12:01:45Z",
+        "latitude": "1.34370000",
+        "longitude": "103.82409900",
+        "radius": 16,
+        "crisis": 9,
+        "crisisType": 10
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 21,
+    "fields": {
+        "description": "FML",
+        "datetime": "2017-11-12T12:05:28Z",
+        "latitude": "1.03126320",
+        "longitude": "103.81231900",
+        "radius": 16,
+        "crisis": 8,
+        "crisisType": 12
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 22,
+    "fields": {
+        "description": "This crisis only has crisis reports.",
+        "datetime": "2017-11-12T13:54:56Z",
+        "latitude": "1.03151250",
+        "longitude": "103.41251000",
+        "radius": 25,
+        "crisis": 11,
+        "crisisType": 13
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 23,
+    "fields": {
+        "description": "fire in the zoo",
+        "datetime": "2017-11-12T14:53:00Z",
+        "latitude": "1.40434850",
+        "longitude": "103.79302299",
+        "radius": 1000,
+        "crisis": null,
+        "crisisType": null
+    }
+},
+{
+    "model": "cmoapp.crisisreport",
+    "pk": 24,
+    "fields": {
+        "description": "fire lor",
+        "datetime": "2017-11-12T15:08:00Z",
+        "latitude": "1.34830990",
+        "longitude": "103.68313469",
+        "radius": 0,
+        "crisis": null,
+        "crisisType": null
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 13,
+    "fields": {
+        "plan_number": 1,
+        "description": "Huge fire and fumes at Esplanade building.\r\n4-5 people are stuck inside still.",
+        "outgoing_time": null,
+        "status": "PMORequest",
+        "resolution_time": "01:25:02",
+        "projected_casualties": 5,
+        "type": "Combat",
+        "crisis": 6
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 14,
+    "fields": {
+        "plan_number": 2,
+        "description": "1 person might still be stuck inside the top storey of the building. \r\nRequest for the whole team of EF to come down and assist with the situation.",
+        "outgoing_time": null,
+        "status": "Rejected",
+        "resolution_time": "02:00:00",
+        "projected_casualties": 1,
+        "type": "Combat",
+        "crisis": 6
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 15,
+    "fields": {
+        "plan_number": 3,
+        "description": "Building is burning with fire non-stop with casualties.\r\nRequest entire fire dept team to come down urgently.",
+        "outgoing_time": null,
+        "status": "PMOApproved",
+        "resolution_time": "01:02:00",
+        "projected_casualties": 10,
+        "type": "Combat",
+        "crisis": 6
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 16,
+    "fields": {
+        "plan_number": 1,
+        "description": "Bombing near Eu Tong Sen Street. Request SAF team to come immediately.",
+        "outgoing_time": null,
+        "status": "Rejected",
+        "resolution_time": "01:15:00",
+        "projected_casualties": 3,
+        "type": "Combat",
+        "crisis": 7
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 17,
+    "fields": {
+        "plan_number": 2,
+        "description": "There are no casualties as of now but request whole SAF team to come down just in case another bomb explosion occurs.",
+        "outgoing_time": null,
+        "status": "Rejected",
+        "resolution_time": "01:45:00",
+        "projected_casualties": 0,
+        "type": "Combat",
+        "crisis": 7
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 18,
+    "fields": {
+        "plan_number": 3,
+        "description": "5 people have been injured by the previous bomb at Clarke Quay and another bomb has been detected there. Request SAF bomb squad team to come down and defuse it.",
+        "outgoing_time": null,
+        "status": "PMOApproved",
+        "resolution_time": "01:30:00",
+        "projected_casualties": 5,
+        "type": "Combat",
+        "crisis": 7
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 19,
+    "fields": {
+        "plan_number": 1,
+        "description": "Buses have been set on fire in Ang Mo Kio Interchange, possibility of some people accidentally getting hurt. Request SPF and SCDF to attend to the situation immediately.",
+        "outgoing_time": null,
+        "status": "PMOApproved",
+        "resolution_time": "01:17:00",
+        "projected_casualties": 1,
+        "type": "Combat",
+        "crisis": 8
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 20,
+    "fields": {
+        "plan_number": 2,
+        "description": "Some people are fighting with each other in AMK Hub. Request all forces to attend the situation.",
+        "outgoing_time": null,
+        "status": "Rejected",
+        "resolution_time": "01:00:00",
+        "projected_casualties": 0,
+        "type": "Combat",
+        "crisis": 8
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 21,
+    "fields": {
+        "plan_number": 3,
+        "description": "Some people are destroying the public property in AMK Hub as well as breaking down the buses in interchange violently. Requesting SAF forces to help urgently.",
+        "outgoing_time": null,
+        "status": "PMORequest",
+        "resolution_time": "01:25:00",
+        "projected_casualties": 3,
+        "type": "Clean-up",
+        "crisis": 8
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 22,
+    "fields": {
+        "plan_number": 1,
+        "description": "A child has been kidnapped in Woodlands Post Office and kidnapper is demanding ransom of $100,000 from parents. Requesting entire team of SPF to attend this case.",
+        "outgoing_time": null,
+        "status": "Rejected",
+        "resolution_time": "01:05:00",
+        "projected_casualties": 0,
+        "type": "Combat",
+        "crisis": 9
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 23,
+    "fields": {
+        "plan_number": 2,
+        "description": "Child kidnapped in Woodlands Post Office. Requesting a few personnel from SPF to attend the case first.",
+        "outgoing_time": null,
+        "status": "PMOApproved",
+        "resolution_time": "01:10:00",
+        "projected_casualties": 0,
+        "type": "Combat",
+        "crisis": 9
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 24,
+    "fields": {
+        "plan_number": 3,
+        "description": "Kidnapped child has been safely returned to his parents. Kidnapper along with his gang of criminals on wanted list are in SPF's custody, a few more personnel needed to handle the criminals there and bring them to station.",
+        "outgoing_time": null,
+        "status": "PMOApproved",
+        "resolution_time": "01:00:00",
+        "projected_casualties": 0,
+        "type": "Resolved",
+        "crisis": 9
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 25,
+    "fields": {
+        "plan_number": 1,
+        "description": "A protest is occurring at Central Area against PAP. Some people have fainted. Requesting SCDF to attend to these people.",
+        "outgoing_time": null,
+        "status": "Rejected",
+        "resolution_time": "01:00:00",
+        "projected_casualties": 2,
+        "type": "Combat",
+        "crisis": 10
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 26,
+    "fields": {
+        "plan_number": 2,
+        "description": "Cars are being broken in the CBD area and heavy fires are being started. Requesting SCDF at once to handle this situation.",
+        "outgoing_time": null,
+        "status": "PMOApproved",
+        "resolution_time": "01:23:00",
+        "projected_casualties": 6,
+        "type": "Combat",
+        "crisis": 10
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 27,
+    "fields": {
+        "plan_number": 3,
+        "description": "Riot has been brought under control but need forces to clean up the area and damage done there.",
+        "outgoing_time": null,
+        "status": "PMORequest",
+        "resolution_time": "01:12:00",
+        "projected_casualties": 6,
+        "type": "Clean-up",
+        "crisis": 10
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 28,
+    "fields": {
+        "plan_number": 4,
+        "description": "Ben approve this 1",
+        "outgoing_time": null,
+        "status": "PMORequest",
+        "resolution_time": "1 01:00:00",
+        "projected_casualties": 25,
+        "type": "Combat",
+        "crisis": 6
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 29,
+    "fields": {
+        "plan_number": 4,
+        "description": "Ben approve this 2",
+        "outgoing_time": null,
+        "status": "PMORequest",
+        "resolution_time": "1 01:00:00",
+        "projected_casualties": 25,
+        "type": "Combat",
+        "crisis": 7
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 30,
+    "fields": {
+        "plan_number": 5,
+        "description": "TEST CMO",
+        "outgoing_time": null,
+        "status": "CORequest",
+        "resolution_time": "1 01:00:00",
+        "projected_casualties": 12,
+        "type": "Combat",
+        "crisis": 7
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 31,
+    "fields": {
+        "plan_number": 1,
+        "description": "Test PMO Approval 1",
+        "outgoing_time": null,
+        "status": "PMORequest",
+        "resolution_time": "1 09:00:00",
+        "projected_casualties": 12,
+        "type": "Combat",
+        "crisis": 11
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 32,
+    "fields": {
+        "plan_number": 6,
+        "description": "Rejected",
+        "outgoing_time": null,
+        "status": "Rejected",
+        "resolution_time": "1 01:00:00",
+        "projected_casualties": 25,
+        "type": "Combat",
+        "crisis": 6
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 33,
+    "fields": {
+        "plan_number": 7,
+        "description": "Rejected",
+        "outgoing_time": null,
+        "status": "Rejected",
+        "resolution_time": "1 01:00:00",
+        "projected_casualties": 12,
+        "type": "Combat",
+        "crisis": 6
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 34,
+    "fields": {
+        "plan_number": 8,
+        "description": "Approve This",
+        "outgoing_time": null,
+        "status": "PMORequest",
+        "resolution_time": "21:00:00",
+        "projected_casualties": 12,
+        "type": "Combat",
+        "crisis": 6
+    }
+},
+{
+    "model": "cmoapp.actionplan",
+    "pk": 35,
+    "fields": {
+        "plan_number": 5,
+        "description": "TEST",
+        "outgoing_time": null,
+        "status": "Planning",
+        "resolution_time": "1 01:00:00",
+        "projected_casualties": 12,
+        "type": "Combat",
+        "crisis": 7
+    }
+},
+{
+    "model": "cmoapp.comment",
+    "pk": 15,
+    "fields": {
+        "text": "THIS IS REJECTED BY PMO",
+        "author": "PMO",
+        "timeCreated": "2017-11-12T17:56:35.045Z",
+        "actionPlan": 17
+    }
+},
+{
+    "model": "cmoapp.comment",
+    "pk": 16,
+    "fields": {
+        "text": "THIS IS REJECTED BY CHIEF",
+        "author": "CO",
+        "timeCreated": "2017-11-12T17:57:07.190Z",
+        "actionPlan": 14
+    }
+},
+{
+    "model": "cmoapp.comment",
+    "pk": 17,
+    "fields": {
+        "text": "THIS IS REJECTED BY PMO\r\n<br>\r\nTHIS IS REJECTED BY PMO WITH BR",
+        "author": "PMO",
+        "timeCreated": "2017-11-12T17:57:49.198Z",
+        "actionPlan": 22
+    }
+},
+{
+    "model": "cmoapp.comment",
+    "pk": 18,
+    "fields": {
+        "text": "THIS IS REJECTED BY CMO",
+        "author": "CO",
+        "timeCreated": "2017-11-12T17:58:14.858Z",
+        "actionPlan": 20
+    }
+},
+{
+    "model": "cmoapp.comment",
+    "pk": 19,
+    "fields": {
+        "text": "THIS IS REJECTED BY PMO - DPM\r\n<br>\r\nTHIS IS REJECTED BY PMO - PM",
+        "author": "PMO",
+        "timeCreated": "2017-11-12T17:59:02.009Z",
+        "actionPlan": 25
+    }
+},
+{
+    "model": "cmoapp.comment",
+    "pk": 21,
+    "fields": {
+        "text": "REJECTED BY CO",
+        "author": "CO",
+        "timeCreated": "2017-11-12T20:19:19.748Z",
+        "actionPlan": 16
+    }
+},
+{
+    "model": "cmoapp.comment",
+    "pk": 22,
+    "fields": {
+        "text": "Reject for 32",
+        "author": "PMO",
+        "timeCreated": "2017-11-12T21:27:35.367Z",
+        "actionPlan": 32
+    }
+},
+{
+    "model": "cmoapp.comment",
+    "pk": 23,
+    "fields": {
+        "text": "REJECT",
+        "author": "CO",
+        "timeCreated": "2017-11-12T21:32:55.092Z",
+        "actionPlan": 33
+    }
+},
+{
+    "model": "cmoapp.force",
+    "pk": "SAF",
+    "fields": {
+        "currentUtilisation": "40.00"
+    }
+},
+{
+    "model": "cmoapp.force",
+    "pk": "SCDF",
+    "fields": {
+        "currentUtilisation": "20.00"
+    }
+},
+{
+    "model": "cmoapp.force",
+    "pk": "SPF",
+    "fields": {
+        "currentUtilisation": "40.00"
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 6,
+    "fields": {
+        "name": "SCDF",
+        "recommended": "10.00",
+        "max": "20.00",
+        "actionPlan": 13
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 7,
+    "fields": {
+        "name": "SCDF",
+        "recommended": "15.00",
+        "max": "30.00",
+        "actionPlan": 15
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 8,
+    "fields": {
+        "name": "SCDF",
+        "recommended": "14.00",
+        "max": "20.00",
+        "actionPlan": 14
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 9,
+    "fields": {
+        "name": "SCDF",
+        "recommended": "10.00",
+        "max": "20.00",
+        "actionPlan": 15
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 10,
+    "fields": {
+        "name": "SAF",
+        "recommended": "20.00",
+        "max": "30.00",
+        "actionPlan": 17
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 11,
+    "fields": {
+        "name": "SAF",
+        "recommended": "25.00",
+        "max": "40.00",
+        "actionPlan": 18
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 12,
+    "fields": {
+        "name": "SAF",
+        "recommended": "20.00",
+        "max": "27.00",
+        "actionPlan": 16
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 13,
+    "fields": {
+        "name": "SPF",
+        "recommended": "20.00",
+        "max": "30.00",
+        "actionPlan": 19
+    }
+},
+{
+    "model": "cmoapp.forcedeployment",
+    "pk": 14,
+    "fields": {
+        "name": "SAF",
+        "recommended": "20.00",
+        "max": "40.00",
+        "actionPlan": 21
+    }
+},
+{
+    "model": "cmoapp.efupdate",
+    "pk": 5,
+    "fields": {
+        "datetime": "2017-11-12T08:46:07Z",
+        "affectedRadius": "163.00",
+        "totalInjured": 5,
+        "totalDeaths": 0,
+        "duration": "01:00:00",
+        "actionPlan": 15,
+        "crisis": 6,
+        "description": "5 people are stuck in the building. Request for extra personnel to help the situation.",
+        "type": "Request"
+    }
+},
+{
+    "model": "cmoapp.efupdate",
+    "pk": 6,
+    "fields": {
+        "datetime": "2017-11-12T09:16:07Z",
+        "affectedRadius": "163.00",
+        "totalInjured": 5,
+        "totalDeaths": 0,
+        "duration": "01:30:00",
+        "actionPlan": 15,
+        "crisis": 6,
+        "description": "Managed to get the 5 people out of the building, but they are slightly injured/bruised. They have been brought to the hospital already.",
+        "type": "Notification"
+    }
+},
+{
+    "model": "cmoapp.efupdate",
+    "pk": 7,
+    "fields": {
+        "datetime": "2017-11-12T09:46:07Z",
+        "affectedRadius": "163.00",
+        "totalInjured": 5,
+        "totalDeaths": 0,
+        "duration": "02:00:00",
+        "actionPlan": 15,
+        "crisis": 6,
+        "description": "The five casualties are taking treatment at the hospital. Doctors have said no serious harm to their health. Crowd has been controlled at esplanade but fire is still being put off.",
+        "type": "Notification"
+    }
+},
+{
+    "model": "cmoapp.efupdate",
+    "pk": 8,
+    "fields": {
+        "datetime": "2017-11-12T10:36:32Z",
+        "affectedRadius": "278.00",
+        "totalInjured": 5,
+        "totalDeaths": 0,
+        "duration": "01:00:00",
+        "actionPlan": 18,
+        "crisis": 7,
+        "description": "We have just seen the bomb and trying to defuse it. Request more forces to calm the residents.",
+        "type": "Request"
+    }
+},
+{
+    "model": "cmoapp.efupdate",
+    "pk": 9,
+    "fields": {
+        "datetime": "2017-11-12T10:56:32Z",
+        "affectedRadius": "278.00",
+        "totalInjured": 5,
+        "totalDeaths": 0,
+        "duration": "01:20:00",
+        "actionPlan": 18,
+        "crisis": 7,
+        "description": "Successfully defused the bomb. The panic of residents have been controlled. Still awaiting information from the hospital regarding the patients' current condition.",
+        "type": "Notification"
+    }
+},
+{
+    "model": "cmoapp.efupdate",
+    "pk": 10,
+    "fields": {
+        "datetime": "2017-11-12T11:26:32Z",
+        "affectedRadius": "278.00",
+        "totalInjured": 5,
+        "totalDeaths": 0,
+        "duration": "01:50:00",
+        "actionPlan": 18,
+        "crisis": 7,
+        "description": "2 out of the 5 people admitted to the hospital have lost a leg. Meanwhile we are still searching the place for any other hidden bombs.",
+        "type": "Notification"
+    }
+},
+{
+    "model": "cmoapp.efupdate",
+    "pk": 11,
+    "fields": {
+        "datetime": "2017-11-11T11:20:09Z",
+        "affectedRadius": "1000.00",
+        "totalInjured": 0,
+        "totalDeaths": 0,
+        "duration": "01:05:00",
+        "actionPlan": 23,
+        "crisis": 9,
+        "description": "Trying to track location of kidnappers through GPS.",
+        "type": "Notification"
+    }
+},
+{
+    "model": "cmoapp.efupdate",
+    "pk": 12,
+    "fields": {
+        "datetime": "2017-11-11T11:45:09Z",
+        "affectedRadius": "980.00",
+        "totalInjured": 0,
+        "totalDeaths": 0,
+        "duration": "01:30:00",
+        "actionPlan": 23,
+        "crisis": 9,
+        "description": "Kidnappers' location have been found. Child is safe and back to parents. Surrounded kidnappers with the limited personnel we have. Need more to bring the whole lot to station.",
+        "type": "Request"
+    }
+},
+{
+    "model": "cmoapp.efupdate",
+    "pk": 13,
+    "fields": {
+        "datetime": "2017-11-11T12:15:09Z",
+        "affectedRadius": "980.00",
+        "totalInjured": 0,
+        "totalDeaths": 0,
+        "duration": "02:00:00",
+        "actionPlan": 24,
+        "crisis": 9,
+        "description": "Gang has been brought to station and interrogated in the appropriate way. Situation under control.",
+        "type": "Notification"
+    }
+},
+{
+    "model": "cmoapp.efupdate",
+    "pk": 14,
+    "fields": {
+        "datetime": "2017-11-10T10:53:28Z",
+        "affectedRadius": "500.00",
+        "totalInjured": 5,
+        "totalDeaths": 0,
+        "duration": "02:00:00",
+        "actionPlan": 26,
+        "crisis": 10,
+        "description": "Situation is under control now. Need more personnel to clean up the place.",
+        "type": "Request"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+        "action_time": "2017-11-10T15:34:53.221Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "account"
+        ],
+        "object_id": "1",
+        "object_repr": "analyst1",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+        "action_time": "2017-11-10T15:34:56.964Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "1",
+        "object_repr": "ID: 1 - assigned to: analyst1",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+        "action_time": "2017-11-10T15:35:28.997Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "account"
+        ],
+        "object_id": "2",
+        "object_repr": "analyst2",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+        "action_time": "2017-11-10T15:35:33.289Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2 - assigned to: analyst2",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+        "action_time": "2017-11-10T15:36:00.872Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "account"
+        ],
+        "object_id": "3",
+        "object_repr": "analyst3",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+        "action_time": "2017-11-10T15:36:05.746Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "3",
+        "object_repr": "ID: 3 - assigned to: analyst3",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+        "action_time": "2017-11-10T15:37:38.021Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisistype"
+        ],
+        "object_id": "1",
+        "object_repr": "Fire",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+        "action_time": "2017-11-10T15:37:48.356Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisistype"
+        ],
+        "object_id": "2",
+        "object_repr": "Riot",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+        "action_time": "2017-11-10T15:37:54.897Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisistype"
+        ],
+        "object_id": "3",
+        "object_repr": "Bombing",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 10,
+    "fields": {
+        "action_time": "2017-11-10T15:38:06.087Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "1",
+        "object_repr": "ID: 1 - Seng Kang got fire everytime like this - Crisis ID: 1 - assigned to: analyst1 - Type: Fire",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 11,
+    "fields": {
+        "action_time": "2017-11-10T15:39:09.713Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2 - Little India got Riot again - Crisis ID: 2 - assigned to: analyst2 - Type: Riot",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 12,
+    "fields": {
+        "action_time": "2017-11-10T15:40:05.877Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "3",
+        "object_repr": "ID: 3 - Bombing at Tengah Tengah Toh - Crisis ID: 3 - assigned to: analyst3 - Type: Bombing",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+        "action_time": "2017-11-10T15:41:04.629Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "4",
+        "object_repr": "ID: 4 - Bomb with Fire - Crisis ID: 3 - assigned to: analyst3 - Type: Fire",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+        "action_time": "2017-11-10T15:42:46.132Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "1",
+        "object_repr": "ID: 1 | Type: Clean-up | Status: Awaiting PMO Approval | Abridged Description: Wing It",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+        "action_time": "2017-11-10T15:43:07.639Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2 | Type: Combat | Status: Awaiting PMO Approval | Abridged Description: CMI Time to Die",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+        "action_time": "2017-11-10T15:43:38.867Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "3",
+        "object_repr": "ID: 3 | Type: Resolved | Status: Approved | Abridged Description: Die again",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+        "action_time": "2017-11-10T15:44:02.359Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "4",
+        "object_repr": "ID: 4 | Type: Resolved | Status: Approved | Abridged Description: BOMB agn",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 18,
+    "fields": {
+        "action_time": "2017-11-10T15:45:46.337Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "1",
+        "object_repr": "ID: 1",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 19,
+    "fields": {
+        "action_time": "2017-11-10T15:46:33.044Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 20,
+    "fields": {
+        "action_time": "2017-11-10T15:47:48.252Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "3",
+        "object_repr": "ID: 3",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 21,
+    "fields": {
+        "action_time": "2017-11-10T15:48:15.262Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "4",
+        "object_repr": "ID: 4",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 22,
+    "fields": {
+        "action_time": "2017-11-10T15:51:08.104Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "force"
+        ],
+        "object_id": "SAF",
+        "object_repr": "SAF",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 23,
+    "fields": {
+        "action_time": "2017-11-10T15:51:21.145Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "force"
+        ],
+        "object_id": "SCDF",
+        "object_repr": "SCDF",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 24,
+    "fields": {
+        "action_time": "2017-11-10T15:51:33.240Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "force"
+        ],
+        "object_id": "SPF",
+        "object_repr": "SPF",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 25,
+    "fields": {
+        "action_time": "2017-11-10T15:52:36.947Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "1",
+        "object_repr": "ID: 1 | Name: SAF Action Plan: ID: 1 | Type: Clean-up | Status: Awaiting PMO Approval | Abridged Description: Wing It",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 26,
+    "fields": {
+        "action_time": "2017-11-10T15:52:52Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2 | Name: SCDF Action Plan: ID: 2 | Type: Combat | Status: Awaiting PMO Approval | Abridged Description: CMI Time to Die",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 27,
+    "fields": {
+        "action_time": "2017-11-10T15:53:14.936Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "3",
+        "object_repr": "ID: 3 | Name: SPF Action Plan: ID: 3 | Type: Resolved | Status: Approved | Abridged Description: Die again",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 28,
+    "fields": {
+        "action_time": "2017-11-10T15:53:51.837Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "4",
+        "object_repr": "ID: 4 | Name: SAF Action Plan: ID: 4 | Type: Resolved | Status: Approved | Abridged Description: BOMB agn",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 29,
+    "fields": {
+        "action_time": "2017-11-10T15:55:02.616Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forceutilization"
+        ],
+        "object_id": "1",
+        "object_repr": "SAF",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 30,
+    "fields": {
+        "action_time": "2017-11-10T15:55:14.307Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forceutilization"
+        ],
+        "object_id": "2",
+        "object_repr": "SCDF",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 31,
+    "fields": {
+        "action_time": "2017-11-10T15:55:25.484Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forceutilization"
+        ],
+        "object_id": "3",
+        "object_repr": "SPF",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 32,
+    "fields": {
+        "action_time": "2017-11-10T15:55:34.847Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forceutilization"
+        ],
+        "object_id": "4",
+        "object_repr": "SAF",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 76,
+    "fields": {
+        "action_time": "2017-11-11T20:49:14.853Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "account"
+        ],
+        "object_id": "1",
+        "object_repr": "George",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"login\", \"password\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 77,
+    "fields": {
+        "action_time": "2017-11-11T20:49:36.440Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "account"
+        ],
+        "object_id": "2",
+        "object_repr": "Jacob",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"login\", \"password\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 78,
+    "fields": {
+        "action_time": "2017-11-11T20:49:46.128Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "account"
+        ],
+        "object_id": "3",
+        "object_repr": "Peter",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"login\", \"password\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 79,
+    "fields": {
+        "action_time": "2017-11-11T20:58:42.168Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "4",
+        "object_repr": "ID: 4 - Bomb with Fire - Crisis ID: 3 - assigned to: Peter - Type: Fire",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 80,
+    "fields": {
+        "action_time": "2017-11-11T20:58:42.326Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "3",
+        "object_repr": "ID: 3 - Bombing at Tengah Tengah Toh - Crisis ID: 3 - assigned to: Peter - Type: Bombing",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 81,
+    "fields": {
+        "action_time": "2017-11-11T20:58:42.450Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2 - Little India got Riot again - Crisis ID: 2 - assigned to: Jacob - Type: Riot",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 82,
+    "fields": {
+        "action_time": "2017-11-11T20:58:42.540Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "1",
+        "object_repr": "ID: 1 - Seng Kang got fire everytime like this - Crisis ID: 1 - assigned to: George - Type: Fire",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 83,
+    "fields": {
+        "action_time": "2017-11-11T20:59:08.383Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisistype"
+        ],
+        "object_id": "2",
+        "object_repr": "Riot/Mass Looting",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"name\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 84,
+    "fields": {
+        "action_time": "2017-11-11T20:59:14.919Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisistype"
+        ],
+        "object_id": "9",
+        "object_repr": "Pandemics",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 85,
+    "fields": {
+        "action_time": "2017-11-11T20:59:22.497Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisistype"
+        ],
+        "object_id": "10",
+        "object_repr": "Nuclear/Radiological/Biological-Chemical",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 86,
+    "fields": {
+        "action_time": "2017-11-11T20:59:43.790Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisistype"
+        ],
+        "object_id": "11",
+        "object_repr": "Natural Disasters",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 87,
+    "fields": {
+        "action_time": "2017-11-11T20:59:48.490Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisistype"
+        ],
+        "object_id": "12",
+        "object_repr": "Hijacking",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 88,
+    "fields": {
+        "action_time": "2017-11-11T20:59:55.614Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisistype"
+        ],
+        "object_id": "13",
+        "object_repr": "Kidnapping",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 89,
+    "fields": {
+        "action_time": "2017-11-11T21:03:41.226Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "4",
+        "object_repr": "ID: 4 | Name: SAF | Action Plan: ID: 4 | Internal Plan Number: 2 | Type: Resolved | Status: Approved | Crisis ID: 3 | Abridged Description: BOMB agn ",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 90,
+    "fields": {
+        "action_time": "2017-11-11T21:03:41.376Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "3",
+        "object_repr": "ID: 3 | Name: SPF | Action Plan: ID: 3 | Internal Plan Number: 1 | Type: Resolved | Status: Approved | Crisis ID: 3 | Abridged Description: Die again ",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 91,
+    "fields": {
+        "action_time": "2017-11-11T21:03:41.466Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2 | Name: SCDF | Action Plan: ID: 2 | Internal Plan Number: 1 | Type: Combat | Status: Awaiting PMO Approval | Crisis ID: 2 | Abridged Description: CMI Time to Die ",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 92,
+    "fields": {
+        "action_time": "2017-11-11T21:03:41.556Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "1",
+        "object_repr": "ID: 1 | Name: SAF | Action Plan: ID: 1 | Internal Plan Number: 1 | Type: Clean-up | Status: Awaiting PMO Approval | Crisis ID: 1 | Abridged Description: Wing It ",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 93,
+    "fields": {
+        "action_time": "2017-11-11T21:03:56.506Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "4",
+        "object_repr": "ID: 4 | Internal Plan Number: 2 | Type: Resolved | Status: Approved | Crisis ID: 3 | Abridged Description: BOMB agn ",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 94,
+    "fields": {
+        "action_time": "2017-11-11T21:03:56.613Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "3",
+        "object_repr": "ID: 3 | Internal Plan Number: 1 | Type: Resolved | Status: Approved | Crisis ID: 3 | Abridged Description: Die again ",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 95,
+    "fields": {
+        "action_time": "2017-11-11T21:03:56.749Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2 | Internal Plan Number: 1 | Type: Combat | Status: Awaiting PMO Approval | Crisis ID: 2 | Abridged Description: CMI Time to Die ",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 96,
+    "fields": {
+        "action_time": "2017-11-11T21:03:56.858Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "1",
+        "object_repr": "ID: 1 | Internal Plan Number: 1 | Type: Clean-up | Status: Awaiting PMO Approval | Crisis ID: 1 | Abridged Description: Wing It ",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 97,
+    "fields": {
+        "action_time": "2017-11-11T21:04:38.345Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "3",
+        "object_repr": "ID: 3 - assigned to: Peter",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 98,
+    "fields": {
+        "action_time": "2017-11-11T21:04:38.452Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "2",
+        "object_repr": "ID: 2 - assigned to: Jacob",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 99,
+    "fields": {
+        "action_time": "2017-11-11T21:04:38.531Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "1",
+        "object_repr": "ID: 1 - assigned to: George",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 100,
+    "fields": {
+        "action_time": "2017-11-12T06:50:01.355Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "6",
+        "object_repr": "ID: 6 - assigned to: George",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 101,
+    "fields": {
+        "action_time": "2017-11-12T06:50:31.689Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "7",
+        "object_repr": "ID: 7 - assigned to: Peter",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 102,
+    "fields": {
+        "action_time": "2017-11-12T06:51:27.594Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "7",
+        "object_repr": "ID: 7 - assigned to: Jacob",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"analyst\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 103,
+    "fields": {
+        "action_time": "2017-11-12T06:52:23.333Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "8",
+        "object_repr": "ID: 8 - assigned to: Peter",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 104,
+    "fields": {
+        "action_time": "2017-11-12T07:01:04.274Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "13",
+        "object_repr": "ID: 13 | Internal Plan Number: 1 | Type: Combat | Status: Awaiting PMO Approval | Crisis ID: 6 | Abridged Description: Huge fire and fumes at Esplanade building.\r\n4-5 people are stuck inside still. ",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 105,
+    "fields": {
+        "action_time": "2017-11-12T07:08:04.206Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "14",
+        "object_repr": "ID: 14 | Internal Plan Number: 2 | Type: Combat | Status: Rejected | Crisis ID: 6 | Abridged Description: 1 person might still be stuck inside the top storey of the building. \r\nRequest for the whole t",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 106,
+    "fields": {
+        "action_time": "2017-11-12T07:11:34.851Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "15",
+        "object_repr": "ID: 15 | Internal Plan Number: 3 | Type: Combat | Status: Approved | Crisis ID: 6 | Abridged Description: Building is burning with fire non-stop with casualties.\r\nRequest entire fire dept team to come",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 107,
+    "fields": {
+        "action_time": "2017-11-12T07:38:47.500Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "6",
+        "object_repr": "ID: 6 | Name: SCDF | Action Plan: ID: 13 | Internal Plan Number: 1 | Type: Combat | Status: Awaiting PMO Approval | Crisis ID: 6 | Abridged Description: Huge fire and fumes at Esplanade building.\r\n4-5",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 108,
+    "fields": {
+        "action_time": "2017-11-12T07:41:24.495Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "7",
+        "object_repr": "ID: 7 | Name: SCDF | Action Plan: ID: 15 | Internal Plan Number: 3 | Type: Combat | Status: Approved | Crisis ID: 6 | Abridged Description: Building is burning with fire non-stop with casualties.\r\nReq",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 109,
+    "fields": {
+        "action_time": "2017-11-12T07:44:21.358Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "8",
+        "object_repr": "ID: 8 | Name: SCDF | Action Plan: ID: 14 | Internal Plan Number: 2 | Type: Combat | Status: Rejected | Crisis ID: 6 | Abridged Description: 1 person might still be stuck inside the top storey of the b",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 110,
+    "fields": {
+        "action_time": "2017-11-12T07:45:23.429Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "9",
+        "object_repr": "ID: 9 | Name: SCDF | Action Plan: ID: 15 | Internal Plan Number: 3 | Type: Combat | Status: Approved | Crisis ID: 6 | Abridged Description: Building is burning with fire non-stop with casualties.\r\nReq",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 111,
+    "fields": {
+        "action_time": "2017-11-12T07:50:59.385Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "11",
+        "object_repr": "ID: 11 - Fire is seen around Esplanade Area. - Crisis ID: 6 - assigned to: George - Type: Fire",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 112,
+    "fields": {
+        "action_time": "2017-11-12T07:53:02.507Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "12",
+        "object_repr": "ID: 12 - Full chaos near Esplanade MRT - Crisis ID: 6 - assigned to: George - Type: Riot/Mass Looting",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 113,
+    "fields": {
+        "action_time": "2017-11-12T07:58:30.233Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "13",
+        "object_repr": "ID: 13 - One terrorist has kidnapped a child during this chaos at esplanade area. - Crisis ID: 6 - assigned to: George - Type: Kidnapping",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 114,
+    "fields": {
+        "action_time": "2017-11-12T08:00:23.303Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "14",
+        "object_repr": "ID: 14 - Sudden explosion of bomb is audible at the esplanade building engulfed in flames. - Crisis ID: 6 - assigned to: George - Type: Bombing",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 115,
+    "fields": {
+        "action_time": "2017-11-12T08:19:46.351Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "7",
+        "object_repr": "ID: 7 - assigned to: Jacob",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 116,
+    "fields": {
+        "action_time": "2017-11-12T08:19:51.647Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "7",
+        "object_repr": "ID: 7 - assigned to: Jacob",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 117,
+    "fields": {
+        "action_time": "2017-11-12T08:20:02.618Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "8",
+        "object_repr": "ID: 8 - assigned to: Peter",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 118,
+    "fields": {
+        "action_time": "2017-11-12T08:20:12.205Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "8",
+        "object_repr": "ID: 8 - assigned to: Peter",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 119,
+    "fields": {
+        "action_time": "2017-11-12T08:29:17.303Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "account"
+        ],
+        "object_id": "9",
+        "object_repr": "Wilson",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 120,
+    "fields": {
+        "action_time": "2017-11-12T08:29:27.923Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "account"
+        ],
+        "object_id": "10",
+        "object_repr": "Zack",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 121,
+    "fields": {
+        "action_time": "2017-11-12T08:38:03.786Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "9",
+        "object_repr": "ID: 9 - assigned to: Wilson",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 122,
+    "fields": {
+        "action_time": "2017-11-12T08:38:22.499Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "10",
+        "object_repr": "ID: 10 - assigned to: Zack",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 123,
+    "fields": {
+        "action_time": "2017-11-12T08:48:27.561Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "5",
+        "object_repr": "ID: 5",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 124,
+    "fields": {
+        "action_time": "2017-11-12T08:50:59.869Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "6",
+        "object_repr": "ID: 6",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 125,
+    "fields": {
+        "action_time": "2017-11-12T08:53:02.081Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "6",
+        "object_repr": "ID: 6",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 126,
+    "fields": {
+        "action_time": "2017-11-12T08:56:00.508Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "7",
+        "object_repr": "ID: 7",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 127,
+    "fields": {
+        "action_time": "2017-11-12T08:57:36.063Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "account"
+        ],
+        "object_id": "11",
+        "object_repr": "Zavier",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 128,
+    "fields": {
+        "action_time": "2017-11-12T09:05:33.607Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "16",
+        "object_repr": "ID: 16 | Internal Plan Number: 1 | Type: Combat | Status: Awaiting PMO Approval | Crisis ID: 7 | Abridged Description: Bombing near Eu Tong Sen Street. ",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 129,
+    "fields": {
+        "action_time": "2017-11-12T09:08:16.222Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "16",
+        "object_repr": "ID: 16 | Internal Plan Number: 1 | Type: Combat | Status: Awaiting PMO Approval | Crisis ID: 7 | Abridged Description: Bombing near Eu Tong Sen Street. Request SAF team to come immediately. ",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"description\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 130,
+    "fields": {
+        "action_time": "2017-11-12T09:11:43.285Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "17",
+        "object_repr": "ID: 17 | Internal Plan Number: 2 | Type: Combat | Status: Rejected | Crisis ID: 7 | Abridged Description: There are no casualties as of now but request whole SAF team to come down just in case another",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 131,
+    "fields": {
+        "action_time": "2017-11-12T09:15:05.030Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "18",
+        "object_repr": "ID: 18 | Internal Plan Number: 3 | Type: Combat | Status: Approved | Crisis ID: 7 | Abridged Description: 5 people have been injured by the previous bomb at Clarke Quay and another bomb has been detec",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 132,
+    "fields": {
+        "action_time": "2017-11-12T09:17:34.374Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "10",
+        "object_repr": "ID: 10 | Name: SAF | Action Plan: ID: 17 | Internal Plan Number: 2 | Type: Combat | Status: Rejected | Crisis ID: 7 | Abridged Description: There are no casualties as of now but request whole SAF team",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 133,
+    "fields": {
+        "action_time": "2017-11-12T09:18:25.565Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "11",
+        "object_repr": "ID: 11 | Name: SAF | Action Plan: ID: 18 | Internal Plan Number: 3 | Type: Combat | Status: Approved | Crisis ID: 7 | Abridged Description: 5 people have been injured by the previous bomb at Clarke Qu",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 134,
+    "fields": {
+        "action_time": "2017-11-12T09:18:47.304Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "12",
+        "object_repr": "ID: 12 | Name: SAF | Action Plan: ID: 16 | Internal Plan Number: 1 | Type: Combat | Status: Awaiting PMO Approval | Crisis ID: 7 | Abridged Description: Bombing near Eu Tong Sen Street. Request SAF te",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 135,
+    "fields": {
+        "action_time": "2017-11-12T09:27:28.096Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "15",
+        "object_repr": "ID: 15 - I just heard a bomb exploding from Clarke Quay Central. - Crisis ID: 7 - assigned to: Jacob - Type: Bombing",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 136,
+    "fields": {
+        "action_time": "2017-11-12T09:31:09.658Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "16",
+        "object_repr": "ID: 16 - The bomb has caused a fire around clarke quay area. - Crisis ID: 7 - assigned to: Jacob - Type: Fire",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 137,
+    "fields": {
+        "action_time": "2017-11-12T09:36:10.918Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "17",
+        "object_repr": "ID: 17 - People are running around and full chaos here after the first bomb exploded and the fear of second one going to explode soon. - Crisis ID: 7 - assigned to: Jacob - Type: Riot/Mass Looting",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 138,
+    "fields": {
+        "action_time": "2017-11-12T09:37:14.081Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "18",
+        "object_repr": "ID: 18 - There is a bomb detected at clarke quay mrt station that is going to explode in 2 hours. - Crisis ID: 7 - assigned to: Jacob - Type: Bombing",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 139,
+    "fields": {
+        "action_time": "2017-11-12T09:43:55.420Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "8",
+        "object_repr": "ID: 8",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 140,
+    "fields": {
+        "action_time": "2017-11-12T09:48:10.161Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "9",
+        "object_repr": "ID: 9",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 141,
+    "fields": {
+        "action_time": "2017-11-12T09:49:39.156Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "10",
+        "object_repr": "ID: 10",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 142,
+    "fields": {
+        "action_time": "2017-11-12T10:00:21.311Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "19",
+        "object_repr": "ID: 19 | Internal Plan Number: 1 | Type: Clean-up | Status: Awaiting PMO Approval | Crisis ID: 8 | Abridged Description: Buses have been burnt in Ang Mo Kio Interchange, possibility of some people acc",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 143,
+    "fields": {
+        "action_time": "2017-11-12T10:02:28.372Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "19",
+        "object_repr": "ID: 19 | Internal Plan Number: 1 | Type: Combat | Status: Approved | Crisis ID: 8 | Abridged Description: Buses have been set on fire in Ang Mo Kio Interchange, possibility of some people accidentally",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"description\", \"status\", \"type\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 144,
+    "fields": {
+        "action_time": "2017-11-12T10:04:23.150Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "20",
+        "object_repr": "ID: 20 | Internal Plan Number: 2 | Type: Combat | Status: Rejected | Crisis ID: 8 | Abridged Description: Some people are fighting with each other in AMK Hub. Request all forces to attend the situatio",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 145,
+    "fields": {
+        "action_time": "2017-11-12T10:06:35.208Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "21",
+        "object_repr": "ID: 21 | Internal Plan Number: 3 | Type: Clean-up | Status: Awaiting PMO Approval | Crisis ID: 8 | Abridged Description: Some people are destroying the public property in AMK Hub as well as breaking d",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 146,
+    "fields": {
+        "action_time": "2017-11-12T10:08:34.882Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "13",
+        "object_repr": "ID: 13 | Name: SPF | Action Plan: ID: 19 | Internal Plan Number: 1 | Type: Combat | Status: Approved | Crisis ID: 8 | Abridged Description: Buses have been set on fire in Ang Mo Kio Interchange, possi",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 147,
+    "fields": {
+        "action_time": "2017-11-12T10:09:14.322Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "forcedeployment"
+        ],
+        "object_id": "14",
+        "object_repr": "ID: 14 | Name: SAF | Action Plan: ID: 21 | Internal Plan Number: 3 | Type: Clean-up | Status: Awaiting PMO Approval | Crisis ID: 8 | Abridged Description: Some people are destroying the public propert",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 148,
+    "fields": {
+        "action_time": "2017-11-12T10:12:59.112Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "22",
+        "object_repr": "ID: 22 | Internal Plan Number: 1 | Type: Combat | Status: Rejected | Crisis ID: 9 | Abridged Description: A child has been kidnapped in Woodlands Post Office and kidnapper is demanding ransom of $100,",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 149,
+    "fields": {
+        "action_time": "2017-11-12T10:14:45.371Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "23",
+        "object_repr": "ID: 23 | Internal Plan Number: 2 | Type: Combat | Status: Approved | Crisis ID: 9 | Abridged Description: Child kidnapped in Woodlands Post Office. Requesting a few personnel from SPF to attend the ca",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 150,
+    "fields": {
+        "action_time": "2017-11-12T10:19:38.185Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "24",
+        "object_repr": "ID: 24 | Internal Plan Number: 3 | Type: Resolved | Status: Approved | Crisis ID: 9 | Abridged Description: Kidnapped child has been safely returned to his parents. Kidnapper along with his gang of cr",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 151,
+    "fields": {
+        "action_time": "2017-11-12T10:24:05.983Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "11",
+        "object_repr": "ID: 11",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 152,
+    "fields": {
+        "action_time": "2017-11-12T10:26:31.094Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "12",
+        "object_repr": "ID: 12",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 153,
+    "fields": {
+        "action_time": "2017-11-12T10:27:39.870Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "12",
+        "object_repr": "ID: 12",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"datetime\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 154,
+    "fields": {
+        "action_time": "2017-11-12T10:29:38.536Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "13",
+        "object_repr": "ID: 13",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 155,
+    "fields": {
+        "action_time": "2017-11-12T10:35:01.742Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "7",
+        "object_repr": "ID: 7",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"description\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 156,
+    "fields": {
+        "action_time": "2017-11-12T10:37:26.229Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "10",
+        "object_repr": "ID: 10",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"description\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 157,
+    "fields": {
+        "action_time": "2017-11-12T10:45:45.427Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "25",
+        "object_repr": "ID: 25 | Internal Plan Number: 1 | Type: Combat | Status: Rejected | Crisis ID: 10 | Abridged Description: A protest is occurring at Central Area against PAP. Some people have fainted. Requesting SCDF",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 158,
+    "fields": {
+        "action_time": "2017-11-12T10:47:19.044Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "26",
+        "object_repr": "ID: 26 | Internal Plan Number: 2 | Type: Combat | Status: Approved | Crisis ID: 10 | Abridged Description: Cars are being broken in the CBD area and heavy fires are being started. Requesting SCDF at o",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 159,
+    "fields": {
+        "action_time": "2017-11-12T10:51:27.975Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "27",
+        "object_repr": "ID: 27 | Internal Plan Number: 3 | Type: Clean-up | Status: Awaiting PMO Approval | Crisis ID: 10 | Abridged Description: Riot has been brought under control but need forces to clean up the area and d",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 160,
+    "fields": {
+        "action_time": "2017-11-12T10:55:29.960Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "14",
+        "object_repr": "ID: 14",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 161,
+    "fields": {
+        "action_time": "2017-11-12T10:55:49.056Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "11",
+        "object_repr": "ID: 11",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"datetime\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 162,
+    "fields": {
+        "action_time": "2017-11-12T10:55:56.660Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "14",
+        "object_repr": "ID: 14",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 163,
+    "fields": {
+        "action_time": "2017-11-12T10:56:06.044Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "13",
+        "object_repr": "ID: 13",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"datetime\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 164,
+    "fields": {
+        "action_time": "2017-11-12T10:56:11.743Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "13",
+        "object_repr": "ID: 13",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 165,
+    "fields": {
+        "action_time": "2017-11-12T10:56:23.020Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "12",
+        "object_repr": "ID: 12",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"datetime\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 166,
+    "fields": {
+        "action_time": "2017-11-12T10:56:28.015Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "11",
+        "object_repr": "ID: 11",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 167,
+    "fields": {
+        "action_time": "2017-11-12T10:56:35.373Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "efupdate"
+        ],
+        "object_id": "10",
+        "object_repr": "ID: 10",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 168,
+    "fields": {
+        "action_time": "2017-11-12T12:01:03.742Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "19",
+        "object_repr": "ID: 19 - There is an ongoing bomb situation. - Crisis ID: 10 - assigned to: Zack - Type: Bombing",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 169,
+    "fields": {
+        "action_time": "2017-11-12T12:02:39.727Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "20",
+        "object_repr": "ID: 20 - Help la FML - Crisis ID: 9 - assigned to: Wilson - Type: Nuclear/Radiological/Biological-Chemical",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 170,
+    "fields": {
+        "action_time": "2017-11-12T12:06:07.160Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "21",
+        "object_repr": "ID: 21 - FML - Crisis ID: 8 - assigned to: Peter - Type: Hijacking",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 171,
+    "fields": {
+        "action_time": "2017-11-12T13:51:16.673Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "28",
+        "object_repr": "ID: 28 | Internal Plan Number: 4 | Type: Combat | Status: Awaiting PMO Approval | Crisis ID: 6 | Abridged Description: Ben approve this 1 ",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 172,
+    "fields": {
+        "action_time": "2017-11-12T13:51:52.638Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "29",
+        "object_repr": "ID: 29 | Internal Plan Number: 4 | Type: Combat | Status: Rejected | Crisis ID: 7 | Abridged Description: Ben approve this 2 ",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 173,
+    "fields": {
+        "action_time": "2017-11-12T13:53:50.110Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "account"
+        ],
+        "object_id": "12",
+        "object_repr": "Milly",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 174,
+    "fields": {
+        "action_time": "2017-11-12T13:54:28.152Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisis"
+        ],
+        "object_id": "11",
+        "object_repr": "ID: 11 - assigned to: Milly",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 175,
+    "fields": {
+        "action_time": "2017-11-12T13:55:43.308Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "crisisreport"
+        ],
+        "object_id": "22",
+        "object_repr": "ID: 22 - This crisis only has crisis reports. - Crisis ID: 11 - assigned to: Milly - Type: Kidnapping",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 176,
+    "fields": {
+        "action_time": "2017-11-12T16:24:10.940Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "30",
+        "object_repr": "ID: 30 | Internal Plan Number: 5 | Type: Combat | Status: Awaiting PMO Approval | Crisis ID: 6 | Abridged Description: Test PMO Approval ",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 177,
+    "fields": {
+        "action_time": "2017-11-12T16:24:52.569Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "31",
+        "object_repr": "ID: 31 | Internal Plan Number: 1 | Type: Combat | Status: Rejected | Crisis ID: 11 | Abridged Description: Test PMO Approval 1 ",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 178,
+    "fields": {
+        "action_time": "2017-11-12T16:40:28.144Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "32",
+        "object_repr": "ID: 32 | Internal Plan Number: 6 | Type: Combat | Status: Rejected | Crisis ID: 6 | Abridged Description: Rejected ",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 179,
+    "fields": {
+        "action_time": "2017-11-12T16:41:08.318Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "33",
+        "object_repr": "ID: 33 | Internal Plan Number: 7 | Type: Combat | Status: Rejected | Crisis ID: 6 | Abridged Description: Rejected ",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 180,
+    "fields": {
+        "action_time": "2017-11-12T16:47:13.103Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "34",
+        "object_repr": "ID: 34 | Internal Plan Number: 8 | Type: Combat | Status: Approved | Crisis ID: 6 | Abridged Description: Approve This ",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 181,
+    "fields": {
+        "action_time": "2017-11-12T16:47:20.937Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "34",
+        "object_repr": "ID: 34 | Internal Plan Number: 8 | Type: Combat | Status: Awaiting PMO Approval | Crisis ID: 6 | Abridged Description: Approve This ",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 182,
+    "fields": {
+        "action_time": "2017-11-12T17:56:35.049Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "15",
+        "object_repr": "ID: 15 - Author: PMO - Comment: THIS IS REJECTED BY PMO for Action Plan: 17",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 183,
+    "fields": {
+        "action_time": "2017-11-12T17:57:07.193Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "16",
+        "object_repr": "ID: 16 - Author: CO - Comment: THIS IS REJECTED BY CHIEF for Action Plan: 14",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 184,
+    "fields": {
+        "action_time": "2017-11-12T17:57:49.201Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "17",
+        "object_repr": "ID: 17 - Author: PMO - Comment: THIS IS REJECTED BY PMO\r\n<br>\r\nTHIS IS REJECTED BY PMO WITH BR for Action Plan: 22",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 185,
+    "fields": {
+        "action_time": "2017-11-12T17:57:59.784Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "17",
+        "object_repr": "ID: 17 - Author: PMO - Comment: THIS IS REJECTED BY PMO\r\n<br>\r\nTHIS IS REJECTED BY PMO WITH BR for Action Plan: 22",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 186,
+    "fields": {
+        "action_time": "2017-11-12T17:58:14.862Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "18",
+        "object_repr": "ID: 18 - Author: CO - Comment: THIS IS REJECTED BY CMO for Action Plan: 20",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 187,
+    "fields": {
+        "action_time": "2017-11-12T17:59:02.012Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "19",
+        "object_repr": "ID: 19 - Author: PMO - Comment: THIS IS REJECTED BY PMO - DPM\r\n<br>\r\nTHIS IS REJECTED BY PMO - PM for Action Plan: 25",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 188,
+    "fields": {
+        "action_time": "2017-11-12T18:00:00.208Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "20",
+        "object_repr": "ID: 20 - Author: CO - Comment: THIS IS REJECTED BY PMO for Action Plan: 29",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 189,
+    "fields": {
+        "action_time": "2017-11-12T19:44:18.048Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "29",
+        "object_repr": "ID: 29 | Internal Plan Number: 4 | Type: Combat | Status: Awaiting PMO Approval | Crisis ID: 7 | Abridged Description: Ben approve this 2 ",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 190,
+    "fields": {
+        "action_time": "2017-11-12T20:18:35.487Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "16",
+        "object_repr": "ID: 16 | Internal Plan Number: 1 | Type: Combat | Status: Awaiting CO Approval | Crisis ID: 7 | Abridged Description: Bombing near Eu Tong Sen Street. Request SAF team to come immediately. ",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 191,
+    "fields": {
+        "action_time": "2017-11-12T20:18:59.447Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "16",
+        "object_repr": "ID: 16 | Internal Plan Number: 1 | Type: Combat | Status: Rejected | Crisis ID: 7 | Abridged Description: Bombing near Eu Tong Sen Street. Request SAF team to come immediately. ",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 192,
+    "fields": {
+        "action_time": "2017-11-12T20:19:19.753Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "21",
+        "object_repr": "ID: 21 - Author: CO - Comment: REJECTED BY CO for Action Plan: 16",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 193,
+    "fields": {
+        "action_time": "2017-11-12T20:20:02.912Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "35",
+        "object_repr": "ID: 35 | Internal Plan Number: 5 | Type: Combat | Status: Planning | Crisis ID: 7 | Abridged Description: TEST ",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 194,
+    "fields": {
+        "action_time": "2017-11-12T20:50:01.552Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "30",
+        "object_repr": "ID: 30 | Internal Plan Number: 5 | Type: Combat | Status: Awaiting CO Approval | Crisis ID: 7 | Abridged Description: TEST CMO ",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"description\", \"status\", \"crisis\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 195,
+    "fields": {
+        "action_time": "2017-11-12T21:08:54.097Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "20",
+        "object_repr": "ID: 20 - Author: PMO - Comment: THIS IS REJECTED BY PMO for Action Plan: 29",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"author\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 196,
+    "fields": {
+        "action_time": "2017-11-12T21:09:51.512Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "20",
+        "object_repr": "ID: 20 - Author: CO - Comment: THIS IS REJECTED BY PMO for Action Plan: 29",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"author\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 197,
+    "fields": {
+        "action_time": "2017-11-12T21:12:18.240Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "29",
+        "object_repr": "ID: 29 | Internal Plan Number: 4 | Type: Combat | Status: Rejected | Crisis ID: 7 | Abridged Description: Ben approve this 2 ",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 198,
+    "fields": {
+        "action_time": "2017-11-12T21:14:21.617Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "20",
+        "object_repr": "ID: 20 - Author: CO - Comment: THIS IS REJECTED BY PMO for Action Plan: 29",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 199,
+    "fields": {
+        "action_time": "2017-11-12T21:14:32.968Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "29",
+        "object_repr": "ID: 29 | Internal Plan Number: 4 | Type: Combat | Status: Awaiting PMO Approval | Crisis ID: 7 | Abridged Description: Ben approve this 2 ",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 200,
+    "fields": {
+        "action_time": "2017-11-12T21:27:35.371Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "22",
+        "object_repr": "ID: 22 - Author: PMO - Comment: Reject for 32 for Action Plan: 32",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 201,
+    "fields": {
+        "action_time": "2017-11-12T21:30:09.494Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "31",
+        "object_repr": "ID: 31 | Internal Plan Number: 1 | Type: Combat | Status: Awaiting PMO Approval | Crisis ID: 11 | Abridged Description: Test PMO Approval 1 ",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 202,
+    "fields": {
+        "action_time": "2017-11-12T21:32:55.094Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "23",
+        "object_repr": "ID: 23 - Author: CO - Comment: REJECT for Action Plan: 33",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+}
+]

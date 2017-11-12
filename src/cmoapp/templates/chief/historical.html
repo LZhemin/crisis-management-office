@@ -1,0 +1,250 @@
+{% extends 'chief/base_site.html' %}
+
+{% block title %} Index {% endblock title %}
+
+{% block page_stylesheets %}
+
+<!-- Added for Operator Table Testing -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<style type="text/css">
+       .table-wrapper {
+           background: #fff;
+           padding: 20px;
+           margin: 30px 0;
+           box-shadow: 0 1px 1px rgba(0,0,0,.05);
+       }
+       .table-title {
+           padding-bottom: 10px;
+           margin: 0 0 10px;
+       }
+       .table-title h2 {
+           margin: 8px 0 0;
+           font-size: 22px;
+       }
+       .search-box {
+           position: relative;
+           float: right;
+       }
+       .search-box input {
+           height: 34px;
+           border-radius: 20px;
+           padding-left: 35px;
+           border-color: #ddd;
+           box-shadow: none;
+       }
+       .search-box input:focus {
+           border-color: #3FBAE4;
+       }
+       .search-box i {
+           color: #a0a5b1;
+           position: absolute;
+           font-size: 19px;
+           top: 8px;
+           left: 10px;
+       }
+       table.table tr th, table.table tr td {
+           border-color: #e9e9e9;
+       }
+       table.table-striped tbody tr:nth-of-type(odd) {
+           background-color: #fcfcfc;
+       }
+       table.table-striped.table-hover tbody tr:hover {
+           background: #f5f5f5;
+       }
+       table.table th i {
+           font-size: 13px;
+           margin: 0 5px;
+           cursor: pointer;
+       }
+       table.table td:last-child {
+           width: 130px;
+       }
+       table.table td a {
+           color: #a0a5b1;
+           display: inline-block;
+           margin: 0 5px;
+       }
+       table.table td a.view {
+           color: #03A9F4;
+       }
+       table.table td a.edit {
+           color: #FFC107;
+       }
+       table.table td a.delete {
+           color: #E34724;
+       }
+       table.table td i {
+           font-size: 19px;
+       }
+       .pagination {
+           float: right;
+           margin: 0 0 5px;
+       }
+       .pagination li a {
+           border: none;
+           font-size: 95%;
+           width: 30px;
+           height: 30px;
+           color: #999;
+           margin: 0 2px;
+           line-height: 30px;
+           border-radius: 30px !important;
+           text-align: center;
+           padding: 0;
+       }
+       .pagination li a:hover {
+           color: #666;
+       }
+       .pagination li.active a {
+           background: #03A9F4;
+       }
+       .pagination li.active a:hover {
+           background: #0397d6;
+       }
+       .pagination li.disabled i {
+           color: #ccc;
+       }
+       .pagination li i {
+           font-size: 16px;
+           padding-top: 6px
+       }
+       .hint-text {
+           float: left;
+           margin-top: 6px;
+           font-size: 95%;
+       }
+</style>
+{% endblock page_stylesheets %}
+
+{% block content %}
+<div class="right_col ">
+    <h2>Historical Data</h2>
+{% for crisis in getallcrisis %}
+ <div style = "margin-bottom:10px;border-radius: 10px;border: 1px solid #000000;" id="crisis{{crisis.pk}}">
+  <a id="heading{{crisis.id}}" style="background:#efefef;border-radius: 10px;padding:20px;width:100%;display:block;" onclick="filterMapCrisis({{crisis.id}})" data-toggle="collapse" data-parent="#accordion" href="#collapse{{crisis.id}}" aria-expanded="false" aria-controls="collapse{{crisis.id}}">
+      <span style="float:left;width:50%;height:50%"><h2 class="panel-title"><div style="line-height:1px;font-weight: bold;">{{crisis.crisis_title}}</div></h2></span>
+        <!--    <span style="text-align:right;width:50%"><h3 class="panel-title">Status:&nbsp&nbsp&nbsp<i aria-hidden="true"></i>&nbsp{{crisis.status}}</h3></span>-->
+  </a>
+<div id="collapse{{crisis.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="panelHeading{{crisis.id}}" aria-expanded="false" style="height: 0px;">
+      <h2> Crisis Report </h2>
+              <table class="table table-striped jambo_table bulk_action">
+                <thead>
+                  <tr class="headings">
+                    <th class="column-title">Crisis Types </th>
+                    <th class="column-title">Description </th>
+                    <th class="column-title">Latitude </th>
+                    <th class="column-title">Longitude </th>
+                    <th class="column-title">DateTime </th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for crisisreport in getallcrisisreport%}
+                        {% if crisisreport.crisis_id == crisis.id%}
+                            <tr class="even pointer">
+                            <td class=" "><span class="label label-warning">{{crisisreport.crisisType}}</span></td>
+                            <td class=" ">{{crisisreport.description}} </td>
+                            <td class=" ">{{crisisreport.latitude}}</td>
+                            <td class=" ">{{crisisreport.longitude}}</td>
+                            <td class="a-right a-right ">{{crisisreport.datetime}}</td>
+                            </tr>
+                        {%endif%}
+                    {%endfor%}
+                </tbody>
+              </table>
+      <h2> Action Plans </h2>
+            <table class="table table-striped jambo_table bulk_action">
+                <thead>
+                  <tr class="headings">
+                    <th class="column-title">ID </th>
+                    <th class="column-title">Description </th>
+                    <th class="column-title">Status </th>
+                    <th class="column-title">Resolution Time </th>
+                    <th class="column-title">Casualties </th>
+                    <th class="column-title">Type </th>
+                    <th class="column-title">Recommended Force </th>
+                    <th class="column-title">Recommended Max </th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for actionplans in getallActionPlan%}
+                        {% if actionplans.crisis_id == crisis.id%}
+                            <tr class="even pointer">
+                            <td class=" ">{{actionplans.id}}</td>
+                            <td class=" ">{{actionplans.description}}</td>
+                            {%if actionplans.status == "Rejected"%}
+                                <td class=" "><span class="label label-danger">{{actionplans.get_status_display}}</span></td>
+                            {%else%}
+                                <td class=" "><span class="label label-success">{{actionplans.get_status_display}}</span></td>
+                            {%endif%}
+                            <td class=" ">{{actionplans.resolution_time}}</td>
+                            <td class=" ">{{actionplans.projected_casualties}}</td>
+                            <td class=" ">{{actionplans.type}}</td>
+                            <td class=" ">
+                            {%for forceDeploy in getallForceDeployment%}
+                                {%if forceDeploy.actionPlan_id == actionplans.crisis_id%}
+                                   {{forceDeploy.name}} - {{forceDeploy.recommended}}%<br>
+                                {%endif%}
+                            {%endfor%}
+                            </td>
+                            <td class=" ">
+                            {%for forceDeploy in getallForceDeployment%}
+                                {%if forceDeploy.actionPlan_id == actionplans.crisis_id%}
+                                   {{forceDeploy.name}} - {{forceDeploy.max}}%<br>
+                                {%endif%}
+                            {%endfor%}
+                            </td>
+                            </tr>
+                        {%endif%}
+                    {%endfor%}
+                </tbody>
+            </table>
+      <h2> EF Updates </h2>
+            <table class="table table-striped jambo_table bulk_action">
+                <thead>
+                    <tr class="headings">
+                        <th class="column-title">Action Plan </th>
+                        <th class="column-title">Description</th>
+                        <th class="column-title">Affected Radius </th>
+                        <th class="column-title">Total Injured </th>
+                        <th class="column-title">Total Deaths </th>
+                        <th class="column-title">Duration </th>
+                        <th class="column-title">Force Utilized</th>
+                        <th class="column-title">Date/Time </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for efupdates in getallEFUpdate%}
+                        {% if efupdates.crisis_id == crisis.id%}
+                            <tr class="even pointer">
+                            <td class=" "><span class="label label-warning">{{efupdates.actionPlan_id}}</span></td>
+                            <td class=" ">{{efupdates.description}} </td>
+                            <td class=" ">{{efupdates.affectedRadius}}</td>
+                            <td class=" ">{{efupdates.totalInjured}}</td>
+                            <td class=" ">{{efupdates.totalDeaths}}</td>
+                            <td class=" ">{{efupdates.duration}}</td>
+                            <td class=" ">
+                                {%for utiliz in getallForceUtilization%}
+                                    {%if utiliz.update_id == efupdates.id%}
+                                        {{utiliz.name}} - {{utiliz.utilization}}% <br>
+                                    {%endif%}
+                                {%endfor%}
+                            </td>
+
+                            <td class="a-right a-right ">{{efupdates.datetime}}</td>
+                            </tr>
+                        {%endif%}
+                    {%endfor%}
+                </tbody>
+              </table>
+</div>
+ </div>
+{%endfor%}
+</div>
+{% endblock content %}
+
+{% block page_scripts %}
+
+{% endblock page_scripts %}

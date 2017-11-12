@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^get_efupdates/$', ChiefOfficerManager.get_efupdates, name="Get_EFUpdates"),
     url(r'^change_status/$', ChiefOfficerManager.change_status, name="Change_Status"),
     url(r'^send_deployment_plan/(?P<id>\d+)/$', ChiefOfficerManager.sendDeploymentPlan, name="Send_Deployment_Plan"),
+    url(r'^historical_data/$', ChiefOfficerManager.getHistorical_data,name="display_historical_data"),
 ]

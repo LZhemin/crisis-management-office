@@ -3,6 +3,7 @@
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MinValueValidator,ValidationError
+import datetime
 from datetime import timedelta
 
 #all models have automatically add an auto-increment id unless another field is explicitly specified as primary key
@@ -37,6 +38,7 @@ class CrisisType(models.Model):
 class Crisis(models.Model):
     #analyst is FK to crisis. This enables analyst to be deleted once the crisis is resolved
     #name = models.TextField()
+    crisis_title = models.CharField(max_length=50,null=True)
     analyst = models.OneToOneField(Account,blank=True,null=True,limit_choices_to={'type':'Analyst'}, on_delete=models.SET_NULL)
     STATUS = (
         ('Clean-up','Clean Up'),
@@ -49,13 +51,22 @@ class Crisis(models.Model):
      #   ordering = ['analyst']
 
     def injuries(self):
-        return self.efupdate_set.latest('datetime').totalDeaths
+        try:
+            return self.efupdate_set.latest('datetime').totalInjured
+        except(EFUpdate.DoesNotExist):
+            return None
 
     def deaths(self):
-        return self.efupdate_set.latest('datetime').totalInjured
+        try:
+            return self.efupdate_set.latest('datetime').totalDeaths
+        except(EFUpdate.DoesNotExist):
+            return None
 
     def __str__(self):
         return 'ID: {} - assigned to: {}'.format(self.pk, self.analyst)
+
+    def latestPlan(self):
+        return self.actionplan_set.latest('id')
 
 class CrisisReport(models.Model):
     #attributes
@@ -71,6 +82,7 @@ class CrisisReport(models.Model):
 
     def __str__(self):
         return 'ID: {} - {} - Crisis {} - Type: {}'.format(self.pk,self.description,self.crisis,self.crisisType)
+
 
 #The response plan of the crsis.
 #The deployment id is the action plan id
@@ -88,6 +100,7 @@ class ActionPlan(models.Model):
         ('Rejected','Rejected'),
         ('PMOApproved','Approved')
     )
+    outgoing_time = models.DateTimeField(editable=False, null=True)
     status = models.CharField(max_length=20, choices=STATUS)
     resolution_time = models.DurationField()
     projected_casualties = models.IntegerField(validators=[MinValueValidator(0)])
@@ -106,21 +119,23 @@ class ActionPlan(models.Model):
             return self.description[:140] + "..."
 
     def __str__(self):
-        return 'ID: {} | Type: {} | Status: {} | Abridged Description: {}'.format(
+        return 'ID: {} | Internal Plan Number: {} | Type: {} | Status: {} | Crisis ID: {} | Abridged Description: {} '.format(
             self.pk,
+            self.plan_number,
             self.type,
             self.get_status_display(),
+            self.crisis.id,
             self.abridged_description()
-        );
+        )
 
     #Custom Model
     def clean(self, *args, **kwargs):
         # add custom validation here
         try:
             if self.status == "Planning" and ActionPlan.objects.filter(crisis=self.crisis,status="Planning").count() > 1:
-                raise ValidationError("Therre can only be 1 Action Plan in the planning phase")
+                raise ValidationError("There can only be 1 Action Plan in the planning phase")
         except Crisis.DoesNotExist:
-            pass
+            pass    #Do nothing if there are no crisis found
         super(ActionPlan, self).clean(*args, **kwargs)
 
     #Method intended to be private
@@ -128,7 +143,8 @@ class ActionPlan(models.Model):
         return self.crisis.actionplan_set.all().count() + 1
 
     def save(self, *args, **kwargs):
-        self.plan_number = self._nextPlanNumber()
+        if not self.plan_number: #only set the plan number if not set
+            self.plan_number = self._nextPlanNumber()
         super().save(*args, **kwargs)  # Call the "real" save() method.
 
 class Comment(models.Model):
@@ -150,6 +166,19 @@ class Comment(models.Model):
     def __str__(self):
         return 'ID: {} - Author: {} - Comment: {} for Action Plan: {}'.format(self.id, self.author,self.text, self.actionPlan.id)
 
+    def timefrom(self):
+        now = datetime.datetime.utcnow().replace(tzinfo=timezone.utc)
+        difference = (now - self.timeCreated).total_seconds()
+        #return hours
+        if int(difference/3600) >= 23:
+            return self.timeCreated.strftime('Posted on %d %b %Y, at %I:%M %p')
+        elif int(difference/3600) >= 1:
+            return '{} hours ago...'.format(int(difference / 3600))
+        elif int(difference/60) >= 1:
+            return '{} minutes ago...'.format(int(difference / 3600))
+        else:
+            return '{} seconds ago...'.format(int (difference))
+
 class Force(models.Model):
     name = models.CharField(primary_key=True, max_length=200)
     #Current Utilisation can be NULL, in the event that EF cannot provide, then the field is set to NULL and Blank
@@ -166,8 +195,16 @@ class ForceDeployment(models.Model):
     recommended = models.DecimalField(max_digits=5, decimal_places=2)
     max = models.DecimalField(max_digits=5, decimal_places=2)
     actionPlan =  models.ForeignKey(ActionPlan, on_delete= models.CASCADE)
+
     def __str__(self):
-        return 'ID: {} | Name: {} Action Plan: {}'.format(self.pk,self.name, self.actionPlan)
+        return 'ID: {} | Name: {} | Action Plan: {}'.format(self.pk,self.name, self.actionPlan)
+
+    def clean(self, *args, **kwargs):
+        # add custom validation here
+
+        if self.recommended > self.max:
+            raise ValidationError("Recommended amount cannot be greater than Max amount")
+        super(ForceDeployment, self).clean(*args, **kwargs)
 
 class EFUpdate(models.Model):
     #Attributes
@@ -189,6 +226,19 @@ class EFUpdate(models.Model):
     def __str__(self):
         return 'ID: {}'.format(self.pk)
 
+    def timefrom(self):
+        now = datetime.datetime.utcnow().replace(tzinfo=timezone.utc)
+        difference = (now - self.datetime).total_seconds()
+        #return hours
+        if int(difference/3600) >= 23:
+            return self.datetime.strftime('Posted on %d %b %Y, at %I:%M %p')
+        elif int(difference/3600) >= 1:
+            return '{} hours ago...'.format(int(difference / 3600))
+        elif int(difference/60) >= 1:
+            return '{} minutes ago...'.format(int(difference / 3600))
+        else:
+            return '{} seconds ago...'.format(int (difference))
+
 #Force Utilization tracks how much each force is being used for the current action plan
 class ForceUtilization(models.Model):
     name = models.ForeignKey(Force,on_delete= models.CASCADE)
@@ -196,7 +246,7 @@ class ForceUtilization(models.Model):
     update = models.ForeignKey(EFUpdate, on_delete=models.CASCADE)
 
     def __str__(self):
-        return '{}'.format(self.name);
+        return 'ID: {} | Reported Utilization: {}%'.format(self.name, self.utilization);
 
 
 class Notifications(models.Model):

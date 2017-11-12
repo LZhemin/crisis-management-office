@@ -33,6 +33,68 @@ function queryStatus()
     });
 }
 */
+document.getElementById('neuroNetwork').addEventListener('ended',myHandler,false);
+function myHandler(e) {
+    console.log("handler");
+    $('#neuroNetwork').hide();
+    $('#neutraloverlay').hide();
+}
+function generateAP(crisisId){
+    console.log("here!");
+    if($('#id_type').val()=='Combat')
+    {
+        console.log("Combat here!");
+        $.ajax({
+            type:"GET",
+            url: "generateCombatAP/",
+            dataType: 'json',
+            success: function (data) {
+                var newEfCount = data['count'];
+                if(efCount==-1)
+                    efCount = newEfCount;
+                else if(efCount<newEfCount) {
+                    reloadEfUpdate(efCount);
+                    efCount = newEfCount
+                }
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
+
+    }
+    else if($('#id_type').val()=='Combat'){
+        $.ajax({
+            type:"GET",
+            url: "generateCleanupAP/",
+            dataType: 'json',
+            success: function (data) {
+                var newEfCount = data['count'];
+                if(efCount==-1)
+                    efCount = newEfCount;
+                else if(efCount<newEfCount) {
+                    reloadEfUpdate(efCount);
+                    efCount = newEfCount
+                }
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
+    }
+    else{
+        new PNotify({
+            title: 'No Action Plan Type Selected!',
+            text: 'Please select a Action Plan type before generating a Action Plan!',
+            type: 'warning',
+            styling: 'bootstrap3'
+        });
+        return
+    }
+    $("#neuroNetwork").show();
+    document.getElementById("neuroNetwork").play();
+    $('#neutraloverlay').show();
+}
 
 //Auto Update Notification After 3 Seconds
 setInterval(function()
@@ -138,7 +200,7 @@ function reloadComments(count){
                             "<div style=\"padding-left: 1em;\">\n" +
                                 "<h3>"+array[num]['author']+"</h3>\n" +
                                 "<div>\n" +
-                                    "<p class=\"small\"><span style=\"float:left\">Plan Number: "+array[num]['actionPlan']['plan_number']+"</span>&nbsp<span style=\"float:right\">"+array[num]['timeCreated']+"</span></p>\n" +
+                                    "<p class=\"small\"><span style=\"float:left\">Plan Number: "+array[num]['actionPlan']['plan_number']+"</span style=\"font-style:italic; color:darkgrey;\"><br><span>"+array[num]['timeCreated']+"</span></p>\n" +
                                 "</div>\n" +
                                 "<p>"+array[num]['text']+"</p>\n" +
                             "</div>\n" +

@@ -1,12 +1,16 @@
 from rest_framework import serializers
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Comment, Force, ForceDeployment, EFUpdate, ForceUtilization, Notifications
 from django.utils import timezone
+from django.db.models import Q
 
 class CrisisSerializer(serializers.ModelSerializer):
 
+    totalInjured = serializers.IntegerField(source="injuries")
+    totalDeaths = serializers.IntegerField(source="deaths")
+
     class Meta:
         model = Crisis
-        fields = ('id', 'analyst', 'status')
+        fields = ('id', 'analyst', 'status', 'totalInjured', 'totalDeaths')
 
 #This serializer is for retrieval
 class CrisisReportSerializer(serializers.ModelSerializer):
@@ -54,43 +58,38 @@ class NotificationSerializer(serializers.ModelSerializer):
 
 class AuthSerializer(serializers.Serializer):
 
-    id = serializers.IntegerField()
-    text = serializers.CharField(required=False, allow_null=True, allow_blank=True, max_length=100)
-    approval = serializers.BooleanField(required=True)
+    PlanID = serializers.IntegerField()
+    Comments = serializers.CharField(required=False, allow_null=True, allow_blank=True, max_length=100)
+    PlanStatus = serializers.BooleanField(required=True)
 
     def validate(self, data):
-        #validate id exists
-        id = data.get('id')
-        text = data.get('text',None)
-        # ap = ActionPlan.objects.get(id=id)
-        # if ap.status == 'Rejected' and text :
-        if ActionPlan.objects.get(pk=id) == True:
-            print("VALIDATED1")
-            raise serializers.ValidationError('ID already exists')
-        # elif not text or text == '':
-        #     raise serializers.ValidationError('Comment not exists')
-        elif ActionPlan.objects.get(pk=id) == False:
-            print("VALIDATED2")
+        id = data.get('PlanID')
+        text = data.get('Comments',None)
+        approval = data.get('PlanStatus')
+        ap = ActionPlan.objects.get(id=id)
+
+        if ap.status != 'PMORequest':
+            raise serializers.ValidationError('ActionPlan already validated')
+        elif approval == False and text == None:
+            raise serializers.ValidationError('Comment should exists')
+        elif ap.status == 'PMORequest':
             return data;
 
         return data;
 
     def save(self):
-        #ap = ActionPlan.objects.get(pk = self.validated_data['id'])
-        #ap = ActionPlan.objects.get(self.data['id'])
-        #ap.id = self.validated_data['id']
-        aid = self.validated_data['id']
+        aid = self.validated_data['PlanID']
         ap = ActionPlan.objects.get(id = aid)
-        if self.validated_data['approval'] == True:
-            ap.status = 'Approved'
+        if self.validated_data['PlanStatus'] == True:
+            ap.status = 'PMOApproved'
         else:
             ap.status = 'Rejected'
 
         ap.save()
 
-        if self.validated_data['approval'] == False:
+        if self.validated_data['PlanStatus'] == False:
             author = 'PMO'
-            text = self.validated_data['text']
+            text = self.validated_data['Comments']
             timeCreated = timezone.now()
             Comment.objects.create(text=text,author=author,timeCreated=timeCreated,actionPlan=ap)
 
@@ -128,15 +127,41 @@ class PMOSerializer(serializers.ModelSerializer):
 
     class IEFUpdateSerializer(serializers.ModelSerializer):
 
+        class IForceUtilizationSerializer(serializers.ModelSerializer):
+
+            class Meta:
+                model = ForceUtilization
+                fields = ('name','utilization')
+
+        forceutilization_set = IForceUtilizationSerializer(read_only=True,many=True)
+
         class Meta:
             model = EFUpdate
-            fields = ('datetime', 'affectedRadius', 'totalInjured', 'totalDeaths', 'duration', 'description')
+            fields = ('id','datetime', 'affectedRadius', 'totalInjured', 'totalDeaths', 'duration', 'description','forceutilization_set')
 
     class IActionPlanSerializer(serializers.ModelSerializer):
 
+        class IForceDeploymentSerializer(serializers.ModelSerializer):
+
+            class Meta:
+                model = ForceDeployment
+                fields = ('name','recommended','max')
+
+
+        class ICommentSerializer(serializers.ModelSerializer):
+
+            class Meta:
+                model = Comment
+                fields = ('id','text','author','timeCreated')
+
+
+        forcedeployment_set = IForceDeploymentSerializer(many=True, read_only=True)
+
+        comment = ICommentSerializer(read_only=True)
+
         class Meta:
             model = ActionPlan
-            fields = ('id', 'plan_number', 'description', 'status', 'resolution_time', 'projected_casualties', 'type')
+            fields = ('id', 'plan_number', 'description', 'status', 'resolution_time', 'projected_casualties','outgoing_time', 'type', 'forcedeployment_set', 'comment')
 
     crisisreport_set = IReportSerializer(many=True, read_only=True)
     actionplan_set = serializers.SerializerMethodField('get_filtered_plans')
@@ -145,13 +170,16 @@ class PMOSerializer(serializers.ModelSerializer):
     #Filter out "Planning', or in 'CORequest'
     #Show 'Approved','Rejected' and 'PMORequest'
     def get_filtered_plans(self, obj):
-        qs = ActionPlan.objects.filter(crisis=obj, status="PMOApproved");
+        qs = ActionPlan.objects.filter(crisis=obj).exclude(Q(status='Planning') |  Q(status='CORequest')).exclude(Q(comment__author='CO'), Q(status='Rejected'))
         serializer = self.IActionPlanSerializer(qs,many=True,read_only=True)
         return serializer.data
 
+    totalInjured = serializers.IntegerField(source="injuries")
+    totalDeaths = serializers.IntegerField(source="deaths")
+
     class Meta:
         model = Crisis
-        fields = ('id', 'status','crisisreport_set','actionplan_set','efupdate_set')
+        fields = ('id', 'status','crisis_title','totalInjured', 'totalDeaths', 'crisisreport_set','actionplan_set','efupdate_set')
         # = ("crisisreport")
 
 
@@ -186,9 +214,13 @@ class EFSerializer(serializers.ModelSerializer):
         fields = ('crisis','actionPlan', 'datetime','type', 'description', 'statistics')
 
     def create(self, validated_data):
-        forces = validated_data.pop('force')
+        force_data = validated_data.pop('force')
         efupdate = EFUpdate.objects.create(**validated_data)
-        print(forces)
-        for data in forces:
-           ForceUtilization.objects.create(update=efupdate,**data)
+        for data in force_data:
+            #Create Force Utilization
+            FU = ForceUtilization.objects.create(update=efupdate,**data)
+            #Update each force's utilization
+            force = FU.name
+            force.currentUtilisation = FU.utilization
+            force.save()
         return efupdate

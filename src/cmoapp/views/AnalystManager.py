@@ -1,17 +1,39 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
-from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment, Notifications
+from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment, Notifications,ForceUtilization
 from cmoapp.forms.analyst import ActionPlanForm, ForceForm
 from django.views.generic import ListView,DetailView
 from rest_framework import serializers
 from cmoapp.serializers import CrisisSerializer, CrisisReportSerializer, ActionPlanSerializer, CommentSerializer, NotificationSerializer
+import datetime
+
 #Future use in session-based views
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 #Kindly help to remove unwanted modules
 
 sessionId = 1
+
+
+def getHistorical_data(request):
+    try:
+        getallcrisis = Crisis.objects.filter(status='Resolved')
+        getallcrisisreport = CrisisReport.objects.all()
+        getallForceDeployment = ForceDeployment.objects.all()
+        getallForceUtilization = ForceUtilization.objects.all()
+        getallActionPlan = ActionPlan.objects.all()
+        getallEFUpdate = EFUpdate.objects.all()
+
+    except(KeyError, getallcrisis.DoesNotExist):
+        context = {'getallcrisis': False}
+    else:
+        context = {'getallcrisis': getallcrisis, 'getallcrisisreport': getallcrisisreport,
+                   'getallForceDeployment': getallForceDeployment, 'getallForceUtilization': getallForceUtilization,
+                   'getallActionPlan': getallActionPlan,
+                   'getallEFUpdate': getallEFUpdate}
+
+        return render(request, 'analyst/historical.html', context)
 
 def index(Request):
     #UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
@@ -20,6 +42,8 @@ def index(Request):
         crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
         actionPlanList = ActionPlan.objects.filter(crisis_id=assigned_crisis.id).exclude(status='Planning')
         all_forces = Force.objects.all()
+        forceWidth = int(12 / Force.objects.count())
+        sideWidth = int(12 - (forceWidth * Force.objects.count()))/2
         notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
         notification_count = notifications.count()
 
@@ -31,6 +55,8 @@ def index(Request):
             'crisis_reports': crisis_reports,
             'ActionPlanList': actionPlanList,
             'all_force': all_forces,
+            'forceWidth':forceWidth,
+            'sideWidth':sideWidth,
             'json_force': AnalystForceSerializer(Force.objects.all(), many=True).data,
             'notifications': notifications,
             'notification_count': notification_count
@@ -48,8 +74,6 @@ def index(Request):
             submitted_action_plan_form = ActionPlanForm(Request.POST)
             context['ActionPlanForm'] = submitted_action_plan_form
             #SAVE ME https://collingrady.wordpress.com/2008/02/18/editing-multiple-objects-in-django-with-newforms/
-
-
 
             if submitted_action_plan_form.is_valid():
                 if(Request.POST['submitType'] == "Save"):
@@ -83,7 +107,7 @@ def get_efupdates(request):
     except(KeyError):
         return JsonResponse({'success':False,'error':'Error in retrieving efupdates!'})
 
-    data = EFUpdateSerializer(efUpdates, many=True).data
+    data = AnalystEFUpdateSerializer(efUpdates, many=True).data
 
     return JsonResponse(data,safe=False)
 
@@ -100,7 +124,14 @@ def get_comments(request):
     except(KeyError):
         return JsonResponse({'success':False,'error':'Error in retrieving Comments!'})
 
-    data = CommentSerializer(comments, many=True).data
+    data = []
+    for comment in comments:
+        data.append({
+            'author': comment.author,
+            'text': comment.text,
+            'plan_number': comment.actionPlan.plan_number,
+            'timeCreated': comment.timefrom()
+        })
     return JsonResponse(data, safe=False)
 
 def get_crisis_report_count(request):
@@ -174,8 +205,203 @@ class AnalystForceSerializer(serializers.ModelSerializer):
         model = Force
         fields = ['name','currentUtilisation']
 
-
-class EFUpdateSerializer(serializers.ModelSerializer):
+class AnalystEFUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = EFUpdate
         fields = ['id','datetime','affectedRadius','totalInjured','totalDeaths','duration','description','actionPlan_id','crisis_id']
+
+
+class ActionPlanGenerator:
+    def generateCombatPlan(crisis_id):
+
+        dt = datetime.timedelta(days=0, hours=0)
+        option = 0
+        findCrisisReport = CrisisReport.objects.filter(crisis=crisis_id)
+
+        rule1 = False
+        rule2 = True
+        rule3 = True
+        rule4 = True
+        rule5 = True
+        rule6 = True
+        rule7 = True
+        rule8 = True
+        rule9 = True
+        rule10 = True
+        rule11 = True
+        fire = False
+        largescalecrisis = False
+        terroristattack = False
+        riotormasslooting = False
+        actionplanDescription = ""
+        for report in findCrisisReport.all():
+            if (report.crisisType.name == 'Bombing') or (report.crisisType.name == 'Hijacking & Skyjacking') or (report.crisisType.name == 'Cyber Terrorism') or (report.crisisType.name == 'Nuclear/Radiological') or (report.crisisType.name == 'Biological-Chemical') or (report.crisisType.name == 'Kidnapping') or (report.crisisType.name == 'Arson') or (report.crisisType.name == 'Massacre'):
+                terroristattack = True
+            if (report.radius > 199):
+                rule7 = False
+                rule8 = False
+                rule9 = False
+                rule10 = False
+                rule11 = False
+                largescalecrisis = True
+            if (terroristattack):
+                rule3 = False
+                rule4 = False
+                rule5 = False
+                rule6 = False
+                rule8 = False
+                rule9 = False
+                rule10 = False
+                rule11 = False
+            if (report.crisisType.name == 'Large Fire') or (report.crisisType.name == 'Fire'):
+                rule4 = False
+                rule5 = False
+                rule6 = False
+                rule9 = False
+                rule10 = False
+                rule11 = False
+                fire = True
+            if (report.crisisType.name == 'Natural Disaster'):
+                rule6 = False
+            if (report.crisisType.name == 'Pandemic'):
+                rule5 = False
+                rule10 = False
+                rule11 = False
+            if (report.crisisType.name == 'Riot') or (report.crisisType.name == 'Mass Looting'):
+                rule2 = False
+                rule3 = False
+                rule4 = False
+                rule5 = False
+                rule6 = False
+                rule11 = False
+                riotormasslooting = True
+            if (largescalecrisis) and (riotormasslooting):
+                rule1 = True
+
+        if (rule5 or rule10 or rule11) == False:
+            actionplanDescription = actionplanDescription + "Cordon off affected area.\n"
+        if rule1:
+            actionplanDescription = actionplanDescription + "Curfew will be set and implemented.\n"
+        actionplanDescription = actionplanDescription + "Public Advisory will be carried out on all medias.\n"
+        if (fire) == True:
+            actionplanDescription = actionplanDescription + "Deploy SCDF to extinguish any fire on scene and tend to casualty\n"
+        actionplanDescription = actionplanDescription + "Deploy SCDF to decontaminate affected area and carry out search & rescue.\n"
+        if (rule7 or rule8 or rule9 or rule10 or rule11) == False:
+            if riotormasslooting == True:
+                actionplanDescription = actionplanDescription + "Deploy SAF to contain the riot and crowd control. Traffic redirection to ensure no one enters the affected area.\n"
+            else:
+                if terroristattack == True:
+                    actionplanDescription = actionplanDescription + "Deploy SAF to carry out lethal response to terrorist causing damage. Explosives expert to be sent if there's a bomb.\n"
+                else:
+                    actionplanDescription = actionplanDescription + "Deploy SAF to redirect the traffic to ensure no one enters the affected area. \n"
+        if (rule11) == False:
+            actionplanDescription = actionplanDescription + "SPF Deployment to help out focusing on the safety of the citizens. \n"
+        ap = ActionPlan(description=actionplanDescription,
+                        status="Planning",
+                        type="Combat",
+                        resolution_time=dt,
+                        projected_casualties=0.0,
+                        crisis_id=crisis_id)
+        return ap
+
+    def generateCleanup(crisis_id):
+        dt = datetime.timedelta(days=0, hours=0)
+        option = 0
+        findCrisisReport = CrisisReport.objects.filter(crisis=crisis_id)
+
+        rule1 = False
+        rule2 = True
+        rule3 = True
+        rule4 = True
+        rule5 = True
+        rule6 = True
+        rule7 = True
+        rule8 = True
+        rule9 = True
+        rule10 = True
+        rule11 = True
+        fire = False
+        largescalecrisis = False
+        terroristattack = False
+        riotormasslooting = False
+        actionplanDescription = ""
+        for report in findCrisisReport.all():
+            if (report.crisisType.name == 'Bombing') or (report.crisisType.name == 'Hijacking & Skyjacking') or (report.crisisType.name == 'Cyber Terrorism') or (report.crisisType.name == 'Nuclear/Radiological') or (report.crisisType.name == 'Biological-Chemical') or (report.crisisType.name == 'Kidnapping') or (report.crisisType.name == 'Arson') or (report.crisisType.name == 'Massacre'):
+                terroristattack = True
+            if (report.radius > 199):
+                rule7 = False
+                rule8 = False
+                rule9 = False
+                rule10 = False
+                rule11 = False
+                largescalecrisis = True
+            if (terroristattack):
+                rule3 = False
+                rule4 = False
+                rule5 = False
+                rule6 = False
+                rule8 = False
+                rule9 = False
+                rule10 = False
+                rule11 = False
+            if (report.crisisType.name == 'Large Fire') or (report.crisisType.name == 'Fire'):
+                rule4 = False
+                rule5 = False
+                rule6 = False
+                rule9 = False
+                rule10 = False
+                rule11 = False
+                fire = True
+            if (report.crisisType.name == 'Natural Disaster'):
+                rule6 = False
+            if (report.crisisType.name == 'Pandemic'):
+                rule5 = False
+                rule10 = False
+                rule11 = False
+            if (report.crisisType.name == 'Riot') or (report.crisisType.name == 'Mass Looting'):
+                rule2 = False
+                rule3 = False
+                rule4 = False
+                rule5 = False
+                rule6 = False
+                rule11 = False
+                riotormasslooting = True
+            if (largescalecrisis) and (riotormasslooting):
+                rule1 = True
+
+        if (rule5 or rule10 or rule11) == False:
+            actionplanDescription = actionplanDescription + "Cordon off affected area until clean up is done.\n"
+        if rule1:
+            actionplanDescription = actionplanDescription + "Curfew will be lifted after clean up is done.\n"
+        actionplanDescription = actionplanDescription + "Closure of crisis will be broadcast on all medias.\n"
+        if (fire) == True:
+            actionplanDescription = actionplanDescription + "SCDF to inspect the scene for any casualty and tend to found casualties.\n"
+        actionplanDescription = actionplanDescription + "SCDF to continue decontaminating affected area and tend to found casualties.\n"
+        if (rule7 or rule8 or rule9 or rule10 or rule11) == False:
+            if riotormasslooting == True:
+                actionplanDescription = actionplanDescription + "SAF to contain crowd until dispersion. Traffic redirection to ensure no one enters the affected area until clean up is done.\n"
+            else:
+                if terroristattack == True:
+                    actionplanDescription = actionplanDescription + "SAF to assess damage on scene and ensure no one enters the affected area until clean up is done.\n"
+                else:
+                    actionplanDescription = actionplanDescription + "SAF to redirect the traffic to ensure no one enters the affected area until clean up is done.\n"
+        if (rule11) == False:
+            actionplanDescription = actionplanDescription + "SPF to help out in what ever is needed focusing on citizens until clean up is done. \n"
+        ap = ActionPlan(description=actionplanDescription,
+                        status="Planning",
+                        type="Clean Up",
+                        resolution_time=dt,
+                        projected_casualties=0.0,
+                        crisis_id=crisis_id)
+
+        data =[]
+        data.append({
+            "description": actionplanDescription,
+            "status": "Planning",
+            'type': "Clean Up",
+            'resolution_time': dt,
+            'projected_casualties': 0.0,
+            'crisis_id':crisis_id
+        })
+
+        return JsonResponse(data, safe=False)

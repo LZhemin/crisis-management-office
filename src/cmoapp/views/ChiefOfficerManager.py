@@ -2,11 +2,12 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
 from django.utils import timezone
-from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment, Notifications
+from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment, Notifications,ForceUtilization
 from django.views.generic import ListView,DetailView
 from cmoapp.serializers import NotificationSerializer
 from django.core import serializers
-import requests
+
+#import requests
 import datetime
 
 #Kindly help to remove unwanted modules
@@ -20,7 +21,7 @@ def index(Request):
         forces = Force.objects.all()
         efUpdatesCount = EFUpdate.objects.count()
         forceWidth = int(12/Force.objects.count())
-        sideWidth = int((12-forceWidth*Force.objects.count())/2)
+        sideWidth = int(12 - (forceWidth * Force.objects.count())) / 2
         notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
         notification_count = notifications.count()
 
@@ -47,10 +48,30 @@ def change_status(request):
     except(KeyError, crisis.DoesNotExist):
         return JsonResponse({'success': False, 'error': 'Error in retrieving efupdates!'})
 
-    crisis.status = new_status;
-    crisis.save();
+    if new_status=='Resolved':
+        crisis.analyst = None
+        actionPlan = ActionPlan(description='Requesting to Resolve the Crisis',status='PMORequest',crisis_id=crisis.id,type='Resolved', resolution_time=datetime.timedelta(minutes=0),projected_casualties=0)
+        actionPlan.save()
+        data = {
+            "id": actionPlan.id
+        }
+        # Test for shit later
+        # return JsonResponse(
+        #     {'success': True,
+        #      'message': "Request to resolve Crisis " + crisis_id + " successfully sent to Prime Minister's Office!"})
 
-    return JsonResponse({'success': True, 'message': 'Crisis '+crisis_id+'Status Changed to '+new_status})
+        r = requests.post('http://192.168.137.5:8000/api/order/', json=data)
+        print(r.text)
+        if r.status_code == 201 or r.status_code == 200:
+            print('Posted Successfully!')
+            return JsonResponse(
+                {'success': True, 'message': "Request to resolve Crisis "+ crisis_id +" successfully sent to Prime Minister's Office!"})
+        print('Failure Code:' + str(r.status_code))
+        return JsonResponse({'success': False, 'message': 'Unable to send request to resolve Crisis '+crisis_id+'!'})
+    else:
+        crisis.status = new_status;
+        crisis.save()
+        return JsonResponse({'success': True, 'message': 'Crisis '+crisis_id+' Status Changed to '+new_status})
 
 
 def get_efupdates_count(request):
@@ -64,7 +85,15 @@ def get_efupdates(request):
         efUpdates = EFUpdate.objects.all()[startNum:]
     except(KeyError):
         return JsonResponse({'success':False,'error':'Error in retrieving efupdates!'})
-    data = serializers.serialize('json',efUpdates)
+
+    data = []
+    for update in efUpdates:
+        data.append({
+            "crisis": update.crisis.id,
+            "crisisTitle": update.crisis.crisis_title,
+            'description':update.description,
+            'datetime':update.timefrom()
+        })
 
     return JsonResponse(data, safe=False)
 
@@ -96,8 +125,21 @@ def ApproveActionPlan(request):
         return JsonResponse('Error Found in keys!')
     actionPlan = ActionPlan.objects.get(id=actionPlanId)
     actionPlan.status = 'PMORequest'
+    actionPlan.outgoing_time = datetime.datetime.now()
     actionPlan.save()
-    return JsonResponse({"success": True, "message": "Action Plan"+actionPlanId+" Approved Successfully!"})
+
+    data = {
+        "id": actionPlanId
+    }
+
+    r = requests.post('http://192.168.137.5:8000/api/order/', json=data)
+    print(r.text)
+    if r.status_code == 201 or r.status_code == 200:
+        print('Posted Successfully!')
+        return JsonResponse({"success": True, "message": "Action Plan"+actionPlanId+" Approved Successfully!"})
+    print('Failure Code:' + str(r.status_code))
+
+    return JsonResponse({"success": False, "message": "Action Plan"+actionPlanId+" was unable to be forwarded to Prime Minister's Office!"})
 
 
 def RejectActionPlan(request):
@@ -185,6 +227,22 @@ def ReloadCrisis(request):
         }
         return render(request, 'chief/ui_components/all_crisis.html', context)
 
+def getHistorical_data(request):
+    try:
+        getallcrisis = Crisis.objects.filter(status = 'Resolved')
+        getallcrisisreport = CrisisReport.objects.all()
+        getallForceDeployment = ForceDeployment.objects.all()
+        getallForceUtilization =ForceUtilization.objects.all()
+        getallActionPlan = ActionPlan.objects.all()
+        getallEFUpdate = EFUpdate.objects.all()
+
+    except(KeyError,getallcrisis.DoesNotExist):
+        context = {'getallcrisis':False}
+    else:
+        context = {'getallcrisis':getallcrisis,'getallcrisisreport':getallcrisisreport, 'getallForceDeployment':getallForceDeployment, 'getallForceUtilization':getallForceUtilization, 'getallActionPlan':getallActionPlan,
+                   'getallEFUpdate':getallEFUpdate}
+
+        return render(request, 'chief/historical.html', context)
 
 def reload_notification(request):
     try:
@@ -220,7 +278,7 @@ def sendDeploymentPlan(id):
         deployment =[]
         description = ""
         for report in crisis_reports:
-            location.append({"LocationID":report.id, "Lat" : float(report.latitude),"Long": float(report.longitude),"AOE":int(report.radius), "Category": report.crisisType.name})
+            location.append({"Lat" : float(report.latitude),"Long": float(report.longitude),"AOE":int(report.radius), "Category": report.crisisType.name})
             description+=report.description+". "
 
         for force in forces:
@@ -228,6 +286,7 @@ def sendDeploymentPlan(id):
 
         order_data = {
             "ActionPlanID": actionPlan.id,
+            "Status":actionPlan.type,
             "CrisisID": crisis.id,
             "Date_time": timezone.now().__str__(),
             "Location": location,
