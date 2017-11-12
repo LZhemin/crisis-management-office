@@ -63,9 +63,9 @@ class AuthSerializer(serializers.Serializer):
     approval = serializers.BooleanField(required=True)
 
     def validate(self, data):
-        id = data.get('id')
-        text = data.get('text',None)
-        approval = data.get('approval')
+        id = data.get('PlanID')
+        text = data.get('Comments',None)
+        approval = data.get('PlanStatus')
         ap = ActionPlan.objects.get(id=id)
 
         if ap.status != 'PMORequest':
