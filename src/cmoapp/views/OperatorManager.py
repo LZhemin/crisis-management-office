@@ -4,10 +4,12 @@ from django.urls import reverse
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate
 from django.forms.models import model_to_dict
 from django.core import serializers
-from cmoapp.serializers import CrisisReportSerializer
+from cmoapp.serializers import CrisisReportSerializer, NotificationSerializer
 
 import json
 #Kindly help to remove unwanted modules
+
+sessionId = 3
 
 
 def sharedindex():
@@ -15,14 +17,13 @@ def sharedindex():
     getCrisisTypeList = CrisisType.objects.all
     getCrisisReportList = CrisisReport.objects.all
     getUnassignedCrisisReport = CrisisReport.objects.filter(crisis__isnull=True).order_by('datetime')
-
     getResolvedCrisis = Crisis.objects.exclude(status='Resolved').values_list('pk', flat=True)
     getAssignedCrisisReport = CrisisReport.objects.exclude(crisis__isnull=True).filter(crisis__in = getResolvedCrisis)
-
     getNotResolvedCrisisList = Crisis.objects.filter(analyst__isnull=False).exclude(status='Resolved')
-
     getanalystacc = Crisis.objects.exclude(analyst__isnull = True).values_list('analyst_id', flat=True)
     getAccountList = Account.objects.filter(type="Analyst").exclude(pk__in=getanalystacc)
+    notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
+    notification_count = notifications.count()
 
     context = {'getCrisisList': getCrisisList,
                'getCrisisTypeList': getCrisisTypeList,
@@ -33,6 +34,8 @@ def sharedindex():
                'getAssignedCrisisReport':getAssignedCrisisReport,
                'all_crisis': Crisis.objects.reverse(),
                'all_crisisreport': CrisisReport.objects.reverse(),
+               'notifications': notifications,
+               'notification_count': notification_count
                }
     return context
 
@@ -133,13 +136,19 @@ def get_crisisreport_collection(request):
 
 def reload_notification(request):
     try:
-        notifications = Notifications.objects.all().exclude(new=0)
-        notification_count = notifications.count()
+        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
+        data = NotificationSerializer(notifications, many=True).data
     except KeyError:
         return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
-    else:
-        context = {
-            'all_notifications': notifications,
-            'notification_count': notification_count
-        }
-        return render(request, 'chief/ui_components/top_navigation.html', context)
+    return JsonResponse(data, safe=False)
+
+
+def delete_notification(request):
+    try:
+        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
+    except KeyError:
+        return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
+    for notification in notifications:
+        notification.new = 0
+        notification.save()
+    return JsonResponse('OK', safe=False)

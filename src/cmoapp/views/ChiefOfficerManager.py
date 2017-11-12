@@ -4,12 +4,15 @@ from django.urls import reverse
 from django.utils import timezone
 from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment, Notifications,ForceUtilization
 from django.views.generic import ListView,DetailView
+from cmoapp.serializers import NotificationSerializer
 from django.core import serializers
 
 #import requests
 import datetime
 
 #Kindly help to remove unwanted modules
+
+sessionId = 4
 
 def index(Request):
     # UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
@@ -19,11 +22,10 @@ def index(Request):
         efUpdatesCount = EFUpdate.objects.count()
         forceWidth = int(12/Force.objects.count())
         sideWidth = int(12 - (forceWidth * Force.objects.count())) / 2
-        notifications = Notifications.objects.all().exclude(new=0)
+        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
         notification_count = notifications.count()
 
     except(KeyError, Crisis.DoesNotExist):
-
         context = {'all_crisis': False}
     else:
         context = {
@@ -244,17 +246,22 @@ def getHistorical_data(request):
 
 def reload_notification(request):
     try:
-        notifications = Notifications.objects.all().exclude(new=0)
-        notification_count = notifications.count()
+        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
+        data = NotificationSerializer(notifications, many=True).data
     except KeyError:
         return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
-    else:
-        context = {
-            'all_notifications': notifications,
-            'notification_count': notification_count
-        }
-        return render(request, 'chief/ui_components/top_navigation.html', context)
+    return JsonResponse(data, safe=False)
 
+
+def delete_notification(request):
+    try:
+        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
+    except KeyError:
+        return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
+    for notification in notifications:
+        notification.new = 0
+        notification.save()
+    return JsonResponse('OK', safe=False)
 
 def sendDeploymentPlan(id):
     try:

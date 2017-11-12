@@ -2,6 +2,7 @@
 //Collapse to the right
 var efCount = -1;
 $(document).ready(function() {
+    reload_notifications();
     //Collapse to the right code
     $('.collapse-link-right').on('click', function () {
         var $BOX_PANEL = $(this).closest('.x_content'),
@@ -273,6 +274,13 @@ setInterval(function()
 
 }, 30000);
 
+//Auto Update Notification After 3 Seconds
+setInterval(function()
+{
+    reload_notifications()
+}, 3000);
+
+
 //Checking for New EFUpdates
 function checkEfUpdate(){
     $.ajax({
@@ -356,6 +364,57 @@ function reload_crisis() {
         }
     });
 }
+
+
+//reloads the all_crisis template
+function reload_notifications() {
+    $.ajax({
+        url :"/chief/reload_notification/",
+        type : "GET", // http method
+        success : function(data) {
+            if(!$('#presentation1').hasClass('open')) {
+                $('#chief_notifications').text(data.length);
+                $('#menu1').empty();
+                var i;
+                if (data.length != 0) {
+                    for (i = 0; i < data.length; ++i) {
+                        $('#menu1').append("<li><span><strong>" + data[i].title + "</strong></span>" +
+                            "</span><br/><span class='message'>" + data[i].text + "</span>" +
+                            "<span class='time text-right'>" + data[i].time_added + "</span></li>");
+                    }
+                }else{
+                    $('#menu1').append("<li><span><strong>'You have no notifications'</strong></span></li>");
+                }
+            }
+        },
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+}
+
+
+$('#presentation1').on('click', function () {
+
+    if(!$('#presentation1').hasClass('open')) {
+        $.ajax({
+        url :"/chief/delete_notification/",
+        type : "GET", // http method
+        // handle a successful response
+        //var html;
+        success : function(data) {
+            console.log('Delete Notification Success')
+        },
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+    }else{
+        reload_notifications();
+    }
+});
 
 
 function select_crisischat(id) {

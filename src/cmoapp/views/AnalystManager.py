@@ -5,14 +5,15 @@ from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan,
 from cmoapp.forms.analyst import ActionPlanForm, ForceForm
 from django.views.generic import ListView,DetailView
 from rest_framework import serializers
-from cmoapp.serializers import CrisisSerializer, CrisisReportSerializer, ActionPlanSerializer, CommentSerializer
+from cmoapp.serializers import CrisisSerializer, CrisisReportSerializer, ActionPlanSerializer, CommentSerializer, NotificationSerializer
 import datetime
+
 #Future use in session-based views
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 #Kindly help to remove unwanted modules
 
-sessionId = 2
+sessionId = 1
 
 
 def getHistorical_data(request):
@@ -43,8 +44,9 @@ def index(Request):
         all_forces = Force.objects.all()
         forceWidth = int(12 / Force.objects.count())
         sideWidth = int(12 - (forceWidth * Force.objects.count()))/2
-        notifications = Notifications.objects.all().exclude(new=0)
+        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
         notification_count = notifications.count()
+
     except(KeyError, Crisis.DoesNotExist):
         context = {'assigned_crisis': False}
     else:
@@ -56,6 +58,7 @@ def index(Request):
             'forceWidth':forceWidth,
             'sideWidth':sideWidth,
             'json_force': AnalystForceSerializer(Force.objects.all(), many=True).data,
+            'notifications': notifications,
             'notification_count': notification_count
         }
         if(Request.method == "GET"):
@@ -79,11 +82,12 @@ def index(Request):
                     #Create
                     submitted_action_plan_form.update_or_create(assigned_crisis,"Awaiting CO Approval")
                     context['ActionPlanForm'] = ActionPlanForm()
-    return render(Request, 'analyst/index.html',context)
+    return render(Request, 'analyst/index.html', context)
+
 
 def crisis_statistics(Request):
-
     pass
+
 
 def historicalData(Request):
     return HttpResponse("HISTORICAL DATA")
@@ -142,7 +146,6 @@ def get_crisis_reports(request):
         crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id)[startNum:]
     except(KeyError):
         return JsonResponse({'success':False,'error':'Error in retrieving crisis reports!'})
-
     data = CrisisReportSerializer(crisis_reports, many=True).data
     return JsonResponse(data, safe=False)
 
@@ -168,16 +171,22 @@ class ActionPlanList(ListView):
 
 def reload_notification(request):
     try:
-        notifications = Notifications.objects.all().exclude(new=0)
-        notification_count = notifications.count()
+        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
+        data = NotificationSerializer(notifications, many=True).data
     except KeyError:
         return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
-    else:
-        context = {
-            'all_notifications': notifications,
-            'notification_count': notification_count
-        }
-        return render(request, 'chief/ui_components/top_navigation.html', context)
+    return JsonResponse(data, safe=False)
+
+
+def delete_notification(request):
+    try:
+        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
+    except KeyError:
+        return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
+    for notification in notifications:
+        notification.new = 0
+        notification.save()
+    return JsonResponse('OK', safe=False)
 
 
 class ActionPlanDetail(DetailView):
@@ -396,5 +405,3 @@ class ActionPlanGenerator:
         })
 
         return JsonResponse(data, safe=False)
-
-
