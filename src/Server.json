@@ -661,7 +661,7 @@
         "plan_number": 1,
         "description": "Test PMO Approval 1",
         "outgoing_time": null,
-        "status": "Rejected",
+        "status": "PMORequest",
         "resolution_time": "1 09:00:00",
         "projected_casualties": 12,
         "type": "Combat",
@@ -782,6 +782,26 @@
         "author": "CO",
         "timeCreated": "2017-11-12T20:19:19.748Z",
         "actionPlan": 16
+    }
+},
+{
+    "model": "cmoapp.comment",
+    "pk": 22,
+    "fields": {
+        "text": "Reject for 32",
+        "author": "PMO",
+        "timeCreated": "2017-11-12T21:27:35.367Z",
+        "actionPlan": 32
+    }
+},
+{
+    "model": "cmoapp.comment",
+    "pk": 23,
+    "fields": {
+        "text": "REJECT",
+        "author": "CO",
+        "timeCreated": "2017-11-12T21:32:55.092Z",
+        "actionPlan": 33
     }
 },
 {
@@ -3851,6 +3871,60 @@
         "object_repr": "ID: 29 | Internal Plan Number: 4 | Type: Combat | Status: Awaiting PMO Approval | Crisis ID: 7 | Abridged Description: Ben approve this 2 ",
         "action_flag": 2,
         "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 200,
+    "fields": {
+        "action_time": "2017-11-12T21:27:35.371Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "22",
+        "object_repr": "ID: 22 - Author: PMO - Comment: Reject for 32 for Action Plan: 32",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 201,
+    "fields": {
+        "action_time": "2017-11-12T21:30:09.494Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "actionplan"
+        ],
+        "object_id": "31",
+        "object_repr": "ID: 31 | Internal Plan Number: 1 | Type: Combat | Status: Awaiting PMO Approval | Crisis ID: 11 | Abridged Description: Test PMO Approval 1 ",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"status\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 202,
+    "fields": {
+        "action_time": "2017-11-12T21:32:55.094Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "cmoapp",
+            "comment"
+        ],
+        "object_id": "23",
+        "object_repr": "ID: 23 - Author: CO - Comment: REJECT for Action Plan: 33",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
     }
 }
 ]
