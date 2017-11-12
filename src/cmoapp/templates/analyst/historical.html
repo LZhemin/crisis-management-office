@@ -175,9 +175,9 @@
                             <td class=" ">{{actionplans.id}}</td>
                             <td class=" ">{{actionplans.description}}</td>
                             {%if actionplans.status == "Rejected"%}
-                                <td class=" "><span class="label label-danger">{{actionplans.status}}</span></td>
+                                <td class=" "><span class="label label-danger">{{actionplans.get_status_display}}</span></td>
                             {%else%}
-                                <td class=" "><span class="label label-success">{{actionplans.status}}</span></td>
+                                <td class=" "><span class="label label-success">{{actionplans.get_status_display}}</span></td>
                             {%endif%}
                             <td class=" ">{{actionplans.resolution_time}}</td>
                             <td class=" ">{{actionplans.projected_casualties}}</td>
