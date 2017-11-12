@@ -275,7 +275,7 @@ class ActionPlanGenerator:
             actionplanDescription = actionplanDescription + "Curfew will be set and implemented.\n"
         actionplanDescription = actionplanDescription + "Public Advisory will be carried out on all medias.\n"
         if (fire) == True:
-            actionplanDescription = actionplanDescription + "Deploy SCDF to extinguish any fire on scene\n"
+            actionplanDescription = actionplanDescription + "Deploy SCDF to extinguish any fire on scene and tend to casualty\n"
         actionplanDescription = actionplanDescription + "Deploy SCDF to decontaminate affected area and carry out search & rescue.\n"
         if (rule7 or rule8 or rule9 or rule10 or rule11) == False:
             if riotormasslooting == True:
@@ -361,23 +361,23 @@ class ActionPlanGenerator:
                 rule1 = True
 
         if (rule5 or rule10 or rule11) == False:
-            actionplanDescription = actionplanDescription + "Cordon off affected area.\n"
+            actionplanDescription = actionplanDescription + "Cordon off affected area until clean up is done.\n"
         if rule1:
-            actionplanDescription = actionplanDescription + "Curfew will be set and implemented.\n"
-        actionplanDescription = actionplanDescription + "Public Advisory will be carried out on all medias.\n"
+            actionplanDescription = actionplanDescription + "Curfew will be lifted after clean up is done.\n"
+        actionplanDescription = actionplanDescription + "Closure of crisis will be broadcast on all medias.\n"
         if (fire) == True:
-            actionplanDescription = actionplanDescription + "Deploy SCDF to extinguish any fire on scene\n"
-        actionplanDescription = actionplanDescription + "Deploy SCDF to decontaminate affected area and carry out search & rescue.\n"
+            actionplanDescription = actionplanDescription + "SCDF to inspect the scene for any casualty and tend to found casualties.\n"
+        actionplanDescription = actionplanDescription + "SCDF to continue decontaminating affected area and tend to found casualties.\n"
         if (rule7 or rule8 or rule9 or rule10 or rule11) == False:
             if riotormasslooting == True:
-                actionplanDescription = actionplanDescription + "Deploy SAF to contain the riot and crowd control. Traffic redirection to ensure no one enters the affected area.\n"
+                actionplanDescription = actionplanDescription + "SAF to contain crowd until dispersion. Traffic redirection to ensure no one enters the affected area until clean up is done.\n"
             else:
                 if terroristattack == True:
-                    actionplanDescription = actionplanDescription + "Deploy SAF to carry out lethal response to terrorist causing damage. Explosives expert to be sent if there's a bomb.\n"
+                    actionplanDescription = actionplanDescription + "SAF to assess damage on scene and ensure no one enters the affected area until clean up is done.\n"
                 else:
-                    actionplanDescription = actionplanDescription + "Deploy SAF to redirect the traffic to ensure no one enters the affected area. \n"
+                    actionplanDescription = actionplanDescription + "SAF to redirect the traffic to ensure no one enters the affected area until clean up is done.\n"
         if (rule11) == False:
-            actionplanDescription = actionplanDescription + "SPF Deployment to help out focusing on the safety of the citizens. \n"
+            actionplanDescription = actionplanDescription + "SPF to help out in what ever is needed focusing on citizens until clean up is done. \n"
         ap = ActionPlan(description=actionplanDescription,
                         status="Planning",
                         type="Clean Up",
