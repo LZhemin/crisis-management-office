@@ -42,8 +42,12 @@
       {% block js_templates %} {% endblock js_templates %}
     {% endblock head %}
   </head>
-
   <body class="{% block body_class %}nav-md {% endblock body_class %}">
+  <div id="neutraloverlay" style="background-color:black;width:100%;height:100%;display:inline;position: fixed; top:0px; left:0px; z-index: 100; display:none">
+  </div>
+  <video id="neuroNetwork" style="width:100%;height:100%;display:inline;position: fixed; top:0px; left:0px; z-index: 1000;display:none">
+     <source src="/static/video/movie.mp4" type="video/mp4">
+  </video>
     {% block body %}
       <div class="container body">
         <div class="main_container">
@@ -65,7 +69,6 @@
 
         </div>
       </div>
-
     {% endblock body %}
   </body>
       {% block vendor_javascripts %}

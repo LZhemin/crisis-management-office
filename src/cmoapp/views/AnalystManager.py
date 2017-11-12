@@ -384,5 +384,17 @@ class ActionPlanGenerator:
                         resolution_time=dt,
                         projected_casualties=0.0,
                         crisis_id=crisis_id)
-        return ap
+
+        data =[]
+        data.append({
+            "description": actionplanDescription,
+            "status": "Planning",
+            'type': "Clean Up",
+            'resolution_time': dt,
+            'projected_casualties': 0.0,
+            'crisis_id':crisis_id
+        })
+
+        return JsonResponse(data, safe=False)
+
 
