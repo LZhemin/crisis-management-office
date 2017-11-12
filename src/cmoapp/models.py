@@ -204,7 +204,7 @@ class ForceDeployment(models.Model):
 
         if self.recommended > self.max:
             raise ValidationError("Recommended amount cannot be greater than Max amount")
-        super(ActionPlan, self).clean(*args, **kwargs)
+        super(ForceDeployment, self).clean(*args, **kwargs)
 
 class EFUpdate(models.Model):
     #Attributes
