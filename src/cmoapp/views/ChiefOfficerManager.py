@@ -60,7 +60,7 @@ def change_status(request):
         #     {'success': True,
         #      'message': "Request to resolve Crisis " + crisis_id + " successfully sent to Prime Minister's Office!"})
 
-        r = requests.post('http://172.21.148.167:8000/api/order/', json=data)
+        r = requests.post('http://172.21.148.167:8080/api/cmoapi/', json=data)
         print(r.text)
         if r.status_code == 201 or r.status_code == 200:
             print('Posted Successfully!')
