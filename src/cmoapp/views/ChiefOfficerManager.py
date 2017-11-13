@@ -129,7 +129,11 @@ def ApproveActionPlan(request):
     actionPlan.save()
 
     data = {
-        "id": actionPlanId
+        'PlanID ': actionPlanId,
+        'PlanNum': actionPlan.plan_number,
+        'CrisisID':actionPlan.crisis.id,
+        'CrisisTitle':actionPlan.crisis.crisis_title,
+        'DateTime':actionPlan.outgoing_time
     }
 
     r = requests.post('http://192.168.137.5:8000/api/order/', json=data)

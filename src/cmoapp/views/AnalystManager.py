@@ -35,10 +35,11 @@ def getHistorical_data(request):
 
         return render(request, 'analyst/historical.html', context)
 
-def index(Request):
+def index(Request,pk):
     #UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
     try:
-        assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
+        id =pk
+        assigned_crisis = Crisis.objects.get(analyst__id=id)
         crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
         actionPlanList = ActionPlan.objects.filter(crisis_id=assigned_crisis.id).exclude(status='Planning')
         all_forces = Force.objects.all()
@@ -51,6 +52,7 @@ def index(Request):
         context = {'assigned_crisis': False}
     else:
         context = {
+            'id':id,
             'assigned_crisis': assigned_crisis,
             'crisis_reports': crisis_reports,
             'ActionPlanList': actionPlanList,
