@@ -49,7 +49,7 @@ def auth_collection(request):
             #datatryout = json.loads(datatest)
             serializer.save()
             if(serializer.data['PlanStatus'] == True):
-                ChiefOfficerManager.sendDeploymentPlan(serializer.data['id'])
+                ChiefOfficerManager.sendDeploymentPlan(serializer.data['PlanID'])
             response_data['Status'] = 'Success!'
             response_data['Message'] = 'Approval Captured!'
             return Response(response_data, status=status.HTTP_200_OK)
