@@ -279,7 +279,7 @@ setInterval(function()
             reload_table();
     }
     checkEfUpdate();
-}, 3000);
+}, 10000);
 
 
 //Auto Update Notification After 3 Seconds
