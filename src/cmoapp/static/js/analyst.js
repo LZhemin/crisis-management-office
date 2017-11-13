@@ -45,38 +45,39 @@ function generateAP(crisisId){
     {
         console.log("Combat here!");
         $.ajax({
-            type:"GET",
+            type:"POST",
             url: "/analyst/generateCombatAP/",
             dataType: 'json',
+            data : { crisisid : crisisId },
+
             success: function (data) {
-                var newEfCount = data['count'];
-                if(efCount==-1)
-                    efCount = newEfCount;
-                else if(efCount<newEfCount) {
-                    reloadEfUpdate(efCount);
-                    efCount = newEfCount
-                }
-            },
+            console.log(data);
+            console.log(data.description);
+            $('#id_description').val(data.description)
+            //$('#id_duration_count').val(0)
+
+            }
+            ,
             error: function(data){
                 console.log(data);
             }
         });
-
     }
     else if($('#id_type').val()=='Clean-up'){
         $.ajax({
-            type:"GET",
-            url: "/analyst/generateCleanupAP/",
+            type:"POST",
+            url: "/analyst/generateCleanAP/",
             dataType: 'json',
+           data : { crisisid : crisisId },
+
             success: function (data) {
-                var newEfCount = data['count'];
-                if(efCount==-1)
-                    efCount = newEfCount;
-                else if(efCount<newEfCount) {
-                    reloadEfUpdate(efCount);
-                    efCount = newEfCount
-                }
-            },
+            console.log(data);
+            console.log(data.description);
+            $('#id_description').val(data.description)
+            //$('#id_duration_count').val(0)
+
+            }
+            ,
             error: function(data){
                 console.log(data);
             }

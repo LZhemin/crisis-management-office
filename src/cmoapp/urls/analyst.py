@@ -15,6 +15,6 @@ urlpatterns = [
     url(r'^get_crisis_reports/$', AnalystManager.get_crisis_reports, name="Get_Crisis_Report"),
     url(r'^reload_current_stat/$', AnalystManager.reload_current_stat, name="Reload_Current_Stat"),
     url(r'^historical_data/$', AnalystManager.getHistorical_data, name="display_historical_data_analyst"),
-    url(r'^generateCombatAP/$', AnalystManager.ActionPlanGenerator.generateCombatPlan, name='generate_combat_action_plan'),
-    url(r'^generateCleanAP/$', AnalystManager.ActionPlanGenerator.generateCleanup, name='generate_cleanup_action_plan'),
+    url(r'^generateCombatAP/$', AnalystManager.generateCombatPlan, name='generate_combat_action_plan'),
+    url(r'^generateCleanAP/$', AnalystManager.generateCleanup, name='generate_cleanup_action_plan'),
 ]

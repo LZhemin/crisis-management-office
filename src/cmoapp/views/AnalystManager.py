@@ -218,10 +218,8 @@ class AnalystEFUpdateSerializer(serializers.ModelSerializer):
         model = EFUpdate
         fields = ['id','datetime','affectedRadius','totalInjured','totalDeaths','duration','description','actionPlan_id','crisis_id']
 
-
-class ActionPlanGenerator:
-    def generateCombatPlan(crisis_id):
-
+def generateCombatPlan(request):
+        crisis_id = request.POST.get("crisisid");
         dt = datetime.timedelta(days=0, hours=0)
         option = 0
         findCrisisReport = CrisisReport.objects.filter(crisis=crisis_id)
@@ -304,15 +302,32 @@ class ActionPlanGenerator:
                     actionplanDescription = actionplanDescription + "Deploy SAF to redirect the traffic to ensure no one enters the affected area. \n"
         if (rule11) == False:
             actionplanDescription = actionplanDescription + "SPF Deployment to help out focusing on the safety of the citizens. \n"
-        ap = ActionPlan(description=actionplanDescription,
-                        status="Planning",
-                        type="Combat",
-                        resolution_time=dt,
-                        projected_casualties=0.0,
-                        crisis_id=crisis_id)
-        return ap
+      #  ap = ActionPlan(description=actionplanDescription,
+      #                  status="Planning",
+      #                  type="Combat",
+      #                  resolution_time=dt,
+      #                  projected_casualties=0.0,
+      #                  crisis_id=crisis_id)
+      #  return JsonResponse(ap, safe=False)
 
-    def generateCleanup(crisis_id):
+        response_data = {}
+        response_data['result'] = 'Create post successful!'
+        response_data['description'] = actionplanDescription
+        response_data['status'] = "Planning"
+        response_data['type'] = "Combat"
+        response_data['resolution_time'] = dt
+        response_data['projected_casualties'] = 0
+        response_data['crisis_id'] = crisis_id
+
+        return JsonResponse(response_data)
+
+
+
+
+
+
+def generateCleanup(request):
+        crisis_id = request.POST.get("crisisid");
         dt = datetime.timedelta(days=0, hours=0)
         option = 0
         findCrisisReport = CrisisReport.objects.filter(crisis=crisis_id)
@@ -395,21 +410,20 @@ class ActionPlanGenerator:
                     actionplanDescription = actionplanDescription + "SAF to redirect the traffic to ensure no one enters the affected area until clean up is done.\n"
         if (rule11) == False:
             actionplanDescription = actionplanDescription + "SPF to help out in what ever is needed focusing on citizens until clean up is done. \n"
-        ap = ActionPlan(description=actionplanDescription,
-                        status="Planning",
-                        type="Clean Up",
-                        resolution_time=dt,
-                        projected_casualties=0.0,
-                        crisis_id=crisis_id)
+        #ap = ActionPlan(description=actionplanDescription,
+        #                status="Planning",
+        #                type="Clean Up",
+        #                resolution_time=dt,
+        #                projected_casualties=0.0,
+        #                crisis_id=crisis_id)
 
-        data =[]
-        data.append({
-            "description": actionplanDescription,
-            "status": "Planning",
-            'type': "Clean Up",
-            'resolution_time': dt,
-            'projected_casualties': 0.0,
-            'crisis_id':crisis_id
-        })
+        response_data = {}
+        response_data['result'] = 'Create post successful!'
+        response_data['description'] = actionplanDescription
+        response_data['status'] = "Planning"
+        response_data['type'] = "Clean-up"
+        response_data['resolution_time'] = dt
+        response_data['projected_casualties'] = 0
+        response_data['crisis_id'] = crisis_id
 
-        return JsonResponse(data, safe=False)
+        return JsonResponse(response_data)
