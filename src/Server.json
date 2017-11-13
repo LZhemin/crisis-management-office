@@ -121,7 +121,7 @@
     "model": "cmoapp.crisistype",
     "pk": 2,
     "fields": {
-        "name": "Riot/Mass Looting"
+        "name": "Riot"
     }
 },
 {
@@ -142,14 +142,14 @@
     "model": "cmoapp.crisistype",
     "pk": 10,
     "fields": {
-        "name": "Nuclear/Radiological/Biological-Chemical"
+        "name": "Radiological"
     }
 },
 {
     "model": "cmoapp.crisistype",
     "pk": 11,
     "fields": {
-        "name": "Natural Disasters"
+        "name": "Natural_Disasters"
     }
 },
 {
@@ -228,7 +228,7 @@
         "datetime": "2017-11-12T07:46:11Z",
         "latitude": "1.46326700",
         "longitude": "102.54312400",
-        "radius": 150,
+        "radius": 5000,
         "crisis": 6,
         "crisisType": 1
     }

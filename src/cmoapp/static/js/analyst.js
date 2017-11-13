@@ -46,7 +46,7 @@ function generateAP(crisisId){
         console.log("Combat here!");
         $.ajax({
             type:"GET",
-            url: "generateCombatAP/",
+            url: "/analyst/generateCombatAP/",
             dataType: 'json',
             success: function (data) {
                 var newEfCount = data['count'];
@@ -66,7 +66,7 @@ function generateAP(crisisId){
     else if($('#id_type').val()=='Combat'){
         $.ajax({
             type:"GET",
-            url: "generateCleanupAP/",
+            url: "/analyst/generateCleanupAP/",
             dataType: 'json',
             success: function (data) {
                 var newEfCount = data['count'];
@@ -108,7 +108,7 @@ setInterval(function()
 function checkEfUpdate(){
     $.ajax({
         type:"GET",
-        url: "get_efupdate_count/",
+        url: "/analyst/get_efupdate_count/",
         dataType: 'json',
         success: function (data) {
             var newEfCount = data['count'];
@@ -131,7 +131,7 @@ function reloadEfUpdate(count){
     var html = "";
     $.ajax({
         type:"POST",
-        url: "get_efupdates/",
+        url: "/analyst/get_efupdates/",
         data:{'startNum':count},
         dataType: 'json',
         success: function (data) {
@@ -166,7 +166,7 @@ function reloadEfUpdate(count){
 function checkCommentUpdate(){
     $.ajax({
         type:"GET",
-        url: "get_comment_count/",
+        url: "/analyst/get_comment_count/",
         dataType: 'json',
         success: function (data) {
             var newcommentCount = data['count'];
@@ -190,7 +190,7 @@ function reloadComments(count){
     var html = "";
     $.ajax({
         type:"POST",
-        url: "get_comments/",
+        url: "/analyst/get_comments/",
         data:{'startNum':count},
         dataType: 'json',
         success: function (data) {
@@ -225,7 +225,7 @@ function reloadComments(count){
 function checkCRUpdate(){
     $.ajax({
         type:"GET",
-        url: "get_crisis_report_count/",
+        url: "/analyst/get_crisis_report_count/",
         dataType: 'json',
         success: function (data) {
             var newCRCount = data['count'];
@@ -247,7 +247,7 @@ function reloadCr(count){
     var html = "";
     $.ajax({
         type:"POST",
-        url: "get_crisis_reports/",
+        url: "/analyst/get_crisis_reports/",
         data:{'startNum':count},
         dataType: 'json',
         success: function (data) {
@@ -284,7 +284,7 @@ function reloadCr(count){
 
 function reloadCurrentStat() {
     $.ajax({
-        url :"reload_current_stat/",
+        url :"/analyst/reload_current_stat/",
         type : "GET", // http method
         // handle a successful response
         //var html;
