@@ -63,7 +63,7 @@ function generateAP(crisisId){
         });
 
     }
-    else if($('#id_type').val()=='Combat'){
+    else if($('#id_type').val()=='Clean-up'){
         $.ajax({
             type:"GET",
             url: "generateCleanupAP/",
