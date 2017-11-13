@@ -95,8 +95,8 @@ class ActionPlan(models.Model):
     description = models.TextField(null=True,blank=True)
     STATUS= (
         ('Planning','Planning'),
-        ('CORequest','Awaiting CO Approval'),
-        ('PMORequest','Awaiting PMO Approval'),
+        ('CORequest','Requesting CO'),
+        ('PMORequest','Requesting PMO'),
         ('Rejected','Rejected'),
         ('PMOApproved','Approved')
     )

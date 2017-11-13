@@ -52,6 +52,7 @@ def change_status(request):
         crisis.analyst = None
         actionPlan = ActionPlan(description='Requesting to Resolve the Crisis',status='PMORequest',crisis_id=crisis.id,type='Resolved', resolution_time=datetime.timedelta(minutes=0),projected_casualties=0)
         actionPlan.save()
+        print(actionPlan.id)
         data = {
             'PlanID': actionPlan.id,
             'PlanNum': actionPlan.plan_number,
@@ -305,7 +306,6 @@ def sendDeploymentPlan(id):
         }
 
         #return HttpResponse(str(order_data))
-        #THIS IS EF SERVER'S IP r = requests.post('http://172.21.148.167:8000/api/order/', json=order_data)
         r = requests.post('http://172.21.148.167:8000/api/order/', json=order_data)
         print(r.text)
         if r.status_code == 201 or r.status_code == 200:

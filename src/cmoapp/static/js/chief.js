@@ -76,6 +76,15 @@ $.ajaxSetup({
 
 //Change Status of the Crisis
 function changeStatus(id,status){
+    console.log(status);
+    if(status=='Resolved')
+    {
+        console.log("Status Here!");
+        window.setTimeout(function(){
+                reload_table();
+                reload_crisis();
+            },150);
+    }
     $.ajax({
         type:"POST",
         url: "change_status/",
@@ -272,7 +281,7 @@ setInterval(function()
     }
     checkEfUpdate();
 
-}, 30000);
+}, 3000);
 
 //Auto Update Notification After 3 Seconds
 setInterval(function()
@@ -308,7 +317,7 @@ function reloadEfUpdate(count){
     $.ajax({
         type:"POST",
         url: "get_efupdates/",
-        data:{'startNum':count},
+        data:{'startNum':0},
         dataType: 'json',
         success: function (data) {
             array = JSON.parse(data);
@@ -323,7 +332,7 @@ function reloadEfUpdate(count){
                             "</div> " +
                         "</li>";
             }
-            $('#efUpdateList').append(html);
+            $('#efUpdateList').html(html);
         },
         error: function(data){
             console.log(data);

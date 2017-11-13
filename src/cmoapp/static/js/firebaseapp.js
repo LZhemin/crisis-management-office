@@ -39,7 +39,7 @@ function changeChat(id){
         scope.changeChat();
     });
 }
-var efApp = angular.module('EFChatApp', ['firebase']);
+var efApp = angular.module('EFChatApp', ['firebase1']);
 var EFRef, EFCrisisChatID;
 efApp.controller('EFChatController', function($scope, $firebaseArray) {
         //Crisis
@@ -47,23 +47,23 @@ efApp.controller('EFChatController', function($scope, $firebaseArray) {
         EFCrisisChatID = 1;
         //$scope.crisis = ["1", "2", "3"];
 
-        EFRef = firebase.database().ref().child(EFCrisisChatID).child('CMO-EF');
+        EFRef = firebase1.database().ref().child(EFCrisisChatID).child('CMO-EF');
 
-        $scope.messages = $firebaseArray(EFRef);
+        $scope.efMessages = $firebaseArray(EFRef);
 
         $scope.assignCrisis = function() {
             EFCrisisChatID = $scope.crisisID;
-            EFRef = firebase.database().ref().child(EFCrisisChatID).child('CMO-EF');
-            $scope.messages = $firebaseArray(EFRef);
+            EFRef = firebase1.database().ref().child(EFCrisisChatID).child('CMO-EF');
+            $scope.efMessages = $firebaseArray(EFRef);
 
         }
         $scope.changeChat = function(){
-            EFRef = firebase.database().ref().child(EFCrisisChatID).child('CMO-EF');
-            $scope.messages = $firebaseArray(EFRef);
+            EFRef = firebase1.database().ref().child(EFCrisisChatID).child('CMO-EF');
+            $scope.efMessages = $firebaseArray(EFRef);
         }
 
         $scope.send = function() {
-            $scope.messages.$add({
+            $scope.efMessages.$add({
                 sender: "CMO",
                 message: $scope.efMessageText,
                 date: Date.now()
@@ -73,8 +73,10 @@ efApp.controller('EFChatController', function($scope, $firebaseArray) {
 
 function changeEFChat(id){
     EFCrisisChatID = id;
-    var scope = angular.element(document.getElementById('EFChatController')).scope();
-    scope.$apply(function(){
-        scope.changeChat();
+    var scope1 = angular.element(document.getElementById('EFChatController')).scope();
+    console.log("HI");
+    console.log(scope1);
+    scope1.$apply(function(){
+        scope1.changeChat();
     });
 }
