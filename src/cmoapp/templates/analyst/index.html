@@ -44,9 +44,16 @@
         display: block
     }
 
+    .accordion .panel
+    {
+        border: 5px solid #FFFFFF;
+        background: #fff;
+    }
+
+
     .accordion .panel:hover
     {
-        border: 3px solid #F2F5F7;
+        border: 5px solid #F2F5F7;
         background: #fff;
     }
 
@@ -114,7 +121,7 @@
             var chosen_force = $("#force-list option:selected").val();
             if(chosen_force)
             {
-                document.getElementById('forceCount').value = parseInt(document.getElementById('forceCount').value) + 1;
+                console.log(document.getElementById('forceCount').value);
                 data = [{
                     "force_name":  $("#force-list option:selected").val(),
                     "force_name_display": $("#force-list option:selected").text(),
@@ -131,7 +138,6 @@
                     'angleArc':360
                 });
                 $("#force_close_" + chosen_force).on('click', function(e){
-                    document.getElementById('forceCount').value = parseInt(document.getElementById('forceCount').value) + 1;
                     var force = e.target.dataset.delete;
                     $("#panel_"+force).remove();
                     $("#force-list option[value="+force+"]").show();
@@ -232,17 +238,20 @@
         <div id="collapse_<<force_name>>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading_<<force_name>>" aria-expanded="true">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-xs-5 text-center">
+                    <div class="col-xs-5 col-xs-offset-1 text-center">
                         <div>
-                            <div class="col-xs-5 col-xs-offset-1 text-center"><input type="text" class="dial" data-width="80%" name="max_<<force_name>>" value=0></div>
+                            <input type="text" class="dial" data-width="40%" name="<<force_count>>-max" value=0>
                         </div>
+                        <label for="max_<<force_name>>">Max % to deploy</label>
                     </div>
                     <div class="col-xs-5 text-center">
                         <div>
-                            <div class="col-xs-5 text-center"><input type="text" class="dial" data-width="80%" name="recommended_<<force_name>>" value=0>
+                            <input type="text" class="dial" data-width="40%" name="<<force_count>>-recommended>" value=0>
                         </div>
+                        <label for="recommended_<<force_name>>">Recommended % to deploy</label>
                     </div>
                     <input type="hidden" name="<<force_count>>-name" value="<<force_name>>">
+                    <input type="checkbox" name="force_indexes" value="<<force_count>>" style="display:none" checked>
                 </div>
             </div>
         </div>
@@ -470,7 +479,6 @@
                                                             <option value="{{force.name|lower}}">{{force.name}}</option>
                                                             {% endfor %}
                                                         </select>
-                                                        <input type="hidden" id="forceCount" name="forceCount "value="0">
                                                     </div>
                                                     <div class="col-xs-6">
                                                         <button class="btn btn-info btn-block" type="button"

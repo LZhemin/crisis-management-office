@@ -43,6 +43,7 @@ class ActionPlanForm(ModelForm):
             #A small performance price to pay at this point in time until we change the ModelForm back to the normal Form
             ap.clean()
             ap.save()
+            return ap
         else:
             raise ValueError("Crisis ID of Action Plan Object needs to be set before saving")
 
