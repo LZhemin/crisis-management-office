@@ -160,8 +160,15 @@ function generateAP(crisisId){
 //Auto Update Notification After 3 Seconds
 setInterval(function()
 {
-    reload_notifications()
+    reload_notifications();
 }, 3000);
+
+//Auto Update Notification After 30 Seconds
+setInterval(function()
+{
+    reloadEfUpdate(0);
+    checkCommentUpdate(0);
+}, 30000);
 
 
 //Polling for Updates Sections
@@ -186,43 +193,43 @@ function checkEfUpdate(){
     });
 }
 
-//Append to EFList
 function reloadEfUpdate(count){
     var array = [];
     var html = "";
     $.ajax({
         type:"POST",
-        url: "/analyst/get_efupdates/",
+        url: "get_efupdates/",
         data:{'startNum':count},
         dataType: 'json',
         success: function (data) {
             array = data;
-            //Remove the  <span>No Reports Yet</span> first
-            if($('#EFUpdateList li').length==0)
-                $('#EFUpdateList').html("");
-            for(num in array){
-                html += "<li><div class='block'>" +
+            for(update in array){
+                html += "<li><div id='efCrisis"+array[update]['crisis']+"' class='block'>" +
                             "<div class='block_content'> " +
-                                "<h2 class='title'>"+array[num]['description']+"</h2> " +
-                                "<div class='byline'>"+array[num]['datetime']+"</div> " +
+                                "<h2 class='title'>"+array[update]['crisisTitle']+"</h2> " +
+                                "<div class='byline'>"+array[update]['datetime'];
+
+                if(array[update]['type'] == 'Request')
+                    html += "<span class=\"label label-danger\">"+array[update]['type']+"</span>";
+                else
+                    html+= "<span class=\"label label-info\">"+array[update]['type']+"</span>";
+
+                html+= "</div> " +
+                                    "<p class='excerpt'>"+array[update]['description']+"</p> " +
                                 "</div> " +
                             "</div> " +
                         "</li>";
             }
-            $('#EFUpdateList').append(html);
-            new PNotify({
-                title: 'Update!',
-                text: 'New EF Updates available for viewing!',
-                type: 'info',
-                styling: 'bootstrap3'
-            });
+            if(count!=0)
+                $('#efUpdateList').append(html);
+            else
+                document.getElementById('efUpdateList').innerHTML = html;
         },
         error: function(data){
-
+            console.log(data);
         }
     });
 }
-
 //Checking for New EFUpdates
 function checkCommentUpdate(){
     $.ajax({

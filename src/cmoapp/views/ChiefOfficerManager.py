@@ -97,7 +97,8 @@ def get_efupdates(request):
             "crisis": update.crisis.id,
             "crisisTitle": update.crisis.crisis_title,
             'description':update.description,
-            'datetime':update.timefrom()
+            'datetime':update.timefrom(),
+            'type':update.type
         })
 
     return JsonResponse(data, safe=False)
@@ -140,12 +141,11 @@ def ApproveActionPlan(request):
         'CrisisTitle':actionPlan.crisis.crisis_title,
         'DateTime':actionPlan.outgoing_time.__str__()
     }
-
+    actionPlan.save()
     r = requests.post('http://172.21.148.167:8080/api/cmoapi/', json=data)
     print(r.text)
     if r.status_code == 201 or r.status_code == 200:
         print('Posted Successfully!')
-        actionPlan.save()
         return JsonResponse({"success": True, "message": "Action Plan"+actionPlanId+" Approved Successfully!"})
     print('Failure Code:' + str(r.status_code))
 
@@ -198,7 +198,7 @@ def addEFUpdate(request, CrisisID):
 #Add the LoginRequiredMixin as the leftmost inheritance
 class ActionPlanDetail(DetailView):
     context_object_name = "Action_Plan"
-    template_name='analyst/actionplan_detail.html'
+    template_name='chief/ui_components/actionplan_detail.html'
     model = ActionPlan
 
 

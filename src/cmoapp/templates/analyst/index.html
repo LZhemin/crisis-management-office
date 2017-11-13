@@ -61,7 +61,6 @@
 {% endblock page_stylesheets %}
 
 {% block page_javascripts %}
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDacnVEtNIWnbMCw_QI94kynm0_ytIalQ&callback=initMap" type="text/javascript"></script>
 <script src="/static/js/analyst.js"></script>
 <script type="text/javascript">
 
@@ -235,7 +234,7 @@
 
 
 </script>
-
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDacnVEtNIWnbMCw_QI94kynm0_ytIalQ&callback=initMap" type="text/javascript"></script>
 {% endblock page_javascripts %}
 
 {% block js_templates %}
@@ -376,7 +375,7 @@
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <div class="x_content">
+                <div class="x_content" style="height:400px;overflow-y:scroll;">
                     <ul id="911ReportList" class="list-unstyled timeline widget">
                         {% for report in assigned_crisis.crisisreport_set.all %}
                         <li>
@@ -409,19 +408,29 @@
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <div class="x_content">
+                <div class="x_content" style="height:400px;overflow-y:scroll;">
                     <ul id='EFUpdateList' class="list-unstyled timeline widget">
                         {% for report in assigned_crisis.efupdate_set.all %}
-                        <li>
-                            <div class="block">
-                                <div class="block_content">
-                                    <h2 class="title">{{ report.description }}</h2>
-                                    <div class="byline">
-                                        <span>{{ report.datetime }}</span>
+                        {% if report.type == 'Request' %}
+                                <li style="border">
+                                {% else %}
+                                <li>
+                                {%endif%}
+                                    <div id="efCrisis{{crisis.id}}" class="block">
+                                        <div class="block_content">
+                                            <h2 class="title">{{assigned_crisis.crisis_title}}</h2>
+                                            <div class="byline">
+                                                {{report.timefrom}}
+                                                {%if report.type == 'Request' %}
+                                                <span class="label label-danger">{{ report.type }}</span>
+                                                {% else %}
+                                                <span class="label label-info">{{ report.type }}</span>
+                                                {%endif %}
+                                            </div>
+                                            <p class="excerpt">{{report.description}}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </li>
+                                </li>
                         {% empty %}
                         <span>No Reports Yet</span>
                         {% endfor %}
