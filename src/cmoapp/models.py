@@ -46,7 +46,7 @@ class Crisis(models.Model):
         ('Resolved', 'Resolved')
     )
     status = models.CharField(max_length=20, choices=STATUS)
-
+    external_agencies = models.TextField(null=True, blank=True)
     #class Meta:
      #   ordering = ['analyst']
 

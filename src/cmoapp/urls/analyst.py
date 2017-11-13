@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'^historical_data/$', AnalystManager.getHistorical_data, name="display_historical_data_analyst"),
     url(r'^generateCombatAP/$', AnalystManager.generateCombatPlan, name='generate_combat_action_plan'),
     url(r'^generateCleanAP/$', AnalystManager.generateCleanup, name='generate_cleanup_action_plan'),
+    url(r'^agencies/$', AnalystManager.agencies, name='get_Agencies'),
 ]

@@ -64,6 +64,10 @@
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDacnVEtNIWnbMCw_QI94kynm0_ytIalQ&callback=initMap" type="text/javascript"></script>
 <script src="/static/js/analyst.js"></script>
 <script type="text/javascript">
+
+
+
+
     {% if assigned_crisis %}
         //JSON Fucking up.
         var crisis = {{ True|jsonify }}
@@ -83,7 +87,8 @@
                 checkCommentUpdate();
                 checkCRUpdate();
                 reloadCurrentStat();
-            }, 10000);
+                load_agencies();
+            }, 5000);
         }
         else
         {
@@ -122,6 +127,8 @@
             addforcetab(chosen_force);
         });
     });
+
+
     function addforcetab(chosen_force)
     {
                 var force_form_template = $("#force_form_template").html();
@@ -274,6 +281,7 @@
         <div class="x_panel">
             <div class="x_title">
                 <h1>{{assigned_crisis.crisis_title}}</h1>
+                  <input type="hidden" id="hiddenleafvillage" value="{{assigned_crisis.id}}">
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <a class="collapse-link">
@@ -486,6 +494,9 @@
                                                             <option value="{{force.name|lower}}">{{force.name}}</option>
                                                             {% endfor %}
                                                         </select>
+                                                        <textarea id = "exAngent" rows="4" cols="50">
+
+                                                        </textarea>
                                                     </div>
                                                     <div class="col-xs-6">
                                                         <button class="btn btn-info btn-block" type="button"

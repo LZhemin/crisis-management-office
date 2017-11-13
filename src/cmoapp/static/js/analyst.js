@@ -1,6 +1,33 @@
 //Variables to track number of each of the stats
 var efCount=-1, commentCount=-1, crCount=-1;
 
+ function load_agencies() {
+        console.log("create post is working! test"); // sanity check
+       console.log($('#hiddenleafvillage').val());
+       var crisis_id = $('#hiddenleafvillage').val();
+        $.ajax({
+            url : "/analyst/agencies/", // the endpoint
+            type : "POST", // http method
+            data : { crisisId : crisis_id}, // data sent with the post request //, getstatus : $('#getstatus').val()
+            // handle a successful response
+            success : function(json) {
+                //alert('#crisisreport-'+json.existingreportid);
+
+                $('#exAngent').val(json.agency); // remove the value from the input
+                console.log(json.agency); // log the returned json to the console
+                console.log("success"); // another sanity check
+
+            },
+            // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+                // add the error to the dom
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+        });
+    };
+
+
+
 //Used to Get the CSRF Token later on
 function getCookie(name) {
     var cookieValue = null;
@@ -99,7 +126,8 @@ function generateAP(crisisId){
             if(data.saf)
             {
             addforcetab('saf');
-            }            }
+            }
+            }
             ,
             error: function(data){
                 console.log(data);

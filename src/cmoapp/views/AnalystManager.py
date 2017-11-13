@@ -14,7 +14,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 #Kindly help to remove unwanted modules
 
 sessionId = 1
-
+def agencies(request):
+    crisis_id = request.POST.get("crisisId")
+    getAgency = Crisis.objects.get(id = crisis_id)
+    response_data = {}
+    if(getAgency.external_agencies is not None or getAgency.external_agencies != ""):
+        response_data['agency'] = getAgency.external_agencies
+    else:
+        response_data['agency'] = '';
+    return JsonResponse(response_data)
 
 def getHistorical_data(request):
     try:
