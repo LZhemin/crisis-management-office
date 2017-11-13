@@ -60,7 +60,7 @@ def change_status(request):
         #     {'success': True,
         #      'message': "Request to resolve Crisis " + crisis_id + " successfully sent to Prime Minister's Office!"})
 
-        r = requests.post('http://192.168.137.5:8000/api/order/', json=data)
+        r = requests.post('http://172.21.148.167:8000/api/order/', json=data)
         print(r.text)
         if r.status_code == 201 or r.status_code == 200:
             print('Posted Successfully!')
@@ -301,7 +301,8 @@ def sendDeploymentPlan(id):
         }
 
         #return HttpResponse(str(order_data))
-        r = requests.post('http://192.168.137.5:8000/api/order/', json=order_data)
+        #THIS IS EF SERVER'S IP r = requests.post('http://172.21.148.167:8000/api/order/', json=order_data)
+        r = requests.post('http://172.21.148.167:8000/api/order/', json=order_data)
         print(r.text)
         if r.status_code == 201 or r.status_code == 200:
             print('Posted Successfully!')
