@@ -200,8 +200,8 @@
     "fields": {
         "description": "Fire is seen around Esplanade Area.",
         "datetime": "2017-11-12T07:46:11Z",
-        "latitude": "1.46326700",
-        "longitude": "102.54312400",
+        "latitude": "1.298166",
+        "longitude": "103.857205",
         "radius": 150,
         "crisis": 6,
         "crisisType": 1
@@ -213,8 +213,8 @@
     "fields": {
         "description": "Full chaos near Esplanade MRT",
         "datetime": "2017-11-12T07:47:15Z",
-        "latitude": "1.52423100",
-        "longitude": "100.12312400",
+        "latitude": "1.293436",
+        "longitude": "103.855488",
         "radius": 175,
         "crisis": 6,
         "crisisType": 2
@@ -226,8 +226,8 @@
     "fields": {
         "description": "One terrorist has kidnapped a child during this chaos at esplanade area.",
         "datetime": "2017-11-12T07:48:30Z",
-        "latitude": "1.34582600",
-        "longitude": "104.35632600",
+        "latitude": "1.292304",
+        "longitude": "103.859680",
         "radius": 180,
         "crisis": 6,
         "crisisType": 13
@@ -239,8 +239,8 @@
     "fields": {
         "description": "Sudden explosion of bomb is audible at the esplanade building engulfed in flames.",
         "datetime": "2017-11-12T07:51:15Z",
-        "latitude": "1.54276500",
-        "longitude": "106.37516700",
+        "latitude": "1.292849",
+        "longitude": "103.850848",
         "radius": 225,
         "crisis": 6,
         "crisisType": 3
@@ -252,8 +252,8 @@
     "fields": {
         "description": "I just heard a bomb exploding from Clarke Quay Central.",
         "datetime": "2017-11-12T09:26:02Z",
-        "latitude": "1.45624600",
-        "longitude": "103.24536700",
+        "latitude": "1.288864",
+        "longitude": "103.846936",
         "radius": 300,
         "crisis": 7,
         "crisisType": 3
@@ -265,8 +265,8 @@
     "fields": {
         "description": "The bomb has caused a fire around clarke quay area.",
         "datetime": "2017-11-12T09:27:30Z",
-        "latitude": "1.34672500",
-        "longitude": "102.45674300",
+        "latitude": "1.290720",
+        "longitude": "103.846496",
         "radius": 275,
         "crisis": 7,
         "crisisType": 1
@@ -278,8 +278,8 @@
     "fields": {
         "description": "People are running around and full chaos here after the first bomb exploded and the fear of second one going to explode soon.",
         "datetime": "2017-11-12T09:30:13Z",
-        "latitude": "1.54632100",
-        "longitude": "102.34565400",
+        "latitude": "1.288864",
+        "longitude": "103.846936",
         "radius": 200,
         "crisis": 7,
         "crisisType": 2
@@ -291,8 +291,8 @@
     "fields": {
         "description": "There is a bomb detected at clarke quay mrt station that is going to explode in 2 hours.",
         "datetime": "2017-11-12T09:36:31Z",
-        "latitude": "1.74532500",
-        "longitude": "110.23564500",
+        "latitude": "1.288657",
+        "longitude": "103.847080",
         "radius": 275,
         "crisis": 7,
         "crisisType": 3

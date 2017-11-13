@@ -226,8 +226,8 @@
     "fields": {
         "description": "Fire is seen around Esplanade Area.",
         "datetime": "2017-11-12T07:46:11Z",
-        "latitude": "1.46326700",
-        "longitude": "102.54312400",
+        "latitude": "1.298166",
+        "longitude": "103.857205",
         "radius": 5000,
         "crisis": 6,
         "crisisType": 1
@@ -239,8 +239,8 @@
     "fields": {
         "description": "Full chaos near Esplanade MRT",
         "datetime": "2017-11-12T07:47:15Z",
-        "latitude": "1.52423100",
-        "longitude": "100.12312400",
+        "latitude": "1.293436",
+        "longitude": "103.855488",
         "radius": 175,
         "crisis": 6,
         "crisisType": 2
@@ -252,8 +252,8 @@
     "fields": {
         "description": "One terrorist has kidnapped a child during this chaos at esplanade area.",
         "datetime": "2017-11-12T07:48:30Z",
-        "latitude": "1.34582600",
-        "longitude": "104.35632600",
+        "latitude": "1.292304",
+        "longitude": "103.859680",
         "radius": 180,
         "crisis": 6,
         "crisisType": 13
@@ -265,8 +265,8 @@
     "fields": {
         "description": "Sudden explosion of bomb is audible at the esplanade building engulfed in flames.",
         "datetime": "2017-11-12T07:51:15Z",
-        "latitude": "1.54276500",
-        "longitude": "106.37516700",
+        "latitude": "1.292849",
+        "longitude": "103.850848",
         "radius": 225,
         "crisis": 6,
         "crisisType": 3
@@ -278,8 +278,8 @@
     "fields": {
         "description": "I just heard a bomb exploding from Clarke Quay Central.",
         "datetime": "2017-11-12T09:26:02Z",
-        "latitude": "1.45624600",
-        "longitude": "103.24536700",
+        "latitude": "1.288864",
+        "longitude": "103.846936",
         "radius": 300,
         "crisis": 7,
         "crisisType": 3
@@ -291,8 +291,8 @@
     "fields": {
         "description": "The bomb has caused a fire around clarke quay area.",
         "datetime": "2017-11-12T09:27:30Z",
-        "latitude": "1.34672500",
-        "longitude": "102.45674300",
+        "latitude": "1.290720",
+        "longitude": "103.846496",
         "radius": 275,
         "crisis": 7,
         "crisisType": 1
@@ -304,8 +304,8 @@
     "fields": {
         "description": "People are running around and full chaos here after the first bomb exploded and the fear of second one going to explode soon.",
         "datetime": "2017-11-12T09:30:13Z",
-        "latitude": "1.54632100",
-        "longitude": "102.34565400",
+        "latitude": "1.288864",
+        "longitude": "103.846936",
         "radius": 200,
         "crisis": 7,
         "crisisType": 2
@@ -317,8 +317,8 @@
     "fields": {
         "description": "There is a bomb detected at clarke quay mrt station that is going to explode in 2 hours.",
         "datetime": "2017-11-12T09:36:31Z",
-        "latitude": "1.74532500",
-        "longitude": "110.23564500",
+        "latitude": "1.288657",
+        "longitude": "103.847080",
         "radius": 275,
         "crisis": 7,
         "crisisType": 3
@@ -330,8 +330,8 @@
     "fields": {
         "description": "There is an ongoing bomb situation.",
         "datetime": "2017-11-12T11:59:06Z",
-        "latitude": "1.34532500",
-        "longitude": "110.23564500",
+        "latitude": "1.307588",
+        "longitude": "103.790194",
         "radius": 12,
         "crisis": 10,
         "crisisType": 3
@@ -343,8 +343,8 @@
     "fields": {
         "description": "Help la FML",
         "datetime": "2017-11-12T12:01:45Z",
-        "latitude": "1.34370000",
-        "longitude": "103.82409900",
+        "latitude": "1.333916",
+        "longitude": "103.740889",
         "radius": 16,
         "crisis": 9,
         "crisisType": 10
@@ -356,8 +356,8 @@
     "fields": {
         "description": "FML",
         "datetime": "2017-11-12T12:05:28Z",
-        "latitude": "1.03126320",
-        "longitude": "103.81231900",
+        "latitude": "1.339099",
+        "longitude": "103.707353",
         "radius": 16,
         "crisis": 8,
         "crisisType": 12
@@ -369,8 +369,8 @@
     "fields": {
         "description": "This crisis only has crisis reports.",
         "datetime": "2017-11-12T13:54:56Z",
-        "latitude": "1.03151250",
-        "longitude": "103.41251000",
+        "latitude": "1.380179",
+        "longitude": "103.750788",
         "radius": 25,
         "crisis": 11,
         "crisisType": 13
@@ -382,8 +382,8 @@
     "fields": {
         "description": "fire in the zoo",
         "datetime": "2017-11-12T14:53:00Z",
-        "latitude": "1.40434850",
-        "longitude": "103.79302299",
+        "latitude": "1.404455",
+        "longitude": "103.793181",
         "radius": 1000,
         "crisis": null,
         "crisisType": null
@@ -395,8 +395,8 @@
     "fields": {
         "description": "fire lor",
         "datetime": "2017-11-12T15:08:00Z",
-        "latitude": "1.34830990",
-        "longitude": "103.68313469",
+        "latitude": "1.439436",
+        "longitude": "103.793388",
         "radius": 0,
         "crisis": null,
         "crisisType": null

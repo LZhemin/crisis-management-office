@@ -208,8 +208,8 @@
     "fields": {
         "description": "Seng Kang got fire everytime like this",
         "datetime": "2017-10-20T18:24:02Z",
-        "latitude": "1.35375000",
-        "longitude": "103.31523000",
+        "latitude": "1.343158",
+        "longitude": "103.895259",
         "radius": 300,
         "crisis": null,
         "crisisType": 1
@@ -260,8 +260,8 @@
     "fields": {
         "description": "Bombing",
         "datetime": "2017-10-20T18:24:02Z",
-        "latitude": "1.37206600",
-        "longitude": "103.79360000",
+        "latitude": "1.374109",
+        "longitude": "103.776854",
         "radius": 300,
         "crisis": 3,
         "crisisType": 2
