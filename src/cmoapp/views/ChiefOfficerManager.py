@@ -7,7 +7,7 @@ from django.views.generic import ListView,DetailView
 from cmoapp.serializers import NotificationSerializer
 from django.core import serializers
 
-#import requests
+import requests
 import datetime
 
 #Kindly help to remove unwanted modules
@@ -126,20 +126,21 @@ def ApproveActionPlan(request):
     actionPlan = ActionPlan.objects.get(id=actionPlanId)
     actionPlan.status = 'PMORequest'
     actionPlan.outgoing_time = datetime.datetime.now()
-    actionPlan.save()
+    
 
     data = {
-        'PlanID ': actionPlanId,
+        'PlanID': actionPlanId,
         'PlanNum': actionPlan.plan_number,
         'CrisisID':actionPlan.crisis.id,
         'CrisisTitle':actionPlan.crisis.crisis_title,
-        'DateTime':actionPlan.outgoing_time
+        'DateTime':actionPlan.outgoing_time.__str__()
     }
 
-    r = requests.post('http://192.168.137.5:8000/api/order/', json=data)
+    r = requests.post('http://172.21.148.167:8080/api/cmoapi/', json=data)
     print(r.text)
     if r.status_code == 201 or r.status_code == 200:
         print('Posted Successfully!')
+        actionPlan.save()
         return JsonResponse({"success": True, "message": "Action Plan"+actionPlanId+" Approved Successfully!"})
     print('Failure Code:' + str(r.status_code))
 
