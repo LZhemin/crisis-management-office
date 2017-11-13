@@ -236,6 +236,9 @@ def generateCombatPlan(request):
         rule10 = True
         rule11 = True
         fire = False
+        spf = False
+        scdf = False
+        saf = False
         largescalecrisis = False
         terroristattack = False
         riotormasslooting = False
@@ -288,20 +291,25 @@ def generateCombatPlan(request):
             actionplanDescription = actionplanDescription + "Cordon off affected area.\n"
         if rule1:
             actionplanDescription = actionplanDescription + "Curfew will be set and implemented.\n"
-        actionplanDescription = actionplanDescription + "Public Advisory will be carried out on all medias.\n"
+            actionplanDescription = actionplanDescription + "Public Advisory will be carried out on all medias.\n"
         if (fire) == True:
             actionplanDescription = actionplanDescription + "Deploy SCDF to extinguish any fire on scene and tend to casualty\n"
-        actionplanDescription = actionplanDescription + "Deploy SCDF to decontaminate affected area and carry out search & rescue.\n"
+            actionplanDescription = actionplanDescription + "Deploy SCDF to decontaminate affected area and carry out search & rescue.\n"
+            scdf=True
         if (rule7 or rule8 or rule9 or rule10 or rule11) == False:
             if riotormasslooting == True:
                 actionplanDescription = actionplanDescription + "Deploy SAF to contain the riot and crowd control. Traffic redirection to ensure no one enters the affected area.\n"
+                saf=True
             else:
                 if terroristattack == True:
                     actionplanDescription = actionplanDescription + "Deploy SAF to carry out lethal response to terrorist causing damage. Explosives expert to be sent if there's a bomb.\n"
+                    saf=True
                 else:
                     actionplanDescription = actionplanDescription + "Deploy SAF to redirect the traffic to ensure no one enters the affected area. \n"
+                    saf=True
         if (rule11) == False:
             actionplanDescription = actionplanDescription + "SPF Deployment to help out focusing on the safety of the citizens. \n"
+            spf=True
       #  ap = ActionPlan(description=actionplanDescription,
       #                  status="Planning",
       #                  type="Combat",
@@ -318,6 +326,9 @@ def generateCombatPlan(request):
         response_data['resolution_time'] = dt
         response_data['projected_casualties'] = 0
         response_data['crisis_id'] = crisis_id
+        response_data['spf'] = spf
+        response_data['scdf'] = scdf
+        response_data['saf'] = saf
 
         return JsonResponse(response_data)
 
@@ -343,6 +354,9 @@ def generateCleanup(request):
         rule9 = True
         rule10 = True
         rule11 = True
+        spf = False
+        scdf = False
+        saf = False
         fire = False
         largescalecrisis = False
         terroristattack = False
@@ -396,20 +410,25 @@ def generateCleanup(request):
             actionplanDescription = actionplanDescription + "Cordon off affected area until clean up is done.\n"
         if rule1:
             actionplanDescription = actionplanDescription + "Curfew will be lifted after clean up is done.\n"
-        actionplanDescription = actionplanDescription + "Closure of crisis will be broadcast on all medias.\n"
+            actionplanDescription = actionplanDescription + "Closure of crisis will be broadcast on all medias.\n"
         if (fire) == True:
             actionplanDescription = actionplanDescription + "SCDF to inspect the scene for any casualty and tend to found casualties.\n"
-        actionplanDescription = actionplanDescription + "SCDF to continue decontaminating affected area and tend to found casualties.\n"
+            actionplanDescription = actionplanDescription + "SCDF to continue decontaminating affected area and tend to found casualties.\n"
+            scdf = True
         if (rule7 or rule8 or rule9 or rule10 or rule11) == False:
             if riotormasslooting == True:
                 actionplanDescription = actionplanDescription + "SAF to contain crowd until dispersion. Traffic redirection to ensure no one enters the affected area until clean up is done.\n"
+                saf=True;
             else:
                 if terroristattack == True:
                     actionplanDescription = actionplanDescription + "SAF to assess damage on scene and ensure no one enters the affected area until clean up is done.\n"
+                    saf=True;
                 else:
                     actionplanDescription = actionplanDescription + "SAF to redirect the traffic to ensure no one enters the affected area until clean up is done.\n"
+                    saf=True;
         if (rule11) == False:
             actionplanDescription = actionplanDescription + "SPF to help out in what ever is needed focusing on citizens until clean up is done. \n"
+            spf=True
         #ap = ActionPlan(description=actionplanDescription,
         #                status="Planning",
         #                type="Clean Up",
@@ -425,5 +444,8 @@ def generateCleanup(request):
         response_data['resolution_time'] = dt
         response_data['projected_casualties'] = 0
         response_data['crisis_id'] = crisis_id
+        response_data['spf'] = spf
+        response_data['scdf'] = scdf
+        response_data['saf'] = saf
 
         return JsonResponse(response_data)

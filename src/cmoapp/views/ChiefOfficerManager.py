@@ -7,7 +7,7 @@ from django.views.generic import ListView,DetailView
 from cmoapp.serializers import NotificationSerializer
 from django.core import serializers
 
-import requests
+#import requests
 import datetime
 
 #Kindly help to remove unwanted modules

@@ -39,6 +39,9 @@ def generateActionPlan(Request, recCrisis):
     rule9 = True
     rule10 = True
     rule11 = True
+    spf = False
+    scdf = False
+    saf = False
 
     actionplanDescription = ""
     for report in findCrisisReport.all():
@@ -84,16 +87,19 @@ def generateActionPlan(Request, recCrisis):
         actionplanDescription= actionplanDescription + "Cordon\n"
     if rule1:
         actionplanDescription= actionplanDescription + "Curfew\n"
-    actionplanDescription= actionplanDescription + "Public Advisory\n"
-    actionplanDescription= actionplanDescription + "SCDF Deployment\n"
+        actionplanDescription= actionplanDescription + "Public Advisory\n"
+        actionplanDescription= actionplanDescription + "SCDF Deployment\n"
+        scdf = True
     if (rule7 or rule8 or rule9 or rule10 or rule11)== False:
         actionplanDescription= actionplanDescription + "SAF Deployment\n"
+        saf = True
     if (rule11) == False:
         actionplanDescription= actionplanDescription + "SPF Deployment\n"
-    findActionPlan = ActionPlan(description=actionplanDescription,
-                                status="Planning",
-                                type="Combat",
-                                resolutionTime=dt,
-                                projectedCasualties=0.0,
-                                crisis_id=1)
-    findActionPlan.save()
+        spf = True
+    #findActionPlan = ActionPlan(description=actionplanDescription,
+    #                            status="Planning",
+    #                            type="Combat",
+    #                            resolutionTime=dt,
+    #                            projectedCasualties=0.0,
+    #                            crisis_id=1)
+    #findActionPlan.save()

@@ -118,14 +118,19 @@
 
         //Add event handler for force deployment form
         $("#btnAddForce").on('click',function(){
-            var force_form_template = $("#force_form_template").html();
             var chosen_force = $("#force-list option:selected").val();
+            addforcetab(chosen_force);
+        });
+    });
+    function addforcetab(chosen_force)
+    {
+                var force_form_template = $("#force_form_template").html();
             if(chosen_force)
             {
                 console.log("here");
                 data = [{
-                    "force_name":  $("#force-list option:selected").val(),
-                    "force_name_display": $("#force-list option:selected").text()
+                    "force_name":  chosen_force,
+                    "force_name_display": chosen_force.toUpperCase()
                 }];
                 var force_form = attachDataToTemplate(force_form_template, data);
                 $("#force_panels").append(force_form);
@@ -143,9 +148,7 @@
                     $("#force-list option[value="+force+"]").show();
                 });
             }
-        });
-    });
-
+    }
     //initialize google maps
     function initMap(){
         var map = new google.maps.Map(document.getElementById("map"),{

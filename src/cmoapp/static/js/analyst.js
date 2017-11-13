@@ -56,6 +56,19 @@ function generateAP(crisisId){
             $('#id_description').val(data.description)
             //$('#id_duration_count').val(0)
 
+            if(data.spf)
+            {
+            addforcetab('spf');
+            }
+            if(data.scdf)
+            {
+            addforcetab('scdf');
+            }
+            if(data.saf)
+            {
+            addforcetab('saf');
+            }
+
             }
             ,
             error: function(data){
@@ -72,11 +85,21 @@ function generateAP(crisisId){
 
             success: function (data) {
             console.log(data);
-            console.log(data.description);
+            console.log(data.spf);
             $('#id_description').val(data.description)
             //$('#id_duration_count').val(0)
-
+           if(data.spf)
+            {
+            addforcetab("spf");
             }
+            if(data.scdf)
+            {
+            addforcetab('scdf');
+            }
+            if(data.saf)
+            {
+            addforcetab('saf');
+            }            }
             ,
             error: function(data){
                 console.log(data);
