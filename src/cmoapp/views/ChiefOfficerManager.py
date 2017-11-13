@@ -7,7 +7,7 @@ from django.views.generic import ListView,DetailView
 from cmoapp.serializers import NotificationSerializer
 from django.core import serializers
 
-#import requests
+import requests
 import datetime
 
 #Kindly help to remove unwanted modules
@@ -53,7 +53,11 @@ def change_status(request):
         actionPlan = ActionPlan(description='Requesting to Resolve the Crisis',status='PMORequest',crisis_id=crisis.id,type='Resolved', resolution_time=datetime.timedelta(minutes=0),projected_casualties=0)
         actionPlan.save()
         data = {
-            "id": actionPlan.id
+            'PlanID': actionPlan.id,
+            'PlanNum': actionPlan.plan_number,
+            'CrisisID': actionPlan.crisis.id,
+            'CrisisTitle': actionPlan.crisis.crisis_title,
+            'DateTime': actionPlan.outgoing_time.__str__()
         }
         # Test for shit later
         # return JsonResponse(
