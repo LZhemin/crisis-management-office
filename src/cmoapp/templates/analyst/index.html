@@ -117,7 +117,7 @@
                 document.getElementById('forceCount').value = parseInt(document.getElementById('forceCount').value) + 1;
                 data = [{
                     "force_name":  $("#force-list option:selected").val(),
-                    "force_name_display": $("#force-list option:selected").text()
+                    "force_name_display": $("#force-list option:selected").text(),
                     "force_count": document.getElementById('forceCount').value
                 }];
                 var force_form = attachDataToTemplate(force_form_template, data);
