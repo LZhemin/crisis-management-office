@@ -494,7 +494,7 @@
                                             </div>
                                             <div class="col-xs-12 col-sm-4">
                                                 <div class="form-group">
-                                                    {% render_label ActionPlanForm.type class="control-label" content="Plan Type:" %}
+                                                    {% render_label ActionPlanForm.type class="control-label" content="Plan Type:"%}
                                                     {% render_field ActionPlanForm.type class="form-control" %}
                                                     {{ ActionPlanForm.type.errors }}
                                                 </div>
@@ -526,7 +526,7 @@
                                         <button type="submit" class="btn btn-success" name="submitType" value="Submit">
                                             Submit Action Plan
                                         </button>
-                                        <button class="btn btn-info" style="float:right" onclick="generateAP({{assigned_crisis.id}});return false;"> Generate Action Plan</button>
+                                        <button id='generateAPBtn'class="btn btn-info" style="float:right" onclick="generateAP({{assigned_crisis.id}});return false;"> Generate Action Plan</button>
                                     </form>
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade" id="previous" aria-labelledby="previous-tab">

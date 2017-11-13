@@ -82,6 +82,15 @@ function generateAP(crisisId){
             }
         });
     }
+    else if($('#id_type').val()=='Resolved'){
+        new PNotify({
+            title: 'Warning',
+            text: 'Generating "Resolved" Action Plan is not allowed!',
+            type: 'warning',
+            styling: 'bootstrap3'
+        });
+        return
+    }
     else{
         new PNotify({
             title: 'No Action Plan Type Selected!',
