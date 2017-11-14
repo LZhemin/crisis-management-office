@@ -242,7 +242,7 @@ def ReloadTable(request):
         context = {
             'all_crisis': crisis
         }
-        return render(request, '/chief/ui_components/action_plan_table.html', context)
+        return render(request, 'chief/ui_components/action_plan_table.html', context)
 
 
 def ReloadCrisis(request):
