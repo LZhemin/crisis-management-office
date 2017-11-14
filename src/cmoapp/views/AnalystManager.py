@@ -61,6 +61,8 @@ def index(Request):
         sideWidth = int(12 - (forceWidth * Force.objects.count()))/2
         notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
         notification_count = notifications.count()
+        notify_submit = False
+        notify_saving = False
 
     except(KeyError, Crisis.DoesNotExist):
         context = {'assigned_crisis': False}
@@ -75,7 +77,9 @@ def index(Request):
             'sideWidth':sideWidth,
             'json_force': AnalystForceSerializer(Force.objects.all(), many=True).data,
             'notifications': notifications,
-            'notification_count': notification_count
+            'notification_count': notification_count,
+            'notify_submit' : notify_submit,
+            'notify_saving' : notify_saving
         }
         if(Request.method == "GET"):
             #WHY DJANGO WHY DONT YOU HAVE AN INBUILT GET OBJECT_OR_NONE
@@ -101,10 +105,12 @@ def index(Request):
             if submitted_action_plan_form.is_valid() and all([f.is_valid() for f in force_forms]):
                 if(Request.POST['submitType'] == "Save"):
                     ap = submitted_action_plan_form.update_or_create(assigned_crisis,"Planning")
+                    context['notify_saving']=True
                 else:
                     #Create
                     ap = submitted_action_plan_form.update_or_create(assigned_crisis,"Awaiting CO Approval")
                     context['ActionPlanForm'] = ActionPlanForm()
+                    context['notify_submit'] = True
 
                 submitted_list = [ f.save(commit=False) for f in force_forms ]
                 #delete_list = [ fd.name for fd in ap.forcedeployment_set.all() if fd not in submitted_list]
