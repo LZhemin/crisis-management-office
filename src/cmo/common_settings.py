@@ -173,4 +173,6 @@ LOGGING = {
     }
 }
 
-LOGIN_URL = '/login'
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/account/profile/'
+LOGOUT_REDIRECT_URL = '/login/'

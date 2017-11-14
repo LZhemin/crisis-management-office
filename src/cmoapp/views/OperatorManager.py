@@ -47,8 +47,8 @@ def sharedindex():
 @login_required
 @user_passes_test(check_operator_user)
 def index(Request):
-
-    context = sharedindex();
+    context = sharedindex()
+    print("Operating")
     return render(Request, 'operator/index.html',
                 context,
                 {'error_message': "You didn't select a Crisis."}

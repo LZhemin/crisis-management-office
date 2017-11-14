@@ -8,6 +8,7 @@ from cmoapp.serializers import NotificationSerializer
 from django.core import serializers
 from django.contrib.auth.decorators import login_required, user_passes_test
 
+
 import requests
 import datetime
 
@@ -16,6 +17,7 @@ import datetime
 sessionId = 4
 
 def check_chief_user(user):
+    print(user)
     return user.username.endswith('@chief')
 
 
@@ -44,7 +46,8 @@ def index(Request):
             'notifications': notifications,
             'notification_count': notification_count
         }
-        return render(Request, 'chief/index.html', context)
+
+    return render(Request, 'chief/index.html', context)
 
 # Changing the status from here need to add post resolved methods here
 def change_status(request):

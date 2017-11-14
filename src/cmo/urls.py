@@ -38,9 +38,8 @@ urlpatterns = [ # pylint: disable=invalid-name
     url(r'^chief/', include('cmoapp.urls.chief')),
     url(r'^ActionPlan/', include('cmoapp.urls.actionplan')),
     url(r'^publicmap', include('cmoapp.urls.map')),
-    url(r'^accounts/', include('cmoapp.urls.account')),
+    url(r'^account/', include('cmoapp.urls.account')),
     url('^', include('django.contrib.auth.urls')),
-    url(r'^accounts/',include('cmoapp.urls.account')),
 	#url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
     # url(r'^$', login, name='login'),
     url(r'^api/', include('cmoapp.urls.api'))
