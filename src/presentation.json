@@ -144,6 +144,15 @@
     }
 },
 {
+    "model": "cmoapp.account",
+    "pk": 5,
+    "fields": {
+        "login": "Bill",
+        "password": "Bill",
+        "type": "Analyst"
+    }
+},
+{
     "model": "cmoapp.crisistype",
     "pk": 1,
     "fields": {
@@ -204,7 +213,7 @@
     "pk": 1,
     "fields": {
         "crisis_title": "Bombing at Clarke Quay MRT Station",
-        "analyst": 1,
+        "analyst": null,
         "status": "Resolved",
         "external_agencies": null
     }
@@ -214,7 +223,7 @@
     "pk": 2,
     "fields": {
         "crisis_title": "Child kidnapped in Woodlands Post Office",
-        "analyst": 2,
+        "analyst": null,
         "status": "Resolved",
         "external_agencies": null
     }
