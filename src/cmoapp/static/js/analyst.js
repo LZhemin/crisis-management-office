@@ -387,6 +387,49 @@ function reload_notifications() {
     });
 }
 
+//
+function renderInputKnobs(data)
+{
+    maxDial =  document.getElementById("max_dial_" + data['force']);
+    recommendedDial =  document.getElementById("recommended_dial_" + data['force']);
+    if(maxDial && recommendedDial)
+    {
+        //render
+        var renderValue = 0;
+        if(data['force']['max'] < maxDial.value)
+        {
+            renderValue = data['force']['max'];
+        }
+        else
+        {
+            renderValue = maxDial.value;
+        }
+        $(maxDial).trigger(
+        'configure',
+        {
+            "min":10,
+            "max":data['force']['max'],
+
+        }
+        );
+        $(maxDial).val(renderValue);
+    }
+    else
+    {
+                $(maxDial).knob({
+                    'min':0,
+                    'max':100,
+                    'angleArc':360
+                });
+                $(recommendedDial).knob({
+                    'min':0,
+                    'max':100,
+                    'angleArc':360
+                });
+    }
+
+}
+
 
 $('#presentation1').on('click', function () {
     if(!$('#presentation1').hasClass('open')) {

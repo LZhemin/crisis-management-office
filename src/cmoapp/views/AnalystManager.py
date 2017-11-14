@@ -77,18 +77,37 @@ def index(Request,pk):
             context['ActionPlanForm'] = submitted_action_plan_form
             #SAVE ME https://collingrady.wordpress.com/2008/02/18/editing-multiple-objects-in-django-with-newforms/
 
-            forces_indexes = Request.POST['force_indexes']
+            forces_indexes = Request.POST.getlist('force_indexes')
+
             force_forms = []
             for index in forces_indexes:
-                force_forms.append(Request.POST,ForceForm(prefix=index))
+                f = ForceForm(Request.POST, prefix=index)
+                force_forms.append(f)
 
-            if submitted_action_plan_form.is_valid() and all([form.is_valid for form in force_forms]):
+            if submitted_action_plan_form.is_valid() and all([f.is_valid() for f in force_forms]):
                 if(Request.POST['submitType'] == "Save"):
                     ap = submitted_action_plan_form.update_or_create(assigned_crisis,"Planning")
                 else:
                     #Create
-                    submitted_action_plan_form.update_or_create(assigned_crisis,"Awaiting CO Approval")
+                    ap = submitted_action_plan_form.update_or_create(assigned_crisis,"Awaiting CO Approval")
                     context['ActionPlanForm'] = ActionPlanForm()
+
+                submitted_list = [ f.save(commit=False) for f in force_forms ]
+                #delete_list = [ fd.name for fd in ap.forcedeployment_set.all() if fd not in submitted_list]
+
+                force_deployments = ap.forcedeployment_set.all()
+
+                #Clear the old force deployments
+                for fd in force_deployments:
+                        fd.delete()
+
+                #add the new, no time to update
+                for force_deploy in submitted_list:
+                    force_deploy.actionPlan = ap
+                    force_deploy.save()
+
+
+            #Else we just return errors
 
     return render(Request, 'analyst/index.html', context)
 
@@ -99,7 +118,6 @@ def crisis_statistics(Request):
 
 def historicalData(Request):
     return HttpResponse("HISTORICAL DATA")
-
 
 #Methods used for updating of Page components
 def get_efupdates_count(request):
