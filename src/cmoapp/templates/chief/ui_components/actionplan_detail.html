@@ -1,4 +1,4 @@
-{% extends 'analyst/base_site.html' %}
+{% extends 'chief/base_site.html' %}
 {% load custom_tags %}
 
 {% block page_stylesheets %}
@@ -168,67 +168,15 @@
                                     </li>
                                 </ul>
                                 <br>
-
                                 <div class="form-group">
-                                    <button class="btn btn-success btn-xl" data-toggle="modal" data-target="#acceptTableModalAP{{actionPlan.id}}">
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>  Accept
-                                    </button>
-                                    <!-- Modal For Accepting Action Plan-->
-                                    <div class="modal fade bs-example-modal-sm" id='acceptTableModalAP{{actionPlan.id}}' data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-                                        <div class="modal-dialog modal-sm">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
-                                                    </button>
-                                                    <h4 class="modal-title" id="myModalLabel2">Accepting ActionPlan</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <h4>Please confirm that you are accepting the Action Plan?</h4>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
-                                                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="acceptActionPlan({{actionPlan.id}})"><i class="fa fa-check-circle" aria-hidden="true"></i>  Accept</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#rejectTableModalAP{{actionPlan.id}}">
-                                        <i class="fa fa-times-circle" aria-hidden="true"></i>  Reject
-                                    </button>
-                                    <!-- Modal For Rejecting of  Action Plan-->
-                                    <div class="modal fade bs-example-modal-sm" id='rejectTableModalAP{{actionPlan.id}}' data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-                                        <div class="modal-dialog modal-sm">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span>
-                                                    </button>
-                                                    <h4 class="modal-title" id="myModalLabel2">Reject ActionPlan</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <h4>Rejecting Action Plan Id:{{actionPlan.id}}</h4>
-                                                    <p>Please Enter the reason for rejecting the ActionPlan:</p>
-                                                    <textarea id="commentAPTable{{actionPlan.id}}" class="form-control"></textarea>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="rejectActionPlan({{actionPlan.id}},'commentAPTable{{actionPlan.id}}')"><i class="fa fa-times-circle" aria-hidden="true"></i>  Reject</button>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div>
-                                        <label class="control-label">Description </label>
+                                        <label class="control-label" >Description </label>
                                     </div>
                                     <div>
                                         <textarea class="form-control" readonly>{{ Action_Plan.description|default:"None provided" }} </textarea>
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="col-sm-3 col-xs-12">
                                 <section class="panel">
                                     <div class="x_title">
