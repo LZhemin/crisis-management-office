@@ -3,7 +3,7 @@
     "model": "auth.user",
     "fields": {
         "password": "pbkdf2_sha256$36000$4Klk5cc3ZQmJ$CoLBLXrBXa2dq/E9qcVuZrE/9ri6TLDGDnnaQ/wt7+U=",
-        "last_login": "2017-11-13T16:43:25.574Z",
+        "last_login": "2017-11-14T07:19:33.428Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -14,6 +14,90 @@
         "date_joined": "2017-11-13T16:42:46.443Z",
         "groups": [],
         "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$36000$1QpvQNjoFlby$EM2UkKOazMa5gEld7OICeYx+I/daSmdMi/QcqJ/V8So=",
+        "last_login": "2017-11-14T07:23:35.674Z",
+        "is_superuser": false,
+        "username": "Jacob",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-11-14T07:21:41.360Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$36000$xfCcPYuijG0i$Gtic2rZsim2Z6kz0eFk7B6J7QMi4mgq4g1s/eBu4N9s=",
+        "last_login": "2017-11-14T07:23:41.692Z",
+        "is_superuser": false,
+        "username": "Peter",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-11-14T07:21:49Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$36000$zpP0qqJ5UBnG$+dR2a61fWVjD3r/usDcT4mEad2iVBNUsaozF7y0wKF8=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Wilson",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-11-14T07:22:28Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$36000$5yumYE8FeGvl$bAF/On2XDT4UCBX+e3YtvA7eg+cbUDN19fVrd7VeKZ8=",
+        "last_login": "2017-11-14T07:23:49.218Z",
+        "is_superuser": false,
+        "username": "Zack",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-11-14T07:22:46Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "etmll6gy48k62agynnckrtj54hhp3kd6",
+    "fields": {
+        "session_data": "NjY0NmEzYmQwMzdiNmJmODUzYmNjYTE1YjA0MDY3NTM4NjZkNjBhYTp7ImlkIjo0LCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiI1IiwiX2F1dGhfdXNlcl9oYXNoIjoiN2Q3NGNjZmEzMWU4MDRkYzhjYmI4NzE1OTFjZjVkZDM5MjdlNmU4ZiJ9",
+        "expire_date": "2017-11-28T07:23:49.275Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "zq9tjir8tub5imoenbjqe5qz1hxtzsyn",
+    "fields": {
+        "session_data": "NDM5ZTJmOWZjYjk3YTUxYzRmM2ZmNWI5ZWUwYjU3N2UwZDAxYjJmZDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiZjdiNWE3OTJiNWVlNjUxMmMwMzQzNmQzODRhOThiMGQxZjQ1ODg0MSIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=",
+        "expire_date": "2017-11-28T07:19:33.448Z"
     }
 },
 {
@@ -29,7 +113,7 @@
     "fields": {
         "login": "Jacob",
         "password": "Jacob",
-        "type": "Analyst"
+        "type": "Operator"
     }
 },
 {
@@ -56,7 +140,7 @@
     "fields": {
         "login": "Zack",
         "password": "Zack",
-        "type": "Analyst"
+        "type": "Chief"
     }
 },
 {
@@ -142,7 +226,8 @@
     "fields": {
         "crisis_title": "Bombing at Clarke Quay MRT Station",
         "analyst": 1,
-        "status": "Resolved"
+        "status": "Resolved",
+        "external_agencies": null
     }
 },
 {
@@ -151,7 +236,8 @@
     "fields": {
         "crisis_title": "Child kidnapped in Woodlands Post Office",
         "analyst": 2,
-        "status": "Resolved"
+        "status": "Resolved",
+        "external_agencies": null
     }
 },
 {
@@ -160,7 +246,8 @@
     "fields": {
         "crisis_title": "Riot near Ang Mo Kio Hub",
         "analyst": 3,
-        "status": "Clean-up"
+        "status": "Clean-up",
+        "external_agencies": null
     }
 },
 {
@@ -1164,6 +1251,132 @@
         "object_repr": "ID: 5",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 43,
+    "fields": {
+        "action_time": "2017-11-14T07:21:41.409Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "2",
+        "object_repr": "Jacob",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 44,
+    "fields": {
+        "action_time": "2017-11-14T07:21:49.506Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "3",
+        "object_repr": "Peter",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 45,
+    "fields": {
+        "action_time": "2017-11-14T07:22:20.110Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "3",
+        "object_repr": "Peter",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 46,
+    "fields": {
+        "action_time": "2017-11-14T07:22:28.897Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "4",
+        "object_repr": "Wilson",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 47,
+    "fields": {
+        "action_time": "2017-11-14T07:22:33.538Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "4",
+        "object_repr": "Wilson",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 48,
+    "fields": {
+        "action_time": "2017-11-14T07:22:46.361Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "5",
+        "object_repr": "Zack",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 49,
+    "fields": {
+        "action_time": "2017-11-14T07:22:52.804Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "5",
+        "object_repr": "Zack",
+        "action_flag": 2,
+        "change_message": "[]"
     }
 }
 ]
