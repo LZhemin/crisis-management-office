@@ -2,16 +2,16 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.urls import reverse
 from django.contrib.auth import logout
-
+from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan, Force, ForceDeployment, EFUpdate, Comment, Notifications,ForceUtilization
 
 def index(request):
-    print("FUCK")
-    if request.user.username.endswith('@operator'):
-        return HttpResponseRedirect('/operator/')
-    if request.user.username.endswith('@analyst'):
+    account = Account.objects.get(login=request.user.username)
+    request.session['id'] = account.id
+    if account.type == 'Analyst':
         return HttpResponseRedirect('/analyst/')
-    if request.user.username.endswith('@chief'):
-        print("I cna come here!")
+    if account.type == 'Operator':
+        return HttpResponseRedirect('/operator/')
+    if account.type == 'Chief':
         return HttpResponseRedirect('/chief/')
 
     raise Http404('<h1>Invalid accounts</h1>')

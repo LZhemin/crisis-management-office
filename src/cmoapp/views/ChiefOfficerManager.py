@@ -14,10 +14,16 @@ import datetime
 
 #Kindly help to remove unwanted modules
 
-sessionId = 4
 
 def check_chief_user(user):
-    return user.account.type == 'chief'
+    try:
+        account = Account.objects.get(login=user.username)
+    except:
+        return False
+    if(account.type == 'Chief'):
+        return True
+    else:
+        return False
 
 
 @login_required
@@ -25,8 +31,10 @@ def check_chief_user(user):
 def index(Request):
     # UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
     try:
+        sessionId = Request.session['id']
         crisis = Crisis.objects.all().exclude(status='Resolved')
         forces = Force.objects.all()
+        name = Account.objects.get(id=sessionId)
         efUpdatesCount = EFUpdate.objects.count()
         forceWidth = int(12/Force.objects.count())
         sideWidth = int(12 - (forceWidth * Force.objects.count())) / 2
@@ -43,7 +51,8 @@ def index(Request):
             'forceWidth': forceWidth,
             'sideWidth': sideWidth,
             'notifications': notifications,
-            'notification_count': notification_count
+            'notification_count': notification_count,
+            'name':name
         }
 
     return render(Request, 'chief/index.html', context)

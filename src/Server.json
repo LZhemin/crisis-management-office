@@ -3,7 +3,7 @@
     "model": "auth.user",
     "fields": {
         "password": "pbkdf2_sha256$36000$lizAk05apE8h$9ARVV0bpGaHLWLorDHeXZakgY1WNflYRrlPZ6itGGks=",
-        "last_login": "2017-11-12T11:58:25.119Z",
+        "last_login": "2017-11-14T06:15:00.186Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -17,11 +17,138 @@
     }
 },
 {
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$36000$zeVobXCAMq4A$KZrJTP/Oh6pJ+wEdoH+VCMGtnllKu3Rz9WcWfwQ8LcY=",
+        "last_login": "2017-11-14T06:51:18.601Z",
+        "is_superuser": true,
+        "username": "George",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2017-11-14T06:15:13Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$36000$anQEX0XzpIYM$NVXYE1RxJkOnVzF6ZR8ml2TqxtKlf8O70Mk24ncpD90=",
+        "last_login": "2017-11-14T06:46:23.989Z",
+        "is_superuser": true,
+        "username": "Jacob",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2017-11-14T06:16:03Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$36000$3aQIt6w1xDzm$B0mXh9DtDVaxGpVCID4YEjIuxkCHfjDxsT+zfseDtTs=",
+        "last_login": "2017-11-14T06:46:35.188Z",
+        "is_superuser": true,
+        "username": "Milly",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2017-11-14T06:16:23Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$36000$9sgKN2P7AR7K$1aV7DwTQ8a1Qud2aYHlyPe2aBgQTDwfkWRyaFvm/Rxo=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "Peter",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2017-11-14T06:16:33Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$36000$A67bS6L910aQ$UFt00pK3tDmWRAK6zhReFAw0xQozijXlwI4JoCxyIhY=",
+        "last_login": "2017-11-14T06:34:30.906Z",
+        "is_superuser": true,
+        "username": "Wilson",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2017-11-14T06:16:41Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$36000$VMaypsObYOEM$+m6ci+0syPW7OvBxN8NyZq6llCx31TW0c08TB+q5Fng=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "Zack",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2017-11-14T06:16:58Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$36000$jzuONJaGpeFQ$2bjye77RtjLb+/h+0CQFiXNTahslwNjDjKGWHIdj2/8=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "Zavier",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2017-11-14T06:17:09Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
     "model": "sessions.session",
     "pk": "70ixx4ukc4dqmm0j170p8qipzazodknu",
     "fields": {
         "session_data": "ODZmNTI0MTRiZTY0ZDQwNjNjZGZkNDNkMTVmY2YxMGY4MGVmYWY3Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjEiLCJfYXV0aF91c2VyX2hhc2giOiIyODIyNjY0ZmUyM2QzZmNmZjU0MTcxYWMzOWIyMjllMzkxYzUxMjZmIn0=",
         "expire_date": "2017-11-24T15:34:30.018Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "abz1bsv3qlnpj0k5mc5cwlgern41hd60",
+    "fields": {
+        "session_data": "MzE1MTMzODgyMzBjNzRmYmU2MDhkYzkwNzk4ZjMwNTVhZGYyZTJjNDp7Il9hdXRoX3VzZXJfaGFzaCI6IjI4MjI2NjRmZTIzZDNmY2ZmNTQxNzFhYzM5YjIyOWUzOTFjNTEyNmYiLCJfYXV0aF91c2VyX2lkIjoiMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=",
+        "expire_date": "2017-11-28T06:15:00.208Z"
     }
 },
 {
@@ -41,6 +168,14 @@
     }
 },
 {
+    "model": "sessions.session",
+    "pk": "vn8s661fczvnrzlna4nmse975q12dctb",
+    "fields": {
+        "session_data": "ZjAwODM4MzRlZTgyYzc5N2VjNDE2MjcwZTJkYmQyYmY5YWJhYmRhODp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiMTRhMzE1YWU3NmQ5Y2Q1NTBhYjUzNjU4MjgwN2MzYTZjMWQ5Mjg2ZSJ9",
+        "expire_date": "2017-11-28T06:51:18.653Z"
+    }
+},
+{
     "model": "sites.site",
     "fields": {
         "domain": "example.com",
@@ -53,7 +188,7 @@
     "fields": {
         "login": "George",
         "password": "George",
-        "type": "Analyst"
+        "type": "Operator"
     }
 },
 {
@@ -107,7 +242,7 @@
     "fields": {
         "login": "Milly",
         "password": "test",
-        "type": "Analyst"
+        "type": "Chief"
     }
 },
 {
@@ -172,7 +307,8 @@
     "fields": {
         "crisis_title": "Fire at Esplanade",
         "analyst": 1,
-        "status": "Ongoing"
+        "status": "Ongoing",
+        "external_agencies": null
     }
 },
 {
@@ -181,7 +317,8 @@
     "fields": {
         "crisis_title": "Bombing at Clarke Quay MRT Station",
         "analyst": 2,
-        "status": "Ongoing"
+        "status": "Ongoing",
+        "external_agencies": null
     }
 },
 {
@@ -190,7 +327,8 @@
     "fields": {
         "crisis_title": "Riot near Ang Mo Kio Hub",
         "analyst": 3,
-        "status": "Clean-up"
+        "status": "Clean-up",
+        "external_agencies": null
     }
 },
 {
@@ -199,7 +337,8 @@
     "fields": {
         "crisis_title": "Child kidnapped in Woodlands Post Office",
         "analyst": 9,
-        "status": "Resolved"
+        "status": "Resolved",
+        "external_agencies": null
     }
 },
 {
@@ -208,7 +347,8 @@
     "fields": {
         "crisis_title": "Riot in CBD Area",
         "analyst": 10,
-        "status": "Resolved"
+        "status": "Resolved",
+        "external_agencies": null
     }
 },
 {
@@ -217,7 +357,8 @@
     "fields": {
         "crisis_title": "This crisis is without action plans",
         "analyst": 12,
-        "status": "Ongoing"
+        "status": "Ongoing",
+        "external_agencies": null
     }
 },
 {
@@ -226,8 +367,8 @@
     "fields": {
         "description": "Fire is seen around Esplanade Area.",
         "datetime": "2017-11-12T07:46:11Z",
-        "latitude": "1.298166",
-        "longitude": "103.857205",
+        "latitude": "1.29816600",
+        "longitude": "103.85720500",
         "radius": 5000,
         "crisis": 6,
         "crisisType": 1
@@ -239,8 +380,8 @@
     "fields": {
         "description": "Full chaos near Esplanade MRT",
         "datetime": "2017-11-12T07:47:15Z",
-        "latitude": "1.293436",
-        "longitude": "103.855488",
+        "latitude": "1.29343600",
+        "longitude": "103.85548800",
         "radius": 175,
         "crisis": 6,
         "crisisType": 2
@@ -252,8 +393,8 @@
     "fields": {
         "description": "One terrorist has kidnapped a child during this chaos at esplanade area.",
         "datetime": "2017-11-12T07:48:30Z",
-        "latitude": "1.292304",
-        "longitude": "103.859680",
+        "latitude": "1.29230400",
+        "longitude": "103.85968000",
         "radius": 180,
         "crisis": 6,
         "crisisType": 13
@@ -265,8 +406,8 @@
     "fields": {
         "description": "Sudden explosion of bomb is audible at the esplanade building engulfed in flames.",
         "datetime": "2017-11-12T07:51:15Z",
-        "latitude": "1.292849",
-        "longitude": "103.850848",
+        "latitude": "1.29284900",
+        "longitude": "103.85084800",
         "radius": 225,
         "crisis": 6,
         "crisisType": 3
@@ -278,8 +419,8 @@
     "fields": {
         "description": "I just heard a bomb exploding from Clarke Quay Central.",
         "datetime": "2017-11-12T09:26:02Z",
-        "latitude": "1.288864",
-        "longitude": "103.846936",
+        "latitude": "1.28886400",
+        "longitude": "103.84693600",
         "radius": 300,
         "crisis": 7,
         "crisisType": 3
@@ -291,8 +432,8 @@
     "fields": {
         "description": "The bomb has caused a fire around clarke quay area.",
         "datetime": "2017-11-12T09:27:30Z",
-        "latitude": "1.290720",
-        "longitude": "103.846496",
+        "latitude": "1.29072000",
+        "longitude": "103.84649600",
         "radius": 275,
         "crisis": 7,
         "crisisType": 1
@@ -304,8 +445,8 @@
     "fields": {
         "description": "People are running around and full chaos here after the first bomb exploded and the fear of second one going to explode soon.",
         "datetime": "2017-11-12T09:30:13Z",
-        "latitude": "1.288864",
-        "longitude": "103.846936",
+        "latitude": "1.28886400",
+        "longitude": "103.84693600",
         "radius": 200,
         "crisis": 7,
         "crisisType": 2
@@ -317,8 +458,8 @@
     "fields": {
         "description": "There is a bomb detected at clarke quay mrt station that is going to explode in 2 hours.",
         "datetime": "2017-11-12T09:36:31Z",
-        "latitude": "1.288657",
-        "longitude": "103.847080",
+        "latitude": "1.28865700",
+        "longitude": "103.84708000",
         "radius": 275,
         "crisis": 7,
         "crisisType": 3
@@ -330,8 +471,8 @@
     "fields": {
         "description": "There is an ongoing bomb situation.",
         "datetime": "2017-11-12T11:59:06Z",
-        "latitude": "1.307588",
-        "longitude": "103.790194",
+        "latitude": "1.30758800",
+        "longitude": "103.79019400",
         "radius": 12,
         "crisis": 10,
         "crisisType": 3
@@ -343,8 +484,8 @@
     "fields": {
         "description": "Help la FML",
         "datetime": "2017-11-12T12:01:45Z",
-        "latitude": "1.333916",
-        "longitude": "103.740889",
+        "latitude": "1.33391600",
+        "longitude": "103.74088900",
         "radius": 16,
         "crisis": 9,
         "crisisType": 10
@@ -356,8 +497,8 @@
     "fields": {
         "description": "FML",
         "datetime": "2017-11-12T12:05:28Z",
-        "latitude": "1.339099",
-        "longitude": "103.707353",
+        "latitude": "1.33909900",
+        "longitude": "103.70735300",
         "radius": 16,
         "crisis": 8,
         "crisisType": 12
@@ -369,8 +510,8 @@
     "fields": {
         "description": "This crisis only has crisis reports.",
         "datetime": "2017-11-12T13:54:56Z",
-        "latitude": "1.380179",
-        "longitude": "103.750788",
+        "latitude": "1.38017900",
+        "longitude": "103.75078800",
         "radius": 25,
         "crisis": 11,
         "crisisType": 13
@@ -382,8 +523,8 @@
     "fields": {
         "description": "fire in the zoo",
         "datetime": "2017-11-12T14:53:00Z",
-        "latitude": "1.404455",
-        "longitude": "103.793181",
+        "latitude": "1.40445500",
+        "longitude": "103.79318100",
         "radius": 1000,
         "crisis": null,
         "crisisType": null
@@ -395,8 +536,8 @@
     "fields": {
         "description": "fire lor",
         "datetime": "2017-11-12T15:08:00Z",
-        "latitude": "1.439436",
-        "longitude": "103.793388",
+        "latitude": "1.43943600",
+        "longitude": "103.79338800",
         "radius": 0,
         "crisis": null,
         "crisisType": null
@@ -3925,6 +4066,330 @@
         "object_repr": "ID: 23 - Author: CO - Comment: REJECT for Action Plan: 33",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 203,
+    "fields": {
+        "action_time": "2017-11-14T06:15:13.149Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "2",
+        "object_repr": "George",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 204,
+    "fields": {
+        "action_time": "2017-11-14T06:15:49.683Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "2",
+        "object_repr": "George",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"is_staff\", \"is_superuser\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 205,
+    "fields": {
+        "action_time": "2017-11-14T06:16:03.941Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "3",
+        "object_repr": "Jacob",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 206,
+    "fields": {
+        "action_time": "2017-11-14T06:16:15.173Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "3",
+        "object_repr": "Jacob",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"is_superuser\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 207,
+    "fields": {
+        "action_time": "2017-11-14T06:16:23.639Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "4",
+        "object_repr": "Milly",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 208,
+    "fields": {
+        "action_time": "2017-11-14T06:16:33.746Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "5",
+        "object_repr": "Peter",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 209,
+    "fields": {
+        "action_time": "2017-11-14T06:16:41.915Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "6",
+        "object_repr": "Wilson",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 210,
+    "fields": {
+        "action_time": "2017-11-14T06:16:48.894Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "6",
+        "object_repr": "Wilson",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"is_superuser\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 211,
+    "fields": {
+        "action_time": "2017-11-14T06:16:58.452Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "7",
+        "object_repr": "Zack",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 212,
+    "fields": {
+        "action_time": "2017-11-14T06:17:04.055Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "7",
+        "object_repr": "Zack",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"is_superuser\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 213,
+    "fields": {
+        "action_time": "2017-11-14T06:17:09.578Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "8",
+        "object_repr": "Zavier",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 214,
+    "fields": {
+        "action_time": "2017-11-14T06:17:14.381Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "8",
+        "object_repr": "Zavier",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"is_superuser\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 215,
+    "fields": {
+        "action_time": "2017-11-14T06:17:26.030Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "3",
+        "object_repr": "Jacob",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"is_staff\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 216,
+    "fields": {
+        "action_time": "2017-11-14T06:17:35.509Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "4",
+        "object_repr": "Milly",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"is_staff\", \"is_superuser\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 217,
+    "fields": {
+        "action_time": "2017-11-14T06:17:52.069Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "5",
+        "object_repr": "Peter",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"is_staff\", \"is_superuser\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 218,
+    "fields": {
+        "action_time": "2017-11-14T06:17:59.540Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "6",
+        "object_repr": "Wilson",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"is_staff\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 219,
+    "fields": {
+        "action_time": "2017-11-14T06:18:08.649Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "7",
+        "object_repr": "Zack",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"is_staff\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 220,
+    "fields": {
+        "action_time": "2017-11-14T06:18:17.400Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "auth",
+            "user"
+        ],
+        "object_id": "8",
+        "object_repr": "Zavier",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"is_staff\"]}}]"
     }
 }
 ]

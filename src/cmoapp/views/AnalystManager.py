@@ -45,7 +45,14 @@ def getHistorical_data(request):
         return render(request, 'analyst/historical.html', context)
 
 def check_analyst_user(user):
-    return user.username.endswith('@analyst')
+    try:
+        account = Account.objects.get(login=user.username)
+    except:
+        return False
+    if(account.type == 'Analyst'):
+        return True
+    else:
+        return False
 
 
 @login_required
@@ -53,6 +60,8 @@ def check_analyst_user(user):
 def index(Request):
     #UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
     try:
+        sessionId = Request.session['id']
+        accountName = Account.objects.get(id=sessionId)
         assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
         crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
         actionPlanList = ActionPlan.objects.filter(crisis_id=assigned_crisis.id).exclude(status='Planning')
@@ -79,7 +88,8 @@ def index(Request):
             'notifications': notifications,
             'notification_count': notification_count,
             'notify_submit' : notify_submit,
-            'notify_saving' : notify_saving
+            'notify_saving' : notify_saving,
+            'name':accountName
         }
         if(Request.method == "GET"):
             #WHY DJANGO WHY DONT YOU HAVE AN INBUILT GET OBJECT_OR_NONE

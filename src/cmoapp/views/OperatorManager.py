@@ -14,7 +14,14 @@ sessionId = 3
 
 
 def check_operator_user(user):
-    return user.username.endswith('@operator')
+    try:
+        account = Account.objects.get(login=user.username)
+    except:
+        return False
+    if(account.type == 'Operator'):
+        return True
+    else:
+        return False
 
 
 def sharedindex():
@@ -47,7 +54,33 @@ def sharedindex():
 @login_required
 @user_passes_test(check_operator_user)
 def index(Request):
-    context = sharedindex()
+    sessionId = Request.session['id']
+    name = Account.objects.get(id=sessionId)
+    getCrisisList = Crisis.objects.all
+    getCrisisTypeList = CrisisType.objects.all
+    getCrisisReportList = CrisisReport.objects.all
+    getUnassignedCrisisReport = CrisisReport.objects.filter(crisis__isnull=True).order_by('datetime')
+    getResolvedCrisis = Crisis.objects.exclude(status='Resolved').values_list('pk', flat=True)
+    getAssignedCrisisReport = CrisisReport.objects.exclude(crisis__isnull=True).filter(crisis__in=getResolvedCrisis)
+    getNotResolvedCrisisList = Crisis.objects.filter(analyst__isnull=False).exclude(status='Resolved')
+    getanalystacc = Crisis.objects.exclude(analyst__isnull=True).values_list('analyst_id', flat=True)
+    getAccountList = Account.objects.filter(type="Analyst").exclude(pk__in=getanalystacc)
+    notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
+    notification_count = notifications.count()
+
+    context = {'getCrisisList': getCrisisList,
+               'getCrisisTypeList': getCrisisTypeList,
+               'getCrisisReportList': getCrisisReportList,
+               'getUnassignedCrisisReport': getUnassignedCrisisReport,
+               'getAccountList': getAccountList,
+               'getNotResolvedCrisisList': getNotResolvedCrisisList,
+               'getAssignedCrisisReport': getAssignedCrisisReport,
+               'all_crisis': Crisis.objects.reverse(),
+               'all_crisisreport': CrisisReport.objects.reverse(),
+               'notifications': notifications,
+               'notification_count': notification_count,
+               'name':name
+               }
     print("Operating")
     return render(Request, 'operator/index.html',
                 context,
