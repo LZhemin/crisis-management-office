@@ -152,13 +152,13 @@ def historicalData(Request):
 
 #Methods used for updating of Page components
 def get_efupdates_count(request):
-    assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
+    assigned_crisis = Crisis.objects.get(analyst__id=request.session['id'])
     efCount = EFUpdate.objects.filter(crisis_id=assigned_crisis.id).count()
     return JsonResponse({'count':efCount}, safe=False)
 
 def get_efupdates(request):
     try:
-        assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
+        assigned_crisis = Crisis.objects.get(analyst__id=request.session['id'])
         startNum = int(request.POST['startNum'])
         efUpdates = EFUpdate.objects.filter(crisis_id=assigned_crisis.id)[startNum:]
     except(KeyError):
@@ -169,13 +169,13 @@ def get_efupdates(request):
     return JsonResponse(data,safe=False)
 
 def get_comment_count(request):
-    assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
+    assigned_crisis = Crisis.objects.get(analyst__id=request.session['id'])
     commentCount = Comment.objects.filter(actionPlan__crisis__id =assigned_crisis.id).count()
     return JsonResponse({'count':commentCount}, safe=False)
 
 def get_comments(request):
     try:
-        assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
+        assigned_crisis = Crisis.objects.get(analyst__id=request.session['id'])
         startNum = int(request.POST['startNum'])
         comments = Comment.objects.filter(actionPlan__crisis__id =assigned_crisis.id)[startNum:]
     except(KeyError):
@@ -192,13 +192,13 @@ def get_comments(request):
     return JsonResponse(data, safe=False)
 
 def get_crisis_report_count(request):
-    assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
+    assigned_crisis = Crisis.objects.get(analyst__id=request.session['id'])
     crCount = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).count()
     return JsonResponse({'count':crCount}, safe=False)
 
 def get_crisis_reports(request):
     try:
-        assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
+        assigned_crisis = Crisis.objects.get(analyst__id=request.session['id'])
         startNum = int(request.POST['startNum'])
         crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id)[startNum:]
     except(KeyError):
@@ -208,7 +208,8 @@ def get_crisis_reports(request):
 
 def reload_current_stat(request):
     try:
-        assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
+        print(request.session['id'])
+        assigned_crisis = Crisis.objects.get(analyst__id=request.session['id'])
 
     except(KeyError):
         return JsonResponse({'success':False,'error':'Error in retrieving crisis!'})
@@ -223,12 +224,12 @@ class ActionPlanList(ListView):
     template_name = 'analyst/actionplan_list.html'
     #need to get session
     def get_queryset(self):
-        return ActionPlan.objects.filter(crisis__analyst = sessionId).prefetch_related('forcedeployment_set')
+        return ActionPlan.objects.filter(crisis__analyst = self.request.session['id']).prefetch_related('forcedeployment_set')
 
 
 def reload_notification(request):
     try:
-        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
+        notifications = Notifications.objects.filter(_for=request.session['id']).exclude(new=0)
         data = NotificationSerializer(notifications, many=True).data
     except KeyError:
         return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
@@ -237,7 +238,7 @@ def reload_notification(request):
 
 def delete_notification(request):
     try:
-        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
+        notifications = Notifications.objects.filter(_for=request.session['id']).exclude(new=0)
     except KeyError:
         return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
     for notification in notifications:
