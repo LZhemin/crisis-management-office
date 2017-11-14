@@ -168,7 +168,7 @@
     "model": "cmoapp.crisistype",
     "pk": 4,
     "fields": {
-        "name": "Riot/Mass Looting"
+        "name": "Riot"
     }
 },
 {
@@ -182,42 +182,21 @@
     "model": "cmoapp.crisistype",
     "pk": 6,
     "fields": {
-        "name": "Natural Disasters"
+        "name": "Natural_Disasters"
     }
 },
 {
     "model": "cmoapp.crisistype",
     "pk": 7,
     "fields": {
-        "name": "Nuclear/Radiological/Biological-Chemical"
+        "name": "Radiological"
     }
 },
 {
     "model": "cmoapp.crisistype",
     "pk": 8,
     "fields": {
-        "name": "Pandemics"
-    }
-},
-{
-    "model": "cmoapp.crisistype",
-    "pk": 9,
-    "fields": {
-        "name": "Casualties"
-    }
-},
-{
-    "model": "cmoapp.crisistype",
-    "pk": 10,
-    "fields": {
-        "name": "Large Scale Crisis"
-    }
-},
-{
-    "model": "cmoapp.crisistype",
-    "pk": 11,
-    "fields": {
-        "name": "Terrorist Attack"
+        "name": "Hostage"
     }
 },
 {
