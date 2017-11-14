@@ -449,10 +449,15 @@
                 <div id="chat" class="col-sm-12 col-xs-12 sideBorder">
                     <div class="profile_title row">
                         <div class="col-sm-12 col-xs-12">
-                            <h2><i class="fa fa-comments"></i> PMO Chat</h2>
+                            <h2 id='chatTitle'><i class="fa fa-comments"></i> PMO Chat</h2>
                         </div>
-                        <select class="form-control" id="pmoChatSelectBox" style="margin-right: 20px;" onchange="changeChat(this.value)">
+                        <select class="form-control" id="chatSelectBox" style="margin-right: 20px;" onchange="changeDest(this.value)">
                             <option value="GeneralChat" selected disabled>Select Chat For:</option>
+                            <option>EF</option>
+                            <option>CMO</option>
+                        </select>
+                        <select class="form-control" id="pmoChatSelectBox" style="margin-right: 20px;" onchange="changeChat(this.value)">
+                            <option value="GeneralChat" selected disabled>Choose Chat Type:</option>
                             <option>GeneralChat</option>
                             {% for crisis in all_crisis %}
                             <option value='{{crisis.id}}'>Crisis {{crisis.id}}</option>
