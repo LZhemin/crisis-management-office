@@ -73,7 +73,6 @@ def PMO_collection(request,status=None):
         else:
             crisis_list = Crisis.objects.all()
         serializer = PMOSerializer(crisis_list, many=True)
-        print(serializer.errors)
         return Response(serializer.data)
 
     #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
