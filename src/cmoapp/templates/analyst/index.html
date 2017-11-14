@@ -156,6 +156,7 @@
             var force_form_template = $("#force_form_template").html();
             if(chosen_force)
             {
+                chosen_force = chosen_force.toUpperCase();
                 active_forces = active_forces + 1;
                 data = [{
                     "force_name":  chosen_force,
