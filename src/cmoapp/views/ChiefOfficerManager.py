@@ -217,7 +217,7 @@ def addEFUpdate(request, CrisisID):
 #Add the LoginRequiredMixin as the leftmost inheritance
 class ActionPlanDetail(DetailView):
     context_object_name = "Action_Plan"
-    template_name='/chief/ui_components/actionplan_detail.html'
+    template_name='chief/ui_components/actionplan_detail.html'
     model = ActionPlan
 
 
