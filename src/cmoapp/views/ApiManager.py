@@ -31,7 +31,7 @@ def crisisreport_collection(request):
     response_data = {}
     response_data['Status'] = 'Failed!'
     response_data['Message'] = 'CrisisReport Not Captured!'
-
+    print(serializer.errors)
     return Response( serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -56,6 +56,7 @@ def auth_collection(request):
 
         response_data['Status'] = 'Failed!'
         response_data['Message'] = 'Approval Not Captured!'
+        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         #return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
@@ -72,6 +73,7 @@ def PMO_collection(request,status=None):
         else:
             crisis_list = Crisis.objects.all()
         serializer = PMOSerializer(crisis_list, many=True)
+        print(serializer.errors)
         return Response(serializer.data)
 
     #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -86,5 +88,7 @@ def EF_collection(request):
     serializer = EFSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
+        print(serializer.errors)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    print(serializer.errors)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
