@@ -160,7 +160,7 @@
                                     {% endif %}
                                     <li>
                                         <h2 class="name ">  Estimated Resolution Time</h2>
-                                        <h4>{{ Action_Plan.resolution_time }} <i class="fa fa-clock-o"></i></h4>
+                                        <h4>{% render_duration Action_Plan.resolution_time %} <i class="fa fa-clock-o"></i></h4>
                                     </li>
                                     <li>
                                         <h2 class="name">Projected Casualties</h2>
