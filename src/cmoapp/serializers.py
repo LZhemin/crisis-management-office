@@ -123,6 +123,11 @@ class AuthSerializer(serializers.Serializer):
     #     instance.save()
     #     return instance
 
+class ForceDeploymentSerializer(serializers.ModelSerializer):
+
+      class Meta:
+          model = ForceDeployment
+          fields = ('name','recommended','max')
 
 class PMOSerializer(serializers.ModelSerializer):
 

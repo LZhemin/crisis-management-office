@@ -6,7 +6,7 @@ from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan,
 from cmoapp.forms.analyst import ActionPlanForm, ForceForm
 from django.views.generic import ListView,DetailView
 from rest_framework import serializers
-from cmoapp.serializers import CrisisSerializer, CrisisReportSerializer, ActionPlanSerializer, CommentSerializer, NotificationSerializer
+from cmoapp.serializers import CrisisSerializer, CrisisReportSerializer, ActionPlanSerializer, CommentSerializer, NotificationSerializer,ForceDeploymentSerializer
 import datetime
 
 #Future use in session-based views
@@ -82,6 +82,9 @@ def index(Request):
             try:
                 planned_action_plan = assigned_crisis.actionplan_set.get(status="Planning")
                 context['ActionPlanForm'] = ActionPlanForm(instance=planned_action_plan)
+                context['json_ActionPlan'] = ActionPlanSerializer(instance=planned_action_plan).data
+                print([ForceDeploymentSerializer(instance=i).data for i in planned_action_plan.forcedeployment_set.all() ])
+                context['json_forcedeployments'] = [ForceDeploymentSerializer(instance=i).data for i in planned_action_plan.forcedeployment_set.all() ]
             except ActionPlan.DoesNotExist:
                 context['ActionPlanForm'] = ActionPlanForm()
         else:
@@ -90,9 +93,7 @@ def index(Request):
             submitted_action_plan_form = ActionPlanForm(Request.POST)
             context['ActionPlanForm'] = submitted_action_plan_form
             #SAVE ME https://collingrady.wordpress.com/2008/02/18/editing-multiple-objects-in-django-with-newforms/
-
             forces_indexes = Request.POST.getlist('force_indexes')
-
             force_forms = []
             for index in forces_indexes:
                 f = ForceForm(Request.POST, prefix=index)

@@ -221,9 +221,9 @@ function reloadEfUpdate(count){
                         "</li>";
             }
             if(count!=0)
-                $('#efUpdateList').append(html);
+                $('#EFUpdateList').append(html);
             else
-                document.getElementById('efUpdateList').innerHTML = html;
+                document.getElementById('EFUpdateList').innerHTML = html;
         },
         error: function(data){
             console.log(data);
@@ -423,7 +423,7 @@ function reload_notifications() {
 }
 
 //
-function renderInputKnobs(data)
+function renderInputKnobs(data_list)
 {
     maxDial =  document.getElementById("max_dial_" + data['force']);
     recommendedDial =  document.getElementById("recommended_dial_" + data['force']);
@@ -444,7 +444,6 @@ function renderInputKnobs(data)
         {
             "min":10,
             "max":data['force']['max'],
-
         }
         );
         $(maxDial).val(renderValue);

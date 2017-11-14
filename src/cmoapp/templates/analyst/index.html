@@ -64,9 +64,6 @@
 <script src="/static/js/analyst.js"></script>
 <script type="text/javascript">
 
-
-
-
     {% if assigned_crisis %}
         //JSON Fucking up.
         var crisis = {{ True|jsonify }}
@@ -76,8 +73,13 @@
     {% endif %}
         var forces = {{ json_force|jsonify }}
         var active_forces = 0;
-
+        var action_plan = {{ json_ActionPlan|jsonify }}
+        console.log(action_plan);
+        console.log("FIRE");
+        var force_deployments = {{ json_forcedeployments|jsonify }}
+        console.log({{ json_forcedeployments|jsonify }});
     $(document).ready(function(){
+
         //Auto Update After 30 Seconds
         if(crisis)
         {
@@ -87,7 +89,7 @@
                 checkCommentUpdate();
                 checkCRUpdate();
                 reloadCurrentStat();
-                load_agencies();
+                //load_agencies();
             }, 5000);
         }
         else
@@ -505,9 +507,6 @@
                                                             <option value="{{force.name}}">{{force.name}}</option>
                                                             {% endfor %}
                                                         </select>
-                                                        <textarea id = "exAngent" rows="4" cols="50">
-
-                                                        </textarea>
                                                     </div>
                                                     <div class="col-xs-6">
                                                         <button class="btn btn-info btn-block" type="button"
