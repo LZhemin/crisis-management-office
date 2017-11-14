@@ -17,8 +17,7 @@ import datetime
 sessionId = 4
 
 def check_chief_user(user):
-    print(user)
-    return user.username.endswith('@chief')
+    return user.account.type == 'chief'
 
 
 @login_required

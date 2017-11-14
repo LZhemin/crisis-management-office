@@ -91,6 +91,7 @@
                 reloadCurrentStat();
                 //load_agencies();
             }, 5000);
+            actionAlert();
         }
         else
         {
@@ -129,6 +130,25 @@
             addforcetab(chosen_force);
         });
     });
+    function actionAlert()
+    {
+    {% if notify_submit %}
+                       new PNotify({
+                        title: 'Action Plan Submitted',
+                        text: 'Submit Successful',
+                        type: 'success',
+                        styling: 'bootstrap3'
+                        });
+    {% else %}
+                       new PNotify({
+                        title: 'Action Plan Saved',
+                        text: 'Save Successful',
+                        type: 'success',
+                        styling: 'bootstrap3'
+                        });
+    {% endif %}
+
+    }
 
 
     function addforcetab(chosen_force)
