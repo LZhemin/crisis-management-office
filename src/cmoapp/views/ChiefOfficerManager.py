@@ -31,7 +31,8 @@ def check_chief_user(user):
 def index(Request):
     # UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
     try:
-        sessionId = Request.session['id']
+        sessionId = 4
+
         crisis = Crisis.objects.all().exclude(status='Resolved')
         forces = Force.objects.all()
         name = Account.objects.get(id=sessionId)
@@ -216,7 +217,7 @@ def addEFUpdate(request, CrisisID):
 #Add the LoginRequiredMixin as the leftmost inheritance
 class ActionPlanDetail(DetailView):
     context_object_name = "Action_Plan"
-    template_name='chief/ui_components/actionplan_detail.html'
+    template_name='/chief/ui_components/actionplan_detail.html'
     model = ActionPlan
 
 
@@ -241,7 +242,7 @@ def ReloadTable(request):
         context = {
             'all_crisis': crisis
         }
-        return render(request, 'chief/ui_components/action_plan_table.html', context)
+        return render(request, '/chief/ui_components/action_plan_table.html', context)
 
 
 def ReloadCrisis(request):
@@ -274,7 +275,7 @@ def getHistorical_data(request):
 
 def reload_notification(request):
     try:
-        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
+        notifications = Notifications.objects.filter(_for=4).exclude(new=0)
         data = NotificationSerializer(notifications, many=True).data
     except KeyError:
         return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
@@ -283,7 +284,7 @@ def reload_notification(request):
 
 def delete_notification(request):
     try:
-        notifications = Notifications.objects.filter(_for=sessionId).exclude(new=0)
+        notifications = Notifications.objects.filter(_for=4).exclude(new=0)
     except KeyError:
         return JsonResponse({"success": False, "error": "Error Occurred Problems check key names!"})
     for notification in notifications:
