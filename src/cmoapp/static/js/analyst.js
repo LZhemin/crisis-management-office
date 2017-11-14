@@ -184,7 +184,7 @@ function reloadEfUpdate(count){
                 html += "<li><div id='efCrisis"+array[update]['crisis']+"' class='block'>" +
                             "<div class='block_content'> " +
                                 "<h2 class='title'>"+array[update]['crisisTitle']+"</h2> " +
-                                "<div class='byline'>"+array[update]['datetime'];
+                                "<div class='byline'>"+array[update]['datetime '];
 
                 if(array[update]['type'] == 'Request')
                     html += "<span class=\"label label-danger\">"+array[update]['type']+"</span>";

@@ -158,15 +158,22 @@ def get_efupdates_count(request):
 
 def get_efupdates(request):
     try:
-        assigned_crisis = Crisis.objects.get(analyst__id=request.session['id'])
         startNum = int(request.POST['startNum'])
-        efUpdates = EFUpdate.objects.filter(crisis_id=assigned_crisis.id)[startNum:]
+        efUpdates = EFUpdate.objects.all()[startNum:]
     except(KeyError):
         return JsonResponse({'success':False,'error':'Error in retrieving efupdates!'})
 
-    data = AnalystEFUpdateSerializer(efUpdates, many=True).data
+    data = []
+    for update in efUpdates:
+        data.append({
+            "crisis": update.crisis.id,
+            "crisisTitle": update.crisis.crisis_title,
+            'description':update.description,
+            'datetime':update.timefrom(),
+            'type':update.type
+        })
 
-    return JsonResponse(data,safe=False)
+    return JsonResponse(data, safe=False)
 
 def get_comment_count(request):
     assigned_crisis = Crisis.objects.get(analyst__id=request.session['id'])
