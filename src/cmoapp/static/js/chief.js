@@ -87,7 +87,7 @@ function changeStatus(id,status){
     }
     $.ajax({
         type:"POST",
-        url: "change_status/",
+        url: "/chief/change_status/",
         data: { id: id, status: status},
         dataType: 'json',
         success: function (data) {
@@ -119,7 +119,7 @@ function rejectActionPlan(idval,commentId){
     if(comment.length>0){
         $.ajax({
             type:"POST",
-            url: "reject_action_plan/",
+            url: "/chief/reject_action_plan/",
             data: { id: idval, comment: comment},
             dataType: 'json',
             success: function (data) {
@@ -152,7 +152,7 @@ function rejectActionPlan(idval,commentId){
 function acceptActionPlan(id){
     $.ajax({
         type:"POST",
-        url: 'approve_action_plan/',
+        url: '/chief/approve_action_plan/',
         data:{ id: id},
         dataType: 'json',
         success: function (data) {
@@ -293,7 +293,7 @@ setInterval(function()
 function checkEfUpdate(){
     $.ajax({
         type:"GET",
-        url: "get_efupdate_count/",
+        url: "/chief/get_efupdate_count/",
         dataType: 'json',
         success: function (data) {
             var newEfCount = data['count'];
@@ -315,7 +315,7 @@ function reloadEfUpdate(count){
     var html = "";
     $.ajax({
         type:"POST",
-        url: "get_efupdates/",
+        url: "/chief/get_efupdates/",
         data:{'startNum':count},
         dataType: 'json',
         success: function (data) {
@@ -352,7 +352,7 @@ function reloadEfUpdate(count){
 //reloads the action_plan_table template
 function reload_table() {
     $.ajax({
-        url :"reload_table/",
+        url :"/chief/reload_table/",
         type : "GET", // http method
         // handle a successful response
         //var html;
@@ -368,7 +368,7 @@ function reload_table() {
 //reloads the all_crisis template
 function reload_crisis() {
     $.ajax({
-        url :"reload_crisis/",
+        url :"/chief/reload_crisis/",
         type : "GET", // http method
         // handle a successful response
         //var html;

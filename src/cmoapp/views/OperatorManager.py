@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse, QueryDict, JsonResponse
 from django.urls import reverse
@@ -10,6 +11,10 @@ import json
 #Kindly help to remove unwanted modules
 
 sessionId = 3
+
+
+def check_operator_user(user):
+    return user.username.endswith('@operator')
 
 
 def sharedindex():
@@ -39,6 +44,8 @@ def sharedindex():
                }
     return context
 
+@login_required
+@user_passes_test(check_operator_user)
 def index(Request):
 
     context = sharedindex();

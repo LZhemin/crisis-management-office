@@ -6,6 +6,7 @@ from cmoapp.models import Account, Crisis, CrisisReport, CrisisType, ActionPlan,
 from django.views.generic import ListView,DetailView
 from cmoapp.serializers import NotificationSerializer
 from django.core import serializers
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 import requests
 import datetime
@@ -14,6 +15,12 @@ import datetime
 
 sessionId = 4
 
+def check_chief_user(user):
+    return user.username.endswith('@chief')
+
+
+@login_required
+@user_passes_test(check_chief_user)
 def index(Request):
     # UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
     try:
