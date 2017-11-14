@@ -119,7 +119,7 @@ def index(Request):
                     context['notify_saving']=True
                 else:
                     #Create
-                    ap = submitted_action_plan_form.update_or_create(assigned_crisis,"Awaiting CO Approval")
+                    ap = submitted_action_plan_form.update_or_create(assigned_crisis,"CORequest")
                     context['ActionPlanForm'] = ActionPlanForm()
                     context['notify_submit'] = True
 
