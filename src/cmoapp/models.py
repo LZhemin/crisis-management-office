@@ -175,7 +175,7 @@ class Comment(models.Model):
         elif int(difference/3600) >= 1:
             return '{} hours ago...'.format(int(difference / 3600))
         elif int(difference/60) >= 1:
-            return '{} minutes ago...{}'.format((int(difference / 60)))
+            return '{} minutes ago...'.format((int(difference / 60)))
         else:
             return '{} seconds ago...'.format(int (difference))
 

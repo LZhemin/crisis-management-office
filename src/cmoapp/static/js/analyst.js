@@ -240,6 +240,7 @@ function reloadComments(count){
         dataType: 'json',
         success: function (data) {
             array = data;
+            console.log(array);
             for(num in array){
                 html += "<div class=\"mail_list\">\n" +
                             "<div style=\"padding-left: 1em;\">\n" +
