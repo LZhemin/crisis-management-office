@@ -97,6 +97,9 @@ class AuthSerializer(serializers.Serializer):
             text = self.validated_data['Comments']
             timeCreated = timezone.now()
             Comment.objects.create(text=text,author=author,timeCreated=timeCreated,actionPlan=ap)
+
+        return ap
+
         #if agencies != None :
         #    ap = ActionPlan.objects.get(id = aid)
         #    Crisis.objects.filter(id = ap.crisis_id).update(external_agencies = agencies)
