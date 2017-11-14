@@ -53,7 +53,7 @@ def auth_collection(request):
                 if(ap.type == "Resolved"):
                     ap.crisis.status = "Resolved"
                     ap.save()
-                    
+
             response_data['Status'] = 'Success!'
             response_data['Message'] = 'Approval Captured!'
             return Response(response_data, status=status.HTTP_200_OK)

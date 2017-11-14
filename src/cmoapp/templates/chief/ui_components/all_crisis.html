@@ -20,12 +20,12 @@
                         <h2 style="float: left;">Change Status to: &nbsp&nbsp</h2>
                         {% if crisis.status == 'Ongoing'%}
                         <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#cleanupModal{{crisis.id}}" style="float: right;">Clean-up</button>
-                        {% elif crisis.latestPlan.type != 'Resolved'%}
-                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#ongoingModal{{crisis.id}}" style="float: right;">Ongoing</button>
-                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#resolvedModal{{crisis.id}}" style="float: right;">Resolve</button>
-                        {% else%}
+                        {% elif crisis.latestPlan.type == 'Resolved' and crisis.latestPlan.status != 'Rejected'%}
                         <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#ongoingModal{{crisis.id}}" style="float: right;">Ongoing</button>
                         <button class="btn btn-success" type="button" data-toggle="modal" data-target="#resolvedModal{{crisis.id}}" style="float: right;" disabled>Resolve</button>
+                        {% else%}
+                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#ongoingModal{{crisis.id}}" style="float: right;">Ongoing</button>
+                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#resolvedModal{{crisis.id}}" style="float: right;" >Resolve</button>
                         {%endif%}
                         <!-- Modal For Changing Status to Ongoing-->
                         <div class="modal fade bs-example-modal-sm" id='ongoingModal{{crisis.id}}' data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
