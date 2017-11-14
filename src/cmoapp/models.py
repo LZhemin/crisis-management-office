@@ -46,7 +46,7 @@ class Crisis(models.Model):
         ('Resolved', 'Resolved')
     )
     status = models.CharField(max_length=20, choices=STATUS)
-
+    external_agencies = models.TextField(null=True, blank=True)
     #class Meta:
      #   ordering = ['analyst']
 
@@ -175,7 +175,7 @@ class Comment(models.Model):
         elif int(difference/3600) >= 1:
             return '{} hours ago...'.format(int(difference / 3600))
         elif int(difference/60) >= 1:
-            return '{} minutes ago...'.format(int(difference / 3600))
+            return '{} minutes ago...{}'.format((int(difference / 60)))
         else:
             return '{} seconds ago...'.format(int (difference))
 
@@ -235,7 +235,7 @@ class EFUpdate(models.Model):
         elif int(difference/3600) >= 1:
             return '{} hours ago...'.format(int(difference / 3600))
         elif int(difference/60) >= 1:
-            return '{} minutes ago...'.format(int(difference / 3600))
+            return '{} minutes ago...'.format(int(difference / 60))
         else:
             return '{} seconds ago...'.format(int (difference))
 

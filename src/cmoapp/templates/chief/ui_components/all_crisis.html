@@ -95,49 +95,49 @@
                         <div class="col-md-3 col-sm-6 col-xs-12 tile_stats_count">
                             <span class="count_top"><i class="fa fa-ambulance"></i> Total Injured</span>
                             <div class="count blue">
-                                <h1>
+                                <h3>
                                     {% if crisis.injuries %}
                                         {{crisis.injuries}}
                                     {% else %}
                                         No Update
                                     {%endif%}
-                                </h1>
+                                </h3>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-12 tile_stats_count">
                             <span class="count_top"><i class="fa fa-hospital-o"></i> Total Deaths</span>
                             <div class="count red">
-                                <h1>
+                                <h3>
                                     {% if crisis.deaths %}
                                         {{crisis.deaths}}
                                     {% else %}
                                         No Update
                                     {%endif%}
-                                </h1>
+                                </h3>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-12 tile_stats_count">
                             <span class="count_top"><i class="fa fa-user"></i> Analyst Assigned</span>
                             <div class="count green">
-                                <h1>
+                                <h3>
                                     {% if crisis.analyst.login %}
                                         {{crisis.analyst.login}}
                                     {% else %}
                                         -
                                     {%endif%}
-                                </h1>
+                                </h3>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-12 tile_stats_count">
                             <span class="count_top"><i class="fa fa-phone"></i> Analyst Contact No.</span>
                             <div class="count green">
-                                <h1>
+                                <h3>
                                     {% if crisis.analyst.login %}
                                         {{crisis.analyst.login}}
                                     {% else %}
                                         -
                                     {%endif%}
-                                </h1>
+                                </h3>
                             </div>
                         </div>
                     </div>

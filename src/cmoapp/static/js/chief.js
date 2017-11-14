@@ -87,7 +87,7 @@ function changeStatus(id,status){
     }
     $.ajax({
         type:"POST",
-        url: "change_status/",
+        url: "/chief/change_status/",
         data: { id: id, status: status},
         dataType: 'json',
         success: function (data) {
@@ -119,7 +119,7 @@ function rejectActionPlan(idval,commentId){
     if(comment.length>0){
         $.ajax({
             type:"POST",
-            url: "reject_action_plan/",
+            url: "/chief/reject_action_plan/",
             data: { id: idval, comment: comment},
             dataType: 'json',
             success: function (data) {
@@ -152,7 +152,7 @@ function rejectActionPlan(idval,commentId){
 function acceptActionPlan(id){
     $.ajax({
         type:"POST",
-        url: 'approve_action_plan/',
+        url: '/chief/approve_action_plan/',
         data:{ id: id},
         dataType: 'json',
         success: function (data) {
@@ -205,14 +205,12 @@ function checkIfCrisisInactive(){
         if(!$(this).hasClass('collapsed'))
             result = false;
     });
-
     return result;
 }
-
+var filteredBy = 0;
 function filterMapCrisis(id){
     var text;
-    //Dont Filter anything if no Crisis Selected
-    if(!checkIfCrisisInactive()){
+    if(filteredBy==id){
         for (i = 0; i < markers.length; i++) {
             markers[i][0].setVisible(true);
             circles[i].setVisible(true);
@@ -224,7 +222,8 @@ function filterMapCrisis(id){
         });
         text = "Site no longer being filtered by Crisis ID!";
         changeChat('GeneralChat');
-        changeEFChat('GeneralChat');
+        //changeEFChat('GeneralChat');
+        filteredBy = 0;
     }
     //Filter if Crisis is selected
     else{
@@ -248,7 +247,8 @@ function filterMapCrisis(id){
         });
         text = "Showing Stats of Crisis ID: "+id+"!";
         changeChat(id);
-        changeEFChat(id);
+        //changeEFChat(id);
+        filteredBy = id;
     }
 
     new PNotify({
@@ -263,7 +263,6 @@ function filterMapCrisis(id){
 setInterval(function()
 {
 
-    console.log($('#allCrisis').hasClass('active'));
     //Reload the action_plan_template, and only reload
     // all_crisis template if none of the crisis are selected
     if($('#allCrisis').hasClass('active')){
@@ -280,21 +279,21 @@ setInterval(function()
             reload_table();
     }
     checkEfUpdate();
+}, 10000);
 
-}, 3000);
 
 //Auto Update Notification After 3 Seconds
 setInterval(function()
 {
-    reload_notifications()
-}, 3000);
+    reloadEfUpdate(0);
+}, 30000);
 
 
 //Checking for New EFUpdates
 function checkEfUpdate(){
     $.ajax({
         type:"GET",
-        url: "get_efupdate_count/",
+        url: "/chief/get_efupdate_count/",
         dataType: 'json',
         success: function (data) {
             var newEfCount = data['count'];
@@ -316,23 +315,32 @@ function reloadEfUpdate(count){
     var html = "";
     $.ajax({
         type:"POST",
-        url: "get_efupdates/",
-        data:{'startNum':0},
+        url: "/chief/get_efupdates/",
+        data:{'startNum':count},
         dataType: 'json',
         success: function (data) {
-            array = JSON.parse(data);
-            console.log(array[0]['fields']);
+            array = data;
             for(update in array){
                 html += "<li><div id='efCrisis"+array[update]['crisis']+"' class='block'>" +
                             "<div class='block_content'> " +
-                                "<h2 class='title'>Crisis "+array[update]['crisisTitle']+"</h2> " +
-                                "<div class='byline'>"+array[update]['datetime']+"</div> " +
+                                "<h2 class='title'>"+array[update]['crisisTitle']+"</h2> " +
+                                "<div class='byline'>"+array[update]['datetime'];
+
+                if(array[update]['type'] == 'Request')
+                    html += "<span class=\"label label-danger\">"+array[update]['type']+"</span>";
+                else
+                    html+= "<span class=\"label label-info\">"+array[update]['type']+"</span>";
+
+                html+= "</div> " +
                                     "<p class='excerpt'>"+array[update]['description']+"</p> " +
                                 "</div> " +
                             "</div> " +
                         "</li>";
             }
-            $('#efUpdateList').html(html);
+            if(count!=0)
+                $('#efUpdateList').append(html);
+            else
+                document.getElementById('efUpdateList').innerHTML = html;
         },
         error: function(data){
             console.log(data);
@@ -344,7 +352,7 @@ function reloadEfUpdate(count){
 //reloads the action_plan_table template
 function reload_table() {
     $.ajax({
-        url :"reload_table/",
+        url :"/chief/reload_table/",
         type : "GET", // http method
         // handle a successful response
         //var html;
@@ -360,7 +368,7 @@ function reload_table() {
 //reloads the all_crisis template
 function reload_crisis() {
     $.ajax({
-        url :"reload_crisis/",
+        url :"/chief/reload_crisis/",
         type : "GET", // http method
         // handle a successful response
         //var html;

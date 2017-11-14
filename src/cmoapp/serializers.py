@@ -61,12 +61,14 @@ class AuthSerializer(serializers.Serializer):
     PlanID = serializers.IntegerField()
     Comments = serializers.CharField(required=False, allow_null=True, allow_blank=True, max_length=100)
     PlanStatus = serializers.BooleanField(required=True)
+    external_agencies = serializers.CharField(required=False, allow_null=True, allow_blank=True, max_length=1000)
 
     def validate(self, data):
         id = data.get('PlanID')
         text = data.get('Comments',None)
         approval = data.get('PlanStatus')
         ap = ActionPlan.objects.get(id=id)
+        agencies = data.get('external_agencies')
 
         if ap.status != 'PMORequest':
             raise serializers.ValidationError('ActionPlan already validated')
@@ -80,6 +82,8 @@ class AuthSerializer(serializers.Serializer):
     def save(self):
         aid = self.validated_data['PlanID']
         ap = ActionPlan.objects.get(id = aid)
+        agencies = self.validated_data['external_agencies']
+
         if self.validated_data['PlanStatus'] == True:
             ap.status = 'PMOApproved'
         else:
@@ -89,9 +93,13 @@ class AuthSerializer(serializers.Serializer):
 
         if self.validated_data['PlanStatus'] == False:
             author = 'PMO'
+            aid = self.validated_data['PlanID']
             text = self.validated_data['Comments']
             timeCreated = timezone.now()
             Comment.objects.create(text=text,author=author,timeCreated=timeCreated,actionPlan=ap)
+        if agencies != None :
+            ap = ActionPlan.objects.get(id = aid)
+            Crisis.objects.filter(id = ap.crisis_id).update(external_agencies = agencies)
 
     # id = serializers.IntegerField(read_only=True)
     # text = serializers.CharField(required=False, allow_blank=True, max_length=100)

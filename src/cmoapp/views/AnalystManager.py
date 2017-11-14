@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
@@ -14,7 +15,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 #Kindly help to remove unwanted modules
 
 sessionId = 1
-
+def agencies(request):
+    crisis_id = request.POST.get("crisisId")
+    getAgency = Crisis.objects.get(id = crisis_id)
+    response_data = {}
+    if(getAgency.external_agencies is not None or getAgency.external_agencies != ""):
+        response_data['agency'] = getAgency.external_agencies
+    else:
+        response_data['agency'] = '';
+    return JsonResponse(response_data)
 
 def getHistorical_data(request):
     try:
@@ -35,11 +44,16 @@ def getHistorical_data(request):
 
         return render(request, 'analyst/historical.html', context)
 
-def index(Request,pk):
+def check_analyst_user(user):
+    return user.username.endswith('@analyst')
+
+
+@login_required
+@user_passes_test(check_analyst_user)
+def index(Request):
     #UNTIL WE IMPLEMENT SESSIONS WE WILL WORKAROUND WITH SESSION ID = 1
     try:
-        id =pk
-        assigned_crisis = Crisis.objects.get(analyst__id=id)
+        assigned_crisis = Crisis.objects.get(analyst__id=sessionId)
         crisis_reports = CrisisReport.objects.filter(crisis_id=assigned_crisis.id).select_related('crisisType')
         actionPlanList = ActionPlan.objects.filter(crisis_id=assigned_crisis.id).exclude(status='Planning')
         all_forces = Force.objects.all()

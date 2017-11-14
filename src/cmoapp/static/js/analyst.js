@@ -1,6 +1,33 @@
 //Variables to track number of each of the stats
 var efCount=-1, commentCount=-1, crCount=-1;
 
+ function load_agencies() {
+        console.log("create post is working! test"); // sanity check
+       console.log($('#hiddenleafvillage').val());
+       var crisis_id = $('#hiddenleafvillage').val();
+        $.ajax({
+            url : "/analyst/agencies/", // the endpoint
+            type : "POST", // http method
+            data : { crisisId : crisis_id}, // data sent with the post request //, getstatus : $('#getstatus').val()
+            // handle a successful response
+            success : function(json) {
+                //alert('#crisisreport-'+json.existingreportid);
+
+                $('#exAngent').val(json.agency); // remove the value from the input
+                console.log(json.agency); // log the returned json to the console
+                console.log("success"); // another sanity check
+
+            },
+            // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+                // add the error to the dom
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+        });
+    };
+
+
+
 //Used to Get the CSRF Token later on
 function getCookie(name) {
     var cookieValue = null;
@@ -99,7 +126,8 @@ function generateAP(crisisId){
             if(data.saf)
             {
             addforcetab('saf');
-            }            }
+            }
+            }
             ,
             error: function(data){
                 console.log(data);
@@ -132,8 +160,15 @@ function generateAP(crisisId){
 //Auto Update Notification After 3 Seconds
 setInterval(function()
 {
-    reload_notifications()
+    reload_notifications();
 }, 3000);
+
+//Auto Update Notification After 30 Seconds
+setInterval(function()
+{
+    reloadEfUpdate(0);
+    checkCommentUpdate(0);
+}, 30000);
 
 
 //Polling for Updates Sections
@@ -158,43 +193,43 @@ function checkEfUpdate(){
     });
 }
 
-//Append to EFList
 function reloadEfUpdate(count){
     var array = [];
     var html = "";
     $.ajax({
         type:"POST",
-        url: "/analyst/get_efupdates/",
+        url: "get_efupdates/",
         data:{'startNum':count},
         dataType: 'json',
         success: function (data) {
             array = data;
-            //Remove the  <span>No Reports Yet</span> first
-            if($('#EFUpdateList li').length==0)
-                $('#EFUpdateList').html("");
-            for(num in array){
-                html += "<li><div class='block'>" +
+            for(update in array){
+                html += "<li><div id='efCrisis"+array[update]['crisis']+"' class='block'>" +
                             "<div class='block_content'> " +
-                                "<h2 class='title'>"+array[num]['description']+"</h2> " +
-                                "<div class='byline'>"+array[num]['datetime']+"</div> " +
+                                "<h2 class='title'>"+array[update]['crisisTitle']+"</h2> " +
+                                "<div class='byline'>"+array[update]['datetime'];
+
+                if(array[update]['type'] == 'Request')
+                    html += "<span class=\"label label-danger\">"+array[update]['type']+"</span>";
+                else
+                    html+= "<span class=\"label label-info\">"+array[update]['type']+"</span>";
+
+                html+= "</div> " +
+                                    "<p class='excerpt'>"+array[update]['description']+"</p> " +
                                 "</div> " +
                             "</div> " +
                         "</li>";
             }
-            $('#EFUpdateList').append(html);
-            new PNotify({
-                title: 'Update!',
-                text: 'New EF Updates available for viewing!',
-                type: 'info',
-                styling: 'bootstrap3'
-            });
+            if(count!=0)
+                $('#efUpdateList').append(html);
+            else
+                document.getElementById('efUpdateList').innerHTML = html;
         },
         error: function(data){
-
+            console.log(data);
         }
     });
 }
-
 //Checking for New EFUpdates
 function checkCommentUpdate(){
     $.ajax({
