@@ -301,7 +301,7 @@ def generateCombatPlan(request):
         riotormasslooting = False
         actionplanDescription = ""
         for report in findCrisisReport.all():
-            if (report.crisisType.name == 'Bombing') or (report.crisisType.name == 'Hijacking & Skyjacking') or (report.crisisType.name == 'Cyber Terrorism') or (report.crisisType.name == 'Nuclear/Radiological') or (report.crisisType.name == 'Biological-Chemical') or (report.crisisType.name == 'Kidnapping') or (report.crisisType.name == 'Arson') or (report.crisisType.name == 'Massacre'):
+            if (report.crisisType.name == 'Bombing') or (report.crisisType.name == 'Hijacking & Skyjacking') or (report.crisisType.name == 'Cyber Terrorism') or (report.crisisType.name == 'Nuclear/Radiological') or (report.crisisType.name == 'Biological-Chemical') or (report.crisisType.name == 'Kidnapping') or (report.crisisType.name == 'Hostage') or (report.crisisType.name == 'Massacre'):
                 terroristattack = True
             if (report.radius > 199):
                 rule7 = False
@@ -421,7 +421,7 @@ def generateCleanup(request):
         riotormasslooting = False
         actionplanDescription = ""
         for report in findCrisisReport.all():
-            if (report.crisisType.name == 'Bombing') or (report.crisisType.name == 'Hijacking & Skyjacking') or (report.crisisType.name == 'Cyber Terrorism') or (report.crisisType.name == 'Nuclear/Radiological') or (report.crisisType.name == 'Biological-Chemical') or (report.crisisType.name == 'Kidnapping') or (report.crisisType.name == 'Arson') or (report.crisisType.name == 'Massacre'):
+            if (report.crisisType.name == 'Bombing') or (report.crisisType.name == 'Hijacking & Skyjacking') or (report.crisisType.name == 'Cyber Terrorism') or (report.crisisType.name == 'Nuclear/Radiological') or (report.crisisType.name == 'Biological-Chemical') or (report.crisisType.name == 'Kidnapping') or (report.crisisType.name == 'Hostage') or (report.crisisType.name == 'Massacre'):
                 terroristattack = True
             if (report.radius > 199):
                 rule7 = False
