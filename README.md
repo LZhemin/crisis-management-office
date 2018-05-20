@@ -1,6 +1,7 @@
 # Crisis Management Office
 
-Project for CZ3003 Software System Analysis and Design, group SSP3.
+This project aims to enhance understanding of how large-scale systems is created and how they function between different subsystems. The primary focus of this project is on large scale system development with emphasis on System Integration between subsystems such as 911, Prime Minister Office, Emergency Forces and lastly Crisis Management Office to manage crisis.
+
 
 ## Getting Started Guide
 
@@ -117,3 +118,6 @@ To format our codes:
 $ pip install yapf
 $ find src -iname "*.py" | xargs yapf -i
 ```
+
+
+***Disclaimer:*** This repo is deprecated and no longer maintained. The Project was submitted as part of the course project for CZ3003 SOFTWARE SYSTEM ANALYSIS AND DESIGN at NTU in AY 17/18 Semester 1. All rights reserved to Nanyang Technological University and the Designer of course CZ3003. The author will bear no responsibilities for any issues arose from academic integrity or honor code violations of anyone who takes this repository as a reference.
